@@ -24,12 +24,3 @@ endef
 generate-sdk:
 	$(call print_banner,"Generating TS SDK using source file")
 	@speakeasy run -t typescript
-	@$(MAKE) update-documentation
-
-#The will move the documentation to the root folder and create combined .MDs
-update-documentation:
-	$(call print_banner,"Updating Documentation")
-	@rm -rf $(ROOT_DIR)/documentation
-	@mkdir -p $(ROOT_DIR)/documentation
-	@node $(ROOT_DIR)/helpers/merge-sdk-mds.js
-	$(call print_end_banner,"Documentation built")
