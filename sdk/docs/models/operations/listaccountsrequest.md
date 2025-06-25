@@ -1,0 +1,20 @@
+# ListAccountsRequest
+
+## Example Usage
+
+```typescript
+import { ListAccountsRequest } from "openapi/models/operations";
+
+let value: ListAccountsRequest = {
+  filterAccountType: "EARNINGS_BALANCE",
+};
+```
+
+## Fields
+
+| Field                                                                                                                   | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             | Example                                                                                                                 |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `filterPersonId`                                                                                                        | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | Limit the results to documents related to a specific person                                                             |                                                                                                                         |
+| `filterAccountType`                                                                                                     | [models.FilterAccountType](../../models/filteraccounttype.md)                                                           | :heavy_minus_sign:                                                                                                      | Limit the results to documents matching the specified account type.                                                     | EARNINGS_BALANCE                                                                                                        |
+| `filterSubtype`                                                                                                         | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | Limit the results to documents matching the specified account subtype.                                                  |                                                                                                                         |
+| ~~`filterBy`~~                                                                                                          | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | : warning: ** DEPRECATED **: This will be removed in a future release, please migrate away from it as soon as possible. |                                                                                                                         |

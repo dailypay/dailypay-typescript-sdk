@@ -13,3 +13,5 @@ targets:
         output: sdk
         codeSamples:
             output: codeSamples.yaml
+            registry:
+                location: registry.speakeasyapi.dev/dailypay/dailypay/openapi-typescript-code-samples

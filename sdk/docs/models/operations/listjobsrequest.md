@@ -1,0 +1,20 @@
+# ListJobsRequest
+
+## Example Usage
+
+```typescript
+import { ListJobsRequest } from "openapi/models/operations";
+
+let value: ListJobsRequest = {};
+```
+
+## Fields
+
+| Field                                                                                                                   | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `filterExternalIdentifiersPrimaryIdentifier`                                                                            | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | Limit the results to documents with an external identifier matching exactly at the specified key.                       |
+| `filterExternalIdentifiersEmployeeId`                                                                                   | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | Limit the results to documents with an external identifier matching exactly at the specified key.                       |
+| `filterExternalIdentifiersGroup`                                                                                        | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | Limit the results to documents with an external identifier matching exactly at the specified key.                       |
+| `filterPersonId`                                                                                                        | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | Limit the results to documents related to a specific person                                                             |
+| `filterOrganizationId`                                                                                                  | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | _Not yet supported_ Limit the results to documents related to a specific organization                                   |
+| ~~`filterBy`~~                                                                                                          | *string*                                                                                                                | :heavy_minus_sign:                                                                                                      | : warning: ** DEPRECATED **: This will be removed in a future release, please migrate away from it as soon as possible. |
