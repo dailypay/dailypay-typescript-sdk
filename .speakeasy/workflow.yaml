@@ -1,0 +1,15 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    local:
+        inputs:
+            - location: source/sdks.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/dailypay/dailypay/openapi
+targets:
+    typescript:
+        target: typescript
+        source: local
+        output: sdk
+        codeSamples:
+            output: codeSamples.yaml
