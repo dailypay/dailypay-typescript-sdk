@@ -23,7 +23,7 @@ Lookup organization by ID for a detailed view of single organization.
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -48,8 +48,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsRead } from "openapi/funcs/organizationsRead.js";
+import { SDKCore } from "DailyPay/core.js";
+import { organizationsRead } from "DailyPay/funcs/organizationsRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -106,7 +106,7 @@ Get organizations with an optional filter
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -129,8 +129,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { organizationsList } from "openapi/funcs/organizationsList.js";
+import { SDKCore } from "DailyPay/core.js";
+import { organizationsList } from "DailyPay/funcs/organizationsList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

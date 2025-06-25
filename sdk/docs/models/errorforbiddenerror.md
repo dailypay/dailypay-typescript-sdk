@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorForbiddenError } from "openapi";
+import { ErrorForbiddenError } from "DailyPay";
 
 let value: ErrorForbiddenError = {
   status: "400",

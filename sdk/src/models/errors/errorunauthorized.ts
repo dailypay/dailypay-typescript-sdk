@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as models from "../index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * Invalid authentication credentials
@@ -19,7 +19,7 @@ export type ErrorUnauthorizedData = {
 /**
  * Invalid authentication credentials
  */
-export class ErrorUnauthorized extends SDKError {
+export class ErrorUnauthorized extends DailyPayError {
   /**
    * A list of errors that occurred.
    */

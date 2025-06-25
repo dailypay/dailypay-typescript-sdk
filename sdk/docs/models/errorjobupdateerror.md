@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorJobUpdateError } from "openapi";
+import { ErrorJobUpdateError } from "DailyPay";
 
 let value: ErrorJobUpdateError = {
   code: "INVALID_PARAMETERS",

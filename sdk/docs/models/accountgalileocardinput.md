@@ -5,7 +5,7 @@ An account of type CARD with subtype GALILEO.
 ## Example Usage
 
 ```typescript
-import { AccountGalileoCardInput } from "openapi";
+import { AccountGalileoCardInput } from "DailyPay";
 
 let value: AccountGalileoCardInput = {
   galileoCardId: "40769",

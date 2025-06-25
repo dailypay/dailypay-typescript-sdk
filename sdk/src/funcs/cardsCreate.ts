@@ -9,6 +9,7 @@ import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { pathToFunc } from "../lib/url.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -17,7 +18,6 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
-import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { CreateGenericCardTokenServerList } from "../models/operations/creategenericcardtoken.js";
 import * as operations from "../models/operations/index.js";
@@ -37,7 +37,7 @@ export function cardsCreate(
 ): APIPromise<
   Result<
     operations.CreateGenericCardTokenResponse,
-    | SDKError
+    | DailyPayError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -62,7 +62,7 @@ async function $do(
   [
     Result<
       operations.CreateGenericCardTokenResponse,
-      | SDKError
+      | DailyPayError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -140,7 +140,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.CreateGenericCardTokenResponse,
-    | SDKError
+    | DailyPayError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

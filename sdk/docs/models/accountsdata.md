@@ -5,7 +5,7 @@ Returns the account object.
 ## Example Usage
 
 ```typescript
-import { AccountsData } from "openapi";
+import { AccountsData } from "DailyPay";
 
 let value: AccountsData = {
   data: [

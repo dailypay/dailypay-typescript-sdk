@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TokenData } from "openapi";
+import { TokenData } from "DailyPay";
 
 let value: TokenData = {
   accessToken: "dpo_38347Ae178B4a16C7e42F292c6912E7710c8",

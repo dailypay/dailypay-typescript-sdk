@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { RefreshToken } from "openapi/models/operations";
+import { RefreshToken } from "DailyPay/models/operations";
 
 let value: RefreshToken = {
   grantType: "refresh_token",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateGenericCardTokenRequest } from "openapi/models/operations";
+import { CreateGenericCardTokenRequest } from "DailyPay/models/operations";
 
 let value: CreateGenericCardTokenRequest = {
   firstName: "Edith",

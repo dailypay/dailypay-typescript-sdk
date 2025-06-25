@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as models from "../index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * Unexpected error occured
@@ -19,7 +19,7 @@ export type ErrorUnexpectedData = {
 /**
  * Unexpected error occured
  */
-export class ErrorUnexpected extends SDKError {
+export class ErrorUnexpected extends DailyPayError {
   /**
    * A list of errors that occurred.
    */

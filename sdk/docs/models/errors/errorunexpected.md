@@ -5,7 +5,7 @@ Unexpected error occured
 ## Example Usage
 
 ```typescript
-import { ErrorUnexpected } from "openapi/models/errors";
+import { ErrorUnexpected } from "DailyPay/models/errors";
 
 // No examples available for this model
 ```

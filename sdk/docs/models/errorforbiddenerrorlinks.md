@@ -5,7 +5,7 @@ A list of links to resources that may be helpful in resolving the error.
 ## Example Usage
 
 ```typescript
-import { ErrorForbiddenErrorLinks } from "openapi";
+import { ErrorForbiddenErrorLinks } from "DailyPay";
 
 let value: ErrorForbiddenErrorLinks = {
   about: "https://developer.dailypay.com/tag/Errors",

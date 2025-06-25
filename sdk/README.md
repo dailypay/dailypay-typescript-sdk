@@ -1,9 +1,9 @@
-# openapi
+# DailyPay
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *openapi* API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage *DailyPay* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=openapi&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=daily-pay&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -31,7 +31,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [openapi](#openapi)
+* [DailyPay](#dailypay)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -107,7 +107,7 @@ Add the following server definition to your `claude_desktop_config.json` file:
     "SDK": {
       "command": "npx",
       "args": [
-        "-y", "--package", "openapi",
+        "-y", "--package", "DailyPay",
         "--",
         "mcp", "start",
         "--oauth-user-token", "...",
@@ -134,7 +134,7 @@ Create a `.cursor/mcp.json` file in your project root with the following content
     "SDK": {
       "command": "npx",
       "args": [
-        "-y", "--package", "openapi",
+        "-y", "--package", "DailyPay",
         "--",
         "mcp", "start",
         "--oauth-user-token", "...",
@@ -177,7 +177,7 @@ If the repo is a private repo you must add your Github PAT to download a release
 For a full list of server arguments, run:
 
 ```sh
-npx -y --package openapi -- mcp start --help
+npx -y --package DailyPay -- mcp start --help
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -193,7 +193,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK();
 
@@ -228,7 +228,7 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   security: {
@@ -352,7 +352,7 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK();
 
@@ -385,7 +385,7 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   retryConfig: {
@@ -420,7 +420,7 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-[`SDKError`](./src/models/errors/sdkerror.ts) is the base class for all HTTP error responses. It has the following properties:
+[`DailyPayError`](./src/models/errors/dailypayerror.ts) is the base class for all HTTP error responses. It has the following properties:
 
 | Property            | Type       | Description                                                                             |
 | ------------------- | ---------- | --------------------------------------------------------------------------------------- |
@@ -433,8 +433,8 @@ run();
 
 ### Example
 ```typescript
-import { SDK } from "openapi";
-import * as errors from "openapi/models/errors";
+import { SDK } from "DailyPay";
+import * as errors from "DailyPay/models/errors";
 
 const sdk = new SDK();
 
@@ -451,7 +451,7 @@ async function run() {
     console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
-    if (error instanceof errors.SDKError) {
+    if (error instanceof errors.DailyPayError) {
       console.log(error.message);
       console.log(error.statusCode);
       console.log(error.body);
@@ -472,7 +472,7 @@ run();
 
 ### Error Classes
 **Primary errors:**
-* [`SDKError`](./src/models/errors/sdkerror.ts): The base class for HTTP error responses.
+* [`DailyPayError`](./src/models/errors/dailypayerror.ts): The base class for HTTP error responses.
   * [`ErrorUnexpected`](docs/models/errors/errorunexpected.md): Unexpected error occured. Status code `500`. *
   * [`ErrorUnauthorized`](docs/models/errors/errorunauthorized.md): Invalid authentication credentials. Status code `401`. *
   * [`ErrorForbidden`](docs/models/errors/errorforbidden.md): Not authorized to perform this operation. Status code `403`. *
@@ -489,7 +489,7 @@ run();
 * [`UnexpectedClientError`](./src/models/errors/httpclienterrors.ts): Unrecognised or unexpected error.
 
 
-**Inherit from [`SDKError`](./src/models/errors/sdkerror.ts)**:
+**Inherit from [`DailyPayError`](./src/models/errors/dailypayerror.ts)**:
 * [`ErrorBadRequest`](docs/models/errors/errorbadrequest.md): Bad Request. Status code `400`. Applicable to 12 of 18 methods.*
 * [`ErrorNotFound`](docs/models/errors/errornotfound.md): Resource was not found. Status code `404`. Applicable to 8 of 18 methods.*
 * [`BadRequestError`](docs/models/errors/badrequesterror.md): Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API. Status code `400`. Applicable to 1 of 18 methods.*
@@ -517,7 +517,7 @@ The default server `https://api.{environment}.com` contains variables and is set
 #### Example
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   environment: "dailypayuat",
@@ -543,7 +543,7 @@ run();
 
 The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   serverURL: "https://api.dailypay.com",
@@ -569,7 +569,7 @@ run();
 
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK();
 
@@ -610,8 +610,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { SDK } from "openapi";
-import { HTTPClient } from "openapi/lib/http";
+import { SDK } from "DailyPay";
+import { HTTPClient } from "DailyPay/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -652,7 +652,7 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({ debugLogger: console });
 ```
@@ -673,4 +673,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=openapi&utm_campaign=typescript)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=daily-pay&utm_campaign=typescript)

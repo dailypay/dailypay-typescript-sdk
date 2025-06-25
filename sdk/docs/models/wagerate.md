@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { WageRate } from "openapi";
+import { WageRate } from "DailyPay";
 
 let value: WageRate = {
   amount: 2500,

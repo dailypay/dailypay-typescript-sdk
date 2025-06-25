@@ -3,10 +3,10 @@
  */
 
 import * as z from "zod";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 import { formatZodError } from "./sdkvalidationerror.js";
 
-export class ResponseValidationError extends SDKError {
+export class ResponseValidationError extends DailyPayError {
   /**
    * The raw value that failed validation.
    */

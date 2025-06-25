@@ -5,7 +5,7 @@ Bad Request
 ## Example Usage
 
 ```typescript
-import { ErrorBadRequest } from "openapi/models/errors";
+import { ErrorBadRequest } from "DailyPay/models/errors";
 
 // No examples available for this model
 ```

@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as models from "../index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * Resource was not found
@@ -19,7 +19,7 @@ export type ErrorNotFoundData = {
 /**
  * Resource was not found
  */
-export class ErrorNotFound extends SDKError {
+export class ErrorNotFound extends DailyPayError {
   /**
    * A list of errors that occurred.
    */

@@ -5,7 +5,7 @@ Returns a healthcheck document
 ## Example Usage
 
 ```typescript
-import { Health200 } from "openapi";
+import { Health200 } from "DailyPay";
 
 let value: Health200 = {
   status: "UP",

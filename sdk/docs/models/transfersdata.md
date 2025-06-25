@@ -5,7 +5,7 @@ A list of transfer objects.
 ## Example Usage
 
 ```typescript
-import { TransfersData } from "openapi";
+import { TransfersData } from "DailyPay";
 
 let value: TransfersData = {
   data: [],

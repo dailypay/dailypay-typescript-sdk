@@ -10,6 +10,7 @@ import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -19,7 +20,6 @@ import {
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
-import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -46,7 +46,7 @@ export function transfersRead(
     | errors.ErrorForbidden
     | errors.ErrorNotFound
     | errors.ErrorUnexpected
-    | SDKError
+    | DailyPayError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError
@@ -76,7 +76,7 @@ async function $do(
       | errors.ErrorForbidden
       | errors.ErrorNotFound
       | errors.ErrorUnexpected
-      | SDKError
+      | DailyPayError
       | ResponseValidationError
       | ConnectionError
       | RequestAbortedError
@@ -177,7 +177,7 @@ async function $do(
     | errors.ErrorForbidden
     | errors.ErrorNotFound
     | errors.ErrorUnexpected
-    | SDKError
+    | DailyPayError
     | ResponseValidationError
     | ConnectionError
     | RequestAbortedError

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { OrganizationResource } from "openapi";
+import { OrganizationResource } from "DailyPay";
 
 let value: OrganizationResource = {
   id: "f0b30634-108c-439c-a8c1-c6a91197f022",

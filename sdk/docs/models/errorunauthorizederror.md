@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorUnauthorizedError } from "openapi";
+import { ErrorUnauthorizedError } from "DailyPay";
 
 let value: ErrorUnauthorizedError = {
   status: "400",

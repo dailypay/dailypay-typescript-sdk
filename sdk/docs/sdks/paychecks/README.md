@@ -26,7 +26,7 @@ Returns details about a paycheck object.
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -51,8 +51,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { paychecksRead } from "openapi/funcs/paychecksRead.js";
+import { SDKCore } from "DailyPay/core.js";
+import { paychecksRead } from "DailyPay/funcs/paychecksRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -111,7 +111,7 @@ See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/S
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -141,8 +141,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { paychecksList } from "openapi/funcs/paychecksList.js";
+import { SDKCore } from "DailyPay/core.js";
+import { paychecksList } from "DailyPay/funcs/paychecksList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

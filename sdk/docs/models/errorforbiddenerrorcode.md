@@ -5,7 +5,7 @@ A code that indicates what went wrong.
 ## Example Usage
 
 ```typescript
-import { ErrorForbiddenErrorCode } from "openapi";
+import { ErrorForbiddenErrorCode } from "DailyPay";
 
 let value: ErrorForbiddenErrorCode = "FORBIDDEN";
 ```

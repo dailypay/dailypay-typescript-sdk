@@ -67,7 +67,7 @@ Obtain a PCI DSS Compliant card token. This token must be used in order to add a
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK();
 
@@ -98,8 +98,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { cardsCreate } from "openapi/funcs/cardsCreate.js";
+import { SDKCore } from "DailyPay/core.js";
+import { cardsCreate } from "DailyPay/funcs/cardsCreate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

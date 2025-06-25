@@ -5,7 +5,7 @@ Resource was not found
 ## Example Usage
 
 ```typescript
-import { ErrorNotFound } from "openapi/models/errors";
+import { ErrorNotFound } from "DailyPay/models/errors";
 
 // No examples available for this model
 ```

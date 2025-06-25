@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as models from "../index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * The request contained an error
@@ -19,7 +19,7 @@ export type TransferCreateErrorData = {
 /**
  * The request contained an error
  */
-export class TransferCreateError extends SDKError {
+export class TransferCreateError extends DailyPayError {
   /**
    * A list of errors that occurred.
    */

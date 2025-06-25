@@ -5,7 +5,7 @@ The relationships between the job and other resources, including the accounts to
 ## Example Usage
 
 ```typescript
-import { JobRelationships } from "openapi";
+import { JobRelationships } from "DailyPay";
 
 let value: JobRelationships = {
   person: {

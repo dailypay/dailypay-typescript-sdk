@@ -5,7 +5,7 @@ The request contained an error
 ## Example Usage
 
 ```typescript
-import { AccountCreateError } from "openapi/models/errors";
+import { AccountCreateError } from "DailyPay/models/errors";
 
 // No examples available for this model
 ```

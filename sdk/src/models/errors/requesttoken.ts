@@ -5,7 +5,7 @@
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as operations from "../operations/index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API
@@ -24,7 +24,7 @@ export type BadRequestErrorData = {
 /**
  * Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API
  */
-export class BadRequestError extends SDKError {
+export class BadRequestError extends DailyPayError {
   /**
    * Error code indicating what went wrong with the oauth token exchange. See the OAuth2 RFC for further context https://datatracker.ietf.org/doc/html/rfc6749#section-5.2
    */

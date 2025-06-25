@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Product } from "openapi";
+import { Product } from "DailyPay";
 
 let value: Product = "ODP";
 ```

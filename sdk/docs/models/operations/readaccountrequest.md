@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ReadAccountRequest } from "openapi/models/operations";
+import { ReadAccountRequest } from "DailyPay/models/operations";
 
 let value: ReadAccountRequest = {
   accountId: "2bc7d781-3247-46f6-b60f-4090d214936a",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorBadRequestError } from "openapi";
+import { ErrorBadRequestError } from "DailyPay";
 
 let value: ErrorBadRequestError = {
   code: "INVALID_PARAMETERS",

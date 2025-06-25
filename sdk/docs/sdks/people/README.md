@@ -22,7 +22,7 @@ Returns details about a person.
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -47,8 +47,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { peopleRead } from "openapi/funcs/peopleRead.js";
+import { SDKCore } from "DailyPay/core.js";
+import { peopleRead } from "DailyPay/funcs/peopleRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -105,7 +105,7 @@ Update a person object.
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -139,8 +139,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { peopleUpdate } from "openapi/funcs/peopleUpdate.js";
+import { SDKCore } from "DailyPay/core.js";
+import { peopleUpdate } from "DailyPay/funcs/peopleUpdate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

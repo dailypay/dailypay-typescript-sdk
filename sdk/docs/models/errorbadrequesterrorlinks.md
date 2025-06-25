@@ -5,7 +5,7 @@ A list of links to resources that may be helpful in resolving the error.
 ## Example Usage
 
 ```typescript
-import { ErrorBadRequestErrorLinks } from "openapi";
+import { ErrorBadRequestErrorLinks } from "DailyPay";
 
 let value: ErrorBadRequestErrorLinks = {
   about: "https://developer.dailypay.com/tag/Errors",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListPaychecksRequest } from "openapi/models/operations";
+import { ListPaychecksRequest } from "DailyPay/models/operations";
 
 let value: ListPaychecksRequest = {
   filterDepositExpectedAtGte: new Date("2023-03-15T04:00:00Z"),

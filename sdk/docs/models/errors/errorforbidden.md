@@ -5,7 +5,7 @@ Not authorized to perform this operation
 ## Example Usage
 
 ```typescript
-import { ErrorForbidden } from "openapi/models/errors";
+import { ErrorForbidden } from "DailyPay/models/errors";
 
 // No examples available for this model
 ```

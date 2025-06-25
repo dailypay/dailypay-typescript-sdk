@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as models from "../index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * Bad Request
@@ -19,7 +19,7 @@ export type ErrorBadRequestData = {
 /**
  * Bad Request
  */
-export class ErrorBadRequest extends SDKError {
+export class ErrorBadRequest extends DailyPayError {
   /**
    * A list of errors that occurred.
    */

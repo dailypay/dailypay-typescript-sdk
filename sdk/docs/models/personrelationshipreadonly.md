@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PersonRelationshipReadOnly } from "openapi";
+import { PersonRelationshipReadOnly } from "DailyPay";
 
 let value: PersonRelationshipReadOnly = {
   data: {

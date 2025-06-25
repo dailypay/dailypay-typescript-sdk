@@ -8,7 +8,7 @@
 ## Example Usage
 
 ```typescript
-import { DirectDepositStatus } from "openapi";
+import { DirectDepositStatus } from "DailyPay";
 
 let value: DirectDepositStatus = "SETUP_COMPLETE";
 ```

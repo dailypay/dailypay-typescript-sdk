@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorAccountCreateError } from "openapi";
+import { ErrorAccountCreateError } from "DailyPay";
 
 let value: ErrorAccountCreateError = {
   code: "<value>",

@@ -23,7 +23,7 @@ Returns details about a person's employment.
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -48,8 +48,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { jobsRead } from "openapi/funcs/jobsRead.js";
+import { SDKCore } from "DailyPay/core.js";
+import { jobsRead } from "DailyPay/funcs/jobsRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -108,7 +108,7 @@ Returns the job object if the update succeeded. Returns an error if update param
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -156,8 +156,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { jobsUpdate } from "openapi/funcs/jobsUpdate.js";
+import { SDKCore } from "DailyPay/core.js";
+import { jobsUpdate } from "DailyPay/funcs/jobsUpdate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -239,7 +239,7 @@ See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Suppor
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -262,8 +262,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { jobsList } from "openapi/funcs/jobsList.js";
+import { SDKCore } from "DailyPay/core.js";
+import { jobsList } from "DailyPay/funcs/jobsList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

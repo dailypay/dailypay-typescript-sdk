@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ClientCredentialsFlow } from "openapi/models/operations";
+import { ClientCredentialsFlow } from "DailyPay/models/operations";
 
 let value: ClientCredentialsFlow = {
   grantType: "client_credentials",

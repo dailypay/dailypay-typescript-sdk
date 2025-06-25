@@ -4,7 +4,7 @@
 
 import * as z from "zod";
 import * as models from "../index.js";
-import { SDKError } from "./sdkerror.js";
+import { DailyPayError } from "./dailypayerror.js";
 
 /**
  * Not authorized to perform this operation
@@ -19,7 +19,7 @@ export type ErrorForbiddenData = {
 /**
  * Not authorized to perform this operation
  */
-export class ErrorForbidden extends SDKError {
+export class ErrorForbidden extends DailyPayError {
   /**
    * A list of errors that occurred.
    */

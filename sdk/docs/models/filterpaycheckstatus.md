@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { FilterPaycheckStatus } from "openapi";
+import { FilterPaycheckStatus } from "DailyPay";
 
 let value: FilterPaycheckStatus = "IN_TRANSIT";
 ```

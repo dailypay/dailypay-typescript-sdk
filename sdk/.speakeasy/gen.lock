@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
-id: 6bf82988-e90f-4793-91a6-9383b152d993
+id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
   docChecksum: 7b2e2347da7bcd3987915e585cc4425c
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.568.2
-  generationVersion: 2.634.2
+  speakeasyVersion: 1.570.0
+  generationVersion: 2.638.0
   releaseVersion: 0.0.1
-  configChecksum: 801d5f2fa3dcf95875c872fcd0411f7a
+  configChecksum: f1515915797df528ec2a79f57e30a64c
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -336,6 +336,7 @@ generatedFiles:
   - src/models/errorjobupdateerror.ts
   - src/models/errornotfounderror.ts
   - src/models/errors/accountcreateerror.ts
+  - src/models/errors/dailypayerror.ts
   - src/models/errors/errorbadrequest.ts
   - src/models/errors/errorforbidden.ts
   - src/models/errors/errornotfound.ts
@@ -347,7 +348,6 @@ generatedFiles:
   - src/models/errors/requesttoken.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkdefaulterror.ts
-  - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/models/errors/transfercreateerror.ts
   - src/models/errortransfercreateerror.ts

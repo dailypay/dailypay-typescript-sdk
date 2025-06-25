@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { OrganizationIdentifier } from "openapi";
+import { OrganizationIdentifier } from "DailyPay";
 
 let value: OrganizationIdentifier = {
   id: "f0b30634-108c-439c-a8c1-c6a91197f022",

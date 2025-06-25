@@ -5,7 +5,7 @@ Location in the request that may have caused the error.
 ## Example Usage
 
 ```typescript
-import { ErrorBadRequestErrorSource } from "openapi";
+import { ErrorBadRequestErrorSource } from "DailyPay";
 
 let value: ErrorBadRequestErrorSource = {
   parameter: "filter[first_name]",

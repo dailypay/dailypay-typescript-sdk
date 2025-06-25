@@ -6,7 +6,7 @@ Returns an opaque string representing the card details.
 ## Example Usage
 
 ```typescript
-import { CreateGenericCardTokenResponse } from "openapi/models/operations";
+import { CreateGenericCardTokenResponse } from "DailyPay/models/operations";
 
 let value: CreateGenericCardTokenResponse = {
   token:

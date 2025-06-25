@@ -26,7 +26,7 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -51,8 +51,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { transfersRead } from "openapi/funcs/transfersRead.js";
+import { SDKCore } from "DailyPay/core.js";
+import { transfersRead } from "DailyPay/funcs/transfersRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -111,7 +111,7 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -134,8 +134,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { transfersList } from "openapi/funcs/transfersList.js";
+import { SDKCore } from "DailyPay/core.js";
+import { transfersList } from "DailyPay/funcs/transfersList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -191,7 +191,7 @@ personal `DEPOSITORY` or `CARD` account.
 ### Example Usage
 
 ```typescript
-import { SDK } from "openapi";
+import { SDK } from "DailyPay";
 
 const sdk = new SDK({
   version: 3,
@@ -248,8 +248,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "openapi/core.js";
-import { transfersCreate } from "openapi/funcs/transfersCreate.js";
+import { SDKCore } from "DailyPay/core.js";
+import { transfersCreate } from "DailyPay/funcs/transfersCreate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

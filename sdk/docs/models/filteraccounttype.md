@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { FilterAccountType } from "openapi";
+import { FilterAccountType } from "DailyPay";
 
 let value: FilterAccountType = "EARNINGS_BALANCE";
 ```

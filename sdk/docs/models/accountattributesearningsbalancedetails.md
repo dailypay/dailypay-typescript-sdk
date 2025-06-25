@@ -5,7 +5,7 @@ An empty object for earnings balance accounts.
 ## Example Usage
 
 ```typescript
-import { AccountAttributesEarningsBalanceDetails } from "openapi";
+import { AccountAttributesEarningsBalanceDetails } from "DailyPay";
 
 let value: AccountAttributesEarningsBalanceDetails = {};
 ```

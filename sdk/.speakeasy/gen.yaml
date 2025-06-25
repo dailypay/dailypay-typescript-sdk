@@ -28,8 +28,8 @@ typescript:
     devDependencies: {}
     peerDependencies: {}
   additionalPackageJSON: {}
-  author: Speakeasy
-  baseErrorName: SDKError
+  author: DailyPay, Inc.
+  baseErrorName: DailyPayError
   clientServerStatusCodesAsErrors: true
   constFieldsAlwaysOptional: false
   defaultErrorName: SDKDefaultError
@@ -53,7 +53,7 @@ typescript:
   methodArguments: infer-optional-args
   moduleFormat: dual
   outputModelSuffix: output
-  packageName: openapi
+  packageName: DailyPay
   responseFormat: flat
   templateVersion: v2
   useIndexModules: true
