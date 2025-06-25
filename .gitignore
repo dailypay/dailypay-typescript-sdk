@@ -19,6 +19,3 @@ Thumbs.db
 .env.*.local
 # Coverage and test output
 coverage/
-
-# Authentication
-sdk/docs/sdks/authentication/README.md
