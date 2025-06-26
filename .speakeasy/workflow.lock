@@ -1,8 +1,8 @@
-speakeasyVersion: 1.570.0
+speakeasyVersion: 1.570.2
 sources:
     local:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:7aed5d4a9f5df37c93c2b95c135bea0c74b83652e6737425bc7a9b3279209d7b
+        sourceRevisionDigest: sha256:f59e4b32d3087971845ea06d4862e13414082801748a232636928769962821e3
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     typescript:
         source: local
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:7aed5d4a9f5df37c93c2b95c135bea0c74b83652e6737425bc7a9b3279209d7b
+        sourceRevisionDigest: sha256:f59e4b32d3087971845ea06d4862e13414082801748a232636928769962821e3
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:52db3c53ef187a9d6bba2633c97193c8a0787bed6fd85e7563d59c3fb10357bf
+        codeSamplesRevisionDigest: sha256:d6f8843140a59a4877090e6f75b3d253c6c00e19d9794c3de4cec41e8ed77f5a
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
