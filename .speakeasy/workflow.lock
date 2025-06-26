@@ -2,7 +2,7 @@ speakeasyVersion: 1.570.0
 sources:
     local:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:18ec27ca7f3df07efc50f68509d2565ae8bc7944aad07b8c4530d451fb170c99
+        sourceRevisionDigest: sha256:7aed5d4a9f5df37c93c2b95c135bea0c74b83652e6737425bc7a9b3279209d7b
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         tags:
             - latest
@@ -11,10 +11,10 @@ targets:
     typescript:
         source: local
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:18ec27ca7f3df07efc50f68509d2565ae8bc7944aad07b8c4530d451fb170c99
+        sourceRevisionDigest: sha256:7aed5d4a9f5df37c93c2b95c135bea0c74b83652e6737425bc7a9b3279209d7b
         sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:1a61f14f163c133a7cf4148c78e4f9b51fc99d3f71bedb65c38c295774d29382
+        codeSamplesRevisionDigest: sha256:52db3c53ef187a9d6bba2633c97193c8a0787bed6fd85e7563d59c3fb10357bf
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -28,7 +28,6 @@ workflow:
         typescript:
             target: typescript
             source: local
-            output: sdk
             codeSamples:
                 output: codeSamples.yaml
                 registry:

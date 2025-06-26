@@ -10,7 +10,6 @@ targets:
     typescript:
         target: typescript
         source: local
-        output: sdk
         codeSamples:
             output: codeSamples.yaml
             registry:
