@@ -5,7 +5,7 @@ A list of links to resources that may be helpful in resolving the error.
 ## Example Usage
 
 ```typescript
-import { ErrorUnauthorizedErrorLinks } from "dailypay/dailypay";
+import { ErrorUnauthorizedErrorLinks } from "@dailypay/dailypay";
 
 let value: ErrorUnauthorizedErrorLinks = {
   about: "https://developer.dailypay.com/tag/Errors",

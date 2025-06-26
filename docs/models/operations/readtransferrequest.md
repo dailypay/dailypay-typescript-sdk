@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ReadTransferRequest } from "dailypay/dailypay/models/operations";
+import { ReadTransferRequest } from "@dailypay/dailypay/models/operations";
 
 let value: ReadTransferRequest = {
   transferId: "aba332a2-24a2-46de-8257-5040e71ab210",

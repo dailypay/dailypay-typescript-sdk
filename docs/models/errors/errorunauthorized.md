@@ -5,7 +5,7 @@ Invalid authentication credentials
 ## Example Usage
 
 ```typescript
-import { ErrorUnauthorized } from "dailypay/dailypay/models/errors";
+import { ErrorUnauthorized } from "@dailypay/dailypay/models/errors";
 
 // No examples available for this model
 ```

@@ -5,7 +5,7 @@ Additional information about the error.
 ## Example Usage
 
 ```typescript
-import { ErrorUnexpectedErrorMeta } from "dailypay/dailypay";
+import { ErrorUnexpectedErrorMeta } from "@dailypay/dailypay";
 
 let value: ErrorUnexpectedErrorMeta = {
   requestId: "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe",

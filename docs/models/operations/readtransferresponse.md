@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ReadTransferResponse } from "dailypay/dailypay/models/operations";
+import { ReadTransferResponse } from "@dailypay/dailypay/models/operations";
 
 let value: ReadTransferResponse = {};
 ```

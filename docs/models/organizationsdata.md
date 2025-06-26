@@ -5,7 +5,7 @@ Returns a list of organization objects that match the filter. If no organization
 ## Example Usage
 
 ```typescript
-import { OrganizationsData } from "dailypay/dailypay";
+import { OrganizationsData } from "@dailypay/dailypay";
 
 let value: OrganizationsData = {
   data: [

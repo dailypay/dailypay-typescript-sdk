@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AccountAttributesDepositoryAccountCapabilities } from "dailypay/dailypay";
+import { AccountAttributesDepositoryAccountCapabilities } from "@dailypay/dailypay";
 
 let value: AccountAttributesDepositoryAccountCapabilities = {
   transferDestination: [

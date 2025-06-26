@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorForbiddenError } from "dailypay/dailypay";
+import { ErrorForbiddenError } from "@dailypay/dailypay";
 
 let value: ErrorForbiddenError = {
   status: "400",

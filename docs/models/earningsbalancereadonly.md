@@ -5,7 +5,7 @@ An account with type `EARNINGS_BALANCE` and subtype `ODP`.
 ## Example Usage
 
 ```typescript
-import { EarningsBalanceReadOnly } from "dailypay/dailypay";
+import { EarningsBalanceReadOnly } from "@dailypay/dailypay";
 
 let value: EarningsBalanceReadOnly = {
   verificationStatus: "VERIFIED",
