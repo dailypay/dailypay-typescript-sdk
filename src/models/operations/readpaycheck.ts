@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ReadPaycheckGlobals = {
   /**
@@ -22,6 +23,14 @@ export type ReadPaycheckRequest = {
    * Unique ID of the paycheck
    */
   paycheckId: string;
+};
+
+export type ReadPaycheckResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the paycheck object.
+   */
+  paycheckData?: models.PaycheckData | undefined;
 };
 
 /** @internal */
@@ -137,5 +146,72 @@ export function readPaycheckRequestFromJSON(
     jsonString,
     (x) => ReadPaycheckRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ReadPaycheckRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReadPaycheckResponse$inboundSchema: z.ZodType<
+  ReadPaycheckResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  PaycheckData: models.PaycheckData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "PaycheckData": "paycheckData",
+  });
+});
+
+/** @internal */
+export type ReadPaycheckResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  PaycheckData?: models.PaycheckData$Outbound | undefined;
+};
+
+/** @internal */
+export const ReadPaycheckResponse$outboundSchema: z.ZodType<
+  ReadPaycheckResponse$Outbound,
+  z.ZodTypeDef,
+  ReadPaycheckResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  paycheckData: models.PaycheckData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    paycheckData: "PaycheckData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReadPaycheckResponse$ {
+  /** @deprecated use `ReadPaycheckResponse$inboundSchema` instead. */
+  export const inboundSchema = ReadPaycheckResponse$inboundSchema;
+  /** @deprecated use `ReadPaycheckResponse$outboundSchema` instead. */
+  export const outboundSchema = ReadPaycheckResponse$outboundSchema;
+  /** @deprecated use `ReadPaycheckResponse$Outbound` instead. */
+  export type Outbound = ReadPaycheckResponse$Outbound;
+}
+
+export function readPaycheckResponseToJSON(
+  readPaycheckResponse: ReadPaycheckResponse,
+): string {
+  return JSON.stringify(
+    ReadPaycheckResponse$outboundSchema.parse(readPaycheckResponse),
+  );
+}
+
+export function readPaycheckResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ReadPaycheckResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReadPaycheckResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReadPaycheckResponse' from JSON`,
   );
 }

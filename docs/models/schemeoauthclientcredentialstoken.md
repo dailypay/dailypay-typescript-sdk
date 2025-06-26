@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { SchemeOauthClientCredentialsToken } from "DailyPay";
+import { SchemeOauthClientCredentialsToken } from "dailypay/dailypay";
 
 let value: SchemeOauthClientCredentialsToken = {
   clientID: "<id>",

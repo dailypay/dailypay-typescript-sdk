@@ -5,7 +5,7 @@ Returns a list of job objects.
 ## Example Usage
 
 ```typescript
-import { JobsData } from "DailyPay";
+import { JobsData } from "dailypay/dailypay";
 
 let value: JobsData = {
   data: [

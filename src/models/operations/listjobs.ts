@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ListJobsGlobals = {
   /**
@@ -42,6 +43,14 @@ export type ListJobsRequest = {
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   filterBy?: string | undefined;
+};
+
+export type ListJobsResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns a list of job objects.
+   */
+  jobsData?: models.JobsData | undefined;
 };
 
 /** @internal */
@@ -182,5 +191,72 @@ export function listJobsRequestFromJSON(
     jsonString,
     (x) => ListJobsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListJobsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListJobsResponse$inboundSchema: z.ZodType<
+  ListJobsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  JobsData: models.JobsData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "JobsData": "jobsData",
+  });
+});
+
+/** @internal */
+export type ListJobsResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  JobsData?: models.JobsData$Outbound | undefined;
+};
+
+/** @internal */
+export const ListJobsResponse$outboundSchema: z.ZodType<
+  ListJobsResponse$Outbound,
+  z.ZodTypeDef,
+  ListJobsResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  jobsData: models.JobsData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    jobsData: "JobsData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListJobsResponse$ {
+  /** @deprecated use `ListJobsResponse$inboundSchema` instead. */
+  export const inboundSchema = ListJobsResponse$inboundSchema;
+  /** @deprecated use `ListJobsResponse$outboundSchema` instead. */
+  export const outboundSchema = ListJobsResponse$outboundSchema;
+  /** @deprecated use `ListJobsResponse$Outbound` instead. */
+  export type Outbound = ListJobsResponse$Outbound;
+}
+
+export function listJobsResponseToJSON(
+  listJobsResponse: ListJobsResponse,
+): string {
+  return JSON.stringify(
+    ListJobsResponse$outboundSchema.parse(listJobsResponse),
+  );
+}
+
+export function listJobsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ListJobsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListJobsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListJobsResponse' from JSON`,
   );
 }

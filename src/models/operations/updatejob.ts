@@ -26,6 +26,14 @@ export type UpdateJobRequest = {
   jobUpdateData: models.JobUpdateData;
 };
 
+export type UpdateJobResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the job object.
+   */
+  jobData?: models.JobData | undefined;
+};
+
 /** @internal */
 export const UpdateJobGlobals$inboundSchema: z.ZodType<
   UpdateJobGlobals,
@@ -144,5 +152,72 @@ export function updateJobRequestFromJSON(
     jsonString,
     (x) => UpdateJobRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdateJobRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const UpdateJobResponse$inboundSchema: z.ZodType<
+  UpdateJobResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  JobData: models.JobData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "JobData": "jobData",
+  });
+});
+
+/** @internal */
+export type UpdateJobResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  JobData?: models.JobData$Outbound | undefined;
+};
+
+/** @internal */
+export const UpdateJobResponse$outboundSchema: z.ZodType<
+  UpdateJobResponse$Outbound,
+  z.ZodTypeDef,
+  UpdateJobResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  jobData: models.JobData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    jobData: "JobData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateJobResponse$ {
+  /** @deprecated use `UpdateJobResponse$inboundSchema` instead. */
+  export const inboundSchema = UpdateJobResponse$inboundSchema;
+  /** @deprecated use `UpdateJobResponse$outboundSchema` instead. */
+  export const outboundSchema = UpdateJobResponse$outboundSchema;
+  /** @deprecated use `UpdateJobResponse$Outbound` instead. */
+  export type Outbound = UpdateJobResponse$Outbound;
+}
+
+export function updateJobResponseToJSON(
+  updateJobResponse: UpdateJobResponse,
+): string {
+  return JSON.stringify(
+    UpdateJobResponse$outboundSchema.parse(updateJobResponse),
+  );
+}
+
+export function updateJobResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateJobResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateJobResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateJobResponse' from JSON`,
   );
 }

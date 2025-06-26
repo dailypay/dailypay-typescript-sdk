@@ -5,7 +5,7 @@ Location in the request that may have caused the error.
 ## Example Usage
 
 ```typescript
-import { ErrorUnexpectedErrorSource } from "DailyPay";
+import { ErrorUnexpectedErrorSource } from "dailypay/dailypay";
 
 let value: ErrorUnexpectedErrorSource = {
   parameter: "filter[first_name]",

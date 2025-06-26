@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ListTransfersGlobals = {
   /**
@@ -34,6 +35,14 @@ export type ListTransfersRequest = {
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   filterBy?: string | undefined;
+};
+
+export type ListTransfersResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * A list of transfer objects.
+   */
+  transfersData?: models.TransfersData | undefined;
 };
 
 /** @internal */
@@ -157,5 +166,72 @@ export function listTransfersRequestFromJSON(
     jsonString,
     (x) => ListTransfersRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListTransfersRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListTransfersResponse$inboundSchema: z.ZodType<
+  ListTransfersResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  TransfersData: models.TransfersData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "TransfersData": "transfersData",
+  });
+});
+
+/** @internal */
+export type ListTransfersResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  TransfersData?: models.TransfersData$Outbound | undefined;
+};
+
+/** @internal */
+export const ListTransfersResponse$outboundSchema: z.ZodType<
+  ListTransfersResponse$Outbound,
+  z.ZodTypeDef,
+  ListTransfersResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  transfersData: models.TransfersData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    transfersData: "TransfersData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListTransfersResponse$ {
+  /** @deprecated use `ListTransfersResponse$inboundSchema` instead. */
+  export const inboundSchema = ListTransfersResponse$inboundSchema;
+  /** @deprecated use `ListTransfersResponse$outboundSchema` instead. */
+  export const outboundSchema = ListTransfersResponse$outboundSchema;
+  /** @deprecated use `ListTransfersResponse$Outbound` instead. */
+  export type Outbound = ListTransfersResponse$Outbound;
+}
+
+export function listTransfersResponseToJSON(
+  listTransfersResponse: ListTransfersResponse,
+): string {
+  return JSON.stringify(
+    ListTransfersResponse$outboundSchema.parse(listTransfersResponse),
+  );
+}
+
+export function listTransfersResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ListTransfersResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListTransfersResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListTransfersResponse' from JSON`,
   );
 }

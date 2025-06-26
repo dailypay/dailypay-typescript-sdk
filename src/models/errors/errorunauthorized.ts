@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -14,6 +15,7 @@ export type ErrorUnauthorizedData = {
    * A list of errors that occurred.
    */
   errors: Array<models.ErrorUnauthorizedError>;
+  httpMeta: models.HTTPMetadata;
 };
 
 /**
@@ -50,12 +52,17 @@ export const ErrorUnauthorized$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   errors: z.array(models.ErrorUnauthorizedError$inboundSchema),
+  HttpMeta: models.HTTPMetadata$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
 })
   .transform((v) => {
-    return new ErrorUnauthorized(v, {
+    const remapped = remap$(v, {
+      "HttpMeta": "httpMeta",
+    });
+
+    return new ErrorUnauthorized(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -65,6 +72,7 @@ export const ErrorUnauthorized$inboundSchema: z.ZodType<
 /** @internal */
 export type ErrorUnauthorized$Outbound = {
   errors: Array<models.ErrorUnauthorizedError$Outbound>;
+  HttpMeta: models.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -74,9 +82,16 @@ export const ErrorUnauthorized$outboundSchema: z.ZodType<
   ErrorUnauthorized
 > = z.instanceof(ErrorUnauthorized)
   .transform(v => v.data$)
-  .pipe(z.object({
-    errors: z.array(models.ErrorUnauthorizedError$outboundSchema),
-  }));
+  .pipe(
+    z.object({
+      errors: z.array(models.ErrorUnauthorizedError$outboundSchema),
+      httpMeta: models.HTTPMetadata$outboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        httpMeta: "HttpMeta",
+      });
+    }),
+  );
 
 /**
  * @internal

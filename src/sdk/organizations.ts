@@ -5,7 +5,6 @@
 import { organizationsList } from "../funcs/organizationsList.js";
 import { organizationsRead } from "../funcs/organizationsRead.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +18,7 @@ export class Organizations extends ClientSDK {
   async read(
     request: operations.ReadOrganizationRequest,
     options?: RequestOptions,
-  ): Promise<models.OrganizationData> {
+  ): Promise<operations.ReadOrganizationResponse> {
     return unwrapAsync(organizationsRead(
       this,
       request,
@@ -36,7 +35,7 @@ export class Organizations extends ClientSDK {
   async list(
     request?: operations.ListOrganizationsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.OrganizationsData> {
+  ): Promise<operations.ListOrganizationsResponse> {
     return unwrapAsync(organizationsList(
       this,
       request,

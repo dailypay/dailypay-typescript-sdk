@@ -5,7 +5,7 @@ Returns the account object.
 ## Example Usage
 
 ```typescript
-import { AccountsData } from "DailyPay";
+import { AccountsData } from "dailypay/dailypay";
 
 let value: AccountsData = {
   data: [
@@ -32,13 +32,16 @@ let value: AccountsData = {
             },
           ],
         },
-        name: "Checking Account",
-        subtype: "CHECKING",
-        depositoryAccountDetails: {
+        name: "Debit Card",
+        subtype: "DEBIT",
+        details: {
+          galileoCardId: "40769",
           firstName: "Edith",
           lastName: "Clarke",
-          routingNumber: "XXXXX2021",
-          accountNumber: "XXXXXX4321",
+          lastFour: "0003",
+          issuer: "411600",
+          expirationMonth: "02",
+          expirationYear: "2025",
         },
       },
       links: {

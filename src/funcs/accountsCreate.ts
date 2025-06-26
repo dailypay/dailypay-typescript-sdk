@@ -22,6 +22,7 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -37,7 +38,7 @@ export function accountsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.AccountDataOutput,
+    operations.CreateAccountResponse,
     | errors.AccountCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -66,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.AccountDataOutput,
+      operations.CreateAccountResponse,
       | errors.AccountCreateError
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
@@ -155,7 +156,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.AccountDataOutput,
+    operations.CreateAccountResponse,
     | errors.AccountCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -169,8 +170,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.AccountDataOutput$inboundSchema, {
+    M.json(200, operations.CreateAccountResponse$inboundSchema, {
       ctype: "application/vnd.api+json",
+      key: "AccountData",
     }),
     M.jsonErr(400, errors.AccountCreateError$inboundSchema, {
       ctype: "application/vnd.api+json",

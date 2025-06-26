@@ -5,6 +5,7 @@
 export * from "./createaccount.js";
 export * from "./creategenericcardtoken.js";
 export * from "./createtransfer.js";
+export * from "./gethealth.js";
 export * from "./listaccounts.js";
 export * from "./listjobs.js";
 export * from "./listorganizations.js";

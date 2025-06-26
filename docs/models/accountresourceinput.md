@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AccountResourceInput } from "DailyPay";
+import { AccountResourceInput } from "dailypay/dailypay";
 
 let value: AccountResourceInput = {
   attributes: {

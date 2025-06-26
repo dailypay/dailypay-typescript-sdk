@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateTransferRequest } from "DailyPay/models/operations";
+import { CreateTransferRequest } from "dailypay/dailypay/models/operations";
 
 let value: CreateTransferRequest = {
   idempotencyKey: "452bfada-ad7f-4795-8c64-2fdbe87fed90",

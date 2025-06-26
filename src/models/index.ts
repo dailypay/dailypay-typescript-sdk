@@ -34,6 +34,7 @@ export * from "./fundingsourcerelationships.js";
 export * from "./fundingsourceresource.js";
 export * from "./fundingsourcesrelationship.js";
 export * from "./health200.js";
+export * from "./httpmetadata.js";
 export * from "./jobattributes.js";
 export * from "./jobdata.js";
 export * from "./jobidentifier.js";

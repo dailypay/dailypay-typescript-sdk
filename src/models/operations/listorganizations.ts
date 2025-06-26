@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ListOrganizationsGlobals = {
   /**
@@ -22,6 +23,14 @@ export type ListOrganizationsRequest = {
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   filterBy?: string | undefined;
+};
+
+export type ListOrganizationsResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns a list of organization objects that match the filter. If no organizations match the filter, the resulting collection will be empty. If no filter is provider, the resulting collection will include all accessible organizations.
+   */
+  organizationsData?: models.OrganizationsData | undefined;
 };
 
 /** @internal */
@@ -137,5 +146,72 @@ export function listOrganizationsRequestFromJSON(
     jsonString,
     (x) => ListOrganizationsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListOrganizationsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListOrganizationsResponse$inboundSchema: z.ZodType<
+  ListOrganizationsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  OrganizationsData: models.OrganizationsData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "OrganizationsData": "organizationsData",
+  });
+});
+
+/** @internal */
+export type ListOrganizationsResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  OrganizationsData?: models.OrganizationsData$Outbound | undefined;
+};
+
+/** @internal */
+export const ListOrganizationsResponse$outboundSchema: z.ZodType<
+  ListOrganizationsResponse$Outbound,
+  z.ZodTypeDef,
+  ListOrganizationsResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  organizationsData: models.OrganizationsData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    organizationsData: "OrganizationsData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListOrganizationsResponse$ {
+  /** @deprecated use `ListOrganizationsResponse$inboundSchema` instead. */
+  export const inboundSchema = ListOrganizationsResponse$inboundSchema;
+  /** @deprecated use `ListOrganizationsResponse$outboundSchema` instead. */
+  export const outboundSchema = ListOrganizationsResponse$outboundSchema;
+  /** @deprecated use `ListOrganizationsResponse$Outbound` instead. */
+  export type Outbound = ListOrganizationsResponse$Outbound;
+}
+
+export function listOrganizationsResponseToJSON(
+  listOrganizationsResponse: ListOrganizationsResponse,
+): string {
+  return JSON.stringify(
+    ListOrganizationsResponse$outboundSchema.parse(listOrganizationsResponse),
+  );
+}
+
+export function listOrganizationsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ListOrganizationsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListOrganizationsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListOrganizationsResponse' from JSON`,
   );
 }

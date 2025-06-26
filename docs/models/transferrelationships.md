@@ -6,7 +6,7 @@ The relationships between the transfer and other resources, including the destin
 ## Example Usage
 
 ```typescript
-import { TransferRelationships } from "DailyPay";
+import { TransferRelationships } from "dailypay/dailypay";
 
 let value: TransferRelationships = {
   origin: {
@@ -25,11 +25,7 @@ let value: TransferRelationships = {
     },
   },
   estimatedFundingSources: {
-    data: [
-      {
-        id: "b5393c00b7c113fc2e5ae3e80c785bb2",
-      },
-    ],
+    data: [],
   },
   finalFundingSources: {
     data: [

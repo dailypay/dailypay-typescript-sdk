@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -14,6 +15,7 @@ export type TransferCreateErrorData = {
    * A list of errors that occurred.
    */
   errors: Array<models.ErrorTransferCreateError>;
+  httpMeta: models.HTTPMetadata;
 };
 
 /**
@@ -50,12 +52,17 @@ export const TransferCreateError$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   errors: z.array(models.ErrorTransferCreateError$inboundSchema),
+  HttpMeta: models.HTTPMetadata$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
 })
   .transform((v) => {
-    return new TransferCreateError(v, {
+    const remapped = remap$(v, {
+      "HttpMeta": "httpMeta",
+    });
+
+    return new TransferCreateError(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -65,6 +72,7 @@ export const TransferCreateError$inboundSchema: z.ZodType<
 /** @internal */
 export type TransferCreateError$Outbound = {
   errors: Array<models.ErrorTransferCreateError$Outbound>;
+  HttpMeta: models.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -74,9 +82,16 @@ export const TransferCreateError$outboundSchema: z.ZodType<
   TransferCreateError
 > = z.instanceof(TransferCreateError)
   .transform(v => v.data$)
-  .pipe(z.object({
-    errors: z.array(models.ErrorTransferCreateError$outboundSchema),
-  }));
+  .pipe(
+    z.object({
+      errors: z.array(models.ErrorTransferCreateError$outboundSchema),
+      httpMeta: models.HTTPMetadata$outboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        httpMeta: "HttpMeta",
+      });
+    }),
+  );
 
 /**
  * @internal

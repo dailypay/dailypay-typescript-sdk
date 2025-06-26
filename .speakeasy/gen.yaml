@@ -22,12 +22,14 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.0.4
+  version: 0.1.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
     peerDependencies: {}
-  additionalPackageJSON: {}
+  additionalPackageJSON:
+    publishConfig:
+      registry: https://npm.pkg.github.com
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
   clientServerStatusCodesAsErrors: true
@@ -53,7 +55,7 @@ typescript:
   methodArguments: infer-optional-args
   moduleFormat: dual
   outputModelSuffix: output
-  packageName: DailyPay
-  responseFormat: flat
+  packageName: dailypay/dailypay
+  responseFormat: envelope-http
   templateVersion: v2
   useIndexModules: true

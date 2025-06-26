@@ -5,7 +5,7 @@ A paycheck expected for an open pay period will have the status ESTIMATED. At th
 ## Example Usage
 
 ```typescript
-import { PaycheckAttributesStatus } from "DailyPay";
+import { PaycheckAttributesStatus } from "dailypay/dailypay";
 
 let value: PaycheckAttributesStatus = "ESTIMATED";
 ```

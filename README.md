@@ -1,9 +1,9 @@
-# DailyPay
+# dailypay/dailypay
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *DailyPay* API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage *dailypay/dailypay* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=daily-pay&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=dailypay/dailypay&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -31,7 +31,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [DailyPay](#dailypay)
+* [dailypay/dailypay](#dailypaydailypay)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -87,98 +87,6 @@ yarn add <UNSET> zod
 
 > [!NOTE]
 > This package is published with CommonJS and ES Modules (ESM) support.
-
-
-### Model Context Protocol (MCP) Server
-
-This SDK is also an installable MCP server where the various SDK methods are
-exposed as tools that can be invoked by AI applications.
-
-> Node.js v20 or greater is required to run the MCP server from npm.
-
-<details>
-<summary>Claude installation steps</summary>
-
-Add the following server definition to your `claude_desktop_config.json` file:
-
-```json
-{
-  "mcpServers": {
-    "SDK": {
-      "command": "npx",
-      "args": [
-        "-y", "--package", "DailyPay",
-        "--",
-        "mcp", "start",
-        "--oauth-user-token", "...",
-        "--client-id", "...",
-        "--client-secret", "...",
-        "--token-url", "...",
-        "--api-version", "..."
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-<details>
-<summary>Cursor installation steps</summary>
-
-Create a `.cursor/mcp.json` file in your project root with the following content:
-
-```json
-{
-  "mcpServers": {
-    "SDK": {
-      "command": "npx",
-      "args": [
-        "-y", "--package", "DailyPay",
-        "--",
-        "mcp", "start",
-        "--oauth-user-token", "...",
-        "--client-id", "...",
-        "--client-secret", "...",
-        "--token-url", "...",
-        "--api-version", "..."
-      ]
-    }
-  }
-}
-```
-
-</details>
-
-You can also run MCP servers as a standalone binary with no additional dependencies. You must pull these binaries from available Github releases:
-
-```bash
-curl -L -o mcp-server \
-    https://github.com/{org}/{repo}/releases/download/{tag}/mcp-server-bun-darwin-arm64 && \
-chmod +x mcp-server
-```
-
-If the repo is a private repo you must add your Github PAT to download a release `-H "Authorization: Bearer {GITHUB_PAT}"`.
-
-
-```json
-{
-  "mcpServers": {
-    "Todos": {
-      "command": "./DOWNLOAD/PATH/mcp-server",
-      "args": [
-        "start"
-      ]
-    }
-  }
-}
-```
-
-For a full list of server arguments, run:
-
-```sh
-npx -y --package DailyPay -- mcp start --help
-```
 <!-- End SDK Installation [installation] -->
 
 <!-- Start Requirements [requirements] -->
@@ -193,7 +101,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK();
 
@@ -228,7 +136,7 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   security: {
@@ -352,7 +260,7 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK();
 
@@ -385,7 +293,7 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   retryConfig: {
@@ -422,19 +330,17 @@ run();
 
 [`DailyPayError`](./src/models/errors/dailypayerror.ts) is the base class for all HTTP error responses. It has the following properties:
 
-| Property            | Type       | Description                                                                             |
-| ------------------- | ---------- | --------------------------------------------------------------------------------------- |
-| `error.message`     | `string`   | Error message                                                                           |
-| `error.statusCode`  | `number`   | HTTP response status code eg `404`                                                      |
-| `error.headers`     | `Headers`  | HTTP response headers                                                                   |
-| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned.                                  |
-| `error.rawResponse` | `Response` | Raw HTTP response                                                                       |
-| `error.data$`       |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
+| Property                  | Type       | Description                                                                             |
+| ------------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `error.message`           | `string`   | Error message                                                                           |
+| `error.httpMeta.response` | `Response` | HTTP response. Access to headers and more.                                              |
+| `error.httpMeta.request`  | `Request`  | HTTP request. Access to headers and more.                                               |
+| `error.data$`             |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
 ### Example
 ```typescript
-import { SDK } from "DailyPay";
-import * as errors from "DailyPay/models/errors";
+import { SDK } from "dailypay/dailypay";
+import * as errors from "dailypay/dailypay/models/errors";
 
 const sdk = new SDK();
 
@@ -453,14 +359,15 @@ async function run() {
     // The base class for HTTP error responses
     if (error instanceof errors.DailyPayError) {
       console.log(error.message);
-      console.log(error.statusCode);
-      console.log(error.body);
-      console.log(error.headers);
+      console.log(error.httpMeta.response.status);
+      console.log(error.httpMeta.response.headers);
+      console.log(error.httpMeta.request);
 
       // Depending on the method different errors may be thrown
       if (error instanceof errors.BadRequestError) {
         console.log(error.data$.errorCode); // operations.ErrorCode
         console.log(error.data$.errorDescription); // string
+        console.log(error.data$.httpMeta); // models.HTTPMetadata
       }
     }
   }
@@ -517,7 +424,7 @@ The default server `https://api.{environment}.com` contains variables and is set
 #### Example
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   environment: "dailypayuat",
@@ -543,7 +450,7 @@ run();
 
 The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   serverURL: "https://api.dailypay.com",
@@ -569,7 +476,7 @@ run();
 
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK();
 
@@ -610,8 +517,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { SDK } from "DailyPay";
-import { HTTPClient } from "DailyPay/lib/http";
+import { SDK } from "dailypay/dailypay";
+import { HTTPClient } from "dailypay/dailypay/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -652,7 +559,7 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({ debugLogger: console });
 ```
@@ -673,4 +580,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=daily-pay&utm_campaign=typescript)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=dailypay/dailypay&utm_campaign=typescript)

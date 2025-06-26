@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -14,6 +15,7 @@ export type ErrorNotFoundData = {
    * A list of errors that occurred.
    */
   errors: Array<models.ErrorNotFoundError>;
+  httpMeta: models.HTTPMetadata;
 };
 
 /**
@@ -50,12 +52,17 @@ export const ErrorNotFound$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   errors: z.array(models.ErrorNotFoundError$inboundSchema),
+  HttpMeta: models.HTTPMetadata$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
 })
   .transform((v) => {
-    return new ErrorNotFound(v, {
+    const remapped = remap$(v, {
+      "HttpMeta": "httpMeta",
+    });
+
+    return new ErrorNotFound(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -65,6 +72,7 @@ export const ErrorNotFound$inboundSchema: z.ZodType<
 /** @internal */
 export type ErrorNotFound$Outbound = {
   errors: Array<models.ErrorNotFoundError$Outbound>;
+  HttpMeta: models.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -74,9 +82,16 @@ export const ErrorNotFound$outboundSchema: z.ZodType<
   ErrorNotFound
 > = z.instanceof(ErrorNotFound)
   .transform(v => v.data$)
-  .pipe(z.object({
-    errors: z.array(models.ErrorNotFoundError$outboundSchema),
-  }));
+  .pipe(
+    z.object({
+      errors: z.array(models.ErrorNotFoundError$outboundSchema),
+      httpMeta: models.HTTPMetadata$outboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        httpMeta: "HttpMeta",
+      });
+    }),
+  );
 
 /**
  * @internal

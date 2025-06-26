@@ -57,6 +57,14 @@ export type ListPaychecksRequest = {
   filterBy?: string | undefined;
 };
 
+export type ListPaychecksResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the paycheck object.
+   */
+  paychecksData?: models.PaychecksData | undefined;
+};
+
 /** @internal */
 export const ListPaychecksGlobals$inboundSchema: z.ZodType<
   ListPaychecksGlobals,
@@ -220,5 +228,72 @@ export function listPaychecksRequestFromJSON(
     jsonString,
     (x) => ListPaychecksRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListPaychecksRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListPaychecksResponse$inboundSchema: z.ZodType<
+  ListPaychecksResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  PaychecksData: models.PaychecksData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "PaychecksData": "paychecksData",
+  });
+});
+
+/** @internal */
+export type ListPaychecksResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  PaychecksData?: models.PaychecksData$Outbound | undefined;
+};
+
+/** @internal */
+export const ListPaychecksResponse$outboundSchema: z.ZodType<
+  ListPaychecksResponse$Outbound,
+  z.ZodTypeDef,
+  ListPaychecksResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  paychecksData: models.PaychecksData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    paychecksData: "PaychecksData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListPaychecksResponse$ {
+  /** @deprecated use `ListPaychecksResponse$inboundSchema` instead. */
+  export const inboundSchema = ListPaychecksResponse$inboundSchema;
+  /** @deprecated use `ListPaychecksResponse$outboundSchema` instead. */
+  export const outboundSchema = ListPaychecksResponse$outboundSchema;
+  /** @deprecated use `ListPaychecksResponse$Outbound` instead. */
+  export type Outbound = ListPaychecksResponse$Outbound;
+}
+
+export function listPaychecksResponseToJSON(
+  listPaychecksResponse: ListPaychecksResponse,
+): string {
+  return JSON.stringify(
+    ListPaychecksResponse$outboundSchema.parse(listPaychecksResponse),
+  );
+}
+
+export function listPaychecksResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ListPaychecksResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListPaychecksResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListPaychecksResponse' from JSON`,
   );
 }

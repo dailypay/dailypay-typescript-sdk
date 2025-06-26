@@ -6,7 +6,6 @@ import { transfersCreate } from "../funcs/transfersCreate.js";
 import { transfersList } from "../funcs/transfersList.js";
 import { transfersRead } from "../funcs/transfersRead.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -22,7 +21,7 @@ export class Transfers extends ClientSDK {
   async read(
     request: operations.ReadTransferRequest,
     options?: RequestOptions,
-  ): Promise<models.TransferData> {
+  ): Promise<operations.ReadTransferResponse> {
     return unwrapAsync(transfersRead(
       this,
       request,
@@ -40,7 +39,7 @@ export class Transfers extends ClientSDK {
   async list(
     request?: operations.ListTransfersRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.TransfersData> {
+  ): Promise<operations.ListTransfersResponse> {
     return unwrapAsync(transfersList(
       this,
       request,
@@ -58,7 +57,7 @@ export class Transfers extends ClientSDK {
   async create(
     request: operations.CreateTransferRequest,
     options?: RequestOptions,
-  ): Promise<models.TransferData> {
+  ): Promise<operations.CreateTransferResponse> {
     return unwrapAsync(transfersCreate(
       this,
       request,

@@ -21,7 +21,6 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -39,7 +38,7 @@ export function transfersCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.TransferData,
+    operations.CreateTransferResponse,
     | errors.TransferCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -68,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.TransferData,
+      operations.CreateTransferResponse,
       | errors.TransferCreateError
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
@@ -169,7 +168,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.TransferData,
+    operations.CreateTransferResponse,
     | errors.TransferCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -183,8 +182,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.TransferData$inboundSchema, {
+    M.json(200, operations.CreateTransferResponse$inboundSchema, {
       ctype: "application/vnd.api+json",
+      key: "TransferData",
     }),
     M.jsonErr(400, errors.TransferCreateError$inboundSchema, {
       ctype: "application/vnd.api+json",

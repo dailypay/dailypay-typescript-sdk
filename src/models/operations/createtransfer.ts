@@ -37,6 +37,14 @@ export type CreateTransferRequest = {
   transferCreateData: models.TransferCreateData;
 };
 
+export type CreateTransferResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the newly created transfer object.
+   */
+  transferData?: models.TransferData | undefined;
+};
+
 /** @internal */
 export const CreateTransferGlobals$inboundSchema: z.ZodType<
   CreateTransferGlobals,
@@ -158,5 +166,72 @@ export function createTransferRequestFromJSON(
     jsonString,
     (x) => CreateTransferRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateTransferRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateTransferResponse$inboundSchema: z.ZodType<
+  CreateTransferResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  TransferData: models.TransferData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "TransferData": "transferData",
+  });
+});
+
+/** @internal */
+export type CreateTransferResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  TransferData?: models.TransferData$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateTransferResponse$outboundSchema: z.ZodType<
+  CreateTransferResponse$Outbound,
+  z.ZodTypeDef,
+  CreateTransferResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  transferData: models.TransferData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    transferData: "TransferData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateTransferResponse$ {
+  /** @deprecated use `CreateTransferResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateTransferResponse$inboundSchema;
+  /** @deprecated use `CreateTransferResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateTransferResponse$outboundSchema;
+  /** @deprecated use `CreateTransferResponse$Outbound` instead. */
+  export type Outbound = CreateTransferResponse$Outbound;
+}
+
+export function createTransferResponseToJSON(
+  createTransferResponse: CreateTransferResponse,
+): string {
+  return JSON.stringify(
+    CreateTransferResponse$outboundSchema.parse(createTransferResponse),
+  );
+}
+
+export function createTransferResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateTransferResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateTransferResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateTransferResponse' from JSON`,
   );
 }

@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ReadPersonGlobals = {
   /**
@@ -22,6 +23,14 @@ export type ReadPersonRequest = {
    * Unique ID of the person
    */
   personId: string;
+};
+
+export type ReadPersonResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the person object.
+   */
+  personData?: models.PersonData | undefined;
 };
 
 /** @internal */
@@ -137,5 +146,72 @@ export function readPersonRequestFromJSON(
     jsonString,
     (x) => ReadPersonRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ReadPersonRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReadPersonResponse$inboundSchema: z.ZodType<
+  ReadPersonResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  PersonData: models.PersonData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "PersonData": "personData",
+  });
+});
+
+/** @internal */
+export type ReadPersonResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  PersonData?: models.PersonData$Outbound | undefined;
+};
+
+/** @internal */
+export const ReadPersonResponse$outboundSchema: z.ZodType<
+  ReadPersonResponse$Outbound,
+  z.ZodTypeDef,
+  ReadPersonResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  personData: models.PersonData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    personData: "PersonData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReadPersonResponse$ {
+  /** @deprecated use `ReadPersonResponse$inboundSchema` instead. */
+  export const inboundSchema = ReadPersonResponse$inboundSchema;
+  /** @deprecated use `ReadPersonResponse$outboundSchema` instead. */
+  export const outboundSchema = ReadPersonResponse$outboundSchema;
+  /** @deprecated use `ReadPersonResponse$Outbound` instead. */
+  export type Outbound = ReadPersonResponse$Outbound;
+}
+
+export function readPersonResponseToJSON(
+  readPersonResponse: ReadPersonResponse,
+): string {
+  return JSON.stringify(
+    ReadPersonResponse$outboundSchema.parse(readPersonResponse),
+  );
+}
+
+export function readPersonResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ReadPersonResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReadPersonResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReadPersonResponse' from JSON`,
   );
 }

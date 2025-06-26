@@ -6,7 +6,6 @@ import { jobsList } from "../funcs/jobsList.js";
 import { jobsRead } from "../funcs/jobsRead.js";
 import { jobsUpdate } from "../funcs/jobsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -20,7 +19,7 @@ export class Jobs extends ClientSDK {
   async read(
     request: operations.ReadJobRequest,
     options?: RequestOptions,
-  ): Promise<models.JobData> {
+  ): Promise<operations.ReadJobResponse> {
     return unwrapAsync(jobsRead(
       this,
       request,
@@ -38,7 +37,7 @@ export class Jobs extends ClientSDK {
   async update(
     request: operations.UpdateJobRequest,
     options?: RequestOptions,
-  ): Promise<models.JobData> {
+  ): Promise<operations.UpdateJobResponse> {
     return unwrapAsync(jobsUpdate(
       this,
       request,
@@ -56,7 +55,7 @@ export class Jobs extends ClientSDK {
   async list(
     request?: operations.ListJobsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.JobsData> {
+  ): Promise<operations.ListJobsResponse> {
     return unwrapAsync(jobsList(
       this,
       request,

@@ -20,7 +20,6 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { RequestTokenServerList } from "../models/operations/requesttoken.js";
 import { APICall, APIPromise } from "../types/async.js";
@@ -38,7 +37,7 @@ export function authenticationRequestToken(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.TokenData,
+    operations.RequestTokenResponse,
     | errors.BadRequestError
     | errors.ErrorUnexpected
     | DailyPayError
@@ -65,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.TokenData,
+      operations.RequestTokenResponse,
       | errors.BadRequestError
       | errors.ErrorUnexpected
       | DailyPayError
@@ -149,7 +148,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.TokenData,
+    operations.RequestTokenResponse,
     | errors.BadRequestError
     | errors.ErrorUnexpected
     | DailyPayError
@@ -161,7 +160,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.TokenData$inboundSchema),
+    M.json(200, operations.RequestTokenResponse$inboundSchema, {
+      key: "TokenData",
+    }),
     M.jsonErr(400, errors.BadRequestError$inboundSchema),
     M.jsonErr(500, errors.ErrorUnexpected$inboundSchema, {
       ctype: "application/vnd.api+json",

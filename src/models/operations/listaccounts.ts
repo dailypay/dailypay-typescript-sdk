@@ -37,6 +37,14 @@ export type ListAccountsRequest = {
   filterBy?: string | undefined;
 };
 
+export type ListAccountsResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the account object.
+   */
+  accountsData?: models.AccountsData | undefined;
+};
+
 /** @internal */
 export const ListAccountsGlobals$inboundSchema: z.ZodType<
   ListAccountsGlobals,
@@ -165,5 +173,72 @@ export function listAccountsRequestFromJSON(
     jsonString,
     (x) => ListAccountsRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ListAccountsRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListAccountsResponse$inboundSchema: z.ZodType<
+  ListAccountsResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  AccountsData: models.AccountsData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "AccountsData": "accountsData",
+  });
+});
+
+/** @internal */
+export type ListAccountsResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  AccountsData?: models.AccountsData$Outbound | undefined;
+};
+
+/** @internal */
+export const ListAccountsResponse$outboundSchema: z.ZodType<
+  ListAccountsResponse$Outbound,
+  z.ZodTypeDef,
+  ListAccountsResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  accountsData: models.AccountsData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    accountsData: "AccountsData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ListAccountsResponse$ {
+  /** @deprecated use `ListAccountsResponse$inboundSchema` instead. */
+  export const inboundSchema = ListAccountsResponse$inboundSchema;
+  /** @deprecated use `ListAccountsResponse$outboundSchema` instead. */
+  export const outboundSchema = ListAccountsResponse$outboundSchema;
+  /** @deprecated use `ListAccountsResponse$Outbound` instead. */
+  export type Outbound = ListAccountsResponse$Outbound;
+}
+
+export function listAccountsResponseToJSON(
+  listAccountsResponse: ListAccountsResponse,
+): string {
+  return JSON.stringify(
+    ListAccountsResponse$outboundSchema.parse(listAccountsResponse),
+  );
+}
+
+export function listAccountsResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ListAccountsResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListAccountsResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListAccountsResponse' from JSON`,
   );
 }

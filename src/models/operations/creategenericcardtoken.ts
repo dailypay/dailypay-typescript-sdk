@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export const CreateGenericCardTokenServerList = [
   "https://payments.dailypay.com/v2",
@@ -68,7 +69,7 @@ export type CreateGenericCardTokenRequest = {
  *
  * @remarks
  */
-export type CreateGenericCardTokenResponse = {
+export type CreateGenericCardTokenResponseBody = {
   /**
    * This token should be supplied in the `generic_token` field when creating a TransferAccount with
    *
@@ -76,6 +77,16 @@ export type CreateGenericCardTokenResponse = {
    * `transfer_account_type` of DebitCard using the Extend API "Create a transfer account" endpoint.
    */
   token: string;
+};
+
+export type CreateGenericCardTokenResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns an opaque string representing the card details.
+   *
+   * @remarks
+   */
+  object?: CreateGenericCardTokenResponseBody | undefined;
 };
 
 /** @internal */
@@ -196,8 +207,8 @@ export function createGenericCardTokenRequestFromJSON(
 }
 
 /** @internal */
-export const CreateGenericCardTokenResponse$inboundSchema: z.ZodType<
-  CreateGenericCardTokenResponse,
+export const CreateGenericCardTokenResponseBody$inboundSchema: z.ZodType<
+  CreateGenericCardTokenResponseBody,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -205,8 +216,73 @@ export const CreateGenericCardTokenResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type CreateGenericCardTokenResponse$Outbound = {
+export type CreateGenericCardTokenResponseBody$Outbound = {
   token: string;
+};
+
+/** @internal */
+export const CreateGenericCardTokenResponseBody$outboundSchema: z.ZodType<
+  CreateGenericCardTokenResponseBody$Outbound,
+  z.ZodTypeDef,
+  CreateGenericCardTokenResponseBody
+> = z.object({
+  token: z.string(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateGenericCardTokenResponseBody$ {
+  /** @deprecated use `CreateGenericCardTokenResponseBody$inboundSchema` instead. */
+  export const inboundSchema = CreateGenericCardTokenResponseBody$inboundSchema;
+  /** @deprecated use `CreateGenericCardTokenResponseBody$outboundSchema` instead. */
+  export const outboundSchema =
+    CreateGenericCardTokenResponseBody$outboundSchema;
+  /** @deprecated use `CreateGenericCardTokenResponseBody$Outbound` instead. */
+  export type Outbound = CreateGenericCardTokenResponseBody$Outbound;
+}
+
+export function createGenericCardTokenResponseBodyToJSON(
+  createGenericCardTokenResponseBody: CreateGenericCardTokenResponseBody,
+): string {
+  return JSON.stringify(
+    CreateGenericCardTokenResponseBody$outboundSchema.parse(
+      createGenericCardTokenResponseBody,
+    ),
+  );
+}
+
+export function createGenericCardTokenResponseBodyFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateGenericCardTokenResponseBody, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateGenericCardTokenResponseBody$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateGenericCardTokenResponseBody' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateGenericCardTokenResponse$inboundSchema: z.ZodType<
+  CreateGenericCardTokenResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  object: z.lazy(() => CreateGenericCardTokenResponseBody$inboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+  });
+});
+
+/** @internal */
+export type CreateGenericCardTokenResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  object?: CreateGenericCardTokenResponseBody$Outbound | undefined;
 };
 
 /** @internal */
@@ -215,7 +291,13 @@ export const CreateGenericCardTokenResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateGenericCardTokenResponse
 > = z.object({
-  token: z.string(),
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  object: z.lazy(() => CreateGenericCardTokenResponseBody$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+  });
 });
 
 /**

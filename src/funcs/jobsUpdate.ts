@@ -21,7 +21,6 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -39,7 +38,7 @@ export function jobsUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.JobData,
+    operations.UpdateJobResponse,
     | errors.JobUpdateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -69,7 +68,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.JobData,
+      operations.UpdateJobResponse,
       | errors.JobUpdateError
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
@@ -166,7 +165,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.JobData,
+    operations.UpdateJobResponse,
     | errors.JobUpdateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -181,8 +180,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.JobData$inboundSchema, {
+    M.json(200, operations.UpdateJobResponse$inboundSchema, {
       ctype: "application/vnd.api+json",
+      key: "JobData",
     }),
     M.jsonErr(400, errors.JobUpdateError$inboundSchema, {
       ctype: "application/vnd.api+json",

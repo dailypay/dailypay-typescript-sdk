@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { OrganizationAttributes } from "DailyPay";
+import { OrganizationAttributes } from "dailypay/dailypay";
 
 let value: OrganizationAttributes = {
   name: "DailyPay",

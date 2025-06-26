@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Frequency } from "DailyPay";
+import { Frequency } from "dailypay/dailypay";
 
 let value: Frequency = "HOURLY";
 ```

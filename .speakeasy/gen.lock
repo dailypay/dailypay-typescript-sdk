@@ -5,8 +5,8 @@ management:
   docVersion: 3.0.0-beta01
   speakeasyVersion: 1.570.2
   generationVersion: 2.638.5
-  releaseVersion: 0.0.4
-  configChecksum: 3f75e3b644a72b459c7c7804c818fe7e
+  releaseVersion: 0.1.0
+  configChecksum: 465d4e9059d594da2ee6a9398aa94af7
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -22,7 +22,6 @@ features:
     globals: 2.82.2
     hiddenGlobals: 0.1.0
     inputOutputModels: 2.82.0
-    mcpServer: 0.9.2
     methodArguments: 0.1.2
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
@@ -135,6 +134,7 @@ generatedFiles:
   - docs/models/fundingsourceresource.md
   - docs/models/fundingsourcesrelationship.md
   - docs/models/health200.md
+  - docs/models/httpmetadata.md
   - docs/models/jobattributes.md
   - docs/models/jobattributesinput.md
   - docs/models/jobdata.md
@@ -149,40 +149,58 @@ generatedFiles:
   - docs/models/operations/authorizationcodeflow.md
   - docs/models/operations/clientcredentialsflow.md
   - docs/models/operations/createaccountglobals.md
+  - docs/models/operations/createaccountresponse.md
   - docs/models/operations/creategenericcardtokenrequest.md
   - docs/models/operations/creategenericcardtokenresponse.md
+  - docs/models/operations/creategenericcardtokenresponsebody.md
   - docs/models/operations/createtransferglobals.md
   - docs/models/operations/createtransferrequest.md
+  - docs/models/operations/createtransferresponse.md
   - docs/models/operations/errorcode.md
+  - docs/models/operations/gethealthresponse.md
   - docs/models/operations/granttype.md
   - docs/models/operations/listaccountsglobals.md
   - docs/models/operations/listaccountsrequest.md
+  - docs/models/operations/listaccountsresponse.md
   - docs/models/operations/listjobsglobals.md
   - docs/models/operations/listjobsrequest.md
+  - docs/models/operations/listjobsresponse.md
   - docs/models/operations/listorganizationsglobals.md
   - docs/models/operations/listorganizationsrequest.md
+  - docs/models/operations/listorganizationsresponse.md
   - docs/models/operations/listpaychecksglobals.md
   - docs/models/operations/listpaychecksrequest.md
+  - docs/models/operations/listpaychecksresponse.md
   - docs/models/operations/listtransfersglobals.md
   - docs/models/operations/listtransfersrequest.md
+  - docs/models/operations/listtransfersresponse.md
   - docs/models/operations/readaccountglobals.md
   - docs/models/operations/readaccountrequest.md
+  - docs/models/operations/readaccountresponse.md
   - docs/models/operations/readjobglobals.md
   - docs/models/operations/readjobrequest.md
+  - docs/models/operations/readjobresponse.md
   - docs/models/operations/readorganizationglobals.md
   - docs/models/operations/readorganizationrequest.md
+  - docs/models/operations/readorganizationresponse.md
   - docs/models/operations/readpaycheckglobals.md
   - docs/models/operations/readpaycheckrequest.md
+  - docs/models/operations/readpaycheckresponse.md
   - docs/models/operations/readpersonglobals.md
   - docs/models/operations/readpersonrequest.md
+  - docs/models/operations/readpersonresponse.md
   - docs/models/operations/readtransferglobals.md
   - docs/models/operations/readtransferrequest.md
+  - docs/models/operations/readtransferresponse.md
   - docs/models/operations/refreshtoken.md
   - docs/models/operations/requesttokenrequest.md
+  - docs/models/operations/requesttokenresponse.md
   - docs/models/operations/updatejobglobals.md
   - docs/models/operations/updatejobrequest.md
+  - docs/models/operations/updatejobresponse.md
   - docs/models/operations/updatepersonglobals.md
   - docs/models/operations/updatepersonrequest.md
+  - docs/models/operations/updatepersonresponse.md
   - docs/models/organizationattributes.md
   - docs/models/organizationdata.md
   - docs/models/organizationidentifier.md
@@ -283,37 +301,6 @@ generatedFiles:
   - src/lib/sdks.ts
   - src/lib/security.ts
   - src/lib/url.ts
-  - src/mcp-server/build.mts
-  - src/mcp-server/cli.ts
-  - src/mcp-server/cli/start/command.ts
-  - src/mcp-server/cli/start/impl.ts
-  - src/mcp-server/console-logger.ts
-  - src/mcp-server/extensions.ts
-  - src/mcp-server/mcp-server.ts
-  - src/mcp-server/prompts.ts
-  - src/mcp-server/resources.ts
-  - src/mcp-server/scopes.ts
-  - src/mcp-server/server.ts
-  - src/mcp-server/shared.ts
-  - src/mcp-server/tools.ts
-  - src/mcp-server/tools/accountsCreate.ts
-  - src/mcp-server/tools/accountsList.ts
-  - src/mcp-server/tools/accountsRead.ts
-  - src/mcp-server/tools/authenticationRequestToken.ts
-  - src/mcp-server/tools/cardsCreate.ts
-  - src/mcp-server/tools/healthGetHealth.ts
-  - src/mcp-server/tools/jobsList.ts
-  - src/mcp-server/tools/jobsRead.ts
-  - src/mcp-server/tools/jobsUpdate.ts
-  - src/mcp-server/tools/organizationsList.ts
-  - src/mcp-server/tools/organizationsRead.ts
-  - src/mcp-server/tools/paychecksList.ts
-  - src/mcp-server/tools/paychecksRead.ts
-  - src/mcp-server/tools/peopleRead.ts
-  - src/mcp-server/tools/peopleUpdate.ts
-  - src/mcp-server/tools/transfersCreate.ts
-  - src/mcp-server/tools/transfersList.ts
-  - src/mcp-server/tools/transfersRead.ts
   - src/models/accountattributesoutput.ts
   - src/models/accountdatainput.ts
   - src/models/accountdataoutput.ts
@@ -361,6 +348,7 @@ generatedFiles:
   - src/models/fundingsourceresource.ts
   - src/models/fundingsourcesrelationship.ts
   - src/models/health200.ts
+  - src/models/httpmetadata.ts
   - src/models/index.ts
   - src/models/jobattributes.ts
   - src/models/jobdata.ts
@@ -375,6 +363,7 @@ generatedFiles:
   - src/models/operations/createaccount.ts
   - src/models/operations/creategenericcardtoken.ts
   - src/models/operations/createtransfer.ts
+  - src/models/operations/gethealth.ts
   - src/models/operations/index.ts
   - src/models/operations/listaccounts.ts
   - src/models/operations/listjobs.ts

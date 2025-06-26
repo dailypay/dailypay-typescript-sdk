@@ -138,6 +138,10 @@ async function $do(
   }
   const response = doResult.value;
 
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
+  };
+
   const [result] = await M.match<
     operations.CreateGenericCardTokenResponse,
     | DailyPayError
@@ -149,10 +153,12 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateGenericCardTokenResponse$inboundSchema),
+    M.json(200, operations.CreateGenericCardTokenResponse$inboundSchema, {
+      key: "object",
+    }),
     M.fail("4XX"),
     M.fail([500, "5XX"]),
-  )(response, req);
+  )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];
   }

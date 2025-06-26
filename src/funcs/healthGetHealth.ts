@@ -19,7 +19,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -34,7 +34,7 @@ export function healthGetHealth(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.Health200,
+    operations.GetHealthResponse,
     | errors.ErrorUnauthorized
     | errors.ErrorUnexpected
     | DailyPayError
@@ -59,7 +59,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.Health200,
+      operations.GetHealthResponse,
       | errors.ErrorUnauthorized
       | errors.ErrorUnexpected
       | DailyPayError
@@ -128,7 +128,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.Health200,
+    operations.GetHealthResponse,
     | errors.ErrorUnauthorized
     | errors.ErrorUnexpected
     | DailyPayError
@@ -140,7 +140,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.Health200$inboundSchema),
+    M.json(200, operations.GetHealthResponse$inboundSchema, {
+      key: "Health200",
+    }),
     M.jsonErr(401, errors.ErrorUnauthorized$inboundSchema, {
       ctype: "application/vnd.api+json",
     }),

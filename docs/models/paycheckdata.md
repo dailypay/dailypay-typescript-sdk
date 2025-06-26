@@ -5,13 +5,13 @@ Returns the paycheck object.
 ## Example Usage
 
 ```typescript
-import { PaycheckData } from "DailyPay";
+import { PaycheckData } from "dailypay/dailypay";
 
 let value: PaycheckData = {
   data: {
     id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     attributes: {
-      status: "IN_TRANSIT",
+      status: "DEPOSITED",
       payPeriodEndsAt: new Date("2023-03-15T04:00:00Z"),
       payPeriodStartsAt: new Date("2023-03-15T04:00:00Z"),
       depositExpectedAt: new Date("2023-03-15T04:00:00Z"),

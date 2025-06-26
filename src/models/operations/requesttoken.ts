@@ -8,6 +8,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export const RequestTokenServerList = [
   /**
@@ -119,6 +120,14 @@ export const ErrorCode = {
  * Error code indicating what went wrong with the oauth token exchange. See the OAuth2 RFC for further context https://datatracker.ietf.org/doc/html/rfc6749#section-5.2
  */
 export type ErrorCode = ClosedEnum<typeof ErrorCode>;
+
+export type RequestTokenResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * DailyPay user access token
+   */
+  tokenData?: models.TokenData | undefined;
+};
 
 /** @internal */
 export const RefreshToken$inboundSchema: z.ZodType<
@@ -451,4 +460,71 @@ export namespace ErrorCode$ {
   export const inboundSchema = ErrorCode$inboundSchema;
   /** @deprecated use `ErrorCode$outboundSchema` instead. */
   export const outboundSchema = ErrorCode$outboundSchema;
+}
+
+/** @internal */
+export const RequestTokenResponse$inboundSchema: z.ZodType<
+  RequestTokenResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  TokenData: models.TokenData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "TokenData": "tokenData",
+  });
+});
+
+/** @internal */
+export type RequestTokenResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  TokenData?: models.TokenData$Outbound | undefined;
+};
+
+/** @internal */
+export const RequestTokenResponse$outboundSchema: z.ZodType<
+  RequestTokenResponse$Outbound,
+  z.ZodTypeDef,
+  RequestTokenResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  tokenData: models.TokenData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    tokenData: "TokenData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace RequestTokenResponse$ {
+  /** @deprecated use `RequestTokenResponse$inboundSchema` instead. */
+  export const inboundSchema = RequestTokenResponse$inboundSchema;
+  /** @deprecated use `RequestTokenResponse$outboundSchema` instead. */
+  export const outboundSchema = RequestTokenResponse$outboundSchema;
+  /** @deprecated use `RequestTokenResponse$Outbound` instead. */
+  export type Outbound = RequestTokenResponse$Outbound;
+}
+
+export function requestTokenResponseToJSON(
+  requestTokenResponse: RequestTokenResponse,
+): string {
+  return JSON.stringify(
+    RequestTokenResponse$outboundSchema.parse(requestTokenResponse),
+  );
+}
+
+export function requestTokenResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<RequestTokenResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RequestTokenResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RequestTokenResponse' from JSON`,
+  );
 }

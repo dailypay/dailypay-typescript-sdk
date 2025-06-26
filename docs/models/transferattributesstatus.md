@@ -5,7 +5,7 @@ The status of the transfer.
 ## Example Usage
 
 ```typescript
-import { TransferAttributesStatus } from "DailyPay";
+import { TransferAttributesStatus } from "dailypay/dailypay";
 
 let value: TransferAttributesStatus = "SETTLED";
 ```

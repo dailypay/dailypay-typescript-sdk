@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ReadPersonRequest } from "DailyPay/models/operations";
+import { ReadPersonRequest } from "dailypay/dailypay/models/operations";
 
 let value: ReadPersonRequest = {
   personId: "aa860051-c411-4709-9685-c1b716df611b",

@@ -4,6 +4,7 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import * as models from "../index.js";
 import * as operations from "../operations/index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -19,6 +20,7 @@ export type BadRequestErrorData = {
    * A description of exactly went wrong with the oauth token exchange. This is meant to improve developer experience, and is subject to change, so this should not be relied upon programatically.
    */
   errorDescription?: string | undefined;
+  httpMeta: models.HTTPMetadata;
 };
 
 /**
@@ -63,6 +65,7 @@ export const BadRequestError$inboundSchema: z.ZodType<
 > = z.object({
   error_code: operations.ErrorCode$inboundSchema.optional(),
   error_description: z.string().optional(),
+  HttpMeta: models.HTTPMetadata$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
@@ -71,6 +74,7 @@ export const BadRequestError$inboundSchema: z.ZodType<
     const remapped = remap$(v, {
       "error_code": "errorCode",
       "error_description": "errorDescription",
+      "HttpMeta": "httpMeta",
     });
 
     return new BadRequestError(remapped, {
@@ -84,6 +88,7 @@ export const BadRequestError$inboundSchema: z.ZodType<
 export type BadRequestError$Outbound = {
   error_code?: string | undefined;
   error_description?: string | undefined;
+  HttpMeta: models.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -97,10 +102,12 @@ export const BadRequestError$outboundSchema: z.ZodType<
     z.object({
       errorCode: operations.ErrorCode$outboundSchema.optional(),
       errorDescription: z.string().optional(),
+      httpMeta: models.HTTPMetadata$outboundSchema,
     }).transform((v) => {
       return remap$(v, {
         errorCode: "error_code",
         errorDescription: "error_description",
+        httpMeta: "HttpMeta",
       });
     }),
   );

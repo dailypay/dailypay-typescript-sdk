@@ -5,7 +5,7 @@ An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
 ## Example Usage
 
 ```typescript
-import { CardOutput } from "DailyPay";
+import { CardOutput } from "dailypay/dailypay";
 
 let value: CardOutput = {
   verificationStatus: "VERIFIED",

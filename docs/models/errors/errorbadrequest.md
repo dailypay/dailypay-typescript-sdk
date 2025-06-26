@@ -5,7 +5,7 @@ Bad Request
 ## Example Usage
 
 ```typescript
-import { ErrorBadRequest } from "DailyPay/models/errors";
+import { ErrorBadRequest } from "dailypay/dailypay/models/errors";
 
 // No examples available for this model
 ```
@@ -15,3 +15,4 @@ import { ErrorBadRequest } from "DailyPay/models/errors";
 | Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `errors`                                                              | [models.ErrorBadRequestError](../../models/errorbadrequesterror.md)[] | :heavy_check_mark:                                                    | A list of errors that occurred.                                       |
+| `httpMeta`                                                            | [models.HTTPMetadata](../../models/httpmetadata.md)                   | :heavy_check_mark:                                                    | N/A                                                                   |

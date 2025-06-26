@@ -29,7 +29,7 @@ Returns details about an account. This object represents a person's bank account
 ### Example Usage
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   version: 3,
@@ -54,8 +54,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "DailyPay/core.js";
-import { accountsRead } from "DailyPay/funcs/accountsRead.js";
+import { SDKCore } from "dailypay/dailypay/core.js";
+import { accountsRead } from "dailypay/dailypay/funcs/accountsRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -92,7 +92,7 @@ run();
 
 ### Response
 
-**Promise\<[models.AccountDataOutput](../../models/accountdataoutput.md)\>**
+**Promise\<[operations.ReadAccountResponse](../../models/operations/readaccountresponse.md)\>**
 
 ### Errors
 
@@ -114,7 +114,7 @@ See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Su
 ### Example Usage
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   version: 3,
@@ -139,8 +139,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "DailyPay/core.js";
-import { accountsList } from "DailyPay/funcs/accountsList.js";
+import { SDKCore } from "dailypay/dailypay/core.js";
+import { accountsList } from "dailypay/dailypay/funcs/accountsList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -177,7 +177,7 @@ run();
 
 ### Response
 
-**Promise\<[models.AccountsData](../../models/accountsdata.md)\>**
+**Promise\<[operations.ListAccountsResponse](../../models/operations/listaccountsresponse.md)\>**
 
 ### Errors
 
@@ -196,7 +196,7 @@ Create an account object to store a person's bank or card information as a desti
 ### Example Usage
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   version: 3,
@@ -242,8 +242,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "DailyPay/core.js";
-import { accountsCreate } from "DailyPay/funcs/accountsCreate.js";
+import { SDKCore } from "dailypay/dailypay/core.js";
+import { accountsCreate } from "dailypay/dailypay/funcs/accountsCreate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -301,7 +301,7 @@ run();
 
 ### Response
 
-**Promise\<[models.AccountDataOutput](../../models/accountdataoutput.md)\>**
+**Promise\<[operations.CreateAccountResponse](../../models/operations/createaccountresponse.md)\>**
 
 ### Errors
 

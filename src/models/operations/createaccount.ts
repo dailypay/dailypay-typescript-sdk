@@ -3,9 +3,11 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type CreateAccountGlobals = {
   /**
@@ -14,6 +16,14 @@ export type CreateAccountGlobals = {
    * @remarks
    */
   version?: number | undefined;
+};
+
+export type CreateAccountResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the account object.
+   */
+  accountData?: models.AccountDataOutput | undefined;
 };
 
 /** @internal */
@@ -67,5 +77,72 @@ export function createAccountGlobalsFromJSON(
     jsonString,
     (x) => CreateAccountGlobals$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CreateAccountGlobals' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateAccountResponse$inboundSchema: z.ZodType<
+  CreateAccountResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  AccountData: models.AccountDataOutput$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "AccountData": "accountData",
+  });
+});
+
+/** @internal */
+export type CreateAccountResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  AccountData?: models.AccountDataOutput$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateAccountResponse$outboundSchema: z.ZodType<
+  CreateAccountResponse$Outbound,
+  z.ZodTypeDef,
+  CreateAccountResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  accountData: models.AccountDataOutput$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    accountData: "AccountData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace CreateAccountResponse$ {
+  /** @deprecated use `CreateAccountResponse$inboundSchema` instead. */
+  export const inboundSchema = CreateAccountResponse$inboundSchema;
+  /** @deprecated use `CreateAccountResponse$outboundSchema` instead. */
+  export const outboundSchema = CreateAccountResponse$outboundSchema;
+  /** @deprecated use `CreateAccountResponse$Outbound` instead. */
+  export type Outbound = CreateAccountResponse$Outbound;
+}
+
+export function createAccountResponseToJSON(
+  createAccountResponse: CreateAccountResponse,
+): string {
+  return JSON.stringify(
+    CreateAccountResponse$outboundSchema.parse(createAccountResponse),
+  );
+}
+
+export function createAccountResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateAccountResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateAccountResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateAccountResponse' from JSON`,
   );
 }

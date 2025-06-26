@@ -5,7 +5,7 @@ Returns details about an organization.
 ## Example Usage
 
 ```typescript
-import { OrganizationData } from "DailyPay";
+import { OrganizationData } from "dailypay/dailypay";
 
 let value: OrganizationData = {
   data: {

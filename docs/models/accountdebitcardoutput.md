@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AccountDebitCardOutput } from "DailyPay";
+import { AccountDebitCardOutput } from "dailypay/dailypay";
 
 let value: AccountDebitCardOutput = {
   firstName: "Edith",

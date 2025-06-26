@@ -20,7 +20,7 @@ export class Accounts extends ClientSDK {
   async read(
     request: operations.ReadAccountRequest,
     options?: RequestOptions,
-  ): Promise<models.AccountDataOutput> {
+  ): Promise<operations.ReadAccountResponse> {
     return unwrapAsync(accountsRead(
       this,
       request,
@@ -38,7 +38,7 @@ export class Accounts extends ClientSDK {
   async list(
     request?: operations.ListAccountsRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.AccountsData> {
+  ): Promise<operations.ListAccountsResponse> {
     return unwrapAsync(accountsList(
       this,
       request,
@@ -55,7 +55,7 @@ export class Accounts extends ClientSDK {
   async create(
     request: models.AccountDataInput,
     options?: RequestOptions,
-  ): Promise<models.AccountDataOutput> {
+  ): Promise<operations.CreateAccountResponse> {
     return unwrapAsync(accountsCreate(
       this,
       request,

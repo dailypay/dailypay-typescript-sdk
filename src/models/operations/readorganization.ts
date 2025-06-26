@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ReadOrganizationGlobals = {
   /**
@@ -22,6 +23,14 @@ export type ReadOrganizationRequest = {
    * Unique ID of the organization
    */
   organizationId: string;
+};
+
+export type ReadOrganizationResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns details about an organization.
+   */
+  organizationData?: models.OrganizationData | undefined;
 };
 
 /** @internal */
@@ -137,5 +146,72 @@ export function readOrganizationRequestFromJSON(
     jsonString,
     (x) => ReadOrganizationRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ReadOrganizationRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReadOrganizationResponse$inboundSchema: z.ZodType<
+  ReadOrganizationResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  OrganizationData: models.OrganizationData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "OrganizationData": "organizationData",
+  });
+});
+
+/** @internal */
+export type ReadOrganizationResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  OrganizationData?: models.OrganizationData$Outbound | undefined;
+};
+
+/** @internal */
+export const ReadOrganizationResponse$outboundSchema: z.ZodType<
+  ReadOrganizationResponse$Outbound,
+  z.ZodTypeDef,
+  ReadOrganizationResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  organizationData: models.OrganizationData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    organizationData: "OrganizationData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReadOrganizationResponse$ {
+  /** @deprecated use `ReadOrganizationResponse$inboundSchema` instead. */
+  export const inboundSchema = ReadOrganizationResponse$inboundSchema;
+  /** @deprecated use `ReadOrganizationResponse$outboundSchema` instead. */
+  export const outboundSchema = ReadOrganizationResponse$outboundSchema;
+  /** @deprecated use `ReadOrganizationResponse$Outbound` instead. */
+  export type Outbound = ReadOrganizationResponse$Outbound;
+}
+
+export function readOrganizationResponseToJSON(
+  readOrganizationResponse: ReadOrganizationResponse,
+): string {
+  return JSON.stringify(
+    ReadOrganizationResponse$outboundSchema.parse(readOrganizationResponse),
+  );
+}
+
+export function readOrganizationResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ReadOrganizationResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReadOrganizationResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReadOrganizationResponse' from JSON`,
   );
 }

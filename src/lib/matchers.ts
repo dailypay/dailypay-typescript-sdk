@@ -248,7 +248,7 @@ export function match<T, E>(
         break;
       case "fail":
         body = await response.text();
-        raw = body;
+        raw = undefined;
         break;
       default:
         encoding satisfies never;
@@ -284,14 +284,11 @@ export function match<T, E>(
         ...(matcher.hdrs ? { Headers: unpackHeaders(response.headers) } : null),
         [resultKey]: raw,
       };
-    } else if (matcher.hdrs) {
+    } else {
       data = {
         ...options?.extraFields,
         ...(matcher.hdrs ? { Headers: unpackHeaders(response.headers) } : null),
-        ...(isPlainObject(raw) ? raw : null),
       };
-    } else {
-      data = raw;
     }
 
     if ("err" in matcher) {

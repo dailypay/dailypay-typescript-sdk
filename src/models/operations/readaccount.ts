@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ReadAccountGlobals = {
   /**
@@ -22,6 +23,14 @@ export type ReadAccountRequest = {
    * Unique UUID of the Account.
    */
   accountId: string;
+};
+
+export type ReadAccountResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the account object.
+   */
+  accountData?: models.AccountDataOutput | undefined;
 };
 
 /** @internal */
@@ -137,5 +146,72 @@ export function readAccountRequestFromJSON(
     jsonString,
     (x) => ReadAccountRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ReadAccountRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReadAccountResponse$inboundSchema: z.ZodType<
+  ReadAccountResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  AccountData: models.AccountDataOutput$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "AccountData": "accountData",
+  });
+});
+
+/** @internal */
+export type ReadAccountResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  AccountData?: models.AccountDataOutput$Outbound | undefined;
+};
+
+/** @internal */
+export const ReadAccountResponse$outboundSchema: z.ZodType<
+  ReadAccountResponse$Outbound,
+  z.ZodTypeDef,
+  ReadAccountResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  accountData: models.AccountDataOutput$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    accountData: "AccountData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReadAccountResponse$ {
+  /** @deprecated use `ReadAccountResponse$inboundSchema` instead. */
+  export const inboundSchema = ReadAccountResponse$inboundSchema;
+  /** @deprecated use `ReadAccountResponse$outboundSchema` instead. */
+  export const outboundSchema = ReadAccountResponse$outboundSchema;
+  /** @deprecated use `ReadAccountResponse$Outbound` instead. */
+  export type Outbound = ReadAccountResponse$Outbound;
+}
+
+export function readAccountResponseToJSON(
+  readAccountResponse: ReadAccountResponse,
+): string {
+  return JSON.stringify(
+    ReadAccountResponse$outboundSchema.parse(readAccountResponse),
+  );
+}
+
+export function readAccountResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ReadAccountResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReadAccountResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReadAccountResponse' from JSON`,
   );
 }

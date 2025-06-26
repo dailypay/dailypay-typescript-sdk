@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as models from "../index.js";
 
 export type ReadTransferGlobals = {
   /**
@@ -30,6 +31,14 @@ export type ReadTransferRequest = {
    * Unique ID of the transfer
    */
   transferId: string;
+};
+
+export type ReadTransferResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the newly created transfer object.
+   */
+  transferData?: models.TransferData | undefined;
 };
 
 /** @internal */
@@ -148,5 +157,72 @@ export function readTransferRequestFromJSON(
     jsonString,
     (x) => ReadTransferRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ReadTransferRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReadTransferResponse$inboundSchema: z.ZodType<
+  ReadTransferResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  TransferData: models.TransferData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "TransferData": "transferData",
+  });
+});
+
+/** @internal */
+export type ReadTransferResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  TransferData?: models.TransferData$Outbound | undefined;
+};
+
+/** @internal */
+export const ReadTransferResponse$outboundSchema: z.ZodType<
+  ReadTransferResponse$Outbound,
+  z.ZodTypeDef,
+  ReadTransferResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  transferData: models.TransferData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    transferData: "TransferData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace ReadTransferResponse$ {
+  /** @deprecated use `ReadTransferResponse$inboundSchema` instead. */
+  export const inboundSchema = ReadTransferResponse$inboundSchema;
+  /** @deprecated use `ReadTransferResponse$outboundSchema` instead. */
+  export const outboundSchema = ReadTransferResponse$outboundSchema;
+  /** @deprecated use `ReadTransferResponse$Outbound` instead. */
+  export type Outbound = ReadTransferResponse$Outbound;
+}
+
+export function readTransferResponseToJSON(
+  readTransferResponse: ReadTransferResponse,
+): string {
+  return JSON.stringify(
+    ReadTransferResponse$outboundSchema.parse(readTransferResponse),
+  );
+}
+
+export function readTransferResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<ReadTransferResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ReadTransferResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ReadTransferResponse' from JSON`,
   );
 }

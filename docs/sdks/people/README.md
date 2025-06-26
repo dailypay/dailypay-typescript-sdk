@@ -22,7 +22,7 @@ Returns details about a person.
 ### Example Usage
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   version: 3,
@@ -47,8 +47,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "DailyPay/core.js";
-import { peopleRead } from "DailyPay/funcs/peopleRead.js";
+import { SDKCore } from "dailypay/dailypay/core.js";
+import { peopleRead } from "dailypay/dailypay/funcs/peopleRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -85,7 +85,7 @@ run();
 
 ### Response
 
-**Promise\<[models.PersonData](../../models/persondata.md)\>**
+**Promise\<[operations.ReadPersonResponse](../../models/operations/readpersonresponse.md)\>**
 
 ### Errors
 
@@ -105,7 +105,7 @@ Update a person object.
 ### Example Usage
 
 ```typescript
-import { SDK } from "DailyPay";
+import { SDK } from "dailypay/dailypay";
 
 const sdk = new SDK({
   version: 3,
@@ -139,8 +139,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "DailyPay/core.js";
-import { peopleUpdate } from "DailyPay/funcs/peopleUpdate.js";
+import { SDKCore } from "dailypay/dailypay/core.js";
+import { peopleUpdate } from "dailypay/dailypay/funcs/peopleUpdate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -186,7 +186,7 @@ run();
 
 ### Response
 
-**Promise\<[models.PersonData](../../models/persondata.md)\>**
+**Promise\<[operations.UpdatePersonResponse](../../models/operations/updatepersonresponse.md)\>**
 
 ### Errors
 

@@ -26,6 +26,14 @@ export type UpdatePersonRequest = {
   personData: models.PersonDataInput;
 };
 
+export type UpdatePersonResponse = {
+  httpMeta: models.HTTPMetadata;
+  /**
+   * Returns the person object.
+   */
+  personData?: models.PersonData | undefined;
+};
+
 /** @internal */
 export const UpdatePersonGlobals$inboundSchema: z.ZodType<
   UpdatePersonGlobals,
@@ -144,5 +152,72 @@ export function updatePersonRequestFromJSON(
     jsonString,
     (x) => UpdatePersonRequest$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'UpdatePersonRequest' from JSON`,
+  );
+}
+
+/** @internal */
+export const UpdatePersonResponse$inboundSchema: z.ZodType<
+  UpdatePersonResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  HttpMeta: models.HTTPMetadata$inboundSchema,
+  PersonData: models.PersonData$inboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    "HttpMeta": "httpMeta",
+    "PersonData": "personData",
+  });
+});
+
+/** @internal */
+export type UpdatePersonResponse$Outbound = {
+  HttpMeta: models.HTTPMetadata$Outbound;
+  PersonData?: models.PersonData$Outbound | undefined;
+};
+
+/** @internal */
+export const UpdatePersonResponse$outboundSchema: z.ZodType<
+  UpdatePersonResponse$Outbound,
+  z.ZodTypeDef,
+  UpdatePersonResponse
+> = z.object({
+  httpMeta: models.HTTPMetadata$outboundSchema,
+  personData: models.PersonData$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    httpMeta: "HttpMeta",
+    personData: "PersonData",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdatePersonResponse$ {
+  /** @deprecated use `UpdatePersonResponse$inboundSchema` instead. */
+  export const inboundSchema = UpdatePersonResponse$inboundSchema;
+  /** @deprecated use `UpdatePersonResponse$outboundSchema` instead. */
+  export const outboundSchema = UpdatePersonResponse$outboundSchema;
+  /** @deprecated use `UpdatePersonResponse$Outbound` instead. */
+  export type Outbound = UpdatePersonResponse$Outbound;
+}
+
+export function updatePersonResponseToJSON(
+  updatePersonResponse: UpdatePersonResponse,
+): string {
+  return JSON.stringify(
+    UpdatePersonResponse$outboundSchema.parse(updatePersonResponse),
+  );
+}
+
+export function updatePersonResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdatePersonResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdatePersonResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdatePersonResponse' from JSON`,
   );
 }

@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -14,6 +15,7 @@ export type ErrorUnexpectedData = {
    * A list of errors that occurred.
    */
   errors: Array<models.ErrorUnexpectedError>;
+  httpMeta: models.HTTPMetadata;
 };
 
 /**
@@ -50,12 +52,17 @@ export const ErrorUnexpected$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   errors: z.array(models.ErrorUnexpectedError$inboundSchema),
+  HttpMeta: models.HTTPMetadata$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
 })
   .transform((v) => {
-    return new ErrorUnexpected(v, {
+    const remapped = remap$(v, {
+      "HttpMeta": "httpMeta",
+    });
+
+    return new ErrorUnexpected(remapped, {
       request: v.request$,
       response: v.response$,
       body: v.body$,
@@ -65,6 +72,7 @@ export const ErrorUnexpected$inboundSchema: z.ZodType<
 /** @internal */
 export type ErrorUnexpected$Outbound = {
   errors: Array<models.ErrorUnexpectedError$Outbound>;
+  HttpMeta: models.HTTPMetadata$Outbound;
 };
 
 /** @internal */
@@ -74,9 +82,16 @@ export const ErrorUnexpected$outboundSchema: z.ZodType<
   ErrorUnexpected
 > = z.instanceof(ErrorUnexpected)
   .transform(v => v.data$)
-  .pipe(z.object({
-    errors: z.array(models.ErrorUnexpectedError$outboundSchema),
-  }));
+  .pipe(
+    z.object({
+      errors: z.array(models.ErrorUnexpectedError$outboundSchema),
+      httpMeta: models.HTTPMetadata$outboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        httpMeta: "HttpMeta",
+      });
+    }),
+  );
 
 /**
  * @internal

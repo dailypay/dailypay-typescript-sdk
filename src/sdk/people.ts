@@ -5,7 +5,6 @@
 import { peopleRead } from "../funcs/peopleRead.js";
 import { peopleUpdate } from "../funcs/peopleUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +18,7 @@ export class People extends ClientSDK {
   async read(
     request: operations.ReadPersonRequest,
     options?: RequestOptions,
-  ): Promise<models.PersonData> {
+  ): Promise<operations.ReadPersonResponse> {
     return unwrapAsync(peopleRead(
       this,
       request,
@@ -36,7 +35,7 @@ export class People extends ClientSDK {
   async update(
     request: operations.UpdatePersonRequest,
     options?: RequestOptions,
-  ): Promise<models.PersonData> {
+  ): Promise<operations.UpdatePersonResponse> {
     return unwrapAsync(peopleUpdate(
       this,
       request,

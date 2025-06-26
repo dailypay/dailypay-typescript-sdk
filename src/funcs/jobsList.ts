@@ -21,7 +21,6 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -39,7 +38,7 @@ export function jobsList(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.JobsData,
+    operations.ListJobsResponse,
     | errors.ErrorBadRequest
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -68,7 +67,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.JobsData,
+      operations.ListJobsResponse,
       | errors.ErrorBadRequest
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
@@ -170,7 +169,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.JobsData,
+    operations.ListJobsResponse,
     | errors.ErrorBadRequest
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
@@ -184,8 +183,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.JobsData$inboundSchema, {
+    M.json(200, operations.ListJobsResponse$inboundSchema, {
       ctype: "application/vnd.api+json",
+      key: "JobsData",
     }),
     M.jsonErr(400, errors.ErrorBadRequest$inboundSchema, {
       ctype: "application/vnd.api+json",

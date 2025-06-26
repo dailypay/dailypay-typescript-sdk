@@ -5,7 +5,7 @@ The request contained an error
 ## Example Usage
 
 ```typescript
-import { AccountCreateError } from "DailyPay/models/errors";
+import { AccountCreateError } from "dailypay/dailypay/models/errors";
 
 // No examples available for this model
 ```
@@ -15,3 +15,4 @@ import { AccountCreateError } from "DailyPay/models/errors";
 | Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | `errors`                                                                    | [models.ErrorAccountCreateError](../../models/erroraccountcreateerror.md)[] | :heavy_check_mark:                                                          | A list of errors that occurred.                                             |
+| `httpMeta`                                                                  | [models.HTTPMetadata](../../models/httpmetadata.md)                         | :heavy_check_mark:                                                          | N/A                                                                         |

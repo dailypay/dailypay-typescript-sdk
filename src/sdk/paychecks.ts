@@ -5,7 +5,6 @@
 import { paychecksList } from "../funcs/paychecksList.js";
 import { paychecksRead } from "../funcs/paychecksRead.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
-import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +18,7 @@ export class Paychecks extends ClientSDK {
   async read(
     request: operations.ReadPaycheckRequest,
     options?: RequestOptions,
-  ): Promise<models.PaycheckData> {
+  ): Promise<operations.ReadPaycheckResponse> {
     return unwrapAsync(paychecksRead(
       this,
       request,
@@ -37,7 +36,7 @@ export class Paychecks extends ClientSDK {
   async list(
     request?: operations.ListPaychecksRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.PaychecksData> {
+  ): Promise<operations.ListPaychecksResponse> {
     return unwrapAsync(paychecksList(
       this,
       request,
