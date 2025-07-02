@@ -18,11 +18,11 @@ generation:
     oAuth2PasswordEnabled: true
   sdkHooksConfigAccess: true
   tests:
-    generateTests: false
+    generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.1.1
+  version: 0.2.0
   additionalDependencies:
     dependencies: {}
     devDependencies: {}

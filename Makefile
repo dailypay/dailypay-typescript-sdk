@@ -1,26 +1,19 @@
-#Colors
-YELLOW := \033[1;33m
-CYAN := \033[1;36m
-GREEN := \033[1;32m
-NC := \033[0m
+.PHONY: generate-all generate-sdk generate-tests run-test
 
-define print_banner
-	@echo ""
-	@echo "$(YELLOW)=========================================$(NC)"
-	@echo "$(CYAN)>>> $1$(NC)"
-	@echo "$(YELLOW)=========================================$(NC)"
-	@echo ""
-endef
+# Generate SDK and tests, then run tests
+generate-all:
+	$(MAKE) generate-sdk
+	$(MAKE) generate-tests
+	$(MAKE) run-test
 
-define print_end_banner
-	@echo ""
-	@echo "$(YELLOW)=========================================$(NC)"
-	@echo "$(GREEN)>>> $1$(NC)"
-	@echo "$(YELLOW)=========================================$(NC)"
-	@echo ""
-endef
-
-#This will generate the SDK based on source's sdks.openapi.yaml file
+# Generate the SDK from OpenAPI spec
 generate-sdk:
-	$(call print_banner,"Generating TS SDK using source file")
-	@speakeasy run -t typescript
+	speakeasy run -t typescript
+
+# Generate tests from OpenAPI spec
+generate-tests:
+	speakeasy configure tests
+
+# Run SDK tests (requires compiled SDK in dist/)
+run-test:
+	speakeasy test
