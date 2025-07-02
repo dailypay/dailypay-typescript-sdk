@@ -19,14 +19,14 @@ define print_end_banner
 	@echo "$(YELLOW)=========================================$(NC)"
 	@echo ""
 endef
-.PHONY: generate-all generate-sdk generate-tests run-test
+.PHONY: generate-all generate-sdk generate-tests run-tests
 
 # Generate SDK and tests, then run tests
 generate-all:
 	$(call print_banner,"Generating SDK and tests, then running tests")
 	$(MAKE) generate-sdk
 	$(MAKE) generate-tests
-	$(MAKE) run-test
+	$(MAKE) run-tests
 	$(call print_end_banner,"SDK and tests were generated successfully!")
 
 # Generate the SDK from OpenAPI spec
@@ -42,7 +42,7 @@ generate-tests:
 	$(call print_end_banner,"Tests generated.")
 
 # Run SDK tests (requires compiled SDK in dist/)
-run-test:
+run-tests:
 	$(call print_banner,"Running SDK tests")
 	speakeasy test
 	$(call print_end_banner,"All tests completed.")
