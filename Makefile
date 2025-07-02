@@ -23,26 +23,26 @@ endef
 
 # Generate SDK and tests, then run tests
 generate-all:
-	$(call print_banner,"Generating SDK and tests, then running tests")
+	$(call print_banner,'Generating SDK and tests, then running tests')
 	$(MAKE) generate-sdk
 	$(MAKE) generate-tests
 	$(MAKE) run-tests
-	$(call print_end_banner,"SDK and tests were generated successfully!")
+	$(call print_end_banner,'SDK and tests were generated successfully!')
 
 # Generate the SDK from OpenAPI spec
 generate-sdk:
-	$(call print_banner,"Generating TypeScript SDK from OpenAPI spec")
+	$(call print_banner,'Generating TypeScript SDK from OpenAPI spec')
 	speakeasy run -t typescript
-	$(call print_end_banner,"SDK generated.")
+	$(call print_end_banner,'SDK generated.')
 
 # Generate tests from OpenAPI spec
 generate-tests:
-	$(call print_banner,"Generating tests from OpenAPI spec")
+	$(call print_banner,'Generating tests from OpenAPI spec')
 	speakeasy configure tests
-	$(call print_end_banner,"Tests generated.")
+	$(call print_end_banner,'Tests generated.')
 
-# Run SDK tests (requires compiled SDK in dist/)
+# Run SDK tests
 run-tests:
-	$(call print_banner,"Running SDK tests")
+	$(call print_banner,'Running SDK tests')
 	speakeasy test
-	$(call print_end_banner,"All tests completed.")
+	$(call print_end_banner,'All tests completed.')
