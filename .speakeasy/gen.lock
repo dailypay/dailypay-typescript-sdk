@@ -1,17 +1,17 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 7b2e2347da7bcd3987915e585cc4425c
+  docChecksum: 55f5d49abf6c46fa3e657493eea7d5ee
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.575.1
-  generationVersion: 2.648.1
-  releaseVersion: 0.2.0
-  configChecksum: a6f867c0337d7fbb23ae2dfa67739eea
+  speakeasyVersion: 1.579.0
+  generationVersion: 2.653.0
+  releaseVersion: 0.2.1
+  configChecksum: 542fae27fa489d6920a8ecdb8749209e
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.11
+    core: 3.21.13
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -31,7 +31,7 @@ features:
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
-    tests: 0.17.0
+    tests: 0.17.1
     unions: 2.85.11
 generatedFiles:
   - .gitattributes
@@ -262,6 +262,10 @@ generatedFiles:
   - docs/sdks/sdk/README.md
   - docs/sdks/transfers/README.md
   - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/authenticationRequestToken.example.ts
+  - examples/package.json
   - jsr.json
   - package.json
   - src/__tests__/accounts.test.ts
@@ -980,3 +984,4 @@ generatedTests:
   updatePerson: "2025-07-02T14:55:51-03:00"
   createGenericCardToken: "2025-07-02T14:55:51-03:00"
   getHealth: "2025-07-02T14:55:51-03:00"
+  createAccount: "2025-07-08T13:03:32-03:00"

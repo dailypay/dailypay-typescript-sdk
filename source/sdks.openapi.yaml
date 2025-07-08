@@ -2119,6 +2119,7 @@ components:
       required:
         - wage_rate
         - direct_deposit_status
+        - department
       properties:
         external_identifiers:
           readOnly: true

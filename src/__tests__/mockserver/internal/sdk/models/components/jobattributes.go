@@ -158,7 +158,7 @@ type JobAttributes struct {
 	ActivationStatus *ActivationStatus `json:"activation_status,omitempty"`
 	WageRate         WageRate          `json:"wage_rate"`
 	Title            *string           `json:"title,omitempty"`
-	Department       *string           `json:"department,omitempty"`
+	Department       *string           `json:"department"`
 	Location         *string           `json:"location,omitempty"`
 	// - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource's relationships to set up direct deposit.
 	// - `SETUP_PENDING` A system action is still pending.

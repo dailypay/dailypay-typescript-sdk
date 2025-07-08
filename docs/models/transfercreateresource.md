@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TransferCreateResource } from "@dailypay/dailypay";
+import { TransferCreateResource } from "@dailypay/dailypay/models";
 
 let value: TransferCreateResource = {
   id: "aba332a2-24a2-46de-8257-5040e71ab210",

@@ -5,7 +5,7 @@ An account with type `DEPOSITORY` and subtype `SAVINGS` or `CHECKING`.
 ## Example Usage
 
 ```typescript
-import { Depository } from "@dailypay/dailypay";
+import { Depository } from "@dailypay/dailypay/models";
 
 let value: Depository = {
   verificationStatus: "VERIFIED",

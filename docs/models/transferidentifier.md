@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TransferIdentifier } from "@dailypay/dailypay";
+import { TransferIdentifier } from "@dailypay/dailypay/models";
 
 let value: TransferIdentifier = {
   id: "aba332a2-24a2-46de-8257-5040e71ab210",

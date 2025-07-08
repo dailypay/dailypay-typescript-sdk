@@ -98,7 +98,7 @@ export type JobAttributes = {
   activationStatus?: ActivationStatus | undefined;
   wageRate: WageRate;
   title?: string | null | undefined;
-  department?: string | null | undefined;
+  department: string | null;
   location?: string | undefined;
   /**
    * - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource's relationships to set up direct deposit.
@@ -250,7 +250,7 @@ export const JobAttributes$inboundSchema: z.ZodType<
   activation_status: ActivationStatus$inboundSchema.optional(),
   wage_rate: z.lazy(() => WageRate$inboundSchema),
   title: z.nullable(z.string()).optional(),
-  department: z.nullable(z.string()).optional(),
+  department: z.nullable(z.string()),
   location: z.string().optional(),
   direct_deposit_status: DirectDepositStatus$inboundSchema,
 }).transform((v) => {
@@ -272,7 +272,7 @@ export type JobAttributes$Outbound = {
   activation_status?: string | undefined;
   wage_rate: WageRate$Outbound;
   title?: string | null | undefined;
-  department?: string | null | undefined;
+  department: string | null;
   location?: string | undefined;
   direct_deposit_status: string;
 };
@@ -289,7 +289,7 @@ export const JobAttributes$outboundSchema: z.ZodType<
   activationStatus: ActivationStatus$outboundSchema.optional(),
   wageRate: z.lazy(() => WageRate$outboundSchema),
   title: z.nullable(z.string()).optional(),
-  department: z.nullable(z.string()).optional(),
+  department: z.nullable(z.string()),
   location: z.string().optional(),
   directDepositStatus: DirectDepositStatus$outboundSchema,
 }).transform((v) => {

@@ -5,7 +5,7 @@ Returns the person object.
 ## Example Usage
 
 ```typescript
-import { PersonData } from "@dailypay/dailypay";
+import { PersonData } from "@dailypay/dailypay/models";
 
 let value: PersonData = {
   data: {

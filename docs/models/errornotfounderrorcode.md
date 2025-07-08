@@ -5,7 +5,7 @@ A code that indicates what went wrong.
 ## Example Usage
 
 ```typescript
-import { ErrorNotFoundErrorCode } from "@dailypay/dailypay";
+import { ErrorNotFoundErrorCode } from "@dailypay/dailypay/models";
 
 let value: ErrorNotFoundErrorCode = "RECORD_NOT_FOUND";
 ```
