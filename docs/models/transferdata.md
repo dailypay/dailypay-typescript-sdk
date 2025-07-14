@@ -9,6 +9,7 @@ import { TransferData } from "@dailypay/dailypay/models";
 
 let value: TransferData = {
   data: {
+    type: "transfers",
     id: "aba332a2-24a2-46de-8257-5040e71ab210",
     attributes: {
       preview: true,
@@ -27,16 +28,19 @@ let value: TransferData = {
     relationships: {
       origin: {
         data: {
+          type: "paychecks",
           id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
         },
       },
       destination: {
         data: {
+          type: "accounts",
           id: "2bc7d781-3247-46f6-b60f-4090d214936a",
         },
       },
       person: {
         data: {
+          type: "people",
           id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
         },
       },
@@ -46,6 +50,7 @@ let value: TransferData = {
       finalFundingSources: {
         data: [
           {
+            type: "funding_sources",
             id: "b5393c00b7c113fc2e5ae3e80c785bb2",
           },
         ],
@@ -55,6 +60,7 @@ let value: TransferData = {
   included: [
     {
       id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+      type: "funding_sources",
       attributes: {
         amount: 2500,
         currency: "USD",
@@ -62,11 +68,13 @@ let value: TransferData = {
       relationships: {
         source: {
           data: {
+            type: "paychecks",
             id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
           },
         },
         transfer: {
           data: {
+            type: "transfers",
             id: "aba332a2-24a2-46de-8257-5040e71ab210",
           },
         },

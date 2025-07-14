@@ -16,6 +16,7 @@ system-created record that describes a credit of earnings to an account with `ac
 ```typescript
 const value: models.AccountRelationship = {
   data: {
+    type: "accounts",
     id: "2bc7d781-3247-46f6-b60f-4090d214936a",
   },
 };
@@ -26,6 +27,7 @@ const value: models.AccountRelationship = {
 ```typescript
 const value: models.PaycheckRelationship = {
   data: {
+    type: "paychecks",
     id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
   },
 };

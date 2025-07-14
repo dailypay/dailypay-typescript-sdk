@@ -1,6 +1,6 @@
 {
   "name": "@dailypay/dailypay",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "DailyPay, Inc.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -30,7 +30,7 @@
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "zod": ">= 3"
+    "zod": "^3"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

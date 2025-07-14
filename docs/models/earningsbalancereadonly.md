@@ -29,6 +29,8 @@ let value: EarningsBalanceReadOnly = {
     ],
   },
   name: "DailyPay Pay Balance",
+  accountType: "EARNINGS_BALANCE",
+  subtype: "ODP",
   details: {},
 };
 ```

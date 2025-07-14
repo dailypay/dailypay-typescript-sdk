@@ -29,6 +29,7 @@ let value: CardOutput = {
     ],
   },
   name: "Debit Card",
+  accountType: "CARD",
   subtype: "DEBIT",
   details: {
     firstName: "Edith",

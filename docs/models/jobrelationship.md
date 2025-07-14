@@ -7,6 +7,7 @@ import { JobRelationship } from "@dailypay/dailypay/models";
 
 let value: JobRelationship = {
   data: {
+    type: "jobs",
     id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
   },
 };

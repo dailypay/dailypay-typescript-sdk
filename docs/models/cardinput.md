@@ -9,6 +9,7 @@ import { CardInput } from "@dailypay/dailypay/models";
 
 let value: CardInput = {
   name: "Debit Card",
+  accountType: "CARD",
   subtype: "DEBIT",
   details: {
     firstName: "Edith",

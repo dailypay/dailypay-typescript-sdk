@@ -29,6 +29,7 @@ let value: Depository = {
     ],
   },
   name: "Checking Account",
+  accountType: "DEPOSITORY",
   subtype: "CHECKING",
   depositoryAccountDetails: {
     firstName: "Edith",
