@@ -3,16 +3,18 @@
 ## Example Usage
 
 ```typescript
-import { FundingSourceRelationships } from "@dailypay/dailypay";
+import { FundingSourceRelationships } from "@dailypay/dailypay/models";
 
 let value: FundingSourceRelationships = {
   source: {
     data: {
+      type: "paychecks",
       id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
     },
   },
   transfer: {
     data: {
+      type: "transfers",
       id: "aba332a2-24a2-46de-8257-5040e71ab210",
     },
   },
