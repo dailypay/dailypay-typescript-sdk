@@ -5,7 +5,7 @@ A person is a record of someone known to DailyPay. There will only ever be one p
 ## Example Usage
 
 ```typescript
-import { PersonAttributes } from "@dailypay/sdk-typescript/models";
+import { PersonAttributes } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: PersonAttributes = {
   disallowReason: null,

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { HTTPMetadata } from "@dailypay/sdk-typescript/models";
+import { HTTPMetadata } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: HTTPMetadata = {};
 ```

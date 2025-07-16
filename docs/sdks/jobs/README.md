@@ -23,7 +23,7 @@ Returns details about a person's employment.
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   version: 3,
@@ -48,8 +48,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/sdk-typescript/core.js";
-import { jobsRead } from "@dailypay/sdk-typescript/funcs/jobsRead.js";
+import { SDKCore } from "@dailypay/dailypay-typescript-sdk/core.js";
+import { jobsRead } from "@dailypay/dailypay-typescript-sdk/funcs/jobsRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -108,7 +108,7 @@ Returns the job object if the update succeeded. Returns an error if update param
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   version: 3,
@@ -156,8 +156,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/sdk-typescript/core.js";
-import { jobsUpdate } from "@dailypay/sdk-typescript/funcs/jobsUpdate.js";
+import { SDKCore } from "@dailypay/dailypay-typescript-sdk/core.js";
+import { jobsUpdate } from "@dailypay/dailypay-typescript-sdk/funcs/jobsUpdate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -239,7 +239,7 @@ See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Suppor
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   version: 3,
@@ -262,8 +262,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/sdk-typescript/core.js";
-import { jobsList } from "@dailypay/sdk-typescript/funcs/jobsList.js";
+import { SDKCore } from "@dailypay/dailypay-typescript-sdk/core.js";
+import { jobsList } from "@dailypay/dailypay-typescript-sdk/funcs/jobsList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

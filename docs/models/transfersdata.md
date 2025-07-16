@@ -5,7 +5,7 @@ A list of transfer objects.
 ## Example Usage
 
 ```typescript
-import { TransfersData } from "@dailypay/sdk-typescript/models";
+import { TransfersData } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: TransfersData = {
   data: [],

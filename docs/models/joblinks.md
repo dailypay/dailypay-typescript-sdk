@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { JobLinks } from "@dailypay/sdk-typescript/models";
+import { JobLinks } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: JobLinks = {
   self:

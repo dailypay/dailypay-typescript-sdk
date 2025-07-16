@@ -1,9 +1,9 @@
-# @dailypay/sdk-typescript
+# @dailypay/dailypay-typescript-sdk
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *@dailypay/sdk-typescript* API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage *@dailypay/dailypay-typescript-sdk* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=@dailypay/sdk-typescript&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=@dailypay/dailypay-typescript-sdk&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -31,7 +31,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [@dailypay/sdk-typescript](#dailypaysdk-typescript)
+* [@dailypay/dailypay-typescript-sdk](#dailypaydailypay-typescript-sdk)
   * [SDK Installation](#sdk-installation)
   * [Requirements](#requirements)
   * [SDK Example Usage](#sdk-example-usage)
@@ -101,7 +101,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 ### Example
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK();
 
@@ -136,7 +136,7 @@ This SDK supports the following security schemes globally:
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   security: {
@@ -260,7 +260,7 @@ Some of the endpoints in this SDK support retries.  If you use the SDK without a
 
 To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK();
 
@@ -293,7 +293,7 @@ run();
 
 If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   retryConfig: {
@@ -339,8 +339,8 @@ run();
 
 ### Example
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
-import * as errors from "@dailypay/sdk-typescript/models/errors";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
+import * as errors from "@dailypay/dailypay-typescript-sdk/models/errors";
 
 const sdk = new SDK();
 
@@ -424,7 +424,7 @@ The default server `https://api.{environment}.com` contains variables and is set
 #### Example
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   environment: "dailypayuat",
@@ -450,7 +450,7 @@ run();
 
 The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({
   serverURL: "https://api.dailypay.com",
@@ -476,7 +476,7 @@ run();
 
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK();
 
@@ -517,8 +517,8 @@ custom header and a timeout to requests and how to use the `"requestError"` hook
 to log errors:
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
-import { HTTPClient } from "@dailypay/sdk-typescript/lib/http";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
+import { HTTPClient } from "@dailypay/dailypay-typescript-sdk/lib/http";
 
 const httpClient = new HTTPClient({
   // fetcher takes a function that has the same signature as native `fetch`.
@@ -559,7 +559,7 @@ You can pass a logger that matches `console`'s interface as an SDK option.
 > Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
 
 ```typescript
-import { SDK } from "@dailypay/sdk-typescript";
+import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
 const sdk = new SDK({ debugLogger: console });
 ```
@@ -580,4 +580,4 @@ looking for the latest version.
 While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=@dailypay/sdk-typescript&utm_campaign=typescript)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=@dailypay/dailypay-typescript-sdk&utm_campaign=typescript)

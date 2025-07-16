@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorTransferCreateError } from "@dailypay/sdk-typescript/models";
+import { ErrorTransferCreateError } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: ErrorTransferCreateError = {
   code: "INVALID_ORIGIN",

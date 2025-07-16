@@ -5,7 +5,7 @@ Resource was not found
 ## Example Usage
 
 ```typescript
-import { ErrorNotFound } from "@dailypay/sdk-typescript/models/errors";
+import { ErrorNotFound } from "@dailypay/dailypay-typescript-sdk/models/errors";
 
 // No examples available for this model
 ```

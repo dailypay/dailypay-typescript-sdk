@@ -10,7 +10,7 @@ The statuses and required actions are:
 ## Example Usage
 
 ```typescript
-import { DisallowReason } from "@dailypay/sdk-typescript/models";
+import { DisallowReason } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: DisallowReason = "INACTIVE";
 ```

@@ -5,7 +5,7 @@ A list of links to resources that may be helpful in resolving the error.
 ## Example Usage
 
 ```typescript
-import { ErrorJobUpdateErrorLinks } from "@dailypay/sdk-typescript/models";
+import { ErrorJobUpdateErrorLinks } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: ErrorJobUpdateErrorLinks = {
   about: "https://developer.dailypay.com/tag/Errors",

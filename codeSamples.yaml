@@ -9,7 +9,7 @@ actions:
         - lang: typescript
           label: createGenericCardToken
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK();
 
@@ -39,7 +39,7 @@ actions:
         - lang: typescript
           label: requestToken
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK();
 
@@ -62,7 +62,7 @@ actions:
         - lang: typescript
           label: listAccounts
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -86,7 +86,7 @@ actions:
         - lang: typescript
           label: createAccount
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -131,7 +131,7 @@ actions:
         - lang: typescript
           label: readAccount
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -155,7 +155,7 @@ actions:
         - lang: typescript
           label: getHealth
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               security: {
@@ -176,7 +176,7 @@ actions:
         - lang: typescript
           label: listJobs
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -198,7 +198,7 @@ actions:
         - lang: typescript
           label: readJob
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -222,7 +222,7 @@ actions:
         - lang: typescript
           label: updateJob
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -269,7 +269,7 @@ actions:
         - lang: typescript
           label: listOrganizations
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -291,7 +291,7 @@ actions:
         - lang: typescript
           label: readOrganization
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -315,7 +315,7 @@ actions:
         - lang: typescript
           label: listPaychecks
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -344,7 +344,7 @@ actions:
         - lang: typescript
           label: readPaycheck
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -368,7 +368,7 @@ actions:
         - lang: typescript
           label: readPerson
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -392,7 +392,7 @@ actions:
         - lang: typescript
           label: updatePerson
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -425,7 +425,7 @@ actions:
         - lang: typescript
           label: listTransfers
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -447,7 +447,7 @@ actions:
         - lang: typescript
           label: createTransfer
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,
@@ -503,7 +503,7 @@ actions:
         - lang: typescript
           label: readTransfer
           source: |-
-            import { SDK } from "@dailypay/sdk-typescript";
+            import { SDK } from "@dailypay/dailypay-typescript-sdk";
 
             const sdk = new SDK({
               version: 3,

@@ -5,7 +5,7 @@ Returns the newly created transfer object.
 ## Example Usage
 
 ```typescript
-import { TransferData } from "@dailypay/sdk-typescript/models";
+import { TransferData } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: TransferData = {
   data: {

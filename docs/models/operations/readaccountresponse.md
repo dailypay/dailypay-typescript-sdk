@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ReadAccountResponse } from "@dailypay/sdk-typescript/models/operations";
+import { ReadAccountResponse } from "@dailypay/dailypay-typescript-sdk/models/operations";
 
 let value: ReadAccountResponse = {};
 ```

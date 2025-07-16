@@ -5,7 +5,7 @@ The subtype of the account.
 ## Example Usage
 
 ```typescript
-import { AccountAttributesCardSubtype } from "@dailypay/sdk-typescript/models";
+import { AccountAttributesCardSubtype } from "@dailypay/dailypay-typescript-sdk/models";
 
 let value: AccountAttributesCardSubtype = "DEBIT";
 ```
