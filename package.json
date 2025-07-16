@@ -1,6 +1,6 @@
 {
   "name": "@dailypay/dailypay",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "DailyPay, Inc.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -22,13 +22,17 @@
     }
   },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dailypay/dailypay-typescript-sdk.git"
+  },
   "scripts": {
     "lint": "eslint --cache --max-warnings=0 src",
     "build": "tshy",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
-    "zod": ">= 3"
+    "zod": "^3"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
