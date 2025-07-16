@@ -241,7 +241,7 @@ Request a Dailypay user access token, as described in the <a href='https://datat
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/dailypay";
+import { SDK } from "DailyPay.SDK.Typescript";
 
 const sdk = new SDK();
 
@@ -265,8 +265,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/dailypay/core.js";
-import { authenticationRequestToken } from "@dailypay/dailypay/funcs/authenticationRequestToken.js";
+import { SDKCore } from "DailyPay.SDK.Typescript/core.js";
+import { authenticationRequestToken } from "DailyPay.SDK.Typescript/funcs/authenticationRequestToken.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

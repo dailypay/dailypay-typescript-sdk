@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { RefreshToken } from "@dailypay/dailypay/models/operations";
+import { RefreshToken } from "DailyPay.SDK.Typescript/models/operations";
 
 let value: RefreshToken = {
   grantType: "refresh_token",

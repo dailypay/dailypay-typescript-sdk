@@ -3,11 +3,13 @@
 ## Example Usage
 
 ```typescript
-import { AccountResourceInput } from "@dailypay/dailypay";
+import { AccountResourceInput } from "DailyPay.SDK.Typescript/models";
 
 let value: AccountResourceInput = {
+  type: "accounts",
   attributes: {
     name: "Debit Card",
+    accountType: "CARD",
     subtype: "DEBIT",
     details: {
       galileoCardId: "40769",
@@ -17,6 +19,7 @@ let value: AccountResourceInput = {
   relationships: {
     person: {
       data: {
+        type: "people",
         id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
       },
     },

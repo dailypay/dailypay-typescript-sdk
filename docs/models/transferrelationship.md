@@ -3,10 +3,11 @@
 ## Example Usage
 
 ```typescript
-import { TransferRelationship } from "@dailypay/dailypay";
+import { TransferRelationship } from "DailyPay.SDK.Typescript/models";
 
 let value: TransferRelationship = {
   data: {
+    type: "transfers",
     id: "aba332a2-24a2-46de-8257-5040e71ab210",
   },
 };

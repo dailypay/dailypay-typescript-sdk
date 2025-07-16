@@ -6,21 +6,24 @@ The relationships between the transfer and other resources, including the destin
 ## Example Usage
 
 ```typescript
-import { TransferRelationships } from "@dailypay/dailypay";
+import { TransferRelationships } from "DailyPay.SDK.Typescript/models";
 
 let value: TransferRelationships = {
   origin: {
     data: {
+      type: "paychecks",
       id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
     },
   },
   destination: {
     data: {
+      type: "accounts",
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
     },
   },
   person: {
     data: {
+      type: "people",
       id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
     },
   },
@@ -30,6 +33,7 @@ let value: TransferRelationships = {
   finalFundingSources: {
     data: [
       {
+        type: "funding_sources",
         id: "b5393c00b7c113fc2e5ae3e80c785bb2",
       },
     ],

@@ -5,10 +5,11 @@ Returns the job object.
 ## Example Usage
 
 ```typescript
-import { JobData } from "@dailypay/dailypay";
+import { JobData } from "DailyPay.SDK.Typescript/models";
 
 let value: JobData = {
   data: {
+    type: "jobs",
     id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     attributes: {
       externalIdentifiers: {
@@ -34,21 +35,25 @@ let value: JobData = {
     relationships: {
       person: {
         data: {
+          type: "people",
           id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
         },
       },
       organization: {
         data: {
+          type: "organizations",
           id: "f0b30634-108c-439c-a8c1-c6a91197f022",
         },
       },
       directDepositDefaultDepository: {
         data: {
+          type: "accounts",
           id: "2bc7d781-3247-46f6-b60f-4090d214936a",
         },
       },
       directDepositDefaultCard: {
         data: {
+          type: "accounts",
           id: "2bc7d781-3247-46f6-b60f-4090d214936a",
         },
       },

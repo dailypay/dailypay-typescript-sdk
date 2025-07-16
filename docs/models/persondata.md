@@ -5,10 +5,11 @@ Returns the person object.
 ## Example Usage
 
 ```typescript
-import { PersonData } from "@dailypay/dailypay";
+import { PersonData } from "DailyPay.SDK.Typescript/models";
 
 let value: PersonData = {
   data: {
+    type: "people",
     id: "aa860051-c411-4709-9685-c1b716df611b",
     attributes: {
       disallowReason: null,

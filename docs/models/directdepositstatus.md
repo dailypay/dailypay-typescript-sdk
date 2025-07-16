@@ -8,7 +8,7 @@
 ## Example Usage
 
 ```typescript
-import { DirectDepositStatus } from "@dailypay/dailypay";
+import { DirectDepositStatus } from "DailyPay.SDK.Typescript/models";
 
 let value: DirectDepositStatus = "SETUP_COMPLETE";
 ```

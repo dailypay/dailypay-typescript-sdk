@@ -5,7 +5,7 @@ A code that indicates what went wrong.
 ## Example Usage
 
 ```typescript
-import { ErrorUnexpectedErrorCode } from "@dailypay/dailypay";
+import { ErrorUnexpectedErrorCode } from "DailyPay.SDK.Typescript/models";
 
 let value: ErrorUnexpectedErrorCode = "UNEXPECTED_ERROR";
 ```

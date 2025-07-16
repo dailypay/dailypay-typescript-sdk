@@ -3,15 +3,15 @@ id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
   docChecksum: 7b2e2347da7bcd3987915e585cc4425c
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.570.2
-  generationVersion: 2.638.5
-  releaseVersion: 0.1.1
-  configChecksum: 1ca16982dfa3cb2a6cdfcd004a533ae3
+  speakeasyVersion: 1.582.0
+  generationVersion: 2.657.1
+  releaseVersion: 0.1.3
+  configChecksum: 6be496626d60d95830ae67bd45dfea78
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.11
+    core: 3.21.14
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -260,6 +260,10 @@ generatedFiles:
   - docs/sdks/sdk/README.md
   - docs/sdks/transfers/README.md
   - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/authenticationRequestToken.example.ts
+  - examples/package.json
   - jsr.json
   - package.json
   - src/core.ts

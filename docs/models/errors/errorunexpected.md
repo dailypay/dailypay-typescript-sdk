@@ -5,7 +5,7 @@ Unexpected error occured
 ## Example Usage
 
 ```typescript
-import { ErrorUnexpected } from "@dailypay/dailypay/models/errors";
+import { ErrorUnexpected } from "DailyPay.SDK.Typescript/models/errors";
 
 // No examples available for this model
 ```

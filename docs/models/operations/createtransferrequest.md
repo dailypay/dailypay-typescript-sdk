@@ -3,10 +3,42 @@
 ## Example Usage
 
 ```typescript
-import { CreateTransferRequest } from "@dailypay/dailypay/models/operations";
+import { CreateTransferRequest } from "DailyPay.SDK.Typescript/models/operations";
 
 let value: CreateTransferRequest = {
   idempotencyKey: "452bfada-ad7f-4795-8c64-2fdbe87fed90",
+  transferCreateData: {
+    data: {
+      type: "transfers",
+      id: "aba332a2-24a2-46de-8257-5040e71ab210",
+      attributes: {
+        preview: true,
+        amount: 2500,
+        currency: "USD",
+        schedule: "WITHIN_THIRTY_MINUTES",
+      },
+      relationships: {
+        origin: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+        destination: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+        person: {
+          data: {
+            type: "people",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+      },
+    },
+  },
 };
 ```
 

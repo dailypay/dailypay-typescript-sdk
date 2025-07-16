@@ -23,7 +23,7 @@ Returns details about a person's employment.
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/dailypay";
+import { SDK } from "DailyPay.SDK.Typescript";
 
 const sdk = new SDK({
   version: 3,
@@ -48,8 +48,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/dailypay/core.js";
-import { jobsRead } from "@dailypay/dailypay/funcs/jobsRead.js";
+import { SDKCore } from "DailyPay.SDK.Typescript/core.js";
+import { jobsRead } from "DailyPay.SDK.Typescript/funcs/jobsRead.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -108,7 +108,7 @@ Returns the job object if the update succeeded. Returns an error if update param
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/dailypay";
+import { SDK } from "DailyPay.SDK.Typescript";
 
 const sdk = new SDK({
   version: 3,
@@ -156,8 +156,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/dailypay/core.js";
-import { jobsUpdate } from "@dailypay/dailypay/funcs/jobsUpdate.js";
+import { SDKCore } from "DailyPay.SDK.Typescript/core.js";
+import { jobsUpdate } from "DailyPay.SDK.Typescript/funcs/jobsUpdate.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -239,7 +239,7 @@ See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Suppor
 ### Example Usage
 
 ```typescript
-import { SDK } from "@dailypay/dailypay";
+import { SDK } from "DailyPay.SDK.Typescript";
 
 const sdk = new SDK({
   version: 3,
@@ -262,8 +262,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "@dailypay/dailypay/core.js";
-import { jobsList } from "@dailypay/dailypay/funcs/jobsList.js";
+import { SDKCore } from "DailyPay.SDK.Typescript/core.js";
+import { jobsList } from "DailyPay.SDK.Typescript/funcs/jobsList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

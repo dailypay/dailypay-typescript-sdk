@@ -8,7 +8,7 @@ when we update estimated earnings based on current employment.
 ## Example Usage
 
 ```typescript
-import { TransferAttributes } from "@dailypay/dailypay";
+import { TransferAttributes } from "DailyPay.SDK.Typescript/models";
 
 let value: TransferAttributes = {
   preview: true,

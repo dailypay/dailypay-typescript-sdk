@@ -5,7 +5,7 @@ A code that indicates what went wrong.
 ## Example Usage
 
 ```typescript
-import { ErrorUnauthorizedErrorCode } from "@dailypay/dailypay";
+import { ErrorUnauthorizedErrorCode } from "DailyPay.SDK.Typescript/models";
 
 let value: ErrorUnauthorizedErrorCode = "INVALID_TOKEN";
 ```

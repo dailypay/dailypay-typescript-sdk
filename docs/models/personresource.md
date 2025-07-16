@@ -3,9 +3,10 @@
 ## Example Usage
 
 ```typescript
-import { PersonResource } from "@dailypay/dailypay";
+import { PersonResource } from "DailyPay.SDK.Typescript/models";
 
 let value: PersonResource = {
+  type: "people",
   id: "aa860051-c411-4709-9685-c1b716df611b",
   attributes: {
     disallowReason: null,

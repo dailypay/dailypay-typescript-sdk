@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { FilterPaycheckStatus } from "@dailypay/dailypay";
+import { FilterPaycheckStatus } from "DailyPay.SDK.Typescript/models";
 
 let value: FilterPaycheckStatus = "IN_TRANSIT";
 ```

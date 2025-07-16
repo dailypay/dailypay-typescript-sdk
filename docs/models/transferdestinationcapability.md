@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TransferDestinationCapability } from "@dailypay/dailypay";
+import { TransferDestinationCapability } from "DailyPay.SDK.Typescript/models";
 
 let value: TransferDestinationCapability = {
   schedule: "WITHIN_THIRTY_MINUTES",

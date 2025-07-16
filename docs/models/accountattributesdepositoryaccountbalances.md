@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AccountAttributesDepositoryAccountBalances } from "@dailypay/dailypay";
+import { AccountAttributesDepositoryAccountBalances } from "DailyPay.SDK.Typescript/models";
 
 let value: AccountAttributesDepositoryAccountBalances = {
   available: 12000,

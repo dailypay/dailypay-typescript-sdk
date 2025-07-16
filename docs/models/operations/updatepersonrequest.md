@@ -3,10 +3,19 @@
 ## Example Usage
 
 ```typescript
-import { UpdatePersonRequest } from "@dailypay/dailypay/models/operations";
+import { UpdatePersonRequest } from "DailyPay.SDK.Typescript/models/operations";
 
 let value: UpdatePersonRequest = {
   personId: "aa860051-c411-4709-9685-c1b716df611b",
+  personData: {
+    data: {
+      type: "people",
+      id: "aa860051-c411-4709-9685-c1b716df611b",
+      attributes: {
+        stateOfResidence: "NY",
+      },
+    },
+  },
 };
 ```
 

@@ -5,7 +5,7 @@ Something went wrong when exchanging oauth grant or refresh token for an access 
 ## Example Usage
 
 ```typescript
-import { BadRequestError } from "@dailypay/dailypay/models/errors";
+import { BadRequestError } from "DailyPay.SDK.Typescript/models/errors";
 
 // No examples available for this model
 ```

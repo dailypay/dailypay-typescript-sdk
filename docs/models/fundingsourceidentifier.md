@@ -3,9 +3,10 @@
 ## Example Usage
 
 ```typescript
-import { FundingSourceIdentifier } from "@dailypay/dailypay";
+import { FundingSourceIdentifier } from "DailyPay.SDK.Typescript/models";
 
 let value: FundingSourceIdentifier = {
+  type: "funding_sources",
   id: "b5393c00b7c113fc2e5ae3e80c785bb2",
 };
 ```

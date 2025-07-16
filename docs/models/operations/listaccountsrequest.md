@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListAccountsRequest } from "@dailypay/dailypay/models/operations";
+import { ListAccountsRequest } from "DailyPay.SDK.Typescript/models/operations";
 
 let value: ListAccountsRequest = {
   filterAccountType: "EARNINGS_BALANCE",
