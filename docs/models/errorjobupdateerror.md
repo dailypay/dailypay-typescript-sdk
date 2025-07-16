@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorJobUpdateError } from "DailyPay.SDK.Typescript/models";
+import { ErrorJobUpdateError } from "@dailypay/sdk-typescript/models";
 
 let value: ErrorJobUpdateError = {
   code: "INVALID_PARAMETERS",

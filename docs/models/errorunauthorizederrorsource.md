@@ -5,7 +5,7 @@ Location in the request that may have caused the error.
 ## Example Usage
 
 ```typescript
-import { ErrorUnauthorizedErrorSource } from "DailyPay.SDK.Typescript/models";
+import { ErrorUnauthorizedErrorSource } from "@dailypay/sdk-typescript/models";
 
 let value: ErrorUnauthorizedErrorSource = {
   parameter: "filter[first_name]",

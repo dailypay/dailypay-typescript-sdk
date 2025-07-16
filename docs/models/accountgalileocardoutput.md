@@ -5,7 +5,7 @@ An account of type CARD with subtype GALILEO.
 ## Example Usage
 
 ```typescript
-import { AccountGalileoCardOutput } from "DailyPay.SDK.Typescript/models";
+import { AccountGalileoCardOutput } from "@dailypay/sdk-typescript/models";
 
 let value: AccountGalileoCardOutput = {
   galileoCardId: "40769",

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ClientCredentialsFlow } from "DailyPay.SDK.Typescript/models/operations";
+import { ClientCredentialsFlow } from "@dailypay/sdk-typescript/models/operations";
 
 let value: ClientCredentialsFlow = {
   grantType: "client_credentials",

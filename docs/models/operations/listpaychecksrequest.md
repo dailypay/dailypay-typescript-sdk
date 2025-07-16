@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ListPaychecksRequest } from "DailyPay.SDK.Typescript/models/operations";
+import { ListPaychecksRequest } from "@dailypay/sdk-typescript/models/operations";
 
 let value: ListPaychecksRequest = {
   filterDepositExpectedAtGte: new Date("2023-03-15T04:00:00Z"),

@@ -5,7 +5,7 @@ A job describes the financial relationship between a person and an organization.
 ## Example Usage
 
 ```typescript
-import { Data } from "DailyPay.SDK.Typescript/models";
+import { Data } from "@dailypay/sdk-typescript/models";
 
 let value: Data = {
   type: "jobs",

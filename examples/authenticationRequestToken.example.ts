@@ -3,13 +3,13 @@
  */
 
 /**
- * Example usage of the DailyPay.SDK.Typescript SDK
+ * Example usage of the @dailypay/sdk-typescript SDK
  *
  * To run this example from the examples directory:
  * npm run build && npx tsx authenticationRequestToken.ts
  */
 
-import { SDK } from "DailyPay.SDK.Typescript";
+import { SDK } from "@dailypay/sdk-typescript";
 
 const sdk = new SDK();
 

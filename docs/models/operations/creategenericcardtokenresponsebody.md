@@ -6,7 +6,7 @@ Returns an opaque string representing the card details.
 ## Example Usage
 
 ```typescript
-import { CreateGenericCardTokenResponseBody } from "DailyPay.SDK.Typescript/models/operations";
+import { CreateGenericCardTokenResponseBody } from "@dailypay/sdk-typescript/models/operations";
 
 let value: CreateGenericCardTokenResponseBody = {
   token:

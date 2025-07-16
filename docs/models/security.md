@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { Security } from "DailyPay.SDK.Typescript/models";
+import { Security } from "@dailypay/sdk-typescript/models";
 
 let value: Security = {};
 ```

@@ -5,7 +5,7 @@ The expected time for the transfer to be completed.
 ## Example Usage
 
 ```typescript
-import { TransferDestinationCapabilitySchedule } from "DailyPay.SDK.Typescript/models";
+import { TransferDestinationCapabilitySchedule } from "@dailypay/sdk-typescript/models";
 
 let value: TransferDestinationCapabilitySchedule = "WITHIN_THIRTY_MINUTES";
 ```

@@ -5,7 +5,7 @@ The OAuth2 grant type
 ## Example Usage
 
 ```typescript
-import { GrantType } from "DailyPay.SDK.Typescript/models/operations";
+import { GrantType } from "@dailypay/sdk-typescript/models/operations";
 
 let value: GrantType = "authorization_code";
 ```

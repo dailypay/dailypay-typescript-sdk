@@ -5,7 +5,7 @@ Error code indicating what went wrong with the oauth token exchange. See the OAu
 ## Example Usage
 
 ```typescript
-import { ErrorCode } from "DailyPay.SDK.Typescript/models/operations";
+import { ErrorCode } from "@dailypay/sdk-typescript/models/operations";
 
 let value: ErrorCode = "unauthorized_client";
 ```

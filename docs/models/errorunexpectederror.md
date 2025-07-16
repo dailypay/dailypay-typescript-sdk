@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorUnexpectedError } from "DailyPay.SDK.Typescript/models";
+import { ErrorUnexpectedError } from "@dailypay/sdk-typescript/models";
 
 let value: ErrorUnexpectedError = {
   status: "400",

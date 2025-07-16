@@ -5,7 +5,7 @@ Returns a healthcheck document
 ## Example Usage
 
 ```typescript
-import { Health200 } from "DailyPay.SDK.Typescript/models";
+import { Health200 } from "@dailypay/sdk-typescript/models";
 
 let value: Health200 = {
   status: "UP",

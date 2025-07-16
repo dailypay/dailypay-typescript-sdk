@@ -5,7 +5,7 @@ Not authorized to perform this operation
 ## Example Usage
 
 ```typescript
-import { ErrorForbidden } from "DailyPay.SDK.Typescript/models/errors";
+import { ErrorForbidden } from "@dailypay/sdk-typescript/models/errors";
 
 // No examples available for this model
 ```

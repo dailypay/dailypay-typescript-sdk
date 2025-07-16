@@ -5,7 +5,7 @@ Location in the request that may have caused the error.
 ## Example Usage
 
 ```typescript
-import { ErrorNotFoundErrorSource } from "DailyPay.SDK.Typescript/models";
+import { ErrorNotFoundErrorSource } from "@dailypay/sdk-typescript/models";
 
 let value: ErrorNotFoundErrorSource = {
   parameter: "filter[first_name]",

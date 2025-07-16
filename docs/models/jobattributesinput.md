@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { JobAttributesInput } from "DailyPay.SDK.Typescript/models";
+import { JobAttributesInput } from "@dailypay/sdk-typescript/models";
 
 let value: JobAttributesInput = {
   activationStatus: "DEACTIVATED",

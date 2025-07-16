@@ -1,6 +1,6 @@
 <!-- Start SDK Example Usage [usage] -->
 ```typescript
-import { SDK } from "DailyPay.SDK.Typescript";
+import { SDK } from "@dailypay/sdk-typescript";
 
 const sdk = new SDK();
 

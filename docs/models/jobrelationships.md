@@ -5,7 +5,7 @@ The relationships between the job and other resources, including the accounts to
 ## Example Usage
 
 ```typescript
-import { JobRelationships } from "DailyPay.SDK.Typescript/models";
+import { JobRelationships } from "@dailypay/sdk-typescript/models";
 
 let value: JobRelationships = {
   person: {

@@ -8,7 +8,7 @@ To deactivate a job, update activation_status to `DEACTIVATED`.
 ## Example Usage
 
 ```typescript
-import { ActivationStatus } from "DailyPay.SDK.Typescript/models";
+import { ActivationStatus } from "@dailypay/sdk-typescript/models";
 
 let value: ActivationStatus = "DEACTIVATED";
 ```

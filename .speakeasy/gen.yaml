@@ -22,7 +22,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.1.3
+  version: 0.1.5
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -56,7 +56,7 @@ typescript:
   methodArguments: infer-optional-args
   moduleFormat: dual
   outputModelSuffix: output
-  packageName: DailyPay.SDK.Typescript
+  packageName: '@dailypay/sdk-typescript'
   responseFormat: envelope-http
   templateVersion: v2
   useIndexModules: true

@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { CreateAccountGlobals } from "DailyPay.SDK.Typescript/models/operations";
+import { CreateAccountGlobals } from "@dailypay/sdk-typescript/models/operations";
 
 let value: CreateAccountGlobals = {};
 ```

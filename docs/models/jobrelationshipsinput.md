@@ -5,7 +5,7 @@ The relationships between the job and other resources, including the accounts to
 ## Example Usage
 
 ```typescript
-import { JobRelationshipsInput } from "DailyPay.SDK.Typescript/models";
+import { JobRelationshipsInput } from "@dailypay/sdk-typescript/models";
 
 let value: JobRelationshipsInput = {
   directDepositDefaultDepository: {

@@ -19,8 +19,8 @@ specific category of applications.
 ## Example
 
 ```typescript
-import { SDKCore } from "DailyPay.SDK.Typescript/core.js";
-import { authenticationRequestToken } from "DailyPay.SDK.Typescript/funcs/authenticationRequestToken.js";
+import { SDKCore } from "@dailypay/sdk-typescript/core.js";
+import { authenticationRequestToken } from "@dailypay/sdk-typescript/funcs/authenticationRequestToken.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

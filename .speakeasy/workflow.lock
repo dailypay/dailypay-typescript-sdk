@@ -14,7 +14,7 @@ targets:
         sourceRevisionDigest: sha256:c041bed8d6a5828db13adf491888150092b3fc595d87bd7c3e05873eda1c7c1d
         sourceBlobDigest: sha256:eef3458946ba2ceb9a52f944e08595e01cab38790bdf5e2e4980c050fc659afb
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:99014cb9f1e458d24c1f1bcbebe9e26a50767b4ca0ad31a3efe530b6fb8ec5cb
+        codeSamplesRevisionDigest: sha256:642de72a1f957cf50c55309ed50c145603dda275245c32dc1965ef303c0104c6
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

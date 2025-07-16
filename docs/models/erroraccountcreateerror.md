@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { ErrorAccountCreateError } from "DailyPay.SDK.Typescript/models";
+import { ErrorAccountCreateError } from "@dailypay/sdk-typescript/models";
 
 let value: ErrorAccountCreateError = {
   code: "<value>",

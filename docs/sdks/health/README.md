@@ -21,7 +21,7 @@ Returns a 200 status code if the API is up and running.
 ### Example Usage
 
 ```typescript
-import { SDK } from "DailyPay.SDK.Typescript";
+import { SDK } from "@dailypay/sdk-typescript";
 
 const sdk = new SDK({
   security: {
@@ -43,8 +43,8 @@ run();
 The standalone function version of this method:
 
 ```typescript
-import { SDKCore } from "DailyPay.SDK.Typescript/core.js";
-import { healthGetHealth } from "DailyPay.SDK.Typescript/funcs/healthGetHealth.js";
+import { SDKCore } from "@dailypay/sdk-typescript/core.js";
+import { healthGetHealth } from "@dailypay/sdk-typescript/funcs/healthGetHealth.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.

@@ -5,7 +5,7 @@ Bad Request
 ## Example Usage
 
 ```typescript
-import { JobUpdateError } from "DailyPay.SDK.Typescript/models/errors";
+import { JobUpdateError } from "@dailypay/sdk-typescript/models/errors";
 
 // No examples available for this model
 ```

@@ -5,7 +5,7 @@ A source describes how transfers with an origin of EARNINGS_BALANCE account are 
 ## Example Usage
 
 ```typescript
-import { FundingSourceResource } from "DailyPay.SDK.Typescript/models";
+import { FundingSourceResource } from "@dailypay/sdk-typescript/models";
 
 let value: FundingSourceResource = {
   id: "b5393c00b7c113fc2e5ae3e80c785bb2",

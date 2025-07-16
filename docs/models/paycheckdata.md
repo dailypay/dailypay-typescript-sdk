@@ -5,7 +5,7 @@ Returns the paycheck object.
 ## Example Usage
 
 ```typescript
-import { PaycheckData } from "DailyPay.SDK.Typescript/models";
+import { PaycheckData } from "@dailypay/sdk-typescript/models";
 
 let value: PaycheckData = {
   data: {
