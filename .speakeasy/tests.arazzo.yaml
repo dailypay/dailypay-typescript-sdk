@@ -69,7 +69,7 @@ workflows:
                       "frequency": "HOURLY"
                     },
                     "title": "Computer",
-                    "department": null,
+                    "department": "Department",
                     "location": "New York, New York",
                     "direct_deposit_status": "SETUP_COMPLETE"
                   },
@@ -157,7 +157,7 @@ workflows:
                       "frequency": "HOURLY"
                     },
                     "title": "Computer",
-                    "department": null,
+                    "department": "Department",
                     "location": "New York, New York",
                     "direct_deposit_status": "SETUP_COMPLETE"
                   },
@@ -226,7 +226,7 @@ workflows:
                         "frequency": "HOURLY"
                       },
                       "title": "Computer",
-                      "department": null,
+                      "department": "Department",
                       "location": "New York, New York",
                       "direct_deposit_status": "SETUP_COMPLETE"
                     },

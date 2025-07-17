@@ -2112,7 +2112,6 @@ components:
       required:
         - wage_rate
         - direct_deposit_status
-        - department
       properties:
         external_identifiers:
           readOnly: true
@@ -2187,7 +2186,7 @@ components:
             - string
             - 'null'
           readOnly: true
-          example: null
+          example: Department
         location:
           readOnly: true
           type: string

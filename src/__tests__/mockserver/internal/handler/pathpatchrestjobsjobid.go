@@ -67,7 +67,7 @@ func testUpdateJobUpdateJob0(w http.ResponseWriter, req *http.Request) {
 					Frequency: components.FrequencyHourly,
 				},
 				Title:               types.String("Computer"),
-				Department:          nil,
+				Department:          types.String("Department"),
 				Location:            types.String("New York, New York"),
 				DirectDepositStatus: components.DirectDepositStatusSetupComplete,
 			},
