@@ -5,7 +5,7 @@ Location in the request that may have caused the error.
 ## Example Usage
 
 ```typescript
-import { ErrorAccountCreateErrorSource } from "@dailypay/dailypay";
+import { ErrorAccountCreateErrorSource } from "@dailypay/dailypay/models";
 
 let value: ErrorAccountCreateErrorSource = {
   parameter: "filter[first_name]",

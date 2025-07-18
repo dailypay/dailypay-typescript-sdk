@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { PaycheckLinks } from "@dailypay/dailypay";
+import { PaycheckLinks } from "@dailypay/dailypay/models";
 
 let value: PaycheckLinks = {
   self:
