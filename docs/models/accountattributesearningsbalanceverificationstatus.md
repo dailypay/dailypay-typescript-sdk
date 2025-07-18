@@ -5,7 +5,7 @@ A code that indicates the status of an account that is a destination for funds.
 ## Example Usage
 
 ```typescript
-import { AccountAttributesEarningsBalanceVerificationStatus } from "@dailypay/dailypay-typescript-sdk/models";
+import { AccountAttributesEarningsBalanceVerificationStatus } from "@dailypay/dailypay/models";
 
 let value: AccountAttributesEarningsBalanceVerificationStatus = "VERIFIED";
 ```

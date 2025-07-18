@@ -5,7 +5,7 @@ The request contained an error
 ## Example Usage
 
 ```typescript
-import { TransferCreateError } from "@dailypay/dailypay-typescript-sdk/models/errors";
+import { TransferCreateError } from "@dailypay/dailypay/models/errors";
 
 // No examples available for this model
 ```

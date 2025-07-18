@@ -1,5 +1,5 @@
 {
-  "name": "@dailypay/dailypay-typescript-sdk-examples",
+  "name": "@dailypay/dailypay-examples",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,6 @@
     "tsx": "^4.19.2"
   },
   "dependencies": {
-    "@dailypay/dailypay-typescript-sdk": "file:.."
+    "@dailypay/dailypay": "file:.."
   }
 }

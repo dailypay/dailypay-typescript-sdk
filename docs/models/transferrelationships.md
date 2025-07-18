@@ -6,7 +6,7 @@ The relationships between the transfer and other resources, including the destin
 ## Example Usage
 
 ```typescript
-import { TransferRelationships } from "@dailypay/dailypay-typescript-sdk/models";
+import { TransferRelationships } from "@dailypay/dailypay/models";
 
 let value: TransferRelationships = {
   origin: {

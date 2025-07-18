@@ -5,7 +5,7 @@ An account with type `EARNINGS_BALANCE` and subtype `ODP`.
 ## Example Usage
 
 ```typescript
-import { EarningsBalanceReadOnlyInput } from "@dailypay/dailypay-typescript-sdk/models";
+import { EarningsBalanceReadOnlyInput } from "@dailypay/dailypay/models";
 
 let value: EarningsBalanceReadOnlyInput = {};
 ```

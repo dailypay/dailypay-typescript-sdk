@@ -1,6 +1,6 @@
-# @dailypay/dailypay-typescript-sdk Examples
+# @dailypay/dailypay Examples
 
-This directory contains example scripts demonstrating how to use the @dailypay/dailypay-typescript-sdk SDK.
+This directory contains example scripts demonstrating how to use the @dailypay/dailypay SDK.
 
 ## Prerequisites
 

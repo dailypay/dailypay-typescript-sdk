@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { AccountResourceOutput } from "@dailypay/dailypay-typescript-sdk/models";
+import { AccountResourceOutput } from "@dailypay/dailypay/models";
 
 let value: AccountResourceOutput = {
   id: "2bc7d781-3247-46f6-b60f-4090d214936a",

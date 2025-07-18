@@ -5,7 +5,7 @@ The banking details of the account and account holder.
 ## Example Usage
 
 ```typescript
-import { DepositoryAccountDetails } from "@dailypay/dailypay-typescript-sdk/models";
+import { DepositoryAccountDetails } from "@dailypay/dailypay/models";
 
 let value: DepositoryAccountDetails = {
   firstName: "Edith",

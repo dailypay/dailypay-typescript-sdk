@@ -5,7 +5,7 @@ Returns the job object.
 ## Example Usage
 
 ```typescript
-import { JobData } from "@dailypay/dailypay-typescript-sdk/models";
+import { JobData } from "@dailypay/dailypay/models";
 
 let value: JobData = {
   data: {

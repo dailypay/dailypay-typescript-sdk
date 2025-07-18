@@ -3,7 +3,7 @@
 ## Example Usage
 
 ```typescript
-import { TokenData } from "@dailypay/dailypay-typescript-sdk/models";
+import { TokenData } from "@dailypay/dailypay/models";
 
 let value: TokenData = {
   accessToken: "dpo_38347Ae178B4a16C7e42F292c6912E7710c8",

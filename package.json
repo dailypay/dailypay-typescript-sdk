@@ -1,6 +1,6 @@
 {
-  "name": "@dailypay/dailypay-typescript-sdk",
-  "version": "0.1.6",
+  "name": "@dailypay/dailypay",
+  "version": "0.1.7",
   "author": "DailyPay, Inc.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -8,7 +8,7 @@
   "type": "module",
   "tshy": {
     "sourceDialects": [
-      "@dailypay/dailypay-typescript-sdk/source"
+      "@dailypay/dailypay/source"
     ],
     "exports": {
       ".": "./src/index.ts",
@@ -43,7 +43,7 @@
   "exports": {
     ".": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/index.ts",
+        "@dailypay/dailypay/source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
@@ -55,7 +55,7 @@
     "./package.json": "./package.json",
     "./types": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/types/index.ts",
+        "@dailypay/dailypay/source": "./src/types/index.ts",
         "types": "./dist/esm/types/index.d.ts",
         "default": "./dist/esm/types/index.js"
       },
@@ -66,7 +66,7 @@
     },
     "./models/errors": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/models/errors/index.ts",
+        "@dailypay/dailypay/source": "./src/models/errors/index.ts",
         "types": "./dist/esm/models/errors/index.d.ts",
         "default": "./dist/esm/models/errors/index.js"
       },
@@ -77,7 +77,7 @@
     },
     "./models": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/models/index.ts",
+        "@dailypay/dailypay/source": "./src/models/index.ts",
         "types": "./dist/esm/models/index.d.ts",
         "default": "./dist/esm/models/index.js"
       },
@@ -88,7 +88,7 @@
     },
     "./models/operations": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/models/operations/index.ts",
+        "@dailypay/dailypay/source": "./src/models/operations/index.ts",
         "types": "./dist/esm/models/operations/index.d.ts",
         "default": "./dist/esm/models/operations/index.js"
       },
@@ -99,7 +99,7 @@
     },
     "./*.js": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/*.ts",
+        "@dailypay/dailypay/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },
@@ -110,7 +110,7 @@
     },
     "./*": {
       "import": {
-        "@dailypay/dailypay-typescript-sdk/source": "./src/*.ts",
+        "@dailypay/dailypay/source": "./src/*.ts",
         "types": "./dist/esm/*.d.ts",
         "default": "./dist/esm/*.js"
       },
