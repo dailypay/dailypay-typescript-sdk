@@ -30,6 +30,7 @@ const value: models.CardOutput = {
     ],
   },
   name: "Debit Card",
+  accountType: "CARD",
   subtype: "DEBIT",
   details: {
     firstName: "Edith",
@@ -67,6 +68,8 @@ const value: models.EarningsBalanceReadOnly = {
     ],
   },
   name: "DailyPay Pay Balance",
+  accountType: "EARNINGS_BALANCE",
+  subtype: "ODP",
   details: {},
 };
 ```
@@ -96,6 +99,7 @@ const value: models.Depository = {
     ],
   },
   name: "Checking Account",
+  accountType: "DEPOSITORY",
   subtype: "CHECKING",
   depositoryAccountDetails: {
     firstName: "Edith",

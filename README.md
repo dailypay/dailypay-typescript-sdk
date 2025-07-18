@@ -380,9 +380,9 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`DailyPayError`](./src/models/errors/dailypayerror.ts): The base class for HTTP error responses.
-  * [`ErrorUnexpected`](docs/models/errors/errorunexpected.md): Unexpected error occured. Status code `500`. *
-  * [`ErrorUnauthorized`](docs/models/errors/errorunauthorized.md): Invalid authentication credentials. Status code `401`. *
-  * [`ErrorForbidden`](docs/models/errors/errorforbidden.md): Not authorized to perform this operation. Status code `403`. *
+  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
+  * [`ErrorUnauthorized`](./src/models/errors/errorunauthorized.ts): Invalid authentication credentials. Status code `401`. *
+  * [`ErrorForbidden`](./src/models/errors/errorforbidden.ts): Not authorized to perform this operation. Status code `403`. *
 
 <details><summary>Less common errors (12)</summary>
 
@@ -397,12 +397,12 @@ run();
 
 
 **Inherit from [`DailyPayError`](./src/models/errors/dailypayerror.ts)**:
-* [`ErrorBadRequest`](docs/models/errors/errorbadrequest.md): Bad Request. Status code `400`. Applicable to 12 of 18 methods.*
-* [`ErrorNotFound`](docs/models/errors/errornotfound.md): Resource was not found. Status code `404`. Applicable to 8 of 18 methods.*
-* [`BadRequestError`](docs/models/errors/badrequesterror.md): Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API. Status code `400`. Applicable to 1 of 18 methods.*
-* [`JobUpdateError`](docs/models/errors/jobupdateerror.md): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
-* [`AccountCreateError`](docs/models/errors/accountcreateerror.md): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
-* [`TransferCreateError`](docs/models/errors/transfercreateerror.md): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
+* [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 12 of 18 methods.*
+* [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 8 of 18 methods.*
+* [`BadRequestError`](./src/models/errors/badrequesterror.ts): Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API. Status code `400`. Applicable to 1 of 18 methods.*
+* [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
+* [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
+* [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

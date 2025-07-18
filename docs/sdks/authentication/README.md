@@ -145,7 +145,7 @@ Example Request to the Token Endpoint
 
 <pre><code>curl --request POST \
     --url https://auth.dailypay.com/oauth2/token \
-    --header 'accept: application/vnd.api+json'
+    --header 'accept: application/json' \
     --header 'content-type: application/x-www-form-urlencoded' \
     --data "grant_type=authorization_code" \
     --data "client_id={client_id}" \
@@ -207,7 +207,7 @@ Example Request to the Token Endpoint
 
 <pre><code>curl --request POST \
     --url https://auth.dailypay.com/oauth2/token \
-    --header 'accept: application/vnd.api+json'
+    --header 'accept: application/json' \
     --header 'content-type: application/x-www-form-urlencoded' \
     --data "grant_type=client_credentials" \
     --data "scope={scopes}" \
