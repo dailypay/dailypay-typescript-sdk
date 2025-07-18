@@ -1,7 +1,7 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 7b2e2347da7bcd3987915e585cc4425c
+  docChecksum: 4db8a645289690fe25e024265e918565
   docVersion: 3.0.0-beta01
   speakeasyVersion: 1.582.0
   generationVersion: 2.657.1
@@ -11,6 +11,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
+    core: 3.21.14
     core: 3.21.14
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
@@ -24,12 +25,14 @@ features:
     inputOutputModels: 2.82.0
     methodArguments: 0.1.2
     methodServerURLs: 2.82.1
+    mockServer: 0.1.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
     oauth2ClientCredentials: 0.4.1
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
+    tests: 0.17.1
     unions: 2.85.11
 generatedFiles:
   - .gitattributes
@@ -264,8 +267,194 @@ generatedFiles:
   - examples/README.md
   - examples/authenticationRequestToken.example.ts
   - examples/package.json
+  - examples/.env.template
+  - examples/README.md
+  - examples/authenticationRequestToken.example.ts
+  - examples/package.json
   - jsr.json
   - package.json
+  - src/__tests__/accounts.test.ts
+  - src/__tests__/assertions.ts
+  - src/__tests__/authentication.test.ts
+  - src/__tests__/cards.test.ts
+  - src/__tests__/files.ts
+  - src/__tests__/health.test.ts
+  - src/__tests__/jobs.test.ts
+  - src/__tests__/mockserver/.gitignore
+  - src/__tests__/mockserver/Dockerfile
+  - src/__tests__/mockserver/Makefile
+  - src/__tests__/mockserver/README.md
+  - src/__tests__/mockserver/go.mod
+  - src/__tests__/mockserver/go.sum
+  - src/__tests__/mockserver/internal/handler/assert/contenttype.go
+  - src/__tests__/mockserver/internal/handler/assert/header.go
+  - src/__tests__/mockserver/internal/handler/assert/parameter.go
+  - src/__tests__/mockserver/internal/handler/assert/pointer.go
+  - src/__tests__/mockserver/internal/handler/assert/security.go
+  - src/__tests__/mockserver/internal/handler/doc.go
+  - src/__tests__/mockserver/internal/handler/generated_handler.go
+  - src/__tests__/mockserver/internal/handler/generated_handlers.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestaccounts.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestaccountsaccountid.go
+  - src/__tests__/mockserver/internal/handler/pathgetresthealth.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestjobs.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestjobsjobid.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestorganizations.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestorganizationsorganizationid.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestpaychecks.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestpaycheckspaycheckid.go
+  - src/__tests__/mockserver/internal/handler/pathgetrestpeoplepersonid.go
+  - src/__tests__/mockserver/internal/handler/pathgetresttransfers.go
+  - src/__tests__/mockserver/internal/handler/pathgetresttransferstransferid.go
+  - src/__tests__/mockserver/internal/handler/pathpatchrestjobsjobid.go
+  - src/__tests__/mockserver/internal/handler/pathpatchrestpeoplepersonid.go
+  - src/__tests__/mockserver/internal/handler/pathpostcardsgeneric.go
+  - src/__tests__/mockserver/internal/handler/pathpostoauth2token.go
+  - src/__tests__/mockserver/internal/handler/pathpostrestaccounts.go
+  - src/__tests__/mockserver/internal/handler/pathpostresttransfers.go
+  - src/__tests__/mockserver/internal/handler/values/files.go
+  - src/__tests__/mockserver/internal/logging/doc.go
+  - src/__tests__/mockserver/internal/logging/formats.go
+  - src/__tests__/mockserver/internal/logging/http_file.go
+  - src/__tests__/mockserver/internal/logging/http_logger.go
+  - src/__tests__/mockserver/internal/logging/levels.go
+  - src/__tests__/mockserver/internal/logging/logger.go
+  - src/__tests__/mockserver/internal/logging/oas_operation.go
+  - src/__tests__/mockserver/internal/logging/oas_operation_call.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountattributesoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountdatainput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountdataoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountdebitcardinput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountdebitcardoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountgalileocardinput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountgalileocardoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountlinks.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountrelationships.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountresourceinput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountresourceoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountsdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountwiselycard.go
+  - src/__tests__/mockserver/internal/sdk/models/components/accountwiselycardoutput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/erroraccountcreateerror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errorbadrequesterror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errorforbiddenerror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errorjobupdateerror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errornotfounderror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errortransfercreateerror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errorunauthorizederror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/errorunexpectederror.go
+  - src/__tests__/mockserver/internal/sdk/models/components/filteraccounttype.go
+  - src/__tests__/mockserver/internal/sdk/models/components/filterpaycheckstatus.go
+  - src/__tests__/mockserver/internal/sdk/models/components/fundingsourceattributes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/fundingsourceidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/fundingsourcerelationships.go
+  - src/__tests__/mockserver/internal/sdk/models/components/fundingsourceresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/fundingsourcesrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/health200.go
+  - src/__tests__/mockserver/internal/sdk/models/components/httpmetadata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobattributes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/joblinks.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobrelationships.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobrelationshipsinput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobsdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/jobupdatedata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationattributes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationlinks.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/organizationsdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paycheckattributes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paycheckdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paycheckidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paychecklinks.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paycheckrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paycheckrelationships.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paycheckresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/paychecksdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personattributes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personattributesinput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/persondata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/persondatainput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personlinks.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personrelationshipreadonly.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/personresourceinput.go
+  - src/__tests__/mockserver/internal/sdk/models/components/schemeoauthclientcredentialstoken.go
+  - src/__tests__/mockserver/internal/sdk/models/components/security.go
+  - src/__tests__/mockserver/internal/sdk/models/components/tokendata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferattributes.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transfercreatedata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transfercreaterelationships.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transfercreateresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferdata.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferdestinationcapability.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferidentifier.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferlinks.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferrelationship.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferrelationships.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transferresource.go
+  - src/__tests__/mockserver/internal/sdk/models/components/transfersdata.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createaccount.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/creategenericcardtoken.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/createtransfer.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/gethealth.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listaccounts.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listjobs.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listorganizations.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listpaychecks.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/listtransfers.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/readaccount.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/readjob.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/readorganization.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/readpaycheck.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/readperson.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/readtransfer.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/requesttoken.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updatejob.go
+  - src/__tests__/mockserver/internal/sdk/models/operations/updateperson.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/accountcreateerror.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errorbadrequest.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errorforbidden.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errornotfound.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errorunauthorized.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errorunexpected.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/jobupdateerror.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/requesttoken.go
+  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/transfercreateerror.go
+  - src/__tests__/mockserver/internal/sdk/types/bigint.go
+  - src/__tests__/mockserver/internal/sdk/types/date.go
+  - src/__tests__/mockserver/internal/sdk/types/datetime.go
+  - src/__tests__/mockserver/internal/sdk/types/decimal.go
+  - src/__tests__/mockserver/internal/sdk/types/jsonl/jsonl.go
+  - src/__tests__/mockserver/internal/sdk/types/pointers.go
+  - src/__tests__/mockserver/internal/sdk/utils/json.go
+  - src/__tests__/mockserver/internal/sdk/utils/reflect.go
+  - src/__tests__/mockserver/internal/sdk/utils/sort.go
+  - src/__tests__/mockserver/internal/server/doc.go
+  - src/__tests__/mockserver/internal/server/generated_handlers.go
+  - src/__tests__/mockserver/internal/server/internal_handlers.go
+  - src/__tests__/mockserver/internal/server/server.go
+  - src/__tests__/mockserver/internal/server/server_option.go
+  - src/__tests__/mockserver/internal/server/templates/log/index.html.tmpl
+  - src/__tests__/mockserver/internal/server/templates/log/operation.html.tmpl
+  - src/__tests__/mockserver/internal/server/templates/log/style.css.tmpl
+  - src/__tests__/mockserver/internal/tracking/requesttracker.go
+  - src/__tests__/mockserver/main.go
+  - src/__tests__/organizations.test.ts
+  - src/__tests__/paychecks.test.ts
+  - src/__tests__/people.test.ts
+  - src/__tests__/testclient.ts
+  - src/__tests__/transfers.test.ts
   - src/core.ts
   - src/funcs/accountsCreate.ts
   - src/funcs/accountsList.ts
@@ -465,7 +654,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Department", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": []}
         "401":
@@ -487,7 +676,7 @@ examples:
         application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"activation_status": "DEACTIVATED"}, "relationships": {"direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Department", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -496,22 +685,6 @@ examples:
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "FORBIDDEN"}]}
         "404":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "RECORD_NOT_FOUND"}]}
-        "500":
-          application/vnd.api+json: {"errors": []}
-  listJobs:
-    speakeasy-default-list-jobs:
-      parameters:
-        header:
-          DailyPay-API-Version: 3
-      responses:
-        "200":
-          application/vnd.api+json: {"data": [{"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": null, "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}]}
-        "400":
-          application/vnd.api+json: {"errors": []}
-        "401":
-          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
-        "403":
-          application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": []}
   readAccount:
@@ -779,4 +952,41 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": []}
+  listJobs:
+    speakeasy-default-list-jobs:
+      parameters:
+        header:
+          DailyPay-API-Version: 3
+      responses:
+        "200":
+          application/vnd.api+json: {"data": [{"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Department", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}]}
+        "400":
+          application/vnd.api+json: {"errors": []}
+        "401":
+          application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "INVALID_TOKEN"}]}
+        "403":
+          application/vnd.api+json: {"errors": []}
+        "500":
+          application/vnd.api+json: {"errors": []}
 examplesVersion: 1.0.2
+generatedTests:
+  requestToken: "2025-07-02T14:55:51-03:00"
+  readJob: "2025-07-02T14:55:51-03:00"
+  updateJob: "2025-07-02T14:55:51-03:00"
+  listJobs: "2025-07-02T14:55:51-03:00"
+  readAccount: "2025-07-02T14:55:51-03:00"
+  listAccounts: "2025-07-02T14:55:51-03:00"
+  createAccount-Depository: "2025-07-02T14:55:51-03:00"
+  createAccount-Card: "2025-07-02T14:55:51-03:00"
+  readTransfer: "2025-07-02T14:55:51-03:00"
+  listTransfers: "2025-07-02T14:55:51-03:00"
+  createTransfer: "2025-07-02T14:55:51-03:00"
+  readPaycheck: "2025-07-02T14:55:51-03:00"
+  listPaychecks: "2025-07-02T14:55:51-03:00"
+  readOrganization: "2025-07-02T14:55:51-03:00"
+  listOrganizations: "2025-07-02T14:55:51-03:00"
+  readPerson: "2025-07-02T14:55:51-03:00"
+  updatePerson: "2025-07-02T14:55:51-03:00"
+  createGenericCardToken: "2025-07-02T14:55:51-03:00"
+  getHealth: "2025-07-02T14:55:51-03:00"
+  createAccount: "2025-07-08T13:03:32-03:00"

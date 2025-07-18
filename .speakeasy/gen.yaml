@@ -18,7 +18,7 @@ generation:
     oAuth2PasswordEnabled: true
   sdkHooksConfigAccess: true
   tests:
-    generateTests: false
+    generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
@@ -41,6 +41,7 @@ typescript:
   enumFormat: union
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
+  generateExamples: true
   generateExamples: true
   imports:
     option: openapi
