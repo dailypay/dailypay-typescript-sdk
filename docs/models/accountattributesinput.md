@@ -10,6 +10,7 @@ The details of the account.
 ```typescript
 const value: models.CardInput = {
   name: "Debit Card",
+  accountType: "CARD",
   subtype: "DEBIT",
   details: {
     firstName: "Edith",
@@ -39,6 +40,7 @@ const value: models.EarningsBalanceReadOnlyInput = {};
 ```typescript
 const value: models.DepositoryInput = {
   name: "Checking Account",
+  accountType: "DEPOSITORY",
   subtype: "CHECKING",
   depositoryAccountDetails: {
     firstName: "Edith",

@@ -1,9 +1,9 @@
-speakeasyVersion: 1.570.2
+speakeasyVersion: 1.582.0
 sources:
     local:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:95e454b12af7c78a83e4a0ab06ecf34d5b23bd8b4fd5b55b50aab26f8a57f9e6
-        sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
+        sourceRevisionDigest: sha256:72a5995f7a201ac0201fdc2e57359b60fe9630111dba5bc062e9da29bf88dcb9
+        sourceBlobDigest: sha256:4beb3d63c0efe31769977ed4275c162560559f9b8996fb3b9b4cde97722f1be4
         tags:
             - latest
             - 3.0.0-beta01
@@ -11,10 +11,10 @@ targets:
     typescript:
         source: local
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:95e454b12af7c78a83e4a0ab06ecf34d5b23bd8b4fd5b55b50aab26f8a57f9e6
-        sourceBlobDigest: sha256:159fc444ec50ff75e5c5e090a882462d5d0c8172d55227aa865701214a1f8264
+        sourceRevisionDigest: sha256:72a5995f7a201ac0201fdc2e57359b60fe9630111dba5bc062e9da29bf88dcb9
+        sourceBlobDigest: sha256:4beb3d63c0efe31769977ed4275c162560559f9b8996fb3b9b4cde97722f1be4
         codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:99c7d3fe12b781582b6760745504fd4adf1efe2633a66729fa300db717a20336
+        codeSamplesRevisionDigest: sha256:a88303d8ef0674feb6bf79abe9567b7325a63977e70f5d50aba266a68aaefc73
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -32,3 +32,5 @@ workflow:
                 output: codeSamples.yaml
                 registry:
                     location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+            testing:
+                enabled: true

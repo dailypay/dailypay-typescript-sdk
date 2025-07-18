@@ -7,7 +7,7 @@ A preview transfer will never send.
 ## Example Usage
 
 ```typescript
-import { TransferAttributesSchedule } from "@dailypay/dailypay";
+import { TransferAttributesSchedule } from "@dailypay/dailypay/models";
 
 let value: TransferAttributesSchedule = "WITHIN_THIRTY_MINUTES";
 ```
