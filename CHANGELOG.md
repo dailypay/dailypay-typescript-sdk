@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dailypay/dailypay-typescript-sdk/compare/v1.1.1...v1.2.0) (2025-07-21)
+
+
+### Features
+
+* test with checking version ([5edb2e8](https://github.com/dailypay/dailypay-typescript-sdk/commit/5edb2e8e059393f6212a277876765f32f14af7ca))
+
 ## [1.1.1](https://github.com/dailypay/dailypay-typescript-sdk/compare/v1.1.0...v1.1.1) (2025-07-21)
 
 
