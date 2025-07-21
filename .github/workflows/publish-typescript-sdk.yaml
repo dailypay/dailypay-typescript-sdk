@@ -2,7 +2,7 @@ name: 'Publish TypeScript SDK'
 on:
   push:
     branches:
-      - DEVREL-641
+      - main
   workflow_dispatch:
 permissions:
   contents: read
