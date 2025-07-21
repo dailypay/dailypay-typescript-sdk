@@ -1,7 +1,8 @@
 name: 'Publish TypeScript SDK'
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - DEVREL-641
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,6 +13,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Get version
+        id: version
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+      - name: Skip if already published
+        run: |
+          npm view @dailypay/dailypay@$VERSION
+        continue-on-error: true
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
