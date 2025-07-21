@@ -9,7 +9,7 @@ permissions:
   packages: write
 jobs:
   publish:
-    if: contains(github.event.head_commit.message, 'ci: regenerated with OpenAPI Doc')
+    if: contains(github.event.head_commit.message, "ci: regenerated with OpenAPI Doc")
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
