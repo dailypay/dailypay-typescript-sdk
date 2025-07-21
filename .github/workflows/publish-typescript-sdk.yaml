@@ -9,17 +9,11 @@ permissions:
   packages: write
 jobs:
   publish:
+    if: contains(github.event.head_commit.message, 'ci: regenerated with OpenAPI Doc')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Get version
-        id: version
-        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-      - name: Skip if already published
-        run: |
-          npm view @dailypay/dailypay@$VERSION
-        continue-on-error: true
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
