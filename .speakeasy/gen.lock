@@ -3,17 +3,17 @@ id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
   docChecksum: 4db8a645289690fe25e024265e918565
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.584.0
-  generationVersion: 2.660.0
-  releaseVersion: 0.2.5
-  configChecksum: 0570ba52aa34c110c40e54485fc541f1
+  speakeasyVersion: 1.587.0
+  generationVersion: 2.662.0
+  releaseVersion: 0.2.6
+  configChecksum: 73ead8273bc1aafef12e38d1b2054339
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.14
+    core: 3.21.15
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
