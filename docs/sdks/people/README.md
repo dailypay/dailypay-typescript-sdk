@@ -21,6 +21,7 @@ Returns details about a person.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="readPerson" method="get" path="/rest/people/{person_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -104,6 +105,7 @@ Update a person object.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updatePerson" method="patch" path="/rest/people/{person_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

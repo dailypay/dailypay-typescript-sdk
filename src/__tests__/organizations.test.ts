@@ -31,7 +31,7 @@ test("Organizations Read Organization", async () => {
         name: "DailyPay",
         products: [
           "ODP",
-          "FRIDAY",
+          "DAILYPAY_CARD",
         ],
       },
       links: {

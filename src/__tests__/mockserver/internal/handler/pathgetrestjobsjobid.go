@@ -62,7 +62,7 @@ func testReadJobReadJob0(w http.ResponseWriter, req *http.Request) {
 					Frequency: components.FrequencyHourly,
 				},
 				Title:               types.String("Computer"),
-				Department:          types.String("Department"),
+				Department:          types.String("Finance"),
 				Location:            types.String("New York, New York"),
 				DirectDepositStatus: components.DirectDepositStatusSetupComplete,
 			},

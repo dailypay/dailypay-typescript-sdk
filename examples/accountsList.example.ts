@@ -8,20 +8,21 @@ dotenv.config();
  * Example usage of the @dailypay/dailypay SDK
  *
  * To run this example from the examples directory:
- * npm run build && npx tsx authenticationRequestToken.ts
+ * npm run build && npx tsx accountsList.ts
  */
 
 import { SDK } from "@dailypay/dailypay";
 
-const sdk = new SDK();
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
 
 async function main() {
-  const result = await sdk.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.list({
+    filterAccountType: "EARNINGS_BALANCE",
   });
 
   console.log(result);

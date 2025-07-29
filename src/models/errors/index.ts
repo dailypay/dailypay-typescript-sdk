@@ -10,7 +10,6 @@ export * from "./errorunauthorized.js";
 export * from "./errorunexpected.js";
 export * from "./httpclienterrors.js";
 export * from "./jobupdateerror.js";
-export * from "./requesttoken.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkdefaulterror.js";
 export * from "./sdkvalidationerror.js";

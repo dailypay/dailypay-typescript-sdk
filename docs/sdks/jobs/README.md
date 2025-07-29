@@ -22,6 +22,7 @@ Returns details about a person's employment.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="readJob" method="get" path="/rest/jobs/{job_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -107,6 +108,7 @@ Returns the job object if the update succeeded. Returns an error if update param
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -238,6 +240,7 @@ See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Suppor
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listJobs" method="get" path="/rest/jobs" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

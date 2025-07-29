@@ -204,7 +204,9 @@ test("Accounts Create Account Card", async () => {
         name: "Acme Bank Debit Card",
         accountType: "CARD",
         subtype: "DEBIT",
-        details: {
+        cardAccountDetails: {
+          token: "abc.efg.123",
+          issuer: "411600",
           firstName: "Edith",
           lastName: "Clarke",
           expirationMonth: "02",
@@ -214,8 +216,6 @@ test("Accounts Create Account Card", async () => {
           addressState: "NJ",
           addressZipCode: "72374",
           addressCountry: "US",
-          token: "abc.efg.123",
-          issuer: "411600",
         },
       },
       relationships: {

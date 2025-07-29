@@ -80,20 +80,81 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
-### Example
+### Look up accounts
+
+Fetch a list of accounts, including earnings balance accounts.
 
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
-const sdk = new SDK();
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.accounts.list({
+    filterAccountType: "EARNINGS_BALANCE",
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+
+### Request a transfer
+
+Initiate a transfer of funds from an earnings balance account to a personal depository or card account.
+
+```typescript
+import { SDK } from "@dailypay/dailypay";
+
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.transfers.create({
+    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    transferCreateData: {
+      data: {
+        type: "transfers",
+        id: "aba332a2-24a2-46de-8257-5040e71ab210",
+        attributes: {
+          preview: true,
+          amount: 2500,
+          currency: "USD",
+          schedule: "WITHIN_THIRTY_MINUTES",
+        },
+        relationships: {
+          origin: {
+            data: {
+              type: "accounts",
+              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+            },
+          },
+          destination: {
+            data: {
+              type: "accounts",
+              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+            },
+          },
+          person: {
+            data: {
+              type: "people",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+            },
+          },
+        },
+      },
+    },
   });
 
   console.log(result);
@@ -124,15 +185,12 @@ const sdk = new SDK({
   security: {
     oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
+  version: 3,
 });
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.jobs.read({
+    jobId: "aa860051-c411-4709-9685-c1b716df611b",
   });
 
   console.log(result);
@@ -154,10 +212,6 @@ run();
 * [read](docs/sdks/accounts/README.md#read) - Get an Account object
 * [list](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [create](docs/sdks/accounts/README.md#create) - Create an Account object
-
-### [authentication](docs/sdks/authentication/README.md)
-
-* [requestToken](docs/sdks/authentication/README.md#requesttoken) - Request access token
 
 ### [cards](docs/sdks/cards/README.md)
 
@@ -216,7 +270,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`accountsCreate`](docs/sdks/accounts/README.md#create) - Create an Account object
 - [`accountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`accountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
-- [`authenticationRequestToken`](docs/sdks/authentication/README.md#requesttoken) - Request access token
 - [`cardsCreate`](docs/sdks/cards/README.md#create) - Obtain a card token
 - [`healthGetHealth`](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 - [`jobsList`](docs/sdks/jobs/README.md#list) - Get a list of job objects
@@ -244,15 +297,16 @@ To change the default retry strategy for a single API call, simply provide a ret
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
-const sdk = new SDK();
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.jobs.read({
+    jobId: "aa860051-c411-4709-9685-c1b716df611b",
   }, {
     retries: {
       strategy: "backoff",
@@ -288,15 +342,15 @@ const sdk = new SDK({
     },
     retryConnectionErrors: false,
   },
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
 });
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.jobs.read({
+    jobId: "aa860051-c411-4709-9685-c1b716df611b",
   });
 
   console.log(result);
@@ -324,16 +378,17 @@ run();
 import { SDK } from "@dailypay/dailypay";
 import * as errors from "@dailypay/dailypay/models/errors";
 
-const sdk = new SDK();
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
 
 async function run() {
   try {
-    const result = await sdk.authentication.requestToken({
-      grantType: "authorization_code",
-      code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-      redirectUri: "https://example.com/callback",
-      state: "Hawaii",
-      clientId: "<id>",
+    const result = await sdk.jobs.read({
+      jobId: "aa860051-c411-4709-9685-c1b716df611b",
     });
 
     console.log(result);
@@ -346,9 +401,8 @@ async function run() {
       console.log(error.httpMeta.request);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.BadRequestError) {
-        console.log(error.data$.errorCode); // operations.ErrorCode
-        console.log(error.data$.errorDescription); // string
+      if (error instanceof errors.ErrorBadRequest) {
+        console.log(error.data$.errors); // ErrorBadRequestError[]
         console.log(error.data$.httpMeta); // models.HTTPMetadata
       }
     }
@@ -362,11 +416,11 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`DailyPayError`](./src/models/errors/dailypayerror.ts): The base class for HTTP error responses.
-  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
   * [`ErrorUnauthorized`](./src/models/errors/errorunauthorized.ts): Invalid authentication credentials. Status code `401`. *
+  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
   * [`ErrorForbidden`](./src/models/errors/errorforbidden.ts): Not authorized to perform this operation. Status code `403`. *
 
-<details><summary>Less common errors (12)</summary>
+<details><summary>Less common errors (11)</summary>
 
 <br />
 
@@ -379,12 +433,11 @@ run();
 
 
 **Inherit from [`DailyPayError`](./src/models/errors/dailypayerror.ts)**:
-* [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 12 of 18 methods.*
-* [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 8 of 18 methods.*
-* [`BadRequestError`](./src/models/errors/badrequesterror.ts): Something went wrong when exchanging oauth grant or refresh token for an access token. NOTE: This conforms to the OAuth spec and does not follow the same error pattern as the rest of the API. Status code `400`. Applicable to 1 of 18 methods.*
-* [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
-* [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
-* [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
+* [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 12 of 17 methods.*
+* [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 8 of 17 methods.*
+* [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 17 methods.*
+* [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
+* [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -410,15 +463,15 @@ import { SDK } from "@dailypay/dailypay";
 
 const sdk = new SDK({
   environment: "dailypayuat",
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
 });
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.jobs.read({
+    jobId: "aa860051-c411-4709-9685-c1b716df611b",
   });
 
   console.log(result);
@@ -436,15 +489,15 @@ import { SDK } from "@dailypay/dailypay";
 
 const sdk = new SDK({
   serverURL: "https://api.dailypay.com",
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
 });
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.jobs.read({
+    jobId: "aa860051-c411-4709-9685-c1b716df611b",
   });
 
   console.log(result);
@@ -463,14 +516,21 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK();
 
 async function run() {
-  const result = await sdk.authentication.requestToken({
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const result = await sdk.cards.create({
+    firstName: "Edith",
+    lastName: "Clarke",
+    cardNumber: "4007589999999912",
+    expirationYear: "2027",
+    expirationMonth: "02",
+    cvv: "123",
+    addressLineOne: "123 Kebly Street",
+    addressLineTwo: "Unit C",
+    addressCity: "Fort Lee",
+    addressState: "NJ",
+    addressZipCode: "07237",
+    addressCountry: "US",
   }, {
-    serverURL: "https://auth.uat.dailypay.com",
+    serverURL: "https://payments.dailypay.com/v2",
   });
 
   console.log(result);

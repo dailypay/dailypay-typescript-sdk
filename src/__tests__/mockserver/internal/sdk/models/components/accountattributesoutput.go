@@ -365,8 +365,8 @@ func (o *AccountAttributesEarningsBalanceAccountCapabilities) GetTransferDestina
 	return o.TransferDestination
 }
 
-// AccountAttributesEarningsBalanceDetails - An empty object for earnings balance accounts.
-type AccountAttributesEarningsBalanceDetails struct {
+// Details - An empty object for earnings balance accounts.
+type Details struct {
 }
 
 // EarningsBalanceReadOnly - An account with type `EARNINGS_BALANCE` and subtype `ODP`.
@@ -382,7 +382,7 @@ type EarningsBalanceReadOnly struct {
 	// The subtype of the account.
 	subtype string `const:"ODP" json:"subtype"`
 	// An empty object for earnings balance accounts.
-	Details AccountAttributesEarningsBalanceDetails `json:"details"`
+	Details Details `json:"details"`
 }
 
 func (e EarningsBalanceReadOnly) MarshalJSON() ([]byte, error) {
@@ -432,9 +432,9 @@ func (o *EarningsBalanceReadOnly) GetSubtype() string {
 	return "ODP"
 }
 
-func (o *EarningsBalanceReadOnly) GetDetails() AccountAttributesEarningsBalanceDetails {
+func (o *EarningsBalanceReadOnly) GetDetails() Details {
 	if o == nil {
-		return AccountAttributesEarningsBalanceDetails{}
+		return Details{}
 	}
 	return o.Details
 }
@@ -547,13 +547,12 @@ func (o *AccountAttributesCardAccountCapabilities) GetTransferDestination() []Tr
 	return o.TransferDestination
 }
 
-// AccountAttributesCardSubtype - The subtype of the account.
+// AccountAttributesCardSubtype - The subtype of the account. Additional subtypes may be added over time
 type AccountAttributesCardSubtype string
 
 const (
-	AccountAttributesCardSubtypeDebit   AccountAttributesCardSubtype = "DEBIT"
-	AccountAttributesCardSubtypeGalileo AccountAttributesCardSubtype = "GALILEO"
-	AccountAttributesCardSubtypeWisely  AccountAttributesCardSubtype = "WISELY"
+	AccountAttributesCardSubtypeDebit    AccountAttributesCardSubtype = "DEBIT"
+	AccountAttributesCardSubtypeDailypay AccountAttributesCardSubtype = "DAILYPAY"
 )
 
 func (e AccountAttributesCardSubtype) ToPointer() *AccountAttributesCardSubtype {
@@ -567,9 +566,7 @@ func (e *AccountAttributesCardSubtype) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "DEBIT":
 		fallthrough
-	case "GALILEO":
-		fallthrough
-	case "WISELY":
+	case "DAILYPAY":
 		*e = AccountAttributesCardSubtype(v)
 		return nil
 	default:
@@ -577,93 +574,65 @@ func (e *AccountAttributesCardSubtype) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type DetailsOutputType string
-
-const (
-	DetailsOutputTypeAccountDebitCardOutput   DetailsOutputType = "Account_DebitCard_output"
-	DetailsOutputTypeAccountGalileoCardOutput DetailsOutputType = "Account_GalileoCard_output"
-	DetailsOutputTypeAccountWiselyCardOutput  DetailsOutputType = "Account_WiselyCard_output"
-)
-
-// DetailsOutput - The banking details of the account and account holder.
-type DetailsOutput struct {
-	AccountDebitCardOutput   *AccountDebitCardOutput   `queryParam:"inline"`
-	AccountGalileoCardOutput *AccountGalileoCardOutput `queryParam:"inline"`
-	AccountWiselyCardOutput  *AccountWiselyCardOutput  `queryParam:"inline"`
-
-	Type DetailsOutputType
+// CardAccountDetailsOutput - The banking details of the account and account holder.
+type CardAccountDetailsOutput struct {
+	// Last four digits of the card number.
+	LastFour string `json:"last_four"`
+	// The issuer of the card.
+	Issuer string `json:"issuer"`
+	// The first name of the account holder.
+	FirstName string `json:"first_name"`
+	// The last name of the account holder.
+	LastName string `json:"last_name"`
+	// The month of the expiration date for the card.
+	ExpirationMonth string `json:"expiration_month"`
+	// The year of the expiration date for the card.
+	ExpirationYear string `json:"expiration_year"`
 }
 
-func CreateDetailsOutputAccountDebitCardOutput(accountDebitCardOutput AccountDebitCardOutput) DetailsOutput {
-	typ := DetailsOutputTypeAccountDebitCardOutput
-
-	return DetailsOutput{
-		AccountDebitCardOutput: &accountDebitCardOutput,
-		Type:                   typ,
+func (o *CardAccountDetailsOutput) GetLastFour() string {
+	if o == nil {
+		return ""
 	}
+	return o.LastFour
 }
 
-func CreateDetailsOutputAccountGalileoCardOutput(accountGalileoCardOutput AccountGalileoCardOutput) DetailsOutput {
-	typ := DetailsOutputTypeAccountGalileoCardOutput
-
-	return DetailsOutput{
-		AccountGalileoCardOutput: &accountGalileoCardOutput,
-		Type:                     typ,
+func (o *CardAccountDetailsOutput) GetIssuer() string {
+	if o == nil {
+		return ""
 	}
+	return o.Issuer
 }
 
-func CreateDetailsOutputAccountWiselyCardOutput(accountWiselyCardOutput AccountWiselyCardOutput) DetailsOutput {
-	typ := DetailsOutputTypeAccountWiselyCardOutput
-
-	return DetailsOutput{
-		AccountWiselyCardOutput: &accountWiselyCardOutput,
-		Type:                    typ,
+func (o *CardAccountDetailsOutput) GetFirstName() string {
+	if o == nil {
+		return ""
 	}
+	return o.FirstName
 }
 
-func (u *DetailsOutput) UnmarshalJSON(data []byte) error {
-
-	var accountDebitCardOutput AccountDebitCardOutput = AccountDebitCardOutput{}
-	if err := utils.UnmarshalJSON(data, &accountDebitCardOutput, "", true, true); err == nil {
-		u.AccountDebitCardOutput = &accountDebitCardOutput
-		u.Type = DetailsOutputTypeAccountDebitCardOutput
-		return nil
+func (o *CardAccountDetailsOutput) GetLastName() string {
+	if o == nil {
+		return ""
 	}
-
-	var accountGalileoCardOutput AccountGalileoCardOutput = AccountGalileoCardOutput{}
-	if err := utils.UnmarshalJSON(data, &accountGalileoCardOutput, "", true, true); err == nil {
-		u.AccountGalileoCardOutput = &accountGalileoCardOutput
-		u.Type = DetailsOutputTypeAccountGalileoCardOutput
-		return nil
-	}
-
-	var accountWiselyCardOutput AccountWiselyCardOutput = AccountWiselyCardOutput{}
-	if err := utils.UnmarshalJSON(data, &accountWiselyCardOutput, "", true, true); err == nil {
-		u.AccountWiselyCardOutput = &accountWiselyCardOutput
-		u.Type = DetailsOutputTypeAccountWiselyCardOutput
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for DetailsOutput", string(data))
+	return o.LastName
 }
 
-func (u DetailsOutput) MarshalJSON() ([]byte, error) {
-	if u.AccountDebitCardOutput != nil {
-		return utils.MarshalJSON(u.AccountDebitCardOutput, "", true)
+func (o *CardAccountDetailsOutput) GetExpirationMonth() string {
+	if o == nil {
+		return ""
 	}
-
-	if u.AccountGalileoCardOutput != nil {
-		return utils.MarshalJSON(u.AccountGalileoCardOutput, "", true)
-	}
-
-	if u.AccountWiselyCardOutput != nil {
-		return utils.MarshalJSON(u.AccountWiselyCardOutput, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type DetailsOutput: all fields are null")
+	return o.ExpirationMonth
 }
 
-// CardOutput - An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+func (o *CardAccountDetailsOutput) GetExpirationYear() string {
+	if o == nil {
+		return ""
+	}
+	return o.ExpirationYear
+}
+
+// CardOutput - An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
 type CardOutput struct {
 	// A code that indicates the status of an account that is a destination for funds.
 	VerificationStatus  AccountAttributesCardVerificationStatus  `json:"verification_status"`
@@ -673,10 +642,10 @@ type CardOutput struct {
 	Name string `json:"name"`
 	// The type of account. It differentiates between depository accounts (e.g. bank account), cards (e.g. debit) and earnings balance type of accounts (e.g. on demand pay).
 	accountType string `const:"CARD" json:"account_type"`
-	// The subtype of the account.
+	// The subtype of the account. Additional subtypes may be added over time
 	Subtype AccountAttributesCardSubtype `json:"subtype"`
 	// The banking details of the account and account holder.
-	Details DetailsOutput `json:"details"`
+	CardAccountDetails CardAccountDetailsOutput `json:"details"`
 }
 
 func (c CardOutput) MarshalJSON() ([]byte, error) {
@@ -729,11 +698,11 @@ func (o *CardOutput) GetSubtype() AccountAttributesCardSubtype {
 	return o.Subtype
 }
 
-func (o *CardOutput) GetDetails() DetailsOutput {
+func (o *CardOutput) GetCardAccountDetails() CardAccountDetailsOutput {
 	if o == nil {
-		return DetailsOutput{}
+		return CardAccountDetailsOutput{}
 	}
-	return o.Details
+	return o.CardAccountDetails
 }
 
 type AccountAttributesOutputType string
@@ -874,102 +843,128 @@ func (o *DepositoryInput) GetDepositoryAccountDetails() DepositoryAccountDetails
 type EarningsBalanceReadOnlyInput struct {
 }
 
-type DetailsInputType string
-
-const (
-	DetailsInputTypeAccountDebitCardInput   DetailsInputType = "Account_DebitCard_input"
-	DetailsInputTypeAccountGalileoCardInput DetailsInputType = "Account_GalileoCard_input"
-	DetailsInputTypeAccountWiselyCard       DetailsInputType = "Account_WiselyCard"
-)
-
-// DetailsInput - The banking details of the account and account holder.
-type DetailsInput struct {
-	AccountDebitCardInput   *AccountDebitCardInput   `queryParam:"inline"`
-	AccountGalileoCardInput *AccountGalileoCardInput `queryParam:"inline"`
-	AccountWiselyCard       *AccountWiselyCard       `queryParam:"inline"`
-
-	Type DetailsInputType
+// CardAccountDetailsInput - The banking details of the account and account holder.
+type CardAccountDetailsInput struct {
+	// A tokenized string replacement for the card data.
+	Token string `json:"token"`
+	// The issuer of the card.
+	Issuer string `json:"issuer"`
+	// The first name of the account holder.
+	FirstName string `json:"first_name"`
+	// The last name of the account holder.
+	LastName string `json:"last_name"`
+	// The month of the expiration date for the card.
+	ExpirationMonth string `json:"expiration_month"`
+	// The year of the expiration date for the card.
+	ExpirationYear string `json:"expiration_year"`
+	// The first line of the address for the card.
+	AddressLineOne string `json:"address_line_one"`
+	// The second line of the address for the card.
+	AddressLineTwo *string `json:"address_line_two,omitempty"`
+	// The city of the address for the card.
+	AddressCity string `json:"address_city"`
+	// The two-letter abbreviation of the state in the address for the card.
+	AddressState string `json:"address_state"`
+	// The zip code of the address for the card.
+	AddressZipCode string `json:"address_zip_code"`
+	// The country code of the address for the card.
+	AddressCountry string `json:"address_country"`
 }
 
-func CreateDetailsInputAccountDebitCardInput(accountDebitCardInput AccountDebitCardInput) DetailsInput {
-	typ := DetailsInputTypeAccountDebitCardInput
-
-	return DetailsInput{
-		AccountDebitCardInput: &accountDebitCardInput,
-		Type:                  typ,
+func (o *CardAccountDetailsInput) GetToken() string {
+	if o == nil {
+		return ""
 	}
+	return o.Token
 }
 
-func CreateDetailsInputAccountGalileoCardInput(accountGalileoCardInput AccountGalileoCardInput) DetailsInput {
-	typ := DetailsInputTypeAccountGalileoCardInput
-
-	return DetailsInput{
-		AccountGalileoCardInput: &accountGalileoCardInput,
-		Type:                    typ,
+func (o *CardAccountDetailsInput) GetIssuer() string {
+	if o == nil {
+		return ""
 	}
+	return o.Issuer
 }
 
-func CreateDetailsInputAccountWiselyCard(accountWiselyCard AccountWiselyCard) DetailsInput {
-	typ := DetailsInputTypeAccountWiselyCard
-
-	return DetailsInput{
-		AccountWiselyCard: &accountWiselyCard,
-		Type:              typ,
+func (o *CardAccountDetailsInput) GetFirstName() string {
+	if o == nil {
+		return ""
 	}
+	return o.FirstName
 }
 
-func (u *DetailsInput) UnmarshalJSON(data []byte) error {
+func (o *CardAccountDetailsInput) GetLastName() string {
+	if o == nil {
+		return ""
+	}
+	return o.LastName
+}
 
-	var accountGalileoCardInput AccountGalileoCardInput = AccountGalileoCardInput{}
-	if err := utils.UnmarshalJSON(data, &accountGalileoCardInput, "", true, true); err == nil {
-		u.AccountGalileoCardInput = &accountGalileoCardInput
-		u.Type = DetailsInputTypeAccountGalileoCardInput
+func (o *CardAccountDetailsInput) GetExpirationMonth() string {
+	if o == nil {
+		return ""
+	}
+	return o.ExpirationMonth
+}
+
+func (o *CardAccountDetailsInput) GetExpirationYear() string {
+	if o == nil {
+		return ""
+	}
+	return o.ExpirationYear
+}
+
+func (o *CardAccountDetailsInput) GetAddressLineOne() string {
+	if o == nil {
+		return ""
+	}
+	return o.AddressLineOne
+}
+
+func (o *CardAccountDetailsInput) GetAddressLineTwo() *string {
+	if o == nil {
 		return nil
 	}
-
-	var accountDebitCardInput AccountDebitCardInput = AccountDebitCardInput{}
-	if err := utils.UnmarshalJSON(data, &accountDebitCardInput, "", true, true); err == nil {
-		u.AccountDebitCardInput = &accountDebitCardInput
-		u.Type = DetailsInputTypeAccountDebitCardInput
-		return nil
-	}
-
-	var accountWiselyCard AccountWiselyCard = AccountWiselyCard{}
-	if err := utils.UnmarshalJSON(data, &accountWiselyCard, "", true, true); err == nil {
-		u.AccountWiselyCard = &accountWiselyCard
-		u.Type = DetailsInputTypeAccountWiselyCard
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for DetailsInput", string(data))
+	return o.AddressLineTwo
 }
 
-func (u DetailsInput) MarshalJSON() ([]byte, error) {
-	if u.AccountDebitCardInput != nil {
-		return utils.MarshalJSON(u.AccountDebitCardInput, "", true)
+func (o *CardAccountDetailsInput) GetAddressCity() string {
+	if o == nil {
+		return ""
 	}
-
-	if u.AccountGalileoCardInput != nil {
-		return utils.MarshalJSON(u.AccountGalileoCardInput, "", true)
-	}
-
-	if u.AccountWiselyCard != nil {
-		return utils.MarshalJSON(u.AccountWiselyCard, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type DetailsInput: all fields are null")
+	return o.AddressCity
 }
 
-// CardInput - An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+func (o *CardAccountDetailsInput) GetAddressState() string {
+	if o == nil {
+		return ""
+	}
+	return o.AddressState
+}
+
+func (o *CardAccountDetailsInput) GetAddressZipCode() string {
+	if o == nil {
+		return ""
+	}
+	return o.AddressZipCode
+}
+
+func (o *CardAccountDetailsInput) GetAddressCountry() string {
+	if o == nil {
+		return ""
+	}
+	return o.AddressCountry
+}
+
+// CardInput - An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
 type CardInput struct {
 	// Display name for this account.
 	Name string `json:"name"`
 	// The type of account. It differentiates between depository accounts (e.g. bank account), cards (e.g. debit) and earnings balance type of accounts (e.g. on demand pay).
 	accountType string `const:"CARD" json:"account_type"`
-	// The subtype of the account.
+	// The subtype of the account. Additional subtypes may be added over time
 	Subtype AccountAttributesCardSubtype `json:"subtype"`
 	// The banking details of the account and account holder.
-	Details DetailsInput `json:"details"`
+	CardAccountDetails CardAccountDetailsInput `json:"details"`
 }
 
 func (c CardInput) MarshalJSON() ([]byte, error) {
@@ -1001,11 +996,11 @@ func (o *CardInput) GetSubtype() AccountAttributesCardSubtype {
 	return o.Subtype
 }
 
-func (o *CardInput) GetDetails() DetailsInput {
+func (o *CardInput) GetCardAccountDetails() CardAccountDetailsInput {
 	if o == nil {
-		return DetailsInput{}
+		return CardAccountDetailsInput{}
 	}
-	return o.Details
+	return o.CardAccountDetails
 }
 
 type AccountAttributesInputType string

@@ -10,9 +10,9 @@ import (
 type Product string
 
 const (
-	ProductOdp       Product = "ODP"
-	ProductFriday    Product = "FRIDAY"
-	ProductWiselyEwa Product = "WISELY_EWA"
+	ProductOdp          Product = "ODP"
+	ProductDailypayCard Product = "DAILYPAY_CARD"
+	ProductFriday       Product = "FRIDAY"
 )
 
 func (e Product) ToPointer() *Product {
@@ -26,9 +26,9 @@ func (e *Product) UnmarshalJSON(data []byte) error {
 	switch v {
 	case "ODP":
 		fallthrough
-	case "FRIDAY":
+	case "DAILYPAY_CARD":
 		fallthrough
-	case "WISELY_EWA":
+	case "FRIDAY":
 		*e = Product(v)
 		return nil
 	default:

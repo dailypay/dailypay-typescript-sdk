@@ -11,5 +11,5 @@ let value: Product = "ODP";
 ## Values
 
 ```typescript
-"ODP" | "FRIDAY" | "WISELY_EWA"
+"ODP" | "DAILYPAY_CARD" | "FRIDAY"
 ```

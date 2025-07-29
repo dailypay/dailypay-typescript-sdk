@@ -1,13 +1,13 @@
-# AccountAttributesEarningsBalanceDetails
+# Details
 
 An empty object for earnings balance accounts.
 
 ## Example Usage
 
 ```typescript
-import { AccountAttributesEarningsBalanceDetails } from "@dailypay/dailypay/models";
+import { Details } from "@dailypay/dailypay/models";
 
-let value: AccountAttributesEarningsBalanceDetails = {};
+let value: Details = {};
 ```
 
 ## Fields

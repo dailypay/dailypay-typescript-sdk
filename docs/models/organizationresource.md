@@ -12,7 +12,7 @@ let value: OrganizationResource = {
     name: "DailyPay",
     products: [
       "ODP",
-      "FRIDAY",
+      "DAILYPAY_CARD",
     ],
   },
   links: {

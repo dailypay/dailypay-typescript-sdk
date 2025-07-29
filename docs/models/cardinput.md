@@ -1,6 +1,6 @@
 # CardInput
 
-An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
 
 ## Example Usage
 
@@ -11,7 +11,9 @@ let value: CardInput = {
   name: "Debit Card",
   accountType: "CARD",
   subtype: "DEBIT",
-  details: {
+  cardAccountDetails: {
+    token: "HX46TY794RG",
+    issuer: "411600",
     firstName: "Edith",
     lastName: "Clarke",
     expirationMonth: "02",
@@ -22,8 +24,6 @@ let value: CardInput = {
     addressState: "NJ",
     addressZipCode: "72374",
     addressCountry: "US",
-    token: "HX46TY794RG",
-    issuer: "411600",
   },
 };
 ```
@@ -34,5 +34,5 @@ let value: CardInput = {
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`                                                                                                                                                                 | *string*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                     | Display name for this account.                                                                                                                                         | Debit Card                                                                                                                                                             |
 | `accountType`                                                                                                                                                          | *string*                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                     | The type of account. It differentiates between depository accounts (e.g. bank account), cards (e.g. debit) and earnings balance type of accounts (e.g. on demand pay). |                                                                                                                                                                        |
-| `subtype`                                                                                                                                                              | [models.AccountAttributesCardSubtype](../models/accountattributescardsubtype.md)                                                                                       | :heavy_check_mark:                                                                                                                                                     | The subtype of the account.                                                                                                                                            | DEBIT                                                                                                                                                                  |
-| `details`                                                                                                                                                              | *models.DetailsInput*                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                     | The banking details of the account and account holder.                                                                                                                 |                                                                                                                                                                        |
+| `subtype`                                                                                                                                                              | [models.AccountAttributesCardSubtype](../models/accountattributescardsubtype.md)                                                                                       | :heavy_check_mark:                                                                                                                                                     | The subtype of the account. Additional subtypes may be added over time                                                                                                 | DEBIT                                                                                                                                                                  |
+| `cardAccountDetails`                                                                                                                                                   | [models.CardAccountDetailsInput](../models/cardaccountdetailsinput.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                     | The banking details of the account and account holder.                                                                                                                 |                                                                                                                                                                        |

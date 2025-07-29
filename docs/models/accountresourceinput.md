@@ -11,9 +11,19 @@ let value: AccountResourceInput = {
     name: "Debit Card",
     accountType: "CARD",
     subtype: "DEBIT",
-    details: {
-      galileoCardId: "40769",
-      galileoPmtRefNo: "777101360999",
+    cardAccountDetails: {
+      token: "HX46TY794RG",
+      issuer: "411600",
+      firstName: "Edith",
+      lastName: "Clarke",
+      expirationMonth: "02",
+      expirationYear: "2025",
+      addressLineOne: "123 Kebly Street",
+      addressLineTwo: "Apt #12",
+      addressCity: "Fort Lee",
+      addressState: "NJ",
+      addressZipCode: "72374",
+      addressCountry: "US",
     },
   },
   relationships: {

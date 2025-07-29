@@ -4,7 +4,6 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Accounts } from "./accounts.js";
-import { Authentication } from "./authentication.js";
 import { Cards } from "./cards.js";
 import { Health } from "./health.js";
 import { Jobs } from "./jobs.js";
@@ -14,11 +13,6 @@ import { People } from "./people.js";
 import { Transfers } from "./transfers.js";
 
 export class SDK extends ClientSDK {
-  private _authentication?: Authentication;
-  get authentication(): Authentication {
-    return (this._authentication ??= new Authentication(this._options));
-  }
-
   private _jobs?: Jobs;
   get jobs(): Jobs {
     return (this._jobs ??= new Jobs(this._options));

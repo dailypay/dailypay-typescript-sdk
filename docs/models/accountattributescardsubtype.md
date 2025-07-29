@@ -1,6 +1,6 @@
 # AccountAttributesCardSubtype
 
-The subtype of the account.
+The subtype of the account. Additional subtypes may be added over time
 
 ## Example Usage
 
@@ -13,5 +13,5 @@ let value: AccountAttributesCardSubtype = "DEBIT";
 ## Values
 
 ```typescript
-"DEBIT" | "GALILEO" | "WISELY"
+"DEBIT" | "DAILYPAY"
 ```

@@ -12,7 +12,9 @@ const value: models.CardInput = {
   name: "Debit Card",
   accountType: "CARD",
   subtype: "DEBIT",
-  details: {
+  cardAccountDetails: {
+    token: "HX46TY794RG",
+    issuer: "411600",
     firstName: "Edith",
     lastName: "Clarke",
     expirationMonth: "02",
@@ -23,8 +25,6 @@ const value: models.CardInput = {
     addressState: "NJ",
     addressZipCode: "72374",
     addressCountry: "US",
-    token: "HX46TY794RG",
-    issuer: "411600",
   },
 };
 ```

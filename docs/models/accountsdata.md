@@ -36,12 +36,11 @@ let value: AccountsData = {
         name: "Debit Card",
         accountType: "CARD",
         subtype: "DEBIT",
-        details: {
-          galileoCardId: "40769",
-          firstName: "Edith",
-          lastName: "Clarke",
+        cardAccountDetails: {
           lastFour: "0003",
           issuer: "411600",
+          firstName: "Edith",
+          lastName: "Clarke",
           expirationMonth: "02",
           expirationYear: "2025",
         },

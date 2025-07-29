@@ -22,6 +22,7 @@ Lookup organization by ID for a detailed view of single organization.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="readOrganization" method="get" path="/rest/organizations/{organization_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -105,6 +106,7 @@ Get organizations with an optional filter
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listOrganizations" method="get" path="/rest/organizations" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

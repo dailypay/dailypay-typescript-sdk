@@ -1,23 +1,24 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 4db8a645289690fe25e024265e918565
+  docChecksum: b478f029066890d7a6725e30adab12ac
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.587.0
-  generationVersion: 2.662.0
-  releaseVersion: 0.2.6
-  configChecksum: 73ead8273bc1aafef12e38d1b2054339
+  speakeasyVersion: 1.592.1
+  generationVersion: 2.667.0
+  releaseVersion: 0.3.0
+  configChecksum: a34ed27945e73ee8e97f685a7c79cf16
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.15
+    core: 3.21.16
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
+    examples: 2.82.1
     globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
@@ -52,16 +53,11 @@ generatedFiles:
   - docs/models/accountattributesdepositoryverificationstatus.md
   - docs/models/accountattributesearningsbalanceaccountbalances.md
   - docs/models/accountattributesearningsbalanceaccountcapabilities.md
-  - docs/models/accountattributesearningsbalancedetails.md
   - docs/models/accountattributesearningsbalanceverificationstatus.md
   - docs/models/accountattributesinput.md
   - docs/models/accountattributesoutput.md
   - docs/models/accountdatainput.md
   - docs/models/accountdataoutput.md
-  - docs/models/accountdebitcardinput.md
-  - docs/models/accountdebitcardoutput.md
-  - docs/models/accountgalileocardinput.md
-  - docs/models/accountgalileocardoutput.md
   - docs/models/accountidentifier.md
   - docs/models/accountlinks.md
   - docs/models/accountrelationship.md
@@ -69,17 +65,16 @@ generatedFiles:
   - docs/models/accountresourceinput.md
   - docs/models/accountresourceoutput.md
   - docs/models/accountsdata.md
-  - docs/models/accountwiselycard.md
-  - docs/models/accountwiselycardoutput.md
   - docs/models/activationstatus.md
+  - docs/models/cardaccountdetailsinput.md
+  - docs/models/cardaccountdetailsoutput.md
   - docs/models/cardinput.md
   - docs/models/cardoutput.md
   - docs/models/data.md
   - docs/models/depository.md
   - docs/models/depositoryaccountdetails.md
   - docs/models/depositoryinput.md
-  - docs/models/detailsinput.md
-  - docs/models/detailsoutput.md
+  - docs/models/details.md
   - docs/models/directdepositstatus.md
   - docs/models/disallowreason.md
   - docs/models/earningsbalancereadonly.md
@@ -107,7 +102,6 @@ generatedFiles:
   - docs/models/errornotfounderrormeta.md
   - docs/models/errornotfounderrorsource.md
   - docs/models/errors/accountcreateerror.md
-  - docs/models/errors/badrequesterror.md
   - docs/models/errors/errorbadrequest.md
   - docs/models/errors/errorforbidden.md
   - docs/models/errors/errornotfound.md
@@ -150,8 +144,6 @@ generatedFiles:
   - docs/models/jobresource.md
   - docs/models/jobsdata.md
   - docs/models/jobupdatedata.md
-  - docs/models/operations/authorizationcodeflow.md
-  - docs/models/operations/clientcredentialsflow.md
   - docs/models/operations/createaccountglobals.md
   - docs/models/operations/createaccountresponse.md
   - docs/models/operations/creategenericcardtokenrequest.md
@@ -160,9 +152,7 @@ generatedFiles:
   - docs/models/operations/createtransferglobals.md
   - docs/models/operations/createtransferrequest.md
   - docs/models/operations/createtransferresponse.md
-  - docs/models/operations/errorcode.md
   - docs/models/operations/gethealthresponse.md
-  - docs/models/operations/granttype.md
   - docs/models/operations/listaccountsglobals.md
   - docs/models/operations/listaccountsrequest.md
   - docs/models/operations/listaccountsresponse.md
@@ -196,9 +186,6 @@ generatedFiles:
   - docs/models/operations/readtransferglobals.md
   - docs/models/operations/readtransferrequest.md
   - docs/models/operations/readtransferresponse.md
-  - docs/models/operations/refreshtoken.md
-  - docs/models/operations/requesttokenrequest.md
-  - docs/models/operations/requesttokenresponse.md
   - docs/models/operations/updatejobglobals.md
   - docs/models/operations/updatejobrequest.md
   - docs/models/operations/updatejobresponse.md
@@ -235,7 +222,6 @@ generatedFiles:
   - docs/models/product.md
   - docs/models/schemeoauthclientcredentialstoken.md
   - docs/models/security.md
-  - docs/models/tokendata.md
   - docs/models/transferattributes.md
   - docs/models/transferattributesinput.md
   - docs/models/transferattributesschedule.md
@@ -254,7 +240,6 @@ generatedFiles:
   - docs/models/transfersdata.md
   - docs/models/wagerate.md
   - docs/sdks/accounts/README.md
-  - docs/sdks/authentication/README.md
   - docs/sdks/cards/README.md
   - docs/sdks/health/README.md
   - docs/sdks/jobs/README.md
@@ -266,7 +251,7 @@ generatedFiles:
   - eslint.config.mjs
   - examples/.env.template
   - examples/README.md
-  - examples/authenticationRequestToken.example.ts
+  - examples/accountsList.example.ts
   - examples/package.json
   - jsr.json
   - package.json
@@ -306,7 +291,6 @@ generatedFiles:
   - src/__tests__/mockserver/internal/handler/pathpatchrestjobsjobid.go
   - src/__tests__/mockserver/internal/handler/pathpatchrestpeoplepersonid.go
   - src/__tests__/mockserver/internal/handler/pathpostcardsgeneric.go
-  - src/__tests__/mockserver/internal/handler/pathpostoauth2token.go
   - src/__tests__/mockserver/internal/handler/pathpostrestaccounts.go
   - src/__tests__/mockserver/internal/handler/pathpostresttransfers.go
   - src/__tests__/mockserver/internal/handler/values/files.go
@@ -321,10 +305,6 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/components/accountattributesoutput.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountdatainput.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountdataoutput.go
-  - src/__tests__/mockserver/internal/sdk/models/components/accountdebitcardinput.go
-  - src/__tests__/mockserver/internal/sdk/models/components/accountdebitcardoutput.go
-  - src/__tests__/mockserver/internal/sdk/models/components/accountgalileocardinput.go
-  - src/__tests__/mockserver/internal/sdk/models/components/accountgalileocardoutput.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountidentifier.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountlinks.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountrelationship.go
@@ -332,8 +312,6 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/components/accountresourceinput.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountresourceoutput.go
   - src/__tests__/mockserver/internal/sdk/models/components/accountsdata.go
-  - src/__tests__/mockserver/internal/sdk/models/components/accountwiselycard.go
-  - src/__tests__/mockserver/internal/sdk/models/components/accountwiselycardoutput.go
   - src/__tests__/mockserver/internal/sdk/models/components/erroraccountcreateerror.go
   - src/__tests__/mockserver/internal/sdk/models/components/errorbadrequesterror.go
   - src/__tests__/mockserver/internal/sdk/models/components/errorforbiddenerror.go
@@ -388,7 +366,6 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/components/personresourceinput.go
   - src/__tests__/mockserver/internal/sdk/models/components/schemeoauthclientcredentialstoken.go
   - src/__tests__/mockserver/internal/sdk/models/components/security.go
-  - src/__tests__/mockserver/internal/sdk/models/components/tokendata.go
   - src/__tests__/mockserver/internal/sdk/models/components/transferattributes.go
   - src/__tests__/mockserver/internal/sdk/models/components/transfercreatedata.go
   - src/__tests__/mockserver/internal/sdk/models/components/transfercreaterelationships.go
@@ -416,7 +393,6 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/operations/readpaycheck.go
   - src/__tests__/mockserver/internal/sdk/models/operations/readperson.go
   - src/__tests__/mockserver/internal/sdk/models/operations/readtransfer.go
-  - src/__tests__/mockserver/internal/sdk/models/operations/requesttoken.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updatejob.go
   - src/__tests__/mockserver/internal/sdk/models/operations/updateperson.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/accountcreateerror.go
@@ -426,7 +402,6 @@ generatedFiles:
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errorunauthorized.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/errorunexpected.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/jobupdateerror.go
-  - src/__tests__/mockserver/internal/sdk/models/sdkerrors/requesttoken.go
   - src/__tests__/mockserver/internal/sdk/models/sdkerrors/transfercreateerror.go
   - src/__tests__/mockserver/internal/sdk/types/bigint.go
   - src/__tests__/mockserver/internal/sdk/types/date.go
@@ -456,7 +431,6 @@ generatedFiles:
   - src/funcs/accountsCreate.ts
   - src/funcs/accountsList.ts
   - src/funcs/accountsRead.ts
-  - src/funcs/authenticationRequestToken.ts
   - src/funcs/cardsCreate.ts
   - src/funcs/healthGetHealth.ts
   - src/funcs/jobsList.ts
@@ -494,10 +468,6 @@ generatedFiles:
   - src/models/accountattributesoutput.ts
   - src/models/accountdatainput.ts
   - src/models/accountdataoutput.ts
-  - src/models/accountdebitcardinput.ts
-  - src/models/accountdebitcardoutput.ts
-  - src/models/accountgalileocardinput.ts
-  - src/models/accountgalileocardoutput.ts
   - src/models/accountidentifier.ts
   - src/models/accountlinks.ts
   - src/models/accountrelationship.ts
@@ -505,8 +475,6 @@ generatedFiles:
   - src/models/accountresourceinput.ts
   - src/models/accountresourceoutput.ts
   - src/models/accountsdata.ts
-  - src/models/accountwiselycard.ts
-  - src/models/accountwiselycardoutput.ts
   - src/models/erroraccountcreateerror.ts
   - src/models/errorbadrequesterror.ts
   - src/models/errorforbiddenerror.ts
@@ -522,7 +490,6 @@ generatedFiles:
   - src/models/errors/httpclienterrors.ts
   - src/models/errors/index.ts
   - src/models/errors/jobupdateerror.ts
-  - src/models/errors/requesttoken.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkdefaulterror.ts
   - src/models/errors/sdkvalidationerror.ts
@@ -566,7 +533,6 @@ generatedFiles:
   - src/models/operations/readpaycheck.ts
   - src/models/operations/readperson.ts
   - src/models/operations/readtransfer.ts
-  - src/models/operations/requesttoken.ts
   - src/models/operations/updatejob.ts
   - src/models/operations/updateperson.ts
   - src/models/organizationattributes.ts
@@ -596,7 +562,6 @@ generatedFiles:
   - src/models/personresourceinput.ts
   - src/models/schemeoauthclientcredentialstoken.ts
   - src/models/security.ts
-  - src/models/tokendata.ts
   - src/models/transferattributes.ts
   - src/models/transfercreatedata.ts
   - src/models/transfercreaterelationships.ts
@@ -610,7 +575,6 @@ generatedFiles:
   - src/models/transferresource.ts
   - src/models/transfersdata.ts
   - src/sdk/accounts.ts
-  - src/sdk/authentication.ts
   - src/sdk/cards.ts
   - src/sdk/health.ts
   - src/sdk/index.ts
@@ -651,7 +615,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Department", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Finance", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": []}
         "401":
@@ -673,7 +637,7 @@ examples:
         application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"activation_status": "DEACTIVATED"}, "relationships": {"direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Department", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+          application/vnd.api+json: {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Finance", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -745,7 +709,7 @@ examples:
         header:
           DailyPay-API-Version: 3
       requestBody:
-        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US", "token": "abc.efg.123", "issuer": "411600"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
+        application/vnd.api+json: {"data": {"type": "accounts", "attributes": {"name": "Acme Bank Debit Card", "account_type": "CARD", "subtype": "DEBIT", "details": {"token": "abc.efg.123", "issuer": "411600", "first_name": "Edith", "last_name": "Clarke", "expiration_month": "02", "expiration_year": "2027", "address_line_one": "123 Kebly Street", "address_city": "Fort Lee", "address_state": "NJ", "address_zip_code": "72374", "address_country": "US"}}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
       responses:
         "200":
           application/vnd.api+json: {"data": {"id": "2bc7d781-3247-46f6-b60f-4090d214936a", "type": "accounts", "attributes": {"verification_status": "VERIFIED", "balances": {"available": 12000, "current": 50000, "currency": "USD"}, "capabilities": {"transfer_destination": [{"schedule": "WITHIN_THIRTY_MINUTES", "fee": 300, "currency": "USD"}, {"schedule": "NEXT_BUSINESS_DAY", "fee": 0, "currency": "USD"}]}, "name": "Checking Account", "account_type": "DEPOSITORY", "subtype": "CHECKING", "details": {"first_name": "Edith", "last_name": "Clarke", "routing_number": "XXXXX2021", "account_number": "XXXXXX4321"}}, "links": {"self": "https://api.dailypay.com/rest/accounts/2bc7d781-3247-46f6-b60f-4090d214936a"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}}}}
@@ -864,7 +828,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "FRIDAY"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}}
+          application/vnd.api+json: {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022", "attributes": {"name": "DailyPay", "products": ["ODP", "DAILYPAY_CARD"]}, "links": {"self": "https://api.dailypay.com/rest/organizations/f0b30634-108c-439c-a8c1-c6a91197f022"}}}
         "400":
           application/vnd.api+json: {"errors": []}
         "401":

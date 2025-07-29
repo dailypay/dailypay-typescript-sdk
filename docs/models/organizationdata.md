@@ -15,7 +15,7 @@ let value: OrganizationData = {
       name: "DailyPay",
       products: [
         "ODP",
-        "FRIDAY",
+        "DAILYPAY_CARD",
       ],
     },
     links: {

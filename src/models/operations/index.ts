@@ -17,6 +17,5 @@ export * from "./readorganization.js";
 export * from "./readpaycheck.js";
 export * from "./readperson.js";
 export * from "./readtransfer.js";
-export * from "./requesttoken.js";
 export * from "./updatejob.js";
 export * from "./updateperson.js";

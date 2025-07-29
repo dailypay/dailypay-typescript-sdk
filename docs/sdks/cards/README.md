@@ -66,6 +66,7 @@ Obtain a PCI DSS Compliant card token. This token must be used in order to add a
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createGenericCardToken" method="post" path="/cards/generic" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

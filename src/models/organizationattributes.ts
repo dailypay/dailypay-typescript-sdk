@@ -10,8 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const Product = {
   Odp: "ODP",
+  DailypayCard: "DAILYPAY_CARD",
   Friday: "FRIDAY",
-  WiselyEwa: "WISELY_EWA",
 } as const;
 export type Product = ClosedEnum<typeof Product>;
 
