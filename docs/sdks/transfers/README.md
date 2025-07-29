@@ -25,6 +25,7 @@ Created when a person takes an advance against a future paycheck, or on a daily 
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="readTransfer" method="get" path="/rest/transfers/{transfer_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -110,6 +111,7 @@ See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/S
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listTransfers" method="get" path="/rest/transfers" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -190,6 +192,7 @@ personal `DEPOSITORY` or `CARD` account.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createTransfer" method="post" path="/rest/transfers" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

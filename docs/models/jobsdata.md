@@ -25,7 +25,7 @@ let value: JobsData = {
           frequency: "HOURLY",
         },
         title: "Computer",
-        department: "Department",
+        department: "Finance",
         location: "New York, New York",
         directDepositStatus: "SETUP_COMPLETE",
       },

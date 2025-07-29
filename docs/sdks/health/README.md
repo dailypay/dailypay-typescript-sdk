@@ -20,6 +20,7 @@ Returns a 200 status code if the API is up and running.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getHealth" method="get" path="/rest/health" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

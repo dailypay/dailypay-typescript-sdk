@@ -27,7 +27,6 @@ func GeneratedHandlers(ctx context.Context, dir *logging.HTTPFileDirectory, rt *
 		NewGeneratedHandler(ctx, http.MethodPatch, "/rest/jobs/{job_id}", pathPatchRestJobsJobID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPatch, "/rest/people/{person_id}", pathPatchRestPeoplePersonID(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/cards/generic", pathPostCardsGeneric(dir, rt)),
-		NewGeneratedHandler(ctx, http.MethodPost, "/oauth2/token", pathPostOauth2Token(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/accounts", pathPostRestAccounts(dir, rt)),
 		NewGeneratedHandler(ctx, http.MethodPost, "/rest/transfers", pathPostRestTransfers(dir, rt)),
 	}

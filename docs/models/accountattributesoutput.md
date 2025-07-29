@@ -32,13 +32,13 @@ const value: models.CardOutput = {
   name: "Debit Card",
   accountType: "CARD",
   subtype: "DEBIT",
-  details: {
+  cardAccountDetails: {
+    lastFour: "0003",
+    issuer: "411600",
     firstName: "Edith",
     lastName: "Clarke",
     expirationMonth: "02",
     expirationYear: "2025",
-    lastFour: "0003",
-    issuer: "411600",
   },
 };
 ```

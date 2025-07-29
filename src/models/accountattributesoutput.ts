@@ -7,42 +7,6 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AccountDebitCardInput,
-  AccountDebitCardInput$inboundSchema,
-  AccountDebitCardInput$Outbound,
-  AccountDebitCardInput$outboundSchema,
-} from "./accountdebitcardinput.js";
-import {
-  AccountDebitCardOutput,
-  AccountDebitCardOutput$inboundSchema,
-  AccountDebitCardOutput$Outbound,
-  AccountDebitCardOutput$outboundSchema,
-} from "./accountdebitcardoutput.js";
-import {
-  AccountGalileoCardInput,
-  AccountGalileoCardInput$inboundSchema,
-  AccountGalileoCardInput$Outbound,
-  AccountGalileoCardInput$outboundSchema,
-} from "./accountgalileocardinput.js";
-import {
-  AccountGalileoCardOutput,
-  AccountGalileoCardOutput$inboundSchema,
-  AccountGalileoCardOutput$Outbound,
-  AccountGalileoCardOutput$outboundSchema,
-} from "./accountgalileocardoutput.js";
-import {
-  AccountWiselyCard,
-  AccountWiselyCard$inboundSchema,
-  AccountWiselyCard$Outbound,
-  AccountWiselyCard$outboundSchema,
-} from "./accountwiselycard.js";
-import {
-  AccountWiselyCardOutput,
-  AccountWiselyCardOutput$inboundSchema,
-  AccountWiselyCardOutput$Outbound,
-  AccountWiselyCardOutput$outboundSchema,
-} from "./accountwiselycardoutput.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferDestinationCapability,
@@ -266,7 +230,7 @@ export type AccountAttributesEarningsBalanceAccountCapabilities = {
 /**
  * An empty object for earnings balance accounts.
  */
-export type AccountAttributesEarningsBalanceDetails = {};
+export type Details = {};
 
 /**
  * An account with type `EARNINGS_BALANCE` and subtype `ODP`.
@@ -293,7 +257,7 @@ export type EarningsBalanceReadOnly = {
   /**
    * An empty object for earnings balance accounts.
    */
-  details: AccountAttributesEarningsBalanceDetails;
+  details: Details;
 };
 
 /**
@@ -371,15 +335,14 @@ export type AccountAttributesCardAccountCapabilities = {
 };
 
 /**
- * The subtype of the account.
+ * The subtype of the account. Additional subtypes may be added over time
  */
 export const AccountAttributesCardSubtype = {
   Debit: "DEBIT",
-  Galileo: "GALILEO",
-  Wisely: "WISELY",
+  Dailypay: "DAILYPAY",
 } as const;
 /**
- * The subtype of the account.
+ * The subtype of the account. Additional subtypes may be added over time
  */
 export type AccountAttributesCardSubtype = ClosedEnum<
   typeof AccountAttributesCardSubtype
@@ -388,13 +351,35 @@ export type AccountAttributesCardSubtype = ClosedEnum<
 /**
  * The banking details of the account and account holder.
  */
-export type DetailsOutput =
-  | AccountGalileoCardOutput
-  | AccountWiselyCardOutput
-  | AccountDebitCardOutput;
+export type CardAccountDetailsOutput = {
+  /**
+   * Last four digits of the card number.
+   */
+  lastFour: string;
+  /**
+   * The issuer of the card.
+   */
+  issuer: string;
+  /**
+   * The first name of the account holder.
+   */
+  firstName: string;
+  /**
+   * The last name of the account holder.
+   */
+  lastName: string;
+  /**
+   * The month of the expiration date for the card.
+   */
+  expirationMonth: string;
+  /**
+   * The year of the expiration date for the card.
+   */
+  expirationYear: string;
+};
 
 /**
- * An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+ * An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
  */
 export type CardOutput = {
   /**
@@ -412,16 +397,13 @@ export type CardOutput = {
    */
   accountType: "CARD";
   /**
-   * The subtype of the account.
+   * The subtype of the account. Additional subtypes may be added over time
    */
   subtype: AccountAttributesCardSubtype;
   /**
    * The banking details of the account and account holder.
    */
-  details:
-    | AccountGalileoCardOutput
-    | AccountWiselyCardOutput
-    | AccountDebitCardOutput;
+  cardAccountDetails: CardAccountDetailsOutput;
 };
 
 /**
@@ -462,13 +444,59 @@ export type EarningsBalanceReadOnlyInput = {};
 /**
  * The banking details of the account and account holder.
  */
-export type DetailsInput =
-  | AccountWiselyCard
-  | AccountDebitCardInput
-  | AccountGalileoCardInput;
+export type CardAccountDetailsInput = {
+  /**
+   * A tokenized string replacement for the card data.
+   */
+  token: string;
+  /**
+   * The issuer of the card.
+   */
+  issuer: string;
+  /**
+   * The first name of the account holder.
+   */
+  firstName: string;
+  /**
+   * The last name of the account holder.
+   */
+  lastName: string;
+  /**
+   * The month of the expiration date for the card.
+   */
+  expirationMonth: string;
+  /**
+   * The year of the expiration date for the card.
+   */
+  expirationYear: string;
+  /**
+   * The first line of the address for the card.
+   */
+  addressLineOne: string;
+  /**
+   * The second line of the address for the card.
+   */
+  addressLineTwo?: string | undefined;
+  /**
+   * The city of the address for the card.
+   */
+  addressCity: string;
+  /**
+   * The two-letter abbreviation of the state in the address for the card.
+   */
+  addressState: string;
+  /**
+   * The zip code of the address for the card.
+   */
+  addressZipCode: string;
+  /**
+   * The country code of the address for the card.
+   */
+  addressCountry: string;
+};
 
 /**
- * An account with type `CARD` and subtype `GALILEO`, `WISELY`, or `DEBIT`.
+ * An account with type `CARD` and subtype `DAILYPAY` or `DEBIT`.
  */
 export type CardInput = {
   /**
@@ -480,13 +508,13 @@ export type CardInput = {
    */
   accountType: "CARD";
   /**
-   * The subtype of the account.
+   * The subtype of the account. Additional subtypes may be added over time
    */
   subtype: AccountAttributesCardSubtype;
   /**
    * The banking details of the account and account holder.
    */
-  details: AccountWiselyCard | AccountDebitCardInput | AccountGalileoCardInput;
+  cardAccountDetails: CardAccountDetailsInput;
 };
 
 /**
@@ -1035,61 +1063,43 @@ export function accountAttributesEarningsBalanceAccountCapabilitiesFromJSON(
 }
 
 /** @internal */
-export const AccountAttributesEarningsBalanceDetails$inboundSchema: z.ZodType<
-  AccountAttributesEarningsBalanceDetails,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
+export const Details$inboundSchema: z.ZodType<Details, z.ZodTypeDef, unknown> =
+  z.object({});
 
 /** @internal */
-export type AccountAttributesEarningsBalanceDetails$Outbound = {};
+export type Details$Outbound = {};
 
 /** @internal */
-export const AccountAttributesEarningsBalanceDetails$outboundSchema: z.ZodType<
-  AccountAttributesEarningsBalanceDetails$Outbound,
+export const Details$outboundSchema: z.ZodType<
+  Details$Outbound,
   z.ZodTypeDef,
-  AccountAttributesEarningsBalanceDetails
+  Details
 > = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace AccountAttributesEarningsBalanceDetails$ {
-  /** @deprecated use `AccountAttributesEarningsBalanceDetails$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesEarningsBalanceDetails$inboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceDetails$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesEarningsBalanceDetails$outboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceDetails$Outbound` instead. */
-  export type Outbound = AccountAttributesEarningsBalanceDetails$Outbound;
+export namespace Details$ {
+  /** @deprecated use `Details$inboundSchema` instead. */
+  export const inboundSchema = Details$inboundSchema;
+  /** @deprecated use `Details$outboundSchema` instead. */
+  export const outboundSchema = Details$outboundSchema;
+  /** @deprecated use `Details$Outbound` instead. */
+  export type Outbound = Details$Outbound;
 }
 
-export function accountAttributesEarningsBalanceDetailsToJSON(
-  accountAttributesEarningsBalanceDetails:
-    AccountAttributesEarningsBalanceDetails,
-): string {
-  return JSON.stringify(
-    AccountAttributesEarningsBalanceDetails$outboundSchema.parse(
-      accountAttributesEarningsBalanceDetails,
-    ),
-  );
+export function detailsToJSON(details: Details): string {
+  return JSON.stringify(Details$outboundSchema.parse(details));
 }
 
-export function accountAttributesEarningsBalanceDetailsFromJSON(
+export function detailsFromJSON(
   jsonString: string,
-): SafeParseResult<
-  AccountAttributesEarningsBalanceDetails,
-  SDKValidationError
-> {
+): SafeParseResult<Details, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      AccountAttributesEarningsBalanceDetails$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'AccountAttributesEarningsBalanceDetails' from JSON`,
+    (x) => Details$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Details' from JSON`,
   );
 }
 
@@ -1110,7 +1120,7 @@ export const EarningsBalanceReadOnly$inboundSchema: z.ZodType<
   name: z.string(),
   account_type: z.literal("EARNINGS_BALANCE"),
   subtype: z.literal("ODP"),
-  details: z.lazy(() => AccountAttributesEarningsBalanceDetails$inboundSchema),
+  details: z.lazy(() => Details$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "verification_status": "verificationStatus",
@@ -1128,7 +1138,7 @@ export type EarningsBalanceReadOnly$Outbound = {
   name: string;
   account_type: "EARNINGS_BALANCE";
   subtype: "ODP";
-  details: AccountAttributesEarningsBalanceDetails$Outbound;
+  details: Details$Outbound;
 };
 
 /** @internal */
@@ -1148,7 +1158,7 @@ export const EarningsBalanceReadOnly$outboundSchema: z.ZodType<
   name: z.string(),
   accountType: z.literal("EARNINGS_BALANCE"),
   subtype: z.literal("ODP"),
-  details: z.lazy(() => AccountAttributesEarningsBalanceDetails$outboundSchema),
+  details: z.lazy(() => Details$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     verificationStatus: "verification_status",
@@ -1372,57 +1382,87 @@ export namespace AccountAttributesCardSubtype$ {
 }
 
 /** @internal */
-export const DetailsOutput$inboundSchema: z.ZodType<
-  DetailsOutput,
+export const CardAccountDetailsOutput$inboundSchema: z.ZodType<
+  CardAccountDetailsOutput,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  AccountGalileoCardOutput$inboundSchema,
-  AccountWiselyCardOutput$inboundSchema,
-  AccountDebitCardOutput$inboundSchema,
-]);
+> = z.object({
+  last_four: z.string(),
+  issuer: z.string(),
+  first_name: z.string(),
+  last_name: z.string(),
+  expiration_month: z.string(),
+  expiration_year: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "last_four": "lastFour",
+    "first_name": "firstName",
+    "last_name": "lastName",
+    "expiration_month": "expirationMonth",
+    "expiration_year": "expirationYear",
+  });
+});
 
 /** @internal */
-export type DetailsOutput$Outbound =
-  | AccountGalileoCardOutput$Outbound
-  | AccountWiselyCardOutput$Outbound
-  | AccountDebitCardOutput$Outbound;
+export type CardAccountDetailsOutput$Outbound = {
+  last_four: string;
+  issuer: string;
+  first_name: string;
+  last_name: string;
+  expiration_month: string;
+  expiration_year: string;
+};
 
 /** @internal */
-export const DetailsOutput$outboundSchema: z.ZodType<
-  DetailsOutput$Outbound,
+export const CardAccountDetailsOutput$outboundSchema: z.ZodType<
+  CardAccountDetailsOutput$Outbound,
   z.ZodTypeDef,
-  DetailsOutput
-> = z.union([
-  AccountGalileoCardOutput$outboundSchema,
-  AccountWiselyCardOutput$outboundSchema,
-  AccountDebitCardOutput$outboundSchema,
-]);
+  CardAccountDetailsOutput
+> = z.object({
+  lastFour: z.string(),
+  issuer: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  expirationMonth: z.string(),
+  expirationYear: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    lastFour: "last_four",
+    firstName: "first_name",
+    lastName: "last_name",
+    expirationMonth: "expiration_month",
+    expirationYear: "expiration_year",
+  });
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace DetailsOutput$ {
-  /** @deprecated use `DetailsOutput$inboundSchema` instead. */
-  export const inboundSchema = DetailsOutput$inboundSchema;
-  /** @deprecated use `DetailsOutput$outboundSchema` instead. */
-  export const outboundSchema = DetailsOutput$outboundSchema;
-  /** @deprecated use `DetailsOutput$Outbound` instead. */
-  export type Outbound = DetailsOutput$Outbound;
+export namespace CardAccountDetailsOutput$ {
+  /** @deprecated use `CardAccountDetailsOutput$inboundSchema` instead. */
+  export const inboundSchema = CardAccountDetailsOutput$inboundSchema;
+  /** @deprecated use `CardAccountDetailsOutput$outboundSchema` instead. */
+  export const outboundSchema = CardAccountDetailsOutput$outboundSchema;
+  /** @deprecated use `CardAccountDetailsOutput$Outbound` instead. */
+  export type Outbound = CardAccountDetailsOutput$Outbound;
 }
 
-export function detailsOutputToJSON(detailsOutput: DetailsOutput): string {
-  return JSON.stringify(DetailsOutput$outboundSchema.parse(detailsOutput));
+export function cardAccountDetailsOutputToJSON(
+  cardAccountDetailsOutput: CardAccountDetailsOutput,
+): string {
+  return JSON.stringify(
+    CardAccountDetailsOutput$outboundSchema.parse(cardAccountDetailsOutput),
+  );
 }
 
-export function detailsOutputFromJSON(
+export function cardAccountDetailsOutputFromJSON(
   jsonString: string,
-): SafeParseResult<DetailsOutput, SDKValidationError> {
+): SafeParseResult<CardAccountDetailsOutput, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => DetailsOutput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DetailsOutput' from JSON`,
+    (x) => CardAccountDetailsOutput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CardAccountDetailsOutput' from JSON`,
   );
 }
 
@@ -1440,17 +1480,14 @@ export const CardOutput$inboundSchema: z.ZodType<
   name: z.string(),
   account_type: z.literal("CARD"),
   subtype: AccountAttributesCardSubtype$inboundSchema,
-  details: z.union([
-    AccountGalileoCardOutput$inboundSchema,
-    AccountWiselyCardOutput$inboundSchema,
-    AccountDebitCardOutput$inboundSchema,
-  ]),
+  details: z.lazy(() => CardAccountDetailsOutput$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "verification_status": "verificationStatus",
     "balances": "accountBalances",
     "capabilities": "accountCapabilities",
     "account_type": "accountType",
+    "details": "cardAccountDetails",
   });
 });
 
@@ -1462,10 +1499,7 @@ export type CardOutput$Outbound = {
   name: string;
   account_type: "CARD";
   subtype: string;
-  details:
-    | AccountGalileoCardOutput$Outbound
-    | AccountWiselyCardOutput$Outbound
-    | AccountDebitCardOutput$Outbound;
+  details: CardAccountDetailsOutput$Outbound;
 };
 
 /** @internal */
@@ -1484,17 +1518,14 @@ export const CardOutput$outboundSchema: z.ZodType<
   name: z.string(),
   accountType: z.literal("CARD"),
   subtype: AccountAttributesCardSubtype$outboundSchema,
-  details: z.union([
-    AccountGalileoCardOutput$outboundSchema,
-    AccountWiselyCardOutput$outboundSchema,
-    AccountDebitCardOutput$outboundSchema,
-  ]),
+  cardAccountDetails: z.lazy(() => CardAccountDetailsOutput$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     verificationStatus: "verification_status",
     accountBalances: "balances",
     accountCapabilities: "capabilities",
     accountType: "account_type",
+    cardAccountDetails: "details",
   });
 });
 
@@ -1708,57 +1739,115 @@ export function earningsBalanceReadOnlyInputFromJSON(
 }
 
 /** @internal */
-export const DetailsInput$inboundSchema: z.ZodType<
-  DetailsInput,
+export const CardAccountDetailsInput$inboundSchema: z.ZodType<
+  CardAccountDetailsInput,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  AccountWiselyCard$inboundSchema,
-  AccountDebitCardInput$inboundSchema,
-  AccountGalileoCardInput$inboundSchema,
-]);
+> = z.object({
+  token: z.string(),
+  issuer: z.string(),
+  first_name: z.string(),
+  last_name: z.string(),
+  expiration_month: z.string(),
+  expiration_year: z.string(),
+  address_line_one: z.string(),
+  address_line_two: z.string().optional(),
+  address_city: z.string(),
+  address_state: z.string(),
+  address_zip_code: z.string(),
+  address_country: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    "first_name": "firstName",
+    "last_name": "lastName",
+    "expiration_month": "expirationMonth",
+    "expiration_year": "expirationYear",
+    "address_line_one": "addressLineOne",
+    "address_line_two": "addressLineTwo",
+    "address_city": "addressCity",
+    "address_state": "addressState",
+    "address_zip_code": "addressZipCode",
+    "address_country": "addressCountry",
+  });
+});
 
 /** @internal */
-export type DetailsInput$Outbound =
-  | AccountWiselyCard$Outbound
-  | AccountDebitCardInput$Outbound
-  | AccountGalileoCardInput$Outbound;
+export type CardAccountDetailsInput$Outbound = {
+  token: string;
+  issuer: string;
+  first_name: string;
+  last_name: string;
+  expiration_month: string;
+  expiration_year: string;
+  address_line_one: string;
+  address_line_two?: string | undefined;
+  address_city: string;
+  address_state: string;
+  address_zip_code: string;
+  address_country: string;
+};
 
 /** @internal */
-export const DetailsInput$outboundSchema: z.ZodType<
-  DetailsInput$Outbound,
+export const CardAccountDetailsInput$outboundSchema: z.ZodType<
+  CardAccountDetailsInput$Outbound,
   z.ZodTypeDef,
-  DetailsInput
-> = z.union([
-  AccountWiselyCard$outboundSchema,
-  AccountDebitCardInput$outboundSchema,
-  AccountGalileoCardInput$outboundSchema,
-]);
+  CardAccountDetailsInput
+> = z.object({
+  token: z.string(),
+  issuer: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  expirationMonth: z.string(),
+  expirationYear: z.string(),
+  addressLineOne: z.string(),
+  addressLineTwo: z.string().optional(),
+  addressCity: z.string(),
+  addressState: z.string(),
+  addressZipCode: z.string(),
+  addressCountry: z.string(),
+}).transform((v) => {
+  return remap$(v, {
+    firstName: "first_name",
+    lastName: "last_name",
+    expirationMonth: "expiration_month",
+    expirationYear: "expiration_year",
+    addressLineOne: "address_line_one",
+    addressLineTwo: "address_line_two",
+    addressCity: "address_city",
+    addressState: "address_state",
+    addressZipCode: "address_zip_code",
+    addressCountry: "address_country",
+  });
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace DetailsInput$ {
-  /** @deprecated use `DetailsInput$inboundSchema` instead. */
-  export const inboundSchema = DetailsInput$inboundSchema;
-  /** @deprecated use `DetailsInput$outboundSchema` instead. */
-  export const outboundSchema = DetailsInput$outboundSchema;
-  /** @deprecated use `DetailsInput$Outbound` instead. */
-  export type Outbound = DetailsInput$Outbound;
+export namespace CardAccountDetailsInput$ {
+  /** @deprecated use `CardAccountDetailsInput$inboundSchema` instead. */
+  export const inboundSchema = CardAccountDetailsInput$inboundSchema;
+  /** @deprecated use `CardAccountDetailsInput$outboundSchema` instead. */
+  export const outboundSchema = CardAccountDetailsInput$outboundSchema;
+  /** @deprecated use `CardAccountDetailsInput$Outbound` instead. */
+  export type Outbound = CardAccountDetailsInput$Outbound;
 }
 
-export function detailsInputToJSON(detailsInput: DetailsInput): string {
-  return JSON.stringify(DetailsInput$outboundSchema.parse(detailsInput));
+export function cardAccountDetailsInputToJSON(
+  cardAccountDetailsInput: CardAccountDetailsInput,
+): string {
+  return JSON.stringify(
+    CardAccountDetailsInput$outboundSchema.parse(cardAccountDetailsInput),
+  );
 }
 
-export function detailsInputFromJSON(
+export function cardAccountDetailsInputFromJSON(
   jsonString: string,
-): SafeParseResult<DetailsInput, SDKValidationError> {
+): SafeParseResult<CardAccountDetailsInput, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => DetailsInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DetailsInput' from JSON`,
+    (x) => CardAccountDetailsInput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CardAccountDetailsInput' from JSON`,
   );
 }
 
@@ -1771,14 +1860,11 @@ export const CardInput$inboundSchema: z.ZodType<
   name: z.string(),
   account_type: z.literal("CARD"),
   subtype: AccountAttributesCardSubtype$inboundSchema,
-  details: z.union([
-    AccountWiselyCard$inboundSchema,
-    AccountDebitCardInput$inboundSchema,
-    AccountGalileoCardInput$inboundSchema,
-  ]),
+  details: z.lazy(() => CardAccountDetailsInput$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "account_type": "accountType",
+    "details": "cardAccountDetails",
   });
 });
 
@@ -1787,10 +1873,7 @@ export type CardInput$Outbound = {
   name: string;
   account_type: "CARD";
   subtype: string;
-  details:
-    | AccountWiselyCard$Outbound
-    | AccountDebitCardInput$Outbound
-    | AccountGalileoCardInput$Outbound;
+  details: CardAccountDetailsInput$Outbound;
 };
 
 /** @internal */
@@ -1802,14 +1885,11 @@ export const CardInput$outboundSchema: z.ZodType<
   name: z.string(),
   accountType: z.literal("CARD"),
   subtype: AccountAttributesCardSubtype$outboundSchema,
-  details: z.union([
-    AccountWiselyCard$outboundSchema,
-    AccountDebitCardInput$outboundSchema,
-    AccountGalileoCardInput$outboundSchema,
-  ]),
+  cardAccountDetails: z.lazy(() => CardAccountDetailsInput$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     accountType: "account_type",
+    cardAccountDetails: "details",
   });
 });
 

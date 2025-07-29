@@ -20,25 +20,26 @@ specific category of applications.
 
 ```typescript
 import { SDKCore } from "@dailypay/dailypay/core.js";
-import { authenticationRequestToken } from "@dailypay/dailypay/funcs/authenticationRequestToken.js";
+import { accountsList } from "@dailypay/dailypay/funcs/accountsList.js";
 
 // Use `SDKCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const sdk = new SDKCore();
+const sdk = new SDKCore({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
 
 async function run() {
-  const res = await authenticationRequestToken(sdk, {
-    grantType: "authorization_code",
-    code: "50BTIf2h7Wtg3DAk7ytpG5ML_PsNjfQA4M7iupH_3jw",
-    redirectUri: "https://example.com/callback",
-    state: "Hawaii",
-    clientId: "<id>",
+  const res = await accountsList(sdk, {
+    filterAccountType: "EARNINGS_BALANCE",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("authenticationRequestToken failed:", res.error);
+    console.log("accountsList failed:", res.error);
   }
 }
 

@@ -53,7 +53,7 @@ func testReadOrganizationReadOrganization0(w http.ResponseWriter, req *http.Requ
 				Name: types.String("DailyPay"),
 				Products: []components.Product{
 					components.ProductOdp,
-					components.ProductFriday,
+					components.ProductDailypayCard,
 				},
 			},
 			Links: components.OrganizationLinks{

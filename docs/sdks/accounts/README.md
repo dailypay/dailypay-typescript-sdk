@@ -28,6 +28,7 @@ Returns details about an account. This object represents a person's bank account
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="readAccount" method="get" path="/rest/accounts/{account_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -113,6 +114,7 @@ See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Su
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listAccounts" method="get" path="/rest/accounts" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -195,6 +197,7 @@ Create an account object to store a person's bank or card information as a desti
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createAccount" method="post" path="/rest/accounts" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

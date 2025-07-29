@@ -25,6 +25,7 @@ Returns details about a paycheck object.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="readPaycheck" method="get" path="/rest/paychecks/{paycheck_id}" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -110,6 +111,7 @@ See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/S
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listPaychecks" method="get" path="/rest/paychecks" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

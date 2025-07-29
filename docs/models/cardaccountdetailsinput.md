@@ -1,11 +1,15 @@
-# AccountDebitCardInput
+# CardAccountDetailsInput
+
+The banking details of the account and account holder.
 
 ## Example Usage
 
 ```typescript
-import { AccountDebitCardInput } from "@dailypay/dailypay/models";
+import { CardAccountDetailsInput } from "@dailypay/dailypay/models";
 
-let value: AccountDebitCardInput = {
+let value: CardAccountDetailsInput = {
+  token: "HX46TY794RG",
+  issuer: "411600",
   firstName: "Edith",
   lastName: "Clarke",
   expirationMonth: "02",
@@ -16,8 +20,6 @@ let value: AccountDebitCardInput = {
   addressState: "NJ",
   addressZipCode: "72374",
   addressCountry: "US",
-  token: "HX46TY794RG",
-  issuer: "411600",
 };
 ```
 
@@ -25,6 +27,8 @@ let value: AccountDebitCardInput = {
 
 | Field                                                                 | Type                                                                  | Required                                                              | Description                                                           | Example                                                               |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `token`                                                               | *string*                                                              | :heavy_check_mark:                                                    | A tokenized string replacement for the card data.                     | HX46TY794RG                                                           |
+| `issuer`                                                              | *string*                                                              | :heavy_check_mark:                                                    | The issuer of the card.                                               | 411600                                                                |
 | `firstName`                                                           | *string*                                                              | :heavy_check_mark:                                                    | The first name of the account holder.                                 | Edith                                                                 |
 | `lastName`                                                            | *string*                                                              | :heavy_check_mark:                                                    | The last name of the account holder.                                  | Clarke                                                                |
 | `expirationMonth`                                                     | *string*                                                              | :heavy_check_mark:                                                    | The month of the expiration date for the card.                        | 02                                                                    |
@@ -35,5 +39,3 @@ let value: AccountDebitCardInput = {
 | `addressState`                                                        | *string*                                                              | :heavy_check_mark:                                                    | The two-letter abbreviation of the state in the address for the card. | NJ                                                                    |
 | `addressZipCode`                                                      | *string*                                                              | :heavy_check_mark:                                                    | The zip code of the address for the card.                             | 72374                                                                 |
 | `addressCountry`                                                      | *string*                                                              | :heavy_check_mark:                                                    | The country code of the address for the card.                         | US                                                                    |
-| `token`                                                               | *string*                                                              | :heavy_check_mark:                                                    | A tokenized string replacement for the card data.                     | HX46TY794RG                                                           |
-| `issuer`                                                              | *string*                                                              | :heavy_check_mark:                                                    | The issuer of the card.                                               | 411600                                                                |
