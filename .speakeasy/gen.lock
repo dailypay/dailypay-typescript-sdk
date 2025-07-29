@@ -5,8 +5,8 @@ management:
   docVersion: 3.0.0-beta01
   speakeasyVersion: 1.592.1
   generationVersion: 2.667.0
-  releaseVersion: 0.3.0
-  configChecksum: a34ed27945e73ee8e97f685a7c79cf16
+  releaseVersion: 0.3.1
+  configChecksum: f8f58b32ad1dd929685db8fdbbf07d76
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
