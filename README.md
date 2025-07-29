@@ -1,6 +1,6 @@
 # @dailypay/dailypay
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *@dailypay/dailypay* API.
+Developer-friendly & type-safe Typescript SDK specifically catered to leverage the DailyPay Public REST API.
 
 <div align="left">
     <a href="https://www.speakeasy.com/?utm_source=@dailypay/dailypay&utm_campaign=typescript"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
@@ -10,23 +10,9 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage *
 </div>
 
 
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/dailypay/dailypay). Delete this section before > publishing to a package manager.
+### [https://developer.dailypay.com](https://developer.dailypay.com)
 
-<!-- Start Summary [summary] -->
-## Summary
-
-DailyPay Public Rest API: # Welcome
-
-This site contains information on basic DailyPay concepts and instructions for using the endpoints of each API. We are just now getting started with our public documentation - please let us know if you have any feedback or questions via Suggested Edits, where you can suggest changes to the documentation directly from the portal.
-
-Here are some links to help you get familiar with the DailyPay basics:
-
-[API Versioning](/tag/Getting-Started#section/DailyPay's-API-Versioning) — Find out how we version our APIs.  
-[Environments](/tag/Getting-Started#section/Environments) — Get an overview of the different environments in the DailyPay API.  
-[Glossary](/tag/Glossary) — Explore a list of terms used in the DailyPay API.
-<!-- End Summary [summary] -->
+<!-- No [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -49,11 +35,7 @@ Here are some links to help you get familiar with the DailyPay basics:
 
 <!-- End Table of Contents [toc] -->
 
-<!-- Start SDK Installation [installation] -->
 ## SDK Installation
-
-> [!TIP]
-> To finish publishing your SDK to npm and others you must [run your first generation action](https://www.speakeasy.com/docs/github-setup#step-by-step-guide).
 
 
 The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
@@ -87,7 +69,7 @@ yarn add https://github.com/dailypay/dailypay-typescript-sdk zod
 
 > [!NOTE]
 > This package is published with CommonJS and ES Modules (ESM) support.
-<!-- End SDK Installation [installation] -->
+<!-- No [installation] -->
 
 <!-- Start Requirements [requirements] -->
 ## Requirements
