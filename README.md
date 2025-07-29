@@ -12,7 +12,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage t
 
 ### [https://developer.dailypay.com](https://developer.dailypay.com)
 
-<!-- No [summary] -->
+<!-- No Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
@@ -69,7 +69,7 @@ yarn add https://github.com/dailypay/dailypay-typescript-sdk zod
 
 > [!NOTE]
 > This package is published with CommonJS and ES Modules (ESM) support.
-<!-- No [installation] -->
+<!-- No SDK Installation [installation] -->
 
 <!-- Start Requirements [requirements] -->
 ## Requirements
