@@ -2,7 +2,7 @@ name: 'Publish TypeScript SDK'
 on:
   push:
     branches:
-      - DEVREL-652
+      - main
   workflow_dispatch:
 permissions:
   contents: read
@@ -17,18 +17,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Log trigger reason
-        run: |
-          echo "Trigger reason:"
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "Manual execution (workflow_dispatch)"
-          elif [[ "${{ github.event.head_commit.message }}" == *"ci: regenerated with OpenAPI Doc"* ]]; then
-            echo "Commit contains 'ci: regenerated with OpenAPI Doc'"
-          elif [[ "${{ github.event.head_commit.message }}" == *"speakeasy-sdk-regen-"* ]]; then
-            echo "Merge commit from branch 'speakeasy-sdk-regen-*'"
-          else
-            echo "Unknown trigger reason"
-          fi
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
