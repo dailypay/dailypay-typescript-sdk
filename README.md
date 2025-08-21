@@ -200,6 +200,8 @@ run();
 
 ```
 <!-- End Authentication [security] -->
+
+<!-- Suggested: Use a Callback for Access Tokens -->
 ## Suggested: Use a Callback for Access Tokens
 
 You can use a callback to automatically refresh and retrieve user access tokens from secure storage. Pass a callback as a security source when initializing the SDK:
