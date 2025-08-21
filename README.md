@@ -200,6 +200,32 @@ run();
 
 ```
 <!-- End Authentication [security] -->
+## Suggested: Use a Callback for Access Tokens
+
+You can use a callback to automatically refresh and retrieve user access tokens from secure storage. Pass a callback as a security source when initializing the SDK:
+
+```typescript
+import { SDK } from "@dailypay/dailypay";
+import { Security } from "@dailypay/dailypay/models";
+
+const sdk = new SDK({
+  security: async (): Promise<Security> => {
+    // refresh token here
+    const token = "<YOUR_OAUTH_USER_TOKEN_HERE>";
+    return { oauthUserToken: token };
+  },
+  version: 3,
+});
+
+async function run() {
+  const result = await sdk.jobs.read({
+    jobId: "aa860051-c411-4709-9685-c1b716df611b",
+  });
+  console.log(result);
+}
+
+run();
+```
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
