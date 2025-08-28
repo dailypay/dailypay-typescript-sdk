@@ -1,0 +1,48 @@
+name: "Scan"
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  pull-requests: write
+  contents: write
+  security-events: write
+  id-token: write
+
+env:
+  GOPRIVATE: github.com/dailypay
+
+jobs:
+  scan:
+    runs-on: k8s-general
+    strategy:
+      matrix:
+        branch: ["main"]
+    steps:
+      - name: configure git
+        uses: dailypay/actions-commons/git-configure@v0
+
+      - name: install go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '>=1.23'
+
+      - name: install python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '>=1.13'
+
+      - name: install pipenv
+        run: pip install pipenv
+
+      - name: scan
+        uses: jfrog/frogbot@v2
+        env:
+          JF_URL: https://artifactory.dailypay.com
+          JF_GIT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JF_GIT_BASE_BRANCH: ${{ matrix.branch }}
+        with:
+          oidc-provider-name: github
+          oidc-audience: dailypay-github
