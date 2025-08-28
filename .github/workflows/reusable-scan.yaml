@@ -5,14 +5,15 @@ on:
     inputs:
       branch_name:
         description: Branch name to target scan on
+        default: main
         required: true
         type: string
-        default: main
   workflow_call:
     inputs:
       branch_name:
         description: Branch name to target scan on
         required: true
+        type: string
 
 permissions:
   pull-requests: write

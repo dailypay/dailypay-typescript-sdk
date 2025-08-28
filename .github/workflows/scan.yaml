@@ -3,7 +3,7 @@ name: "Scan"
 on:
   schedule:
     - cron: "0 0 * * *"
-  pull-requests:
+  pull-request:
     types: [published]
     branches:
       - main
