@@ -16,26 +16,13 @@ env:
 
 jobs:
   scan:
-    runs-on: k8s-general-xl
+    runs-on: k8s-general
     strategy:
       matrix:
         branch: ["main"]
     steps:
       - name: configure git
         uses: dailypay/actions-commons/git-configure@v0
-
-      - name: install go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '>=1.23'
-
-      - name: install python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '>=1.13'
-
-      - name: install pipenv
-        run: pip install pipenv
 
       - name: scan
         uses: jfrog/frogbot@v2
@@ -46,3 +33,4 @@ jobs:
         with:
           oidc-provider-name: github
           oidc-audience: dailypay-github
+          version: ${{ vars.FROGBOT_VERSION }}
