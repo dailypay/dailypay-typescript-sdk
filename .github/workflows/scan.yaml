@@ -16,7 +16,7 @@ env:
 
 jobs:
   scan:
-    runs-on: k8s-general
+    runs-on: k8s-general-xl
     strategy:
       matrix:
         branch: ["main"]
