@@ -5,13 +5,8 @@ on:
     - cron: "0 0 * * *"
   pull-requests:
     types: [published]
-
-inputs:
-  branch_name:
-    description: Branch name to target scan on
-    required: true
-    default: main
-
+    branches:
+      - main
 
 permissions:
   pull-requests: write
@@ -24,4 +19,4 @@ jobs:
     uses: ./.github/workflows/reusable-scan.yaml
     secrets: inherit
     with:
-      branch_name: ${{ inputs.branch_name }}
+      branch_name: ${{ github.event_name == 'pull-request' && github.ref_name || 'main' }}

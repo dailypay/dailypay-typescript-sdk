@@ -2,14 +2,22 @@ name: "Scan"
 
 on:
   workflow_dispatch:
+    inputs:
+      branch_name:
+        description: Branch name to target scan on
+        required: true
   workflow_call:
+    inputs:
+      branch_name:
+        description: Branch name to target scan on
+        required: true
+        default: main
 
 inputs:
   branch_name:
     description: Branch name to target scan on
     required: true
     default: main
-
 
 permissions:
   pull-requests: write
