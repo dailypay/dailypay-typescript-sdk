@@ -37,7 +37,7 @@ typescript:
   defaultErrorName: SDKDefaultError
   enableCustomCodeRegions: false
   enableMCPServer: true
-  enableReactQuery: false
+  enableReactQuery: true
   enumFormat: union
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
