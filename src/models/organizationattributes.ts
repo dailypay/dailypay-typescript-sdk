@@ -4,16 +4,8 @@
 
 import * as z from "zod";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const Product = {
-  Odp: "ODP",
-  DailypayCard: "DAILYPAY_CARD",
-  Friday: "FRIDAY",
-} as const;
-export type Product = ClosedEnum<typeof Product>;
 
 export type OrganizationAttributes = {
   /**
@@ -23,27 +15,8 @@ export type OrganizationAttributes = {
   /**
    * List of the names of products available for this organization.
    */
-  products?: Array<Product> | undefined;
+  products?: Array<string> | undefined;
 };
-
-/** @internal */
-export const Product$inboundSchema: z.ZodNativeEnum<typeof Product> = z
-  .nativeEnum(Product);
-
-/** @internal */
-export const Product$outboundSchema: z.ZodNativeEnum<typeof Product> =
-  Product$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Product$ {
-  /** @deprecated use `Product$inboundSchema` instead. */
-  export const inboundSchema = Product$inboundSchema;
-  /** @deprecated use `Product$outboundSchema` instead. */
-  export const outboundSchema = Product$outboundSchema;
-}
 
 /** @internal */
 export const OrganizationAttributes$inboundSchema: z.ZodType<
@@ -52,7 +25,7 @@ export const OrganizationAttributes$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string().optional(),
-  products: z.array(Product$inboundSchema).optional(),
+  products: z.array(z.string()).optional(),
 });
 
 /** @internal */
@@ -68,7 +41,7 @@ export const OrganizationAttributes$outboundSchema: z.ZodType<
   OrganizationAttributes
 > = z.object({
   name: z.string().optional(),
-  products: z.array(Product$outboundSchema).optional(),
+  products: z.array(z.string()).optional(),
 });
 
 /**

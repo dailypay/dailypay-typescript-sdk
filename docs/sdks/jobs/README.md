@@ -29,7 +29,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -57,7 +61,11 @@ import { jobsRead } from "@dailypay/dailypay/funcs/jobsRead.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -74,6 +82,34 @@ async function run() {
 }
 
 run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Query hooks for fetching data.
+  useJobsRead,
+  useJobsReadSuspense,
+
+  // Utility for prefetching data during server-side rendering and in React
+  // Server Components that will be immediately available to client components
+  // using the hooks.
+  prefetchJobsRead,
+  
+  // Utilities to invalidate the query cache for this query in response to
+  // mutations and other user actions.
+  invalidateJobsRead,
+  invalidateAllJobsRead,
+} from "@dailypay/dailypay/react-query/jobsRead.js";
 ```
 
 ### Parameters
@@ -115,7 +151,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -166,7 +206,11 @@ import { jobsUpdate } from "@dailypay/dailypay/funcs/jobsUpdate.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -208,6 +252,23 @@ async function run() {
 run();
 ```
 
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Mutation hook for triggering the API call.
+  useJobsUpdateMutation
+} from "@dailypay/dailypay/react-query/jobsUpdate.js";
+```
+
 ### Parameters
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
@@ -247,7 +308,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -273,7 +338,11 @@ import { jobsList } from "@dailypay/dailypay/funcs/jobsList.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -288,6 +357,34 @@ async function run() {
 }
 
 run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Query hooks for fetching data.
+  useJobsList,
+  useJobsListSuspense,
+
+  // Utility for prefetching data during server-side rendering and in React
+  // Server Components that will be immediately available to client components
+  // using the hooks.
+  prefetchJobsList,
+  
+  // Utilities to invalidate the query cache for this query in response to
+  // mutations and other user actions.
+  invalidateJobsList,
+  invalidateAllJobsList,
+} from "@dailypay/dailypay/react-query/jobsList.js";
 ```
 
 ### Parameters

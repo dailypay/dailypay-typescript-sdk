@@ -1,25 +1,25 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 274a30b0605e46621ab447408b455afd
+  docChecksum: 0475d19e352063cd624aa24f8ba7b606
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.598.0
-  generationVersion: 2.674.1
-  releaseVersion: 0.3.3
-  configChecksum: f62ac82b579d23d13739d052e9c39af2
+  speakeasyVersion: 1.615.1
+  generationVersion: 2.698.4
+  releaseVersion: 0.4.0
+  configChecksum: 83c77e459a1b6571a90aa2ed07745ceb
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.19
+    core: 3.21.22
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
-    examples: 2.82.1
-    globalSecurity: 2.82.13
+    examples: 2.82.3
+    globalSecurity: 2.82.14
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
     globals: 2.82.2
@@ -30,7 +30,8 @@ features:
     mockServer: 0.1.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
-    oauth2ClientCredentials: 0.4.1
+    oauth2ClientCredentials: 0.5.0
+    reactQueryHooks: 0.2.3
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
@@ -40,6 +41,7 @@ generatedFiles:
   - .gitattributes
   - .npmignore
   - FUNCTIONS.md
+  - REACT_QUERY.md
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
@@ -219,7 +221,6 @@ generatedFiles:
   - docs/models/personrelationshipreadonly.md
   - docs/models/personresource.md
   - docs/models/personresourceinput.md
-  - docs/models/product.md
   - docs/models/schemeoauthclientcredentialstoken.md
   - docs/models/security.md
   - docs/models/transferattributes.md
@@ -574,6 +575,26 @@ generatedFiles:
   - src/models/transferrelationships.ts
   - src/models/transferresource.ts
   - src/models/transfersdata.ts
+  - src/react-query/_context.tsx
+  - src/react-query/_types.ts
+  - src/react-query/accountsCreate.ts
+  - src/react-query/accountsList.ts
+  - src/react-query/accountsRead.ts
+  - src/react-query/cardsCreate.ts
+  - src/react-query/healthGetHealth.ts
+  - src/react-query/index.ts
+  - src/react-query/jobsList.ts
+  - src/react-query/jobsRead.ts
+  - src/react-query/jobsUpdate.ts
+  - src/react-query/organizationsList.ts
+  - src/react-query/organizationsRead.ts
+  - src/react-query/paychecksList.ts
+  - src/react-query/paychecksRead.ts
+  - src/react-query/peopleRead.ts
+  - src/react-query/peopleUpdate.ts
+  - src/react-query/transfersCreate.ts
+  - src/react-query/transfersList.ts
+  - src/react-query/transfersRead.ts
   - src/sdk/accounts.ts
   - src/sdk/cards.ts
   - src/sdk/health.ts
@@ -951,3 +972,7 @@ generatedTests:
   createGenericCardToken: "2025-07-02T14:55:51-03:00"
   getHealth: "2025-07-02T14:55:51-03:00"
   createAccount: "2025-07-08T13:03:32-03:00"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `sdk.organizations.read()`:  `response.data.attributes.products.[]` **Changed** **Breaking** :warning:
+  * `sdk.organizations.list()`:  `response.data.[].attributes.products.[]` **Changed** **Breaking** :warning:

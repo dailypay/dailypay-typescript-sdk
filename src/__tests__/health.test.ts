@@ -13,7 +13,11 @@ test("Health Get Health", async () => {
     serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
     httpClient: testHttpClient,
     security: {
-      oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
     },
   });
 

@@ -27,7 +27,11 @@ import { accountsList } from "@dailypay/dailypay/funcs/accountsList.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 

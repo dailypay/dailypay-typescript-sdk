@@ -18,7 +18,7 @@ func (r ReadTransferGlobals) MarshalJSON() ([]byte, error) {
 }
 
 func (r *ReadTransferGlobals) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -49,7 +49,7 @@ func (r ReadTransferRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (r *ReadTransferRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"transfer_id"}); err != nil {
 		return err
 	}
 	return nil

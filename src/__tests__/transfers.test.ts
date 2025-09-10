@@ -14,7 +14,11 @@ test("Transfers Read Transfer", async () => {
     version: 3,
     httpClient: testHttpClient,
     security: {
-      oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
     },
   });
 
@@ -108,7 +112,11 @@ test("Transfers List Transfers", async () => {
     version: 3,
     httpClient: testHttpClient,
     security: {
-      oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
     },
   });
 
@@ -152,7 +160,11 @@ test("Transfers Create Transfer", async () => {
     version: 3,
     httpClient: testHttpClient,
     security: {
-      oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
     },
   });
 

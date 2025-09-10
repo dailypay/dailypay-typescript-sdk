@@ -18,7 +18,7 @@ func (u UpdatePersonGlobals) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UpdatePersonGlobals) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -45,7 +45,7 @@ func (u UpdatePersonRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UpdatePersonRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"person_id", "PersonData"}); err != nil {
 		return err
 	}
 	return nil

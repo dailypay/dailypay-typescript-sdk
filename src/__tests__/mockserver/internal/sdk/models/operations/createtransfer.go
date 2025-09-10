@@ -18,7 +18,7 @@ func (c CreateTransferGlobals) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateTransferGlobals) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -52,7 +52,7 @@ func (c CreateTransferRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateTransferRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"Idempotency-Key", "TransferCreateData"}); err != nil {
 		return err
 	}
 	return nil

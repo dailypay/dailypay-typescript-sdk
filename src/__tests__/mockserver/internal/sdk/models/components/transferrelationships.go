@@ -49,14 +49,14 @@ func CreateOriginPaycheckRelationship(paycheckRelationship PaycheckRelationship)
 func (u *Origin) UnmarshalJSON(data []byte) error {
 
 	var accountRelationship AccountRelationship = AccountRelationship{}
-	if err := utils.UnmarshalJSON(data, &accountRelationship, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &accountRelationship, "", true, nil); err == nil {
 		u.AccountRelationship = &accountRelationship
 		u.Type = OriginTypeAccountRelationship
 		return nil
 	}
 
 	var paycheckRelationship PaycheckRelationship = PaycheckRelationship{}
-	if err := utils.UnmarshalJSON(data, &paycheckRelationship, "", true, true); err == nil {
+	if err := utils.UnmarshalJSON(data, &paycheckRelationship, "", true, nil); err == nil {
 		u.PaycheckRelationship = &paycheckRelationship
 		u.Type = OriginTypePaycheckRelationship
 		return nil

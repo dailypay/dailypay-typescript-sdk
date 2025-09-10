@@ -126,7 +126,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "listJobs",
-    oAuth2Scopes: ["client:admin", "client:admin", "client:lookup"],
+    oAuth2Scopes: ["client:admin", "client:lookup", "client:admin"],
 
     resolvedSecurity: requestSecurity,
 
