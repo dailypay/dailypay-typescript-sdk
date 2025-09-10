@@ -83,7 +83,11 @@ type SecurityInputOAuth2 = {
 type SecurityInputOAuth2ClientCredentials = {
   type: "oauth2:client_credentials";
   value:
-    | { clientID?: string | undefined; clientSecret?: string | undefined }
+    | {
+      clientID?: string | undefined;
+      clientSecret?: string | undefined;
+      tokenURL?: string | undefined;
+    }
     | null
     | string
     | undefined;
@@ -241,18 +245,18 @@ export function resolveGlobalSecurity(
   return resolveSecurity(
     [
       {
-        fieldName: "Authorization",
-        type: "oauth2",
-        value: security?.oauthUserToken,
-      },
-    ],
-    [
-      {
         type: "oauth2:client_credentials",
         value: {
           clientID: security?.oauthClientCredentialsToken?.clientID,
           clientSecret: security?.oauthClientCredentialsToken?.clientSecret,
         },
+      },
+    ],
+    [
+      {
+        fieldName: "Authorization",
+        type: "oauth2",
+        value: security?.oauthUserToken,
       },
     ],
   );

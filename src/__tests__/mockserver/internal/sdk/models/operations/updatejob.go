@@ -18,7 +18,7 @@ func (u UpdateJobGlobals) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UpdateJobGlobals) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -45,7 +45,7 @@ func (u UpdateJobRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UpdateJobRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"job_id", "JobUpdateData"}); err != nil {
 		return err
 	}
 	return nil

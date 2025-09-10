@@ -24,6 +24,7 @@ Developer-friendly & type-safe Typescript SDK specifically catered to leverage t
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [React hooks with TanStack Query](#react-hooks-with-tanstack-query)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -90,7 +91,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -116,7 +121,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -174,8 +183,8 @@ This SDK supports the following security schemes globally:
 
 | Name                          | Type   | Scheme       |
 | ----------------------------- | ------ | ------------ |
-| `oauthUserToken`              | oauth2 | OAuth2 token |
 | `oauthClientCredentialsToken` | oauth2 | OAuth2 token |
+| `oauthUserToken`              | oauth2 | OAuth2 token |
 
 You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
@@ -183,7 +192,11 @@ import { SDK } from "@dailypay/dailypay";
 
 const sdk = new SDK({
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
   version: 3,
 });
@@ -316,6 +329,49 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
 
+<!-- Start React hooks with TanStack Query [react-query] -->
+## React hooks with TanStack Query
+
+React hooks built on [TanStack Query][tanstack-query] are included in this SDK.
+These hooks and the utility functions provided alongside them can be used to
+build rich applications that pull data from the API using one of the most
+popular asynchronous state management library.
+
+[tanstack-query]: https://tanstack.com/query/v5/docs/framework/react/overview
+
+To learn about this feature and how to get started, check
+[REACT_QUERY.md](./REACT_QUERY.md).
+
+> [!WARNING]
+>
+> This feature is currently in **preview** and is subject to breaking changes
+> within the current major version of the SDK as we gather user feedback on it.
+
+<details>
+
+<summary>Available React hooks</summary>
+
+- [`useAccountsCreateMutation`](docs/sdks/accounts/README.md#create) - Create an Account object
+- [`useAccountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
+- [`useAccountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
+- [`useCardsCreateMutation`](docs/sdks/cards/README.md#create) - Obtain a card token
+- [`useHealthGetHealth`](docs/sdks/health/README.md#gethealth) - Verify the status of the API
+- [`useJobsList`](docs/sdks/jobs/README.md#list) - Get a list of job objects
+- [`useJobsRead`](docs/sdks/jobs/README.md#read) - Get a job object
+- [`useJobsUpdateMutation`](docs/sdks/jobs/README.md#update) - Update paycheck settings or deactivate a job
+- [`useOrganizationsList`](docs/sdks/organizations/README.md#list) - List organizations
+- [`useOrganizationsRead`](docs/sdks/organizations/README.md#read) - Get an organization
+- [`usePaychecksList`](docs/sdks/paychecks/README.md#list) - Get a list of paycheck objects
+- [`usePaychecksRead`](docs/sdks/paychecks/README.md#read) - Get a Paycheck object
+- [`usePeopleRead`](docs/sdks/people/README.md#read) - Get a person object
+- [`usePeopleUpdateMutation`](docs/sdks/people/README.md#update) - Update a person
+- [`useTransfersCreateMutation`](docs/sdks/transfers/README.md#create) - Request a transfer
+- [`useTransfersList`](docs/sdks/transfers/README.md#list) - Get a list of transfers
+- [`useTransfersRead`](docs/sdks/transfers/README.md#read) - Get a transfer object
+
+</details>
+<!-- End React hooks with TanStack Query [react-query] -->
+
 <!-- Start Retries [retries] -->
 ## Retries
 
@@ -328,7 +384,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -372,7 +432,11 @@ const sdk = new SDK({
   },
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -409,7 +473,11 @@ import * as errors from "@dailypay/dailypay/models/errors";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -493,7 +561,11 @@ const sdk = new SDK({
   environment: "dailypayuat",
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -519,7 +591,11 @@ const sdk = new SDK({
   serverURL: "https://api.dailypay.com",
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 

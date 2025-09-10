@@ -29,7 +29,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -57,7 +61,11 @@ import { organizationsRead } from "@dailypay/dailypay/funcs/organizationsRead.js
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -74,6 +82,34 @@ async function run() {
 }
 
 run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Query hooks for fetching data.
+  useOrganizationsRead,
+  useOrganizationsReadSuspense,
+
+  // Utility for prefetching data during server-side rendering and in React
+  // Server Components that will be immediately available to client components
+  // using the hooks.
+  prefetchOrganizationsRead,
+  
+  // Utilities to invalidate the query cache for this query in response to
+  // mutations and other user actions.
+  invalidateOrganizationsRead,
+  invalidateAllOrganizationsRead,
+} from "@dailypay/dailypay/react-query/organizationsRead.js";
 ```
 
 ### Parameters
@@ -113,7 +149,11 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -139,7 +179,11 @@ import { organizationsList } from "@dailypay/dailypay/funcs/organizationsList.js
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
   },
 });
 
@@ -154,6 +198,34 @@ async function run() {
 }
 
 run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Query hooks for fetching data.
+  useOrganizationsList,
+  useOrganizationsListSuspense,
+
+  // Utility for prefetching data during server-side rendering and in React
+  // Server Components that will be immediately available to client components
+  // using the hooks.
+  prefetchOrganizationsList,
+  
+  // Utilities to invalidate the query cache for this query in response to
+  // mutations and other user actions.
+  invalidateOrganizationsList,
+  invalidateAllOrganizationsList,
+} from "@dailypay/dailypay/react-query/organizationsList.js";
 ```
 
 ### Parameters
