@@ -13,6 +13,6 @@ targets:
         codeSamples:
             output: codeSamples.yaml
             registry:
-                location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+                location: rregistry.speakeasyapi.dev/dailypay/dailypay/xapi-typescript-code-samples
         testing:
             enabled: true
