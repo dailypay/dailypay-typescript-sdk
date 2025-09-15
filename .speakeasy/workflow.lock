@@ -1,4 +1,4 @@
-speakeasyVersion: 1.615.1
+speakeasyVersion: 1.615.2
 sources:
     cloud:
         sourceNamespace: xapi
@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:2709b006007f8e8d94e98cda141152667428881d350f94ab7dad6fbe10963111
         tags:
             - latest
-            - speakeasy-sdk-regen-1757533855
+            - speakeasy-sdk-regen-Tests-1757949880
             - 3.0.0-beta01
     local:
         sourceNamespace: xapi
@@ -22,8 +22,8 @@ targets:
         sourceNamespace: xapi
         sourceRevisionDigest: sha256:96caafb1aaecbbcf0de15ec95f944c174bb4e2e3ce4c9a61fc74e971c577d0cc
         sourceBlobDigest: sha256:2709b006007f8e8d94e98cda141152667428881d350f94ab7dad6fbe10963111
-        codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:59c7c36a5d90aa4d28ad7b1bbc2ae4134e71ff7cc269557383194a6a05a9201c
+        codeSamplesNamespace: xapi-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:7fe5a642964aede8c0c08bd80f8e18abf30cc7be1664870e11721ee141479dc4
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -40,6 +40,6 @@ workflow:
             codeSamples:
                 output: codeSamples.yaml
                 registry:
-                    location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+                    location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-typescript-code-samples
             testing:
                 enabled: true
