@@ -35,6 +35,40 @@ export const DisallowReason = {
 export type DisallowReason = ClosedEnum<typeof DisallowReason>;
 
 /**
+ * The DailyPay Visa®️ Prepaid Card program.
+ *
+ * @remarks
+ */
+export type DailyPayCardProductEntitlement = {
+  /**
+   * Whether the person is eligible to enroll in the DailyPay Visa®️ Prepaid Card program.
+   *
+   * @remarks
+   */
+  eligible: boolean;
+  /**
+   * Whether the person is enrolled in the DailyPay Visa®️ Prepaid Card program.
+   *
+   * @remarks
+   */
+  enrolled: boolean;
+};
+
+/**
+ * Products that the person is enrolled in or eligible for.
+ *
+ * @remarks
+ */
+export type Products = {
+  /**
+   * The DailyPay Visa®️ Prepaid Card program.
+   *
+   * @remarks
+   */
+  dailyPayCardProductEntitlement: DailyPayCardProductEntitlement;
+};
+
+/**
  * A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
  */
 export type PersonAttributes = {
@@ -54,6 +88,12 @@ export type PersonAttributes = {
    * @remarks
    */
   stateOfResidence?: string | undefined;
+  /**
+   * Products that the person is enrolled in or eligible for.
+   *
+   * @remarks
+   */
+  products: Products;
 };
 
 /** @internal */
@@ -78,6 +118,125 @@ export namespace DisallowReason$ {
 }
 
 /** @internal */
+export const DailyPayCardProductEntitlement$inboundSchema: z.ZodType<
+  DailyPayCardProductEntitlement,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  eligible: z.boolean(),
+  enrolled: z.boolean(),
+});
+
+/** @internal */
+export type DailyPayCardProductEntitlement$Outbound = {
+  eligible: boolean;
+  enrolled: boolean;
+};
+
+/** @internal */
+export const DailyPayCardProductEntitlement$outboundSchema: z.ZodType<
+  DailyPayCardProductEntitlement$Outbound,
+  z.ZodTypeDef,
+  DailyPayCardProductEntitlement
+> = z.object({
+  eligible: z.boolean(),
+  enrolled: z.boolean(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace DailyPayCardProductEntitlement$ {
+  /** @deprecated use `DailyPayCardProductEntitlement$inboundSchema` instead. */
+  export const inboundSchema = DailyPayCardProductEntitlement$inboundSchema;
+  /** @deprecated use `DailyPayCardProductEntitlement$outboundSchema` instead. */
+  export const outboundSchema = DailyPayCardProductEntitlement$outboundSchema;
+  /** @deprecated use `DailyPayCardProductEntitlement$Outbound` instead. */
+  export type Outbound = DailyPayCardProductEntitlement$Outbound;
+}
+
+export function dailyPayCardProductEntitlementToJSON(
+  dailyPayCardProductEntitlement: DailyPayCardProductEntitlement,
+): string {
+  return JSON.stringify(
+    DailyPayCardProductEntitlement$outboundSchema.parse(
+      dailyPayCardProductEntitlement,
+    ),
+  );
+}
+
+export function dailyPayCardProductEntitlementFromJSON(
+  jsonString: string,
+): SafeParseResult<DailyPayCardProductEntitlement, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DailyPayCardProductEntitlement$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DailyPayCardProductEntitlement' from JSON`,
+  );
+}
+
+/** @internal */
+export const Products$inboundSchema: z.ZodType<
+  Products,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  dailypay_card: z.lazy(() => DailyPayCardProductEntitlement$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "dailypay_card": "dailyPayCardProductEntitlement",
+  });
+});
+
+/** @internal */
+export type Products$Outbound = {
+  dailypay_card: DailyPayCardProductEntitlement$Outbound;
+};
+
+/** @internal */
+export const Products$outboundSchema: z.ZodType<
+  Products$Outbound,
+  z.ZodTypeDef,
+  Products
+> = z.object({
+  dailyPayCardProductEntitlement: z.lazy(() =>
+    DailyPayCardProductEntitlement$outboundSchema
+  ),
+}).transform((v) => {
+  return remap$(v, {
+    dailyPayCardProductEntitlement: "dailypay_card",
+  });
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Products$ {
+  /** @deprecated use `Products$inboundSchema` instead. */
+  export const inboundSchema = Products$inboundSchema;
+  /** @deprecated use `Products$outboundSchema` instead. */
+  export const outboundSchema = Products$outboundSchema;
+  /** @deprecated use `Products$Outbound` instead. */
+  export type Outbound = Products$Outbound;
+}
+
+export function productsToJSON(products: Products): string {
+  return JSON.stringify(Products$outboundSchema.parse(products));
+}
+
+export function productsFromJSON(
+  jsonString: string,
+): SafeParseResult<Products, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Products$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Products' from JSON`,
+  );
+}
+
+/** @internal */
 export const PersonAttributes$inboundSchema: z.ZodType<
   PersonAttributes,
   z.ZodTypeDef,
@@ -85,6 +244,7 @@ export const PersonAttributes$inboundSchema: z.ZodType<
 > = z.object({
   disallow_reason: z.nullable(DisallowReason$inboundSchema),
   state_of_residence: z.string().optional(),
+  products: z.lazy(() => Products$inboundSchema),
 }).transform((v) => {
   return remap$(v, {
     "disallow_reason": "disallowReason",
@@ -96,6 +256,7 @@ export const PersonAttributes$inboundSchema: z.ZodType<
 export type PersonAttributes$Outbound = {
   disallow_reason: string | null;
   state_of_residence?: string | undefined;
+  products: Products$Outbound;
 };
 
 /** @internal */
@@ -106,6 +267,7 @@ export const PersonAttributes$outboundSchema: z.ZodType<
 > = z.object({
   disallowReason: z.nullable(DisallowReason$outboundSchema),
   stateOfResidence: z.string().optional(),
+  products: z.lazy(() => Products$outboundSchema),
 }).transform((v) => {
   return remap$(v, {
     disallowReason: "disallow_reason",

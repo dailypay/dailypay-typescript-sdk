@@ -946,7 +946,13 @@ workflows:
                   "id": "aa860051-c411-4709-9685-c1b716df611b",
                   "attributes": {
                     "disallow_reason": null,
-                    "state_of_residence": "NY"
+                    "state_of_residence": "NY",
+                    "products": {
+                      "dailypay_card": {
+                        "eligible": true,
+                        "enrolled": false
+                      }
+                    }
                   },
                   "links": {
                     "self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"
@@ -986,7 +992,13 @@ workflows:
                   "id": "aa860051-c411-4709-9685-c1b716df611b",
                   "attributes": {
                     "disallow_reason": null,
-                    "state_of_residence": "NY"
+                    "state_of_residence": "NY",
+                    "products": {
+                      "dailypay_card": {
+                        "eligible": true,
+                        "enrolled": false
+                      }
+                    }
                   },
                   "links": {
                     "self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"
