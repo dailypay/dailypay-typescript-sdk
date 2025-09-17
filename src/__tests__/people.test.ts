@@ -34,6 +34,12 @@ test("People Read Person", async () => {
       attributes: {
         disallowReason: null,
         stateOfResidence: "NY",
+        products: {
+          dailyPayCardProductEntitlement: {
+            eligible: true,
+            enrolled: false,
+          },
+        },
       },
       links: {
         self:
@@ -80,6 +86,12 @@ test("People Update Person", async () => {
       attributes: {
         disallowReason: null,
         stateOfResidence: "NY",
+        products: {
+          dailyPayCardProductEntitlement: {
+            eligible: true,
+            enrolled: false,
+          },
+        },
       },
       links: {
         self:
