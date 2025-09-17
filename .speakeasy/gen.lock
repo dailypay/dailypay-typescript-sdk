@@ -3,10 +3,10 @@ id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
   docChecksum: e46e93532757c919514e87097084dba4
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.617.1
-  generationVersion: 2.701.8
-  releaseVersion: 0.4.1
-  configChecksum: 1e975026c390614a8f5957837623a5fc
+  speakeasyVersion: 1.618.0
+  generationVersion: 2.702.0
+  releaseVersion: 0.4.2
+  configChecksum: 52d20ba63c0f20021783d59c7d87a5c9
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
@@ -974,7 +974,3 @@ generatedTests:
   createGenericCardToken: "2025-07-02T14:55:51-03:00"
   getHealth: "2025-07-02T14:55:51-03:00"
   createAccount: "2025-07-08T13:03:32-03:00"
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `sdk.people.read()`:  `response.data.attributes.products` **Added**
-  * `sdk.people.update()`:  `response.data.attributes.products` **Added**
