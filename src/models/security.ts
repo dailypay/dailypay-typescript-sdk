@@ -15,8 +15,8 @@ import {
 } from "./schemeoauthclientcredentialstoken.js";
 
 export type Security = {
-  oauthUserToken?: string | undefined;
   oauthClientCredentialsToken?: SchemeOauthClientCredentialsToken | undefined;
+  oauthUserToken?: string | undefined;
 };
 
 /** @internal */
@@ -25,22 +25,22 @@ export const Security$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  oauth_user_token: z.string().optional(),
   oauth_client_credentials_token:
     SchemeOauthClientCredentialsToken$inboundSchema.optional(),
+  oauth_user_token: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    "oauth_user_token": "oauthUserToken",
     "oauth_client_credentials_token": "oauthClientCredentialsToken",
+    "oauth_user_token": "oauthUserToken",
   });
 });
 
 /** @internal */
 export type Security$Outbound = {
-  oauth_user_token?: string | undefined;
   oauth_client_credentials_token?:
     | SchemeOauthClientCredentialsToken$Outbound
     | undefined;
+  oauth_user_token?: string | undefined;
 };
 
 /** @internal */
@@ -49,13 +49,13 @@ export const Security$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Security
 > = z.object({
-  oauthUserToken: z.string().optional(),
   oauthClientCredentialsToken: SchemeOauthClientCredentialsToken$outboundSchema
     .optional(),
+  oauthUserToken: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    oauthUserToken: "oauth_user_token",
     oauthClientCredentialsToken: "oauth_client_credentials_token",
+    oauthUserToken: "oauth_user_token",
   });
 });
 

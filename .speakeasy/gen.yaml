@@ -15,14 +15,15 @@ generation:
     sharedErrorComponentsApr2025: true
   auth:
     oAuth2ClientCredentialsEnabled: true
-    oAuth2PasswordEnabled: true
+    oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
   sdkHooksConfigAccess: true
   tests:
     generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.3.0
+  version: 0.4.2
   additionalDependencies:
     dependencies: {}
     devDependencies: {}
@@ -37,7 +38,7 @@ typescript:
   defaultErrorName: SDKDefaultError
   enableCustomCodeRegions: false
   enableMCPServer: true
-  enableReactQuery: false
+  enableReactQuery: true
   enumFormat: union
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
@@ -58,5 +59,7 @@ typescript:
   outputModelSuffix: output
   packageName: '@dailypay/dailypay'
   responseFormat: envelope-http
+  sseFlatResponse: false
   templateVersion: v2
+  usageSDKInitImports: []
   useIndexModules: true

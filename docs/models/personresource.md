@@ -11,6 +11,12 @@ let value: PersonResource = {
   attributes: {
     disallowReason: null,
     stateOfResidence: "NY",
+    products: {
+      dailyPayCardProductEntitlement: {
+        eligible: true,
+        enrolled: false,
+      },
+    },
   },
   links: {
     self:

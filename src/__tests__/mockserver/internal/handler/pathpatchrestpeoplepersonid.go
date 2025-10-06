@@ -57,6 +57,12 @@ func testUpdatePersonUpdatePerson0(w http.ResponseWriter, req *http.Request) {
 			Attributes: components.PersonAttributes{
 				DisallowReason:   nil,
 				StateOfResidence: types.String("NY"),
+				Products: components.Products{
+					DailyPayCardProductEntitlement: components.DailyPayCardProductEntitlement{
+						Eligible: true,
+						Enrolled: false,
+					},
+				},
 			},
 			Links: components.PersonLinks{
 				Self: "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b",

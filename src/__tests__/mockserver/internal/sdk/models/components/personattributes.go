@@ -41,6 +41,44 @@ func (e *DisallowReason) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DailyPayCardProductEntitlement - The DailyPay Visa®️ Prepaid Card program.
+type DailyPayCardProductEntitlement struct {
+	// Whether the person is eligible to enroll in the DailyPay Visa®️ Prepaid Card program.
+	//
+	Eligible bool `json:"eligible"`
+	// Whether the person is enrolled in the DailyPay Visa®️ Prepaid Card program.
+	//
+	Enrolled bool `json:"enrolled"`
+}
+
+func (o *DailyPayCardProductEntitlement) GetEligible() bool {
+	if o == nil {
+		return false
+	}
+	return o.Eligible
+}
+
+func (o *DailyPayCardProductEntitlement) GetEnrolled() bool {
+	if o == nil {
+		return false
+	}
+	return o.Enrolled
+}
+
+// Products that the person is enrolled in or eligible for.
+type Products struct {
+	// The DailyPay Visa®️ Prepaid Card program.
+	//
+	DailyPayCardProductEntitlement DailyPayCardProductEntitlement `json:"dailypay_card"`
+}
+
+func (o *Products) GetDailyPayCardProductEntitlement() DailyPayCardProductEntitlement {
+	if o == nil {
+		return DailyPayCardProductEntitlement{}
+	}
+	return o.DailyPayCardProductEntitlement
+}
+
 // PersonAttributes - A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
 type PersonAttributes struct {
 	// The statuses and required actions are:
@@ -53,6 +91,9 @@ type PersonAttributes struct {
 	// The two-letter abbreviation for the state in which the person resides, if located in the United States.  This is used for regulatory compliance purposes.
 	//
 	StateOfResidence *string `json:"state_of_residence,omitempty"`
+	// Products that the person is enrolled in or eligible for.
+	//
+	Products Products `json:"products"`
 }
 
 func (o *PersonAttributes) GetDisallowReason() *DisallowReason {
@@ -67,4 +108,11 @@ func (o *PersonAttributes) GetStateOfResidence() *string {
 		return nil
 	}
 	return o.StateOfResidence
+}
+
+func (o *PersonAttributes) GetProducts() Products {
+	if o == nil {
+		return Products{}
+	}
+	return o.Products
 }

@@ -1,25 +1,25 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: b478f029066890d7a6725e30adab12ac
+  docChecksum: e46e93532757c919514e87097084dba4
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.592.1
-  generationVersion: 2.667.0
-  releaseVersion: 0.3.0
-  configChecksum: a34ed27945e73ee8e97f685a7c79cf16
+  speakeasyVersion: 1.618.0
+  generationVersion: 2.702.0
+  releaseVersion: 0.4.2
+  configChecksum: 52d20ba63c0f20021783d59c7d87a5c9
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.16
+    core: 3.21.22
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
-    examples: 2.82.1
-    globalSecurity: 2.82.13
+    examples: 2.82.3
+    globalSecurity: 2.82.14
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
     globals: 2.82.2
@@ -30,7 +30,8 @@ features:
     mockServer: 0.1.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
-    oauth2ClientCredentials: 0.4.1
+    oauth2ClientCredentials: 0.5.0
+    reactQueryHooks: 0.2.3
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
@@ -40,6 +41,7 @@ generatedFiles:
   - .gitattributes
   - .npmignore
   - FUNCTIONS.md
+  - REACT_QUERY.md
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
@@ -70,6 +72,7 @@ generatedFiles:
   - docs/models/cardaccountdetailsoutput.md
   - docs/models/cardinput.md
   - docs/models/cardoutput.md
+  - docs/models/dailypaycardproductentitlement.md
   - docs/models/data.md
   - docs/models/depository.md
   - docs/models/depositoryaccountdetails.md
@@ -219,7 +222,7 @@ generatedFiles:
   - docs/models/personrelationshipreadonly.md
   - docs/models/personresource.md
   - docs/models/personresourceinput.md
-  - docs/models/product.md
+  - docs/models/products.md
   - docs/models/schemeoauthclientcredentialstoken.md
   - docs/models/security.md
   - docs/models/transferattributes.md
@@ -574,6 +577,26 @@ generatedFiles:
   - src/models/transferrelationships.ts
   - src/models/transferresource.ts
   - src/models/transfersdata.ts
+  - src/react-query/_context.tsx
+  - src/react-query/_types.ts
+  - src/react-query/accountsCreate.ts
+  - src/react-query/accountsList.ts
+  - src/react-query/accountsRead.ts
+  - src/react-query/cardsCreate.ts
+  - src/react-query/healthGetHealth.ts
+  - src/react-query/index.ts
+  - src/react-query/jobsList.ts
+  - src/react-query/jobsRead.ts
+  - src/react-query/jobsUpdate.ts
+  - src/react-query/organizationsList.ts
+  - src/react-query/organizationsRead.ts
+  - src/react-query/paychecksList.ts
+  - src/react-query/paychecksRead.ts
+  - src/react-query/peopleRead.ts
+  - src/react-query/peopleUpdate.ts
+  - src/react-query/transfersCreate.ts
+  - src/react-query/transfersList.ts
+  - src/react-query/transfersRead.ts
   - src/sdk/accounts.ts
   - src/sdk/cards.ts
   - src/sdk/health.ts
@@ -864,7 +887,7 @@ examples:
           DailyPay-API-Version: 3
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY", "products": {"dailypay_card": {"eligible": true, "enrolled": false}}}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":
@@ -886,7 +909,7 @@ examples:
         application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"state_of_residence": "NY"}}}
       responses:
         "200":
-          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY"}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+          application/vnd.api+json: {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY", "products": {"dailypay_card": {"eligible": true, "enrolled": false}}}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
         "400":
           application/vnd.api+json: {"errors": [{"code": "INVALID_PARAMETERS", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
         "401":

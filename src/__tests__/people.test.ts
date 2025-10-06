@@ -14,7 +14,11 @@ test("People Read Person", async () => {
     version: 3,
     httpClient: testHttpClient,
     security: {
-      oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
     },
   });
 
@@ -30,6 +34,12 @@ test("People Read Person", async () => {
       attributes: {
         disallowReason: null,
         stateOfResidence: "NY",
+        products: {
+          dailyPayCardProductEntitlement: {
+            eligible: true,
+            enrolled: false,
+          },
+        },
       },
       links: {
         self:
@@ -47,7 +57,11 @@ test("People Update Person", async () => {
     version: 3,
     httpClient: testHttpClient,
     security: {
-      oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
     },
   });
 
@@ -72,6 +86,12 @@ test("People Update Person", async () => {
       attributes: {
         disallowReason: null,
         stateOfResidence: "NY",
+        products: {
+          dailyPayCardProductEntitlement: {
+            eligible: true,
+            enrolled: false,
+          },
+        },
       },
       links: {
         self:

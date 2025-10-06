@@ -1,37 +1,45 @@
-speakeasyVersion: 1.592.1
+speakeasyVersion: 1.618.0
 sources:
-    local:
+    cloud:
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:f4f260b5df66ec3a99246d85072d965c0b4a89bb79e68c59b488ce7ec9b80562
-        sourceBlobDigest: sha256:3d760050a18a3df103dcfcdba5d830e7362071d475fc96176f950448262ce127
+        sourceRevisionDigest: sha256:15080505fed7751d9669c0205dcbaf1f47613b1e94c531c3a07a57e570a265b4
+        sourceBlobDigest: sha256:df79c6083ab50b27bf086799275b969de4047372361572a07a3df33a89318a8a
         tags:
             - latest
-            - speakeasy-sdk-regen-1753761291
+            - speakeasy-sdk-regen-1758127337
+            - 3.0.0-beta01
+    local:
+        sourceNamespace: xapi
+        sourceRevisionDigest: sha256:c8958a44906d7cb262b5abb70159f73eaf15ae72ac950268b56c7fb49e5085d5
+        sourceBlobDigest: sha256:49307ab138897a29bc171b6e31e542be918a94762a14149bcb48ab2ee6223095
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1754425035
             - 3.0.0-beta01
 targets:
     typescript:
-        source: local
+        source: cloud
         sourceNamespace: xapi
-        sourceRevisionDigest: sha256:f4f260b5df66ec3a99246d85072d965c0b4a89bb79e68c59b488ce7ec9b80562
-        sourceBlobDigest: sha256:3d760050a18a3df103dcfcdba5d830e7362071d475fc96176f950448262ce127
-        codeSamplesNamespace: xapi
-        codeSamplesRevisionDigest: sha256:d5eae66db977904abbaa9906e70fec4ee2c1e4a72ad7a2aedff0e6fa4530b2d8
+        sourceRevisionDigest: sha256:15080505fed7751d9669c0205dcbaf1f47613b1e94c531c3a07a57e570a265b4
+        sourceBlobDigest: sha256:df79c6083ab50b27bf086799275b969de4047372361572a07a3df33a89318a8a
+        codeSamplesNamespace: xapi-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:131debbb0368e4b646046b613ddc706a3a34ce8f76d1822584d9a5e2f2783256
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        local:
+        cloud:
             inputs:
-                - location: source/sdks.openapi.yaml
+                - location: https://s3.amazonaws.com/dp-devportal-images/oas/openapi.yml
             registry:
                 location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
     targets:
         typescript:
             target: typescript
-            source: local
+            source: cloud
             codeSamples:
                 output: codeSamples.yaml
                 registry:
-                    location: registry.speakeasyapi.dev/dailypay/dailypay/xapi
+                    location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-typescript-code-samples
             testing:
                 enabled: true

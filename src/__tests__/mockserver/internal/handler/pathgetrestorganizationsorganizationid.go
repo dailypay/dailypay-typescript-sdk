@@ -51,9 +51,9 @@ func testReadOrganizationReadOrganization0(w http.ResponseWriter, req *http.Requ
 			ID: "f0b30634-108c-439c-a8c1-c6a91197f022",
 			Attributes: components.OrganizationAttributes{
 				Name: types.String("DailyPay"),
-				Products: []components.Product{
-					components.ProductOdp,
-					components.ProductDailypayCard,
+				Products: []string{
+					"ODP",
+					"DAILYPAY_CARD",
 				},
 			},
 			Links: components.OrganizationLinks{

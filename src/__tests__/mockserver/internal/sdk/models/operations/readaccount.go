@@ -18,7 +18,7 @@ func (r ReadAccountGlobals) MarshalJSON() ([]byte, error) {
 }
 
 func (r *ReadAccountGlobals) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
@@ -44,7 +44,7 @@ func (r ReadAccountRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (r *ReadAccountRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &r, "", false, []string{"account_id"}); err != nil {
 		return err
 	}
 	return nil
