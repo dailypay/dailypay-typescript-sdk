@@ -6,8 +6,7 @@ actions:
   - target: $["paths"]["/cards/generic"]["post"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: createGenericCardToken
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -36,8 +35,7 @@ actions:
   - target: $["paths"]["/rest/accounts"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: listAccounts
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -64,8 +62,7 @@ actions:
   - target: $["paths"]["/rest/accounts"]["post"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: createAccount
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -113,8 +110,7 @@ actions:
   - target: $["paths"]["/rest/accounts/{account_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: readAccount
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -141,8 +137,7 @@ actions:
   - target: $["paths"]["/rest/health"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: getHealth
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -166,8 +161,7 @@ actions:
   - target: $["paths"]["/rest/jobs"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: listJobs
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -192,8 +186,7 @@ actions:
   - target: $["paths"]["/rest/jobs/{job_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: readJob
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -220,8 +213,7 @@ actions:
   - target: $["paths"]["/rest/jobs/{job_id}"]["patch"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: updateJob
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -271,8 +263,7 @@ actions:
   - target: $["paths"]["/rest/organizations"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: listOrganizations
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -297,8 +288,7 @@ actions:
   - target: $["paths"]["/rest/organizations/{organization_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: readOrganization
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -325,8 +315,7 @@ actions:
   - target: $["paths"]["/rest/paychecks"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: listPaychecks
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -358,8 +347,7 @@ actions:
   - target: $["paths"]["/rest/paychecks/{paycheck_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: readPaycheck
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -386,8 +374,7 @@ actions:
   - target: $["paths"]["/rest/people/{person_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: readPerson
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -414,8 +401,7 @@ actions:
   - target: $["paths"]["/rest/people/{person_id}"]["patch"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: updatePerson
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -451,8 +437,7 @@ actions:
   - target: $["paths"]["/rest/transfers"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: listTransfers
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -477,8 +462,7 @@ actions:
   - target: $["paths"]["/rest/transfers"]["post"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: createTransfer
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 
@@ -537,8 +521,7 @@ actions:
   - target: $["paths"]["/rest/transfers/{transfer_id}"]["get"]
     update:
       x-codeSamples:
-        - lang: typescript
-          label: readTransfer
+        - lang: JavaScript
           source: |-
             import { SDK } from "@dailypay/dailypay";
 

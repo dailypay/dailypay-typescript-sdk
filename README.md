@@ -283,7 +283,6 @@ run();
 * [read](docs/sdks/people/README.md#read) - Get a person object
 * [update](docs/sdks/people/README.md#update) - Update a person
 
-
 ### [transfers](docs/sdks/transfers/README.md)
 
 * [read](docs/sdks/transfers/README.md#read) - Get a transfer object
@@ -690,7 +689,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new SDK({ httpClient });
+const sdk = new SDK({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

@@ -12,10 +12,10 @@ targets:
         source: cloud
         codeSamples:
             output: codeSamples.yaml
-            labelOverride:
-              omit: true
-            langOverride: JavaScript
             registry:
                 location: registry.speakeasyapi.dev/dailypay/dailypay/xapi-typescript-code-samples
+            langOverride: JavaScript
+            labelOverride:
+                omit: true
         testing:
             enabled: true
