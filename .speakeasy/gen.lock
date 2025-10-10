@@ -3,17 +3,17 @@ id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
   docChecksum: e46e93532757c919514e87097084dba4
   docVersion: 3.0.0-beta01
-  speakeasyVersion: 1.618.0
-  generationVersion: 2.702.0
-  releaseVersion: 0.4.2
-  configChecksum: 52d20ba63c0f20021783d59c7d87a5c9
+  speakeasyVersion: 1.636.3
+  generationVersion: 2.723.11
+  releaseVersion: 0.5.0
+  configChecksum: 726eec5d9107e195d75de9bcfbdf5a98
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.21.22
+    core: 3.21.26
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -30,13 +30,13 @@ features:
     mockServer: 0.1.1
     nameOverrides: 2.81.2
     nullables: 0.1.1
-    oauth2ClientCredentials: 0.5.0
+    oauth2ClientCredentials: 1.1.0
     reactQueryHooks: 0.2.3
     responseFormat: 0.2.3
     retries: 2.83.0
     sdkHooks: 0.3.0
-    tests: 0.17.1
-    unions: 2.85.11
+    tests: 0.17.3
+    unions: 2.86.0
 generatedFiles:
   - .gitattributes
   - .npmignore
@@ -249,7 +249,6 @@ generatedFiles:
   - docs/sdks/organizations/README.md
   - docs/sdks/paychecks/README.md
   - docs/sdks/people/README.md
-  - docs/sdks/sdk/README.md
   - docs/sdks/transfers/README.md
   - eslint.config.mjs
   - examples/.env.template
@@ -462,6 +461,7 @@ generatedFiles:
   - src/lib/is-plain-object.ts
   - src/lib/logger.ts
   - src/lib/matchers.ts
+  - src/lib/oauth2-sessions.ts
   - src/lib/primitives.ts
   - src/lib/retries.ts
   - src/lib/schemas.ts

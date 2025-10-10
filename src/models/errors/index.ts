@@ -3,6 +3,7 @@
  */
 
 export * from "./accountcreateerror.js";
+export * from "./dailypayerror.js";
 export * from "./errorbadrequest.js";
 export * from "./errorforbidden.js";
 export * from "./errornotfound.js";
