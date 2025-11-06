@@ -102,22 +102,6 @@ export const DisallowReason$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(DisallowReason);
 
 /** @internal */
-export const DisallowReason$outboundSchema: z.ZodNativeEnum<
-  typeof DisallowReason
-> = DisallowReason$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DisallowReason$ {
-  /** @deprecated use `DisallowReason$inboundSchema` instead. */
-  export const inboundSchema = DisallowReason$inboundSchema;
-  /** @deprecated use `DisallowReason$outboundSchema` instead. */
-  export const outboundSchema = DisallowReason$outboundSchema;
-}
-
-/** @internal */
 export const DailyPayCardProductEntitlement$inboundSchema: z.ZodType<
   DailyPayCardProductEntitlement,
   z.ZodTypeDef,
@@ -126,45 +110,6 @@ export const DailyPayCardProductEntitlement$inboundSchema: z.ZodType<
   eligible: z.boolean(),
   enrolled: z.boolean(),
 });
-
-/** @internal */
-export type DailyPayCardProductEntitlement$Outbound = {
-  eligible: boolean;
-  enrolled: boolean;
-};
-
-/** @internal */
-export const DailyPayCardProductEntitlement$outboundSchema: z.ZodType<
-  DailyPayCardProductEntitlement$Outbound,
-  z.ZodTypeDef,
-  DailyPayCardProductEntitlement
-> = z.object({
-  eligible: z.boolean(),
-  enrolled: z.boolean(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DailyPayCardProductEntitlement$ {
-  /** @deprecated use `DailyPayCardProductEntitlement$inboundSchema` instead. */
-  export const inboundSchema = DailyPayCardProductEntitlement$inboundSchema;
-  /** @deprecated use `DailyPayCardProductEntitlement$outboundSchema` instead. */
-  export const outboundSchema = DailyPayCardProductEntitlement$outboundSchema;
-  /** @deprecated use `DailyPayCardProductEntitlement$Outbound` instead. */
-  export type Outbound = DailyPayCardProductEntitlement$Outbound;
-}
-
-export function dailyPayCardProductEntitlementToJSON(
-  dailyPayCardProductEntitlement: DailyPayCardProductEntitlement,
-): string {
-  return JSON.stringify(
-    DailyPayCardProductEntitlement$outboundSchema.parse(
-      dailyPayCardProductEntitlement,
-    ),
-  );
-}
 
 export function dailyPayCardProductEntitlementFromJSON(
   jsonString: string,
@@ -188,43 +133,6 @@ export const Products$inboundSchema: z.ZodType<
     "dailypay_card": "dailyPayCardProductEntitlement",
   });
 });
-
-/** @internal */
-export type Products$Outbound = {
-  dailypay_card: DailyPayCardProductEntitlement$Outbound;
-};
-
-/** @internal */
-export const Products$outboundSchema: z.ZodType<
-  Products$Outbound,
-  z.ZodTypeDef,
-  Products
-> = z.object({
-  dailyPayCardProductEntitlement: z.lazy(() =>
-    DailyPayCardProductEntitlement$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    dailyPayCardProductEntitlement: "dailypay_card",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Products$ {
-  /** @deprecated use `Products$inboundSchema` instead. */
-  export const inboundSchema = Products$inboundSchema;
-  /** @deprecated use `Products$outboundSchema` instead. */
-  export const outboundSchema = Products$outboundSchema;
-  /** @deprecated use `Products$Outbound` instead. */
-  export type Outbound = Products$Outbound;
-}
-
-export function productsToJSON(products: Products): string {
-  return JSON.stringify(Products$outboundSchema.parse(products));
-}
 
 export function productsFromJSON(
   jsonString: string,
@@ -251,50 +159,6 @@ export const PersonAttributes$inboundSchema: z.ZodType<
     "state_of_residence": "stateOfResidence",
   });
 });
-
-/** @internal */
-export type PersonAttributes$Outbound = {
-  disallow_reason: string | null;
-  state_of_residence?: string | undefined;
-  products: Products$Outbound;
-};
-
-/** @internal */
-export const PersonAttributes$outboundSchema: z.ZodType<
-  PersonAttributes$Outbound,
-  z.ZodTypeDef,
-  PersonAttributes
-> = z.object({
-  disallowReason: z.nullable(DisallowReason$outboundSchema),
-  stateOfResidence: z.string().optional(),
-  products: z.lazy(() => Products$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    disallowReason: "disallow_reason",
-    stateOfResidence: "state_of_residence",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonAttributes$ {
-  /** @deprecated use `PersonAttributes$inboundSchema` instead. */
-  export const inboundSchema = PersonAttributes$inboundSchema;
-  /** @deprecated use `PersonAttributes$outboundSchema` instead. */
-  export const outboundSchema = PersonAttributes$outboundSchema;
-  /** @deprecated use `PersonAttributes$Outbound` instead. */
-  export type Outbound = PersonAttributes$Outbound;
-}
-
-export function personAttributesToJSON(
-  personAttributes: PersonAttributes,
-): string {
-  return JSON.stringify(
-    PersonAttributes$outboundSchema.parse(personAttributes),
-  );
-}
 
 export function personAttributesFromJSON(
   jsonString: string,

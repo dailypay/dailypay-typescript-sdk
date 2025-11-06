@@ -70,22 +70,6 @@ export const PaycheckAttributesStatus$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(PaycheckAttributesStatus);
 
 /** @internal */
-export const PaycheckAttributesStatus$outboundSchema: z.ZodNativeEnum<
-  typeof PaycheckAttributesStatus
-> = PaycheckAttributesStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaycheckAttributesStatus$ {
-  /** @deprecated use `PaycheckAttributesStatus$inboundSchema` instead. */
-  export const inboundSchema = PaycheckAttributesStatus$inboundSchema;
-  /** @deprecated use `PaycheckAttributesStatus$outboundSchema` instead. */
-  export const outboundSchema = PaycheckAttributesStatus$outboundSchema;
-}
-
-/** @internal */
 export const PaycheckAttributes$inboundSchema: z.ZodType<
   PaycheckAttributes,
   z.ZodTypeDef,
@@ -117,67 +101,6 @@ export const PaycheckAttributes$inboundSchema: z.ZodType<
     "net_earnings": "netEarnings",
   });
 });
-
-/** @internal */
-export type PaycheckAttributes$Outbound = {
-  status: string;
-  pay_period_ends_at: string;
-  pay_period_starts_at: string;
-  deposit_expected_at: string;
-  total_debited: number | null;
-  gross_earnings: number;
-  employer_withholdings: number | null;
-  net_earnings: number | null;
-  currency: string;
-};
-
-/** @internal */
-export const PaycheckAttributes$outboundSchema: z.ZodType<
-  PaycheckAttributes$Outbound,
-  z.ZodTypeDef,
-  PaycheckAttributes
-> = z.object({
-  status: PaycheckAttributesStatus$outboundSchema,
-  payPeriodEndsAt: z.date().transform(v => v.toISOString()),
-  payPeriodStartsAt: z.date().transform(v => v.toISOString()),
-  depositExpectedAt: z.date().transform(v => v.toISOString()),
-  totalDebited: z.nullable(z.number().int()),
-  grossEarnings: z.number().int(),
-  employerWithholdings: z.nullable(z.number().int()),
-  netEarnings: z.nullable(z.number().int()),
-  currency: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    payPeriodEndsAt: "pay_period_ends_at",
-    payPeriodStartsAt: "pay_period_starts_at",
-    depositExpectedAt: "deposit_expected_at",
-    totalDebited: "total_debited",
-    grossEarnings: "gross_earnings",
-    employerWithholdings: "employer_withholdings",
-    netEarnings: "net_earnings",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaycheckAttributes$ {
-  /** @deprecated use `PaycheckAttributes$inboundSchema` instead. */
-  export const inboundSchema = PaycheckAttributes$inboundSchema;
-  /** @deprecated use `PaycheckAttributes$outboundSchema` instead. */
-  export const outboundSchema = PaycheckAttributes$outboundSchema;
-  /** @deprecated use `PaycheckAttributes$Outbound` instead. */
-  export type Outbound = PaycheckAttributes$Outbound;
-}
-
-export function paycheckAttributesToJSON(
-  paycheckAttributes: PaycheckAttributes,
-): string {
-  return JSON.stringify(
-    PaycheckAttributes$outboundSchema.parse(paycheckAttributes),
-  );
-}
 
 export function paycheckAttributesFromJSON(
   jsonString: string,

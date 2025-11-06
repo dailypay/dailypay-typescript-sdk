@@ -25,7 +25,6 @@ export const PersonRelationship$inboundSchema: z.ZodType<
 > = z.object({
   data: PersonIdentifier$inboundSchema,
 });
-
 /** @internal */
 export type PersonRelationship$Outbound = {
   data: PersonIdentifier$Outbound;
@@ -40,19 +39,6 @@ export const PersonRelationship$outboundSchema: z.ZodType<
   data: PersonIdentifier$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonRelationship$ {
-  /** @deprecated use `PersonRelationship$inboundSchema` instead. */
-  export const inboundSchema = PersonRelationship$inboundSchema;
-  /** @deprecated use `PersonRelationship$outboundSchema` instead. */
-  export const outboundSchema = PersonRelationship$outboundSchema;
-  /** @deprecated use `PersonRelationship$Outbound` instead. */
-  export type Outbound = PersonRelationship$Outbound;
-}
-
 export function personRelationshipToJSON(
   personRelationship: PersonRelationship,
 ): string {
@@ -60,7 +46,6 @@ export function personRelationshipToJSON(
     PersonRelationship$outboundSchema.parse(personRelationship),
   );
 }
-
 export function personRelationshipFromJSON(
   jsonString: string,
 ): SafeParseResult<PersonRelationship, SDKValidationError> {

@@ -83,43 +83,6 @@ export const ErrorTransferCreateErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorTransferCreateErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorTransferCreateErrorLinks$outboundSchema: z.ZodType<
-  ErrorTransferCreateErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorTransferCreateErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorTransferCreateErrorLinks$ {
-  /** @deprecated use `ErrorTransferCreateErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorTransferCreateErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorTransferCreateErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorTransferCreateErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorTransferCreateErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorTransferCreateErrorLinks$Outbound;
-}
-
-export function errorTransferCreateErrorLinksToJSON(
-  errorTransferCreateErrorLinks: ErrorTransferCreateErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorTransferCreateErrorLinks$outboundSchema.parse(
-      errorTransferCreateErrorLinks,
-    ),
-  );
-}
-
 export function errorTransferCreateErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorTransferCreateErrorLinks, SDKValidationError> {
@@ -140,47 +103,6 @@ export const ErrorTransferCreateErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorTransferCreateErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorTransferCreateErrorSource$outboundSchema: z.ZodType<
-  ErrorTransferCreateErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorTransferCreateErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorTransferCreateErrorSource$ {
-  /** @deprecated use `ErrorTransferCreateErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorTransferCreateErrorSource$inboundSchema;
-  /** @deprecated use `ErrorTransferCreateErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorTransferCreateErrorSource$outboundSchema;
-  /** @deprecated use `ErrorTransferCreateErrorSource$Outbound` instead. */
-  export type Outbound = ErrorTransferCreateErrorSource$Outbound;
-}
-
-export function errorTransferCreateErrorSourceToJSON(
-  errorTransferCreateErrorSource: ErrorTransferCreateErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorTransferCreateErrorSource$outboundSchema.parse(
-      errorTransferCreateErrorSource,
-    ),
-  );
-}
 
 export function errorTransferCreateErrorSourceFromJSON(
   jsonString: string,
@@ -207,50 +129,6 @@ export const ErrorTransferCreateErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorTransferCreateErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorTransferCreateErrorMeta$outboundSchema: z.ZodType<
-  ErrorTransferCreateErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorTransferCreateErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorTransferCreateErrorMeta$ {
-  /** @deprecated use `ErrorTransferCreateErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorTransferCreateErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorTransferCreateErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorTransferCreateErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorTransferCreateErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorTransferCreateErrorMeta$Outbound;
-}
-
-export function errorTransferCreateErrorMetaToJSON(
-  errorTransferCreateErrorMeta: ErrorTransferCreateErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorTransferCreateErrorMeta$outboundSchema.parse(
-      errorTransferCreateErrorMeta,
-    ),
-  );
-}
-
 export function errorTransferCreateErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorTransferCreateErrorMeta, SDKValidationError> {
@@ -274,52 +152,6 @@ export const ErrorTransferCreateError$inboundSchema: z.ZodType<
   source: z.lazy(() => ErrorTransferCreateErrorSource$inboundSchema).optional(),
   meta: z.lazy(() => ErrorTransferCreateErrorMeta$inboundSchema),
 });
-
-/** @internal */
-export type ErrorTransferCreateError$Outbound = {
-  code: string;
-  status: string;
-  detail: string;
-  links: ErrorTransferCreateErrorLinks$Outbound;
-  source?: ErrorTransferCreateErrorSource$Outbound | undefined;
-  meta: ErrorTransferCreateErrorMeta$Outbound;
-};
-
-/** @internal */
-export const ErrorTransferCreateError$outboundSchema: z.ZodType<
-  ErrorTransferCreateError$Outbound,
-  z.ZodTypeDef,
-  ErrorTransferCreateError
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorTransferCreateErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorTransferCreateErrorSource$outboundSchema)
-    .optional(),
-  meta: z.lazy(() => ErrorTransferCreateErrorMeta$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorTransferCreateError$ {
-  /** @deprecated use `ErrorTransferCreateError$inboundSchema` instead. */
-  export const inboundSchema = ErrorTransferCreateError$inboundSchema;
-  /** @deprecated use `ErrorTransferCreateError$outboundSchema` instead. */
-  export const outboundSchema = ErrorTransferCreateError$outboundSchema;
-  /** @deprecated use `ErrorTransferCreateError$Outbound` instead. */
-  export type Outbound = ErrorTransferCreateError$Outbound;
-}
-
-export function errorTransferCreateErrorToJSON(
-  errorTransferCreateError: ErrorTransferCreateError,
-): string {
-  return JSON.stringify(
-    ErrorTransferCreateError$outboundSchema.parse(errorTransferCreateError),
-  );
-}
 
 export function errorTransferCreateErrorFromJSON(
   jsonString: string,

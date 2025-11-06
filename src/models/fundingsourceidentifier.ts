@@ -22,43 +22,6 @@ export const FundingSourceIdentifier$inboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/** @internal */
-export type FundingSourceIdentifier$Outbound = {
-  type: "funding_sources";
-  id: string;
-};
-
-/** @internal */
-export const FundingSourceIdentifier$outboundSchema: z.ZodType<
-  FundingSourceIdentifier$Outbound,
-  z.ZodTypeDef,
-  FundingSourceIdentifier
-> = z.object({
-  type: z.literal("funding_sources"),
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FundingSourceIdentifier$ {
-  /** @deprecated use `FundingSourceIdentifier$inboundSchema` instead. */
-  export const inboundSchema = FundingSourceIdentifier$inboundSchema;
-  /** @deprecated use `FundingSourceIdentifier$outboundSchema` instead. */
-  export const outboundSchema = FundingSourceIdentifier$outboundSchema;
-  /** @deprecated use `FundingSourceIdentifier$Outbound` instead. */
-  export type Outbound = FundingSourceIdentifier$Outbound;
-}
-
-export function fundingSourceIdentifierToJSON(
-  fundingSourceIdentifier: FundingSourceIdentifier,
-): string {
-  return JSON.stringify(
-    FundingSourceIdentifier$outboundSchema.parse(fundingSourceIdentifier),
-  );
-}
-
 export function fundingSourceIdentifierFromJSON(
   jsonString: string,
 ): SafeParseResult<FundingSourceIdentifier, SDKValidationError> {

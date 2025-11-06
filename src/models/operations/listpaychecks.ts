@@ -66,95 +66,6 @@ export type ListPaychecksResponse = {
 };
 
 /** @internal */
-export const ListPaychecksGlobals$inboundSchema: z.ZodType<
-  ListPaychecksGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ListPaychecksGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ListPaychecksGlobals$outboundSchema: z.ZodType<
-  ListPaychecksGlobals$Outbound,
-  z.ZodTypeDef,
-  ListPaychecksGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaychecksGlobals$ {
-  /** @deprecated use `ListPaychecksGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListPaychecksGlobals$inboundSchema;
-  /** @deprecated use `ListPaychecksGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListPaychecksGlobals$outboundSchema;
-  /** @deprecated use `ListPaychecksGlobals$Outbound` instead. */
-  export type Outbound = ListPaychecksGlobals$Outbound;
-}
-
-export function listPaychecksGlobalsToJSON(
-  listPaychecksGlobals: ListPaychecksGlobals,
-): string {
-  return JSON.stringify(
-    ListPaychecksGlobals$outboundSchema.parse(listPaychecksGlobals),
-  );
-}
-
-export function listPaychecksGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPaychecksGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListPaychecksGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPaychecksGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListPaychecksRequest$inboundSchema: z.ZodType<
-  ListPaychecksRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "filter[job.id]": z.string().optional(),
-  "filter[status]": models.FilterPaycheckStatus$inboundSchema.optional(),
-  "filter[deposit_expected_at__gte]": z.string().datetime({ offset: true })
-    .transform(v => new Date(v)).optional(),
-  "filter[deposit_expected_at__lt]": z.string().datetime({ offset: true })
-    .transform(v => new Date(v)).optional(),
-  "filter[pay_period_ends_at__gte]": z.string().datetime({ offset: true })
-    .transform(v => new Date(v)).optional(),
-  "filter[pay_period_ends_at__lt]": z.string().datetime({ offset: true })
-    .transform(v => new Date(v)).optional(),
-  "filter[pay_period_starts_at__gte]": z.string().datetime({ offset: true })
-    .transform(v => new Date(v)).optional(),
-  "filter[pay_period_starts_at__lt]": z.string().datetime({ offset: true })
-    .transform(v => new Date(v)).optional(),
-  "filter-by": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "filter[job.id]": "filterJobId",
-    "filter[status]": "filterStatus",
-    "filter[deposit_expected_at__gte]": "filterDepositExpectedAtGte",
-    "filter[deposit_expected_at__lt]": "filterDepositExpectedAtLt",
-    "filter[pay_period_ends_at__gte]": "filterPayPeriodEndsAtGte",
-    "filter[pay_period_ends_at__lt]": "filterPayPeriodEndsAtLt",
-    "filter[pay_period_starts_at__gte]": "filterPayPeriodStartsAtGte",
-    "filter[pay_period_starts_at__lt]": "filterPayPeriodStartsAtLt",
-    "filter-by": "filterBy",
-  });
-});
-
-/** @internal */
 export type ListPaychecksRequest$Outbound = {
   "filter[job.id]"?: string | undefined;
   "filter[status]"?: string | undefined;
@@ -200,34 +111,11 @@ export const ListPaychecksRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaychecksRequest$ {
-  /** @deprecated use `ListPaychecksRequest$inboundSchema` instead. */
-  export const inboundSchema = ListPaychecksRequest$inboundSchema;
-  /** @deprecated use `ListPaychecksRequest$outboundSchema` instead. */
-  export const outboundSchema = ListPaychecksRequest$outboundSchema;
-  /** @deprecated use `ListPaychecksRequest$Outbound` instead. */
-  export type Outbound = ListPaychecksRequest$Outbound;
-}
-
 export function listPaychecksRequestToJSON(
   listPaychecksRequest: ListPaychecksRequest,
 ): string {
   return JSON.stringify(
     ListPaychecksRequest$outboundSchema.parse(listPaychecksRequest),
-  );
-}
-
-export function listPaychecksRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListPaychecksRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListPaychecksRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListPaychecksRequest' from JSON`,
   );
 }
 
@@ -245,48 +133,6 @@ export const ListPaychecksResponse$inboundSchema: z.ZodType<
     "PaychecksData": "paychecksData",
   });
 });
-
-/** @internal */
-export type ListPaychecksResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  PaychecksData?: models.PaychecksData$Outbound | undefined;
-};
-
-/** @internal */
-export const ListPaychecksResponse$outboundSchema: z.ZodType<
-  ListPaychecksResponse$Outbound,
-  z.ZodTypeDef,
-  ListPaychecksResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  paychecksData: models.PaychecksData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    paychecksData: "PaychecksData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPaychecksResponse$ {
-  /** @deprecated use `ListPaychecksResponse$inboundSchema` instead. */
-  export const inboundSchema = ListPaychecksResponse$inboundSchema;
-  /** @deprecated use `ListPaychecksResponse$outboundSchema` instead. */
-  export const outboundSchema = ListPaychecksResponse$outboundSchema;
-  /** @deprecated use `ListPaychecksResponse$Outbound` instead. */
-  export type Outbound = ListPaychecksResponse$Outbound;
-}
-
-export function listPaychecksResponseToJSON(
-  listPaychecksResponse: ListPaychecksResponse,
-): string {
-  return JSON.stringify(
-    ListPaychecksResponse$outboundSchema.parse(listPaychecksResponse),
-  );
-}
 
 export function listPaychecksResponseFromJSON(
   jsonString: string,

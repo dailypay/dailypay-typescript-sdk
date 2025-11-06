@@ -9,14 +9,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   JobRelationship,
   JobRelationship$inboundSchema,
-  JobRelationship$Outbound,
-  JobRelationship$outboundSchema,
 } from "./jobrelationship.js";
 import {
   PersonRelationship,
   PersonRelationship$inboundSchema,
-  PersonRelationship$Outbound,
-  PersonRelationship$outboundSchema,
 } from "./personrelationship.js";
 
 export type PaycheckRelationships = {
@@ -33,43 +29,6 @@ export const PaycheckRelationships$inboundSchema: z.ZodType<
   person: PersonRelationship$inboundSchema,
   job: JobRelationship$inboundSchema,
 });
-
-/** @internal */
-export type PaycheckRelationships$Outbound = {
-  person: PersonRelationship$Outbound;
-  job: JobRelationship$Outbound;
-};
-
-/** @internal */
-export const PaycheckRelationships$outboundSchema: z.ZodType<
-  PaycheckRelationships$Outbound,
-  z.ZodTypeDef,
-  PaycheckRelationships
-> = z.object({
-  person: PersonRelationship$outboundSchema,
-  job: JobRelationship$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaycheckRelationships$ {
-  /** @deprecated use `PaycheckRelationships$inboundSchema` instead. */
-  export const inboundSchema = PaycheckRelationships$inboundSchema;
-  /** @deprecated use `PaycheckRelationships$outboundSchema` instead. */
-  export const outboundSchema = PaycheckRelationships$outboundSchema;
-  /** @deprecated use `PaycheckRelationships$Outbound` instead. */
-  export type Outbound = PaycheckRelationships$Outbound;
-}
-
-export function paycheckRelationshipsToJSON(
-  paycheckRelationships: PaycheckRelationships,
-): string {
-  return JSON.stringify(
-    PaycheckRelationships$outboundSchema.parse(paycheckRelationships),
-  );
-}
 
 export function paycheckRelationshipsFromJSON(
   jsonString: string,

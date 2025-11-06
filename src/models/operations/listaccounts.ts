@@ -46,79 +46,6 @@ export type ListAccountsResponse = {
 };
 
 /** @internal */
-export const ListAccountsGlobals$inboundSchema: z.ZodType<
-  ListAccountsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ListAccountsGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ListAccountsGlobals$outboundSchema: z.ZodType<
-  ListAccountsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListAccountsGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAccountsGlobals$ {
-  /** @deprecated use `ListAccountsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListAccountsGlobals$inboundSchema;
-  /** @deprecated use `ListAccountsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListAccountsGlobals$outboundSchema;
-  /** @deprecated use `ListAccountsGlobals$Outbound` instead. */
-  export type Outbound = ListAccountsGlobals$Outbound;
-}
-
-export function listAccountsGlobalsToJSON(
-  listAccountsGlobals: ListAccountsGlobals,
-): string {
-  return JSON.stringify(
-    ListAccountsGlobals$outboundSchema.parse(listAccountsGlobals),
-  );
-}
-
-export function listAccountsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAccountsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAccountsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAccountsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListAccountsRequest$inboundSchema: z.ZodType<
-  ListAccountsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "filter[person.id]": z.string().optional(),
-  "filter[account_type]": models.FilterAccountType$inboundSchema.optional(),
-  "filter[subtype]": z.string().optional(),
-  "filter-by": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "filter[person.id]": "filterPersonId",
-    "filter[account_type]": "filterAccountType",
-    "filter[subtype]": "filterSubtype",
-    "filter-by": "filterBy",
-  });
-});
-
-/** @internal */
 export type ListAccountsRequest$Outbound = {
   "filter[person.id]"?: string | undefined;
   "filter[account_type]"?: string | undefined;
@@ -145,34 +72,11 @@ export const ListAccountsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAccountsRequest$ {
-  /** @deprecated use `ListAccountsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListAccountsRequest$inboundSchema;
-  /** @deprecated use `ListAccountsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListAccountsRequest$outboundSchema;
-  /** @deprecated use `ListAccountsRequest$Outbound` instead. */
-  export type Outbound = ListAccountsRequest$Outbound;
-}
-
 export function listAccountsRequestToJSON(
   listAccountsRequest: ListAccountsRequest,
 ): string {
   return JSON.stringify(
     ListAccountsRequest$outboundSchema.parse(listAccountsRequest),
-  );
-}
-
-export function listAccountsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListAccountsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListAccountsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListAccountsRequest' from JSON`,
   );
 }
 
@@ -190,48 +94,6 @@ export const ListAccountsResponse$inboundSchema: z.ZodType<
     "AccountsData": "accountsData",
   });
 });
-
-/** @internal */
-export type ListAccountsResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  AccountsData?: models.AccountsData$Outbound | undefined;
-};
-
-/** @internal */
-export const ListAccountsResponse$outboundSchema: z.ZodType<
-  ListAccountsResponse$Outbound,
-  z.ZodTypeDef,
-  ListAccountsResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  accountsData: models.AccountsData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    accountsData: "AccountsData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListAccountsResponse$ {
-  /** @deprecated use `ListAccountsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListAccountsResponse$inboundSchema;
-  /** @deprecated use `ListAccountsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListAccountsResponse$outboundSchema;
-  /** @deprecated use `ListAccountsResponse$Outbound` instead. */
-  export type Outbound = ListAccountsResponse$Outbound;
-}
-
-export function listAccountsResponseToJSON(
-  listAccountsResponse: ListAccountsResponse,
-): string {
-  return JSON.stringify(
-    ListAccountsResponse$outboundSchema.parse(listAccountsResponse),
-  );
-}
 
 export function listAccountsResponseFromJSON(
   jsonString: string,

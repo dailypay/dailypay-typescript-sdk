@@ -54,83 +54,6 @@ export type ListJobsResponse = {
 };
 
 /** @internal */
-export const ListJobsGlobals$inboundSchema: z.ZodType<
-  ListJobsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ListJobsGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ListJobsGlobals$outboundSchema: z.ZodType<
-  ListJobsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListJobsGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListJobsGlobals$ {
-  /** @deprecated use `ListJobsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListJobsGlobals$inboundSchema;
-  /** @deprecated use `ListJobsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListJobsGlobals$outboundSchema;
-  /** @deprecated use `ListJobsGlobals$Outbound` instead. */
-  export type Outbound = ListJobsGlobals$Outbound;
-}
-
-export function listJobsGlobalsToJSON(
-  listJobsGlobals: ListJobsGlobals,
-): string {
-  return JSON.stringify(ListJobsGlobals$outboundSchema.parse(listJobsGlobals));
-}
-
-export function listJobsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListJobsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListJobsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListJobsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListJobsRequest$inboundSchema: z.ZodType<
-  ListJobsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "filter[external_identifiers.primary_identifier]": z.string().optional(),
-  "filter[external_identifiers.employee_id]": z.string().optional(),
-  "filter[external_identifiers.group]": z.string().optional(),
-  "filter[person.id]": z.string().optional(),
-  "filter[organization.id]": z.string().optional(),
-  "filter-by": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "filter[external_identifiers.primary_identifier]":
-      "filterExternalIdentifiersPrimaryIdentifier",
-    "filter[external_identifiers.employee_id]":
-      "filterExternalIdentifiersEmployeeId",
-    "filter[external_identifiers.group]": "filterExternalIdentifiersGroup",
-    "filter[person.id]": "filterPersonId",
-    "filter[organization.id]": "filterOrganizationId",
-    "filter-by": "filterBy",
-  });
-});
-
-/** @internal */
 export type ListJobsRequest$Outbound = {
   "filter[external_identifiers.primary_identifier]"?: string | undefined;
   "filter[external_identifiers.employee_id]"?: string | undefined;
@@ -165,33 +88,10 @@ export const ListJobsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListJobsRequest$ {
-  /** @deprecated use `ListJobsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListJobsRequest$inboundSchema;
-  /** @deprecated use `ListJobsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListJobsRequest$outboundSchema;
-  /** @deprecated use `ListJobsRequest$Outbound` instead. */
-  export type Outbound = ListJobsRequest$Outbound;
-}
-
 export function listJobsRequestToJSON(
   listJobsRequest: ListJobsRequest,
 ): string {
   return JSON.stringify(ListJobsRequest$outboundSchema.parse(listJobsRequest));
-}
-
-export function listJobsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListJobsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListJobsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListJobsRequest' from JSON`,
-  );
 }
 
 /** @internal */
@@ -208,48 +108,6 @@ export const ListJobsResponse$inboundSchema: z.ZodType<
     "JobsData": "jobsData",
   });
 });
-
-/** @internal */
-export type ListJobsResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  JobsData?: models.JobsData$Outbound | undefined;
-};
-
-/** @internal */
-export const ListJobsResponse$outboundSchema: z.ZodType<
-  ListJobsResponse$Outbound,
-  z.ZodTypeDef,
-  ListJobsResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  jobsData: models.JobsData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    jobsData: "JobsData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListJobsResponse$ {
-  /** @deprecated use `ListJobsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListJobsResponse$inboundSchema;
-  /** @deprecated use `ListJobsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListJobsResponse$outboundSchema;
-  /** @deprecated use `ListJobsResponse$Outbound` instead. */
-  export type Outbound = ListJobsResponse$Outbound;
-}
-
-export function listJobsResponseToJSON(
-  listJobsResponse: ListJobsResponse,
-): string {
-  return JSON.stringify(
-    ListJobsResponse$outboundSchema.parse(listJobsResponse),
-  );
-}
 
 export function listJobsResponseFromJSON(
   jsonString: string,

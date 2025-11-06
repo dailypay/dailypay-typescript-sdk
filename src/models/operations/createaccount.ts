@@ -27,60 +27,6 @@ export type CreateAccountResponse = {
 };
 
 /** @internal */
-export const CreateAccountGlobals$inboundSchema: z.ZodType<
-  CreateAccountGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type CreateAccountGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const CreateAccountGlobals$outboundSchema: z.ZodType<
-  CreateAccountGlobals$Outbound,
-  z.ZodTypeDef,
-  CreateAccountGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateAccountGlobals$ {
-  /** @deprecated use `CreateAccountGlobals$inboundSchema` instead. */
-  export const inboundSchema = CreateAccountGlobals$inboundSchema;
-  /** @deprecated use `CreateAccountGlobals$outboundSchema` instead. */
-  export const outboundSchema = CreateAccountGlobals$outboundSchema;
-  /** @deprecated use `CreateAccountGlobals$Outbound` instead. */
-  export type Outbound = CreateAccountGlobals$Outbound;
-}
-
-export function createAccountGlobalsToJSON(
-  createAccountGlobals: CreateAccountGlobals,
-): string {
-  return JSON.stringify(
-    CreateAccountGlobals$outboundSchema.parse(createAccountGlobals),
-  );
-}
-
-export function createAccountGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateAccountGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateAccountGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateAccountGlobals' from JSON`,
-  );
-}
-
-/** @internal */
 export const CreateAccountResponse$inboundSchema: z.ZodType<
   CreateAccountResponse,
   z.ZodTypeDef,
@@ -94,48 +40,6 @@ export const CreateAccountResponse$inboundSchema: z.ZodType<
     "AccountData": "accountData",
   });
 });
-
-/** @internal */
-export type CreateAccountResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  AccountData?: models.AccountDataOutput$Outbound | undefined;
-};
-
-/** @internal */
-export const CreateAccountResponse$outboundSchema: z.ZodType<
-  CreateAccountResponse$Outbound,
-  z.ZodTypeDef,
-  CreateAccountResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  accountData: models.AccountDataOutput$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    accountData: "AccountData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateAccountResponse$ {
-  /** @deprecated use `CreateAccountResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateAccountResponse$inboundSchema;
-  /** @deprecated use `CreateAccountResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateAccountResponse$outboundSchema;
-  /** @deprecated use `CreateAccountResponse$Outbound` instead. */
-  export type Outbound = CreateAccountResponse$Outbound;
-}
-
-export function createAccountResponseToJSON(
-  createAccountResponse: CreateAccountResponse,
-): string {
-  return JSON.stringify(
-    CreateAccountResponse$outboundSchema.parse(createAccountResponse),
-  );
-}
 
 export function createAccountResponseFromJSON(
   jsonString: string,

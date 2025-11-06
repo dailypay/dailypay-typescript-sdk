@@ -97,41 +97,6 @@ export const ErrorForbiddenErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorForbiddenErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorForbiddenErrorLinks$outboundSchema: z.ZodType<
-  ErrorForbiddenErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorForbiddenErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorForbiddenErrorLinks$ {
-  /** @deprecated use `ErrorForbiddenErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorForbiddenErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorForbiddenErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorForbiddenErrorLinks$Outbound;
-}
-
-export function errorForbiddenErrorLinksToJSON(
-  errorForbiddenErrorLinks: ErrorForbiddenErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorForbiddenErrorLinks$outboundSchema.parse(errorForbiddenErrorLinks),
-  );
-}
-
 export function errorForbiddenErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorForbiddenErrorLinks, SDKValidationError> {
@@ -152,45 +117,6 @@ export const ErrorForbiddenErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorForbiddenErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorForbiddenErrorSource$outboundSchema: z.ZodType<
-  ErrorForbiddenErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorForbiddenErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorForbiddenErrorSource$ {
-  /** @deprecated use `ErrorForbiddenErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorForbiddenErrorSource$inboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorForbiddenErrorSource$outboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorSource$Outbound` instead. */
-  export type Outbound = ErrorForbiddenErrorSource$Outbound;
-}
-
-export function errorForbiddenErrorSourceToJSON(
-  errorForbiddenErrorSource: ErrorForbiddenErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorForbiddenErrorSource$outboundSchema.parse(errorForbiddenErrorSource),
-  );
-}
 
 export function errorForbiddenErrorSourceFromJSON(
   jsonString: string,
@@ -217,48 +143,6 @@ export const ErrorForbiddenErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorForbiddenErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorForbiddenErrorMeta$outboundSchema: z.ZodType<
-  ErrorForbiddenErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorForbiddenErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorForbiddenErrorMeta$ {
-  /** @deprecated use `ErrorForbiddenErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorForbiddenErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorForbiddenErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorForbiddenErrorMeta$Outbound;
-}
-
-export function errorForbiddenErrorMetaToJSON(
-  errorForbiddenErrorMeta: ErrorForbiddenErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorForbiddenErrorMeta$outboundSchema.parse(errorForbiddenErrorMeta),
-  );
-}
-
 export function errorForbiddenErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorForbiddenErrorMeta, SDKValidationError> {
@@ -275,22 +159,6 @@ export const ErrorForbiddenErrorCode$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(ErrorForbiddenErrorCode);
 
 /** @internal */
-export const ErrorForbiddenErrorCode$outboundSchema: z.ZodNativeEnum<
-  typeof ErrorForbiddenErrorCode
-> = ErrorForbiddenErrorCode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorForbiddenErrorCode$ {
-  /** @deprecated use `ErrorForbiddenErrorCode$inboundSchema` instead. */
-  export const inboundSchema = ErrorForbiddenErrorCode$inboundSchema;
-  /** @deprecated use `ErrorForbiddenErrorCode$outboundSchema` instead. */
-  export const outboundSchema = ErrorForbiddenErrorCode$outboundSchema;
-}
-
-/** @internal */
 export const ErrorForbiddenError$inboundSchema: z.ZodType<
   ErrorForbiddenError,
   z.ZodTypeDef,
@@ -303,51 +171,6 @@ export const ErrorForbiddenError$inboundSchema: z.ZodType<
   meta: z.lazy(() => ErrorForbiddenErrorMeta$inboundSchema),
   code: ErrorForbiddenErrorCode$inboundSchema,
 });
-
-/** @internal */
-export type ErrorForbiddenError$Outbound = {
-  status: string;
-  detail: string;
-  links: ErrorForbiddenErrorLinks$Outbound;
-  source?: ErrorForbiddenErrorSource$Outbound | undefined;
-  meta: ErrorForbiddenErrorMeta$Outbound;
-  code: string;
-};
-
-/** @internal */
-export const ErrorForbiddenError$outboundSchema: z.ZodType<
-  ErrorForbiddenError$Outbound,
-  z.ZodTypeDef,
-  ErrorForbiddenError
-> = z.object({
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorForbiddenErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorForbiddenErrorSource$outboundSchema).optional(),
-  meta: z.lazy(() => ErrorForbiddenErrorMeta$outboundSchema),
-  code: ErrorForbiddenErrorCode$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorForbiddenError$ {
-  /** @deprecated use `ErrorForbiddenError$inboundSchema` instead. */
-  export const inboundSchema = ErrorForbiddenError$inboundSchema;
-  /** @deprecated use `ErrorForbiddenError$outboundSchema` instead. */
-  export const outboundSchema = ErrorForbiddenError$outboundSchema;
-  /** @deprecated use `ErrorForbiddenError$Outbound` instead. */
-  export type Outbound = ErrorForbiddenError$Outbound;
-}
-
-export function errorForbiddenErrorToJSON(
-  errorForbiddenError: ErrorForbiddenError,
-): string {
-  return JSON.stringify(
-    ErrorForbiddenError$outboundSchema.parse(errorForbiddenError),
-  );
-}
 
 export function errorForbiddenErrorFromJSON(
   jsonString: string,

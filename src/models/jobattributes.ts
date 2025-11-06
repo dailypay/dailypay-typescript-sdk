@@ -125,41 +125,14 @@ export type JobAttributesInput = {
 export const ActivationStatus$inboundSchema: z.ZodNativeEnum<
   typeof ActivationStatus
 > = z.nativeEnum(ActivationStatus);
-
 /** @internal */
 export const ActivationStatus$outboundSchema: z.ZodNativeEnum<
   typeof ActivationStatus
 > = ActivationStatus$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ActivationStatus$ {
-  /** @deprecated use `ActivationStatus$inboundSchema` instead. */
-  export const inboundSchema = ActivationStatus$inboundSchema;
-  /** @deprecated use `ActivationStatus$outboundSchema` instead. */
-  export const outboundSchema = ActivationStatus$outboundSchema;
-}
-
 /** @internal */
 export const Frequency$inboundSchema: z.ZodNativeEnum<typeof Frequency> = z
   .nativeEnum(Frequency);
-
-/** @internal */
-export const Frequency$outboundSchema: z.ZodNativeEnum<typeof Frequency> =
-  Frequency$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Frequency$ {
-  /** @deprecated use `Frequency$inboundSchema` instead. */
-  export const inboundSchema = Frequency$inboundSchema;
-  /** @deprecated use `Frequency$outboundSchema` instead. */
-  export const outboundSchema = Frequency$outboundSchema;
-}
 
 /** @internal */
 export const WageRate$inboundSchema: z.ZodType<
@@ -171,41 +144,6 @@ export const WageRate$inboundSchema: z.ZodType<
   currency: z.string(),
   frequency: Frequency$inboundSchema,
 });
-
-/** @internal */
-export type WageRate$Outbound = {
-  amount: number;
-  currency: string;
-  frequency: string;
-};
-
-/** @internal */
-export const WageRate$outboundSchema: z.ZodType<
-  WageRate$Outbound,
-  z.ZodTypeDef,
-  WageRate
-> = z.object({
-  amount: z.number().int(),
-  currency: z.string(),
-  frequency: Frequency$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WageRate$ {
-  /** @deprecated use `WageRate$inboundSchema` instead. */
-  export const inboundSchema = WageRate$inboundSchema;
-  /** @deprecated use `WageRate$outboundSchema` instead. */
-  export const outboundSchema = WageRate$outboundSchema;
-  /** @deprecated use `WageRate$Outbound` instead. */
-  export type Outbound = WageRate$Outbound;
-}
-
-export function wageRateToJSON(wageRate: WageRate): string {
-  return JSON.stringify(WageRate$outboundSchema.parse(wageRate));
-}
 
 export function wageRateFromJSON(
   jsonString: string,
@@ -221,22 +159,6 @@ export function wageRateFromJSON(
 export const DirectDepositStatus$inboundSchema: z.ZodNativeEnum<
   typeof DirectDepositStatus
 > = z.nativeEnum(DirectDepositStatus);
-
-/** @internal */
-export const DirectDepositStatus$outboundSchema: z.ZodNativeEnum<
-  typeof DirectDepositStatus
-> = DirectDepositStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DirectDepositStatus$ {
-  /** @deprecated use `DirectDepositStatus$inboundSchema` instead. */
-  export const inboundSchema = DirectDepositStatus$inboundSchema;
-  /** @deprecated use `DirectDepositStatus$outboundSchema` instead. */
-  export const outboundSchema = DirectDepositStatus$outboundSchema;
-}
 
 /** @internal */
 export const JobAttributes$inboundSchema: z.ZodType<
@@ -264,62 +186,6 @@ export const JobAttributes$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type JobAttributes$Outbound = {
-  external_identifiers?: { [k: string]: string } | undefined;
-  first_name?: string | undefined;
-  last_name?: string | undefined;
-  activation_status?: string | undefined;
-  wage_rate: WageRate$Outbound;
-  title?: string | null | undefined;
-  department?: string | null | undefined;
-  location?: string | undefined;
-  direct_deposit_status: string;
-};
-
-/** @internal */
-export const JobAttributes$outboundSchema: z.ZodType<
-  JobAttributes$Outbound,
-  z.ZodTypeDef,
-  JobAttributes
-> = z.object({
-  externalIdentifiers: z.record(z.string()).optional(),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  activationStatus: ActivationStatus$outboundSchema.optional(),
-  wageRate: z.lazy(() => WageRate$outboundSchema),
-  title: z.nullable(z.string()).optional(),
-  department: z.nullable(z.string()).optional(),
-  location: z.string().optional(),
-  directDepositStatus: DirectDepositStatus$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    externalIdentifiers: "external_identifiers",
-    firstName: "first_name",
-    lastName: "last_name",
-    activationStatus: "activation_status",
-    wageRate: "wage_rate",
-    directDepositStatus: "direct_deposit_status",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobAttributes$ {
-  /** @deprecated use `JobAttributes$inboundSchema` instead. */
-  export const inboundSchema = JobAttributes$inboundSchema;
-  /** @deprecated use `JobAttributes$outboundSchema` instead. */
-  export const outboundSchema = JobAttributes$outboundSchema;
-  /** @deprecated use `JobAttributes$Outbound` instead. */
-  export type Outbound = JobAttributes$Outbound;
-}
-
-export function jobAttributesToJSON(jobAttributes: JobAttributes): string {
-  return JSON.stringify(JobAttributes$outboundSchema.parse(jobAttributes));
-}
-
 export function jobAttributesFromJSON(
   jsonString: string,
 ): SafeParseResult<JobAttributes, SDKValidationError> {
@@ -329,19 +195,6 @@ export function jobAttributesFromJSON(
     `Failed to parse 'JobAttributes' from JSON`,
   );
 }
-
-/** @internal */
-export const JobAttributesInput$inboundSchema: z.ZodType<
-  JobAttributesInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  activation_status: ActivationStatus$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "activation_status": "activationStatus",
-  });
-});
 
 /** @internal */
 export type JobAttributesInput$Outbound = {
@@ -361,33 +214,10 @@ export const JobAttributesInput$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobAttributesInput$ {
-  /** @deprecated use `JobAttributesInput$inboundSchema` instead. */
-  export const inboundSchema = JobAttributesInput$inboundSchema;
-  /** @deprecated use `JobAttributesInput$outboundSchema` instead. */
-  export const outboundSchema = JobAttributesInput$outboundSchema;
-  /** @deprecated use `JobAttributesInput$Outbound` instead. */
-  export type Outbound = JobAttributesInput$Outbound;
-}
-
 export function jobAttributesInputToJSON(
   jobAttributesInput: JobAttributesInput,
 ): string {
   return JSON.stringify(
     JobAttributesInput$outboundSchema.parse(jobAttributesInput),
-  );
-}
-
-export function jobAttributesInputFromJSON(
-  jsonString: string,
-): SafeParseResult<JobAttributesInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => JobAttributesInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'JobAttributesInput' from JSON`,
   );
 }

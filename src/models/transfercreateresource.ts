@@ -3,18 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferAttributesInput,
-  TransferAttributesInput$inboundSchema,
   TransferAttributesInput$Outbound,
   TransferAttributesInput$outboundSchema,
 } from "./transferattributes.js";
 import {
   TransferCreateRelationships,
-  TransferCreateRelationships$inboundSchema,
   TransferCreateRelationships$Outbound,
   TransferCreateRelationships$outboundSchema,
 } from "./transfercreaterelationships.js";
@@ -37,18 +32,6 @@ export type TransferCreateResource = {
 };
 
 /** @internal */
-export const TransferCreateResource$inboundSchema: z.ZodType<
-  TransferCreateResource,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.literal("transfers"),
-  id: z.string().optional(),
-  attributes: TransferAttributesInput$inboundSchema,
-  relationships: TransferCreateRelationships$inboundSchema,
-});
-
-/** @internal */
 export type TransferCreateResource$Outbound = {
   type: "transfers";
   id?: string | undefined;
@@ -68,33 +51,10 @@ export const TransferCreateResource$outboundSchema: z.ZodType<
   relationships: TransferCreateRelationships$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferCreateResource$ {
-  /** @deprecated use `TransferCreateResource$inboundSchema` instead. */
-  export const inboundSchema = TransferCreateResource$inboundSchema;
-  /** @deprecated use `TransferCreateResource$outboundSchema` instead. */
-  export const outboundSchema = TransferCreateResource$outboundSchema;
-  /** @deprecated use `TransferCreateResource$Outbound` instead. */
-  export type Outbound = TransferCreateResource$Outbound;
-}
-
 export function transferCreateResourceToJSON(
   transferCreateResource: TransferCreateResource,
 ): string {
   return JSON.stringify(
     TransferCreateResource$outboundSchema.parse(transferCreateResource),
-  );
-}
-
-export function transferCreateResourceFromJSON(
-  jsonString: string,
-): SafeParseResult<TransferCreateResource, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TransferCreateResource$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TransferCreateResource' from JSON`,
   );
 }

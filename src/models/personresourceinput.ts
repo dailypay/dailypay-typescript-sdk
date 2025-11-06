@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PersonAttributesInput,
-  PersonAttributesInput$inboundSchema,
   PersonAttributesInput$Outbound,
   PersonAttributesInput$outboundSchema,
 } from "./personattributesinput.js";
@@ -21,17 +17,6 @@ export type PersonResourceInput = {
    */
   attributes: PersonAttributesInput;
 };
-
-/** @internal */
-export const PersonResourceInput$inboundSchema: z.ZodType<
-  PersonResourceInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.literal("people"),
-  id: z.string(),
-  attributes: PersonAttributesInput$inboundSchema,
-});
 
 /** @internal */
 export type PersonResourceInput$Outbound = {
@@ -51,33 +36,10 @@ export const PersonResourceInput$outboundSchema: z.ZodType<
   attributes: PersonAttributesInput$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonResourceInput$ {
-  /** @deprecated use `PersonResourceInput$inboundSchema` instead. */
-  export const inboundSchema = PersonResourceInput$inboundSchema;
-  /** @deprecated use `PersonResourceInput$outboundSchema` instead. */
-  export const outboundSchema = PersonResourceInput$outboundSchema;
-  /** @deprecated use `PersonResourceInput$Outbound` instead. */
-  export type Outbound = PersonResourceInput$Outbound;
-}
-
 export function personResourceInputToJSON(
   personResourceInput: PersonResourceInput,
 ): string {
   return JSON.stringify(
     PersonResourceInput$outboundSchema.parse(personResourceInput),
-  );
-}
-
-export function personResourceInputFromJSON(
-  jsonString: string,
-): SafeParseResult<PersonResourceInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersonResourceInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersonResourceInput' from JSON`,
   );
 }

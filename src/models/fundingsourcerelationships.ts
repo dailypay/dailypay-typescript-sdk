@@ -9,14 +9,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaycheckRelationship,
   PaycheckRelationship$inboundSchema,
-  PaycheckRelationship$Outbound,
-  PaycheckRelationship$outboundSchema,
 } from "./paycheckrelationship.js";
 import {
   TransferRelationship,
   TransferRelationship$inboundSchema,
-  TransferRelationship$Outbound,
-  TransferRelationship$outboundSchema,
 } from "./transferrelationship.js";
 
 export type FundingSourceRelationships = {
@@ -33,43 +29,6 @@ export const FundingSourceRelationships$inboundSchema: z.ZodType<
   source: PaycheckRelationship$inboundSchema,
   transfer: TransferRelationship$inboundSchema,
 });
-
-/** @internal */
-export type FundingSourceRelationships$Outbound = {
-  source: PaycheckRelationship$Outbound;
-  transfer: TransferRelationship$Outbound;
-};
-
-/** @internal */
-export const FundingSourceRelationships$outboundSchema: z.ZodType<
-  FundingSourceRelationships$Outbound,
-  z.ZodTypeDef,
-  FundingSourceRelationships
-> = z.object({
-  source: PaycheckRelationship$outboundSchema,
-  transfer: TransferRelationship$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FundingSourceRelationships$ {
-  /** @deprecated use `FundingSourceRelationships$inboundSchema` instead. */
-  export const inboundSchema = FundingSourceRelationships$inboundSchema;
-  /** @deprecated use `FundingSourceRelationships$outboundSchema` instead. */
-  export const outboundSchema = FundingSourceRelationships$outboundSchema;
-  /** @deprecated use `FundingSourceRelationships$Outbound` instead. */
-  export type Outbound = FundingSourceRelationships$Outbound;
-}
-
-export function fundingSourceRelationshipsToJSON(
-  fundingSourceRelationships: FundingSourceRelationships,
-): string {
-  return JSON.stringify(
-    FundingSourceRelationships$outboundSchema.parse(fundingSourceRelationships),
-  );
-}
 
 export function fundingSourceRelationshipsFromJSON(
   jsonString: string,

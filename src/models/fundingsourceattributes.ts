@@ -28,43 +28,6 @@ export const FundingSourceAttributes$inboundSchema: z.ZodType<
   currency: z.string(),
 });
 
-/** @internal */
-export type FundingSourceAttributes$Outbound = {
-  amount: number;
-  currency: string;
-};
-
-/** @internal */
-export const FundingSourceAttributes$outboundSchema: z.ZodType<
-  FundingSourceAttributes$Outbound,
-  z.ZodTypeDef,
-  FundingSourceAttributes
-> = z.object({
-  amount: z.number().int(),
-  currency: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FundingSourceAttributes$ {
-  /** @deprecated use `FundingSourceAttributes$inboundSchema` instead. */
-  export const inboundSchema = FundingSourceAttributes$inboundSchema;
-  /** @deprecated use `FundingSourceAttributes$outboundSchema` instead. */
-  export const outboundSchema = FundingSourceAttributes$outboundSchema;
-  /** @deprecated use `FundingSourceAttributes$Outbound` instead. */
-  export type Outbound = FundingSourceAttributes$Outbound;
-}
-
-export function fundingSourceAttributesToJSON(
-  fundingSourceAttributes: FundingSourceAttributes,
-): string {
-  return JSON.stringify(
-    FundingSourceAttributes$outboundSchema.parse(fundingSourceAttributes),
-  );
-}
-
 export function fundingSourceAttributesFromJSON(
   jsonString: string,
 ): SafeParseResult<FundingSourceAttributes, SDKValidationError> {

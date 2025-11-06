@@ -51,24 +51,6 @@ export const TransferDestinationCapabilitySchedule$inboundSchema:
   );
 
 /** @internal */
-export const TransferDestinationCapabilitySchedule$outboundSchema:
-  z.ZodNativeEnum<typeof TransferDestinationCapabilitySchedule> =
-    TransferDestinationCapabilitySchedule$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferDestinationCapabilitySchedule$ {
-  /** @deprecated use `TransferDestinationCapabilitySchedule$inboundSchema` instead. */
-  export const inboundSchema =
-    TransferDestinationCapabilitySchedule$inboundSchema;
-  /** @deprecated use `TransferDestinationCapabilitySchedule$outboundSchema` instead. */
-  export const outboundSchema =
-    TransferDestinationCapabilitySchedule$outboundSchema;
-}
-
-/** @internal */
 export const TransferDestinationCapability$inboundSchema: z.ZodType<
   TransferDestinationCapability,
   z.ZodTypeDef,
@@ -78,47 +60,6 @@ export const TransferDestinationCapability$inboundSchema: z.ZodType<
   fee: z.number().int(),
   currency: z.string(),
 });
-
-/** @internal */
-export type TransferDestinationCapability$Outbound = {
-  schedule: string;
-  fee: number;
-  currency: string;
-};
-
-/** @internal */
-export const TransferDestinationCapability$outboundSchema: z.ZodType<
-  TransferDestinationCapability$Outbound,
-  z.ZodTypeDef,
-  TransferDestinationCapability
-> = z.object({
-  schedule: TransferDestinationCapabilitySchedule$outboundSchema,
-  fee: z.number().int(),
-  currency: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferDestinationCapability$ {
-  /** @deprecated use `TransferDestinationCapability$inboundSchema` instead. */
-  export const inboundSchema = TransferDestinationCapability$inboundSchema;
-  /** @deprecated use `TransferDestinationCapability$outboundSchema` instead. */
-  export const outboundSchema = TransferDestinationCapability$outboundSchema;
-  /** @deprecated use `TransferDestinationCapability$Outbound` instead. */
-  export type Outbound = TransferDestinationCapability$Outbound;
-}
-
-export function transferDestinationCapabilityToJSON(
-  transferDestinationCapability: TransferDestinationCapability,
-): string {
-  return JSON.stringify(
-    TransferDestinationCapability$outboundSchema.parse(
-      transferDestinationCapability,
-    ),
-  );
-}
 
 export function transferDestinationCapabilityFromJSON(
   jsonString: string,

@@ -4,15 +4,11 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountRelationship,
-  AccountRelationship$inboundSchema,
   AccountRelationship$Outbound,
   AccountRelationship$outboundSchema,
 } from "./accountrelationship.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
@@ -21,22 +17,6 @@ export type JobRelationshipsInput = {
   directDepositDefaultDepository?: AccountRelationship | undefined;
   directDepositDefaultCard?: AccountRelationship | undefined;
 };
-
-/** @internal */
-export const JobRelationshipsInput$inboundSchema: z.ZodType<
-  JobRelationshipsInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  direct_deposit_default_depository: AccountRelationship$inboundSchema
-    .optional(),
-  direct_deposit_default_card: AccountRelationship$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "direct_deposit_default_depository": "directDepositDefaultDepository",
-    "direct_deposit_default_card": "directDepositDefaultCard",
-  });
-});
 
 /** @internal */
 export type JobRelationshipsInput$Outbound = {
@@ -59,33 +39,10 @@ export const JobRelationshipsInput$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobRelationshipsInput$ {
-  /** @deprecated use `JobRelationshipsInput$inboundSchema` instead. */
-  export const inboundSchema = JobRelationshipsInput$inboundSchema;
-  /** @deprecated use `JobRelationshipsInput$outboundSchema` instead. */
-  export const outboundSchema = JobRelationshipsInput$outboundSchema;
-  /** @deprecated use `JobRelationshipsInput$Outbound` instead. */
-  export type Outbound = JobRelationshipsInput$Outbound;
-}
-
 export function jobRelationshipsInputToJSON(
   jobRelationshipsInput: JobRelationshipsInput,
 ): string {
   return JSON.stringify(
     JobRelationshipsInput$outboundSchema.parse(jobRelationshipsInput),
-  );
-}
-
-export function jobRelationshipsInputFromJSON(
-  jsonString: string,
-): SafeParseResult<JobRelationshipsInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => JobRelationshipsInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'JobRelationshipsInput' from JSON`,
   );
 }

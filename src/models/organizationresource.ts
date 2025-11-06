@@ -9,14 +9,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OrganizationAttributes,
   OrganizationAttributes$inboundSchema,
-  OrganizationAttributes$Outbound,
-  OrganizationAttributes$outboundSchema,
 } from "./organizationattributes.js";
 import {
   OrganizationLinks,
   OrganizationLinks$inboundSchema,
-  OrganizationLinks$Outbound,
-  OrganizationLinks$outboundSchema,
 } from "./organizationlinks.js";
 
 export type OrganizationResource = {
@@ -40,47 +36,6 @@ export const OrganizationResource$inboundSchema: z.ZodType<
   attributes: OrganizationAttributes$inboundSchema,
   links: OrganizationLinks$inboundSchema,
 });
-
-/** @internal */
-export type OrganizationResource$Outbound = {
-  type: "organizations";
-  id: string;
-  attributes: OrganizationAttributes$Outbound;
-  links: OrganizationLinks$Outbound;
-};
-
-/** @internal */
-export const OrganizationResource$outboundSchema: z.ZodType<
-  OrganizationResource$Outbound,
-  z.ZodTypeDef,
-  OrganizationResource
-> = z.object({
-  type: z.literal("organizations"),
-  id: z.string(),
-  attributes: OrganizationAttributes$outboundSchema,
-  links: OrganizationLinks$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationResource$ {
-  /** @deprecated use `OrganizationResource$inboundSchema` instead. */
-  export const inboundSchema = OrganizationResource$inboundSchema;
-  /** @deprecated use `OrganizationResource$outboundSchema` instead. */
-  export const outboundSchema = OrganizationResource$outboundSchema;
-  /** @deprecated use `OrganizationResource$Outbound` instead. */
-  export type Outbound = OrganizationResource$Outbound;
-}
-
-export function organizationResourceToJSON(
-  organizationResource: OrganizationResource,
-): string {
-  return JSON.stringify(
-    OrganizationResource$outboundSchema.parse(organizationResource),
-  );
-}
 
 export function organizationResourceFromJSON(
   jsonString: string,

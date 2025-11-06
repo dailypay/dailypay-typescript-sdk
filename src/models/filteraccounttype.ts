@@ -13,22 +13,6 @@ export const FilterAccountType = {
 export type FilterAccountType = ClosedEnum<typeof FilterAccountType>;
 
 /** @internal */
-export const FilterAccountType$inboundSchema: z.ZodNativeEnum<
-  typeof FilterAccountType
-> = z.nativeEnum(FilterAccountType);
-
-/** @internal */
 export const FilterAccountType$outboundSchema: z.ZodNativeEnum<
   typeof FilterAccountType
-> = FilterAccountType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FilterAccountType$ {
-  /** @deprecated use `FilterAccountType$inboundSchema` instead. */
-  export const inboundSchema = FilterAccountType$inboundSchema;
-  /** @deprecated use `FilterAccountType$outboundSchema` instead. */
-  export const outboundSchema = FilterAccountType$outboundSchema;
-}
+> = z.nativeEnum(FilterAccountType);

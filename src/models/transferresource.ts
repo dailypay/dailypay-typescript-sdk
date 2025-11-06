@@ -9,20 +9,11 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferAttributes,
   TransferAttributes$inboundSchema,
-  TransferAttributes$Outbound,
-  TransferAttributes$outboundSchema,
 } from "./transferattributes.js";
-import {
-  TransferLinks,
-  TransferLinks$inboundSchema,
-  TransferLinks$Outbound,
-  TransferLinks$outboundSchema,
-} from "./transferlinks.js";
+import { TransferLinks, TransferLinks$inboundSchema } from "./transferlinks.js";
 import {
   TransferRelationships,
   TransferRelationships$inboundSchema,
-  TransferRelationships$Outbound,
-  TransferRelationships$outboundSchema,
 } from "./transferrelationships.js";
 
 export type TransferResource = {
@@ -52,49 +43,6 @@ export const TransferResource$inboundSchema: z.ZodType<
   links: TransferLinks$inboundSchema,
   relationships: TransferRelationships$inboundSchema,
 });
-
-/** @internal */
-export type TransferResource$Outbound = {
-  type: "transfers";
-  id: string;
-  attributes: TransferAttributes$Outbound;
-  links: TransferLinks$Outbound;
-  relationships: TransferRelationships$Outbound;
-};
-
-/** @internal */
-export const TransferResource$outboundSchema: z.ZodType<
-  TransferResource$Outbound,
-  z.ZodTypeDef,
-  TransferResource
-> = z.object({
-  type: z.literal("transfers"),
-  id: z.string(),
-  attributes: TransferAttributes$outboundSchema,
-  links: TransferLinks$outboundSchema,
-  relationships: TransferRelationships$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferResource$ {
-  /** @deprecated use `TransferResource$inboundSchema` instead. */
-  export const inboundSchema = TransferResource$inboundSchema;
-  /** @deprecated use `TransferResource$outboundSchema` instead. */
-  export const outboundSchema = TransferResource$outboundSchema;
-  /** @deprecated use `TransferResource$Outbound` instead. */
-  export type Outbound = TransferResource$Outbound;
-}
-
-export function transferResourceToJSON(
-  transferResource: TransferResource,
-): string {
-  return JSON.stringify(
-    TransferResource$outboundSchema.parse(transferResource),
-  );
-}
 
 export function transferResourceFromJSON(
   jsonString: string,

@@ -11,8 +11,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferDestinationCapability,
   TransferDestinationCapability$inboundSchema,
-  TransferDestinationCapability$Outbound,
-  TransferDestinationCapability$outboundSchema,
 } from "./transferdestinationcapability.js";
 
 /**
@@ -531,24 +529,6 @@ export const AccountAttributesDepositoryVerificationStatus$inboundSchema:
     .nativeEnum(AccountAttributesDepositoryVerificationStatus);
 
 /** @internal */
-export const AccountAttributesDepositoryVerificationStatus$outboundSchema:
-  z.ZodNativeEnum<typeof AccountAttributesDepositoryVerificationStatus> =
-    AccountAttributesDepositoryVerificationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesDepositoryVerificationStatus$ {
-  /** @deprecated use `AccountAttributesDepositoryVerificationStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesDepositoryVerificationStatus$inboundSchema;
-  /** @deprecated use `AccountAttributesDepositoryVerificationStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesDepositoryVerificationStatus$outboundSchema;
-}
-
-/** @internal */
 export const AccountAttributesDepositoryAccountBalances$inboundSchema:
   z.ZodType<AccountAttributesDepositoryAccountBalances, z.ZodTypeDef, unknown> =
     z.object({
@@ -556,51 +536,6 @@ export const AccountAttributesDepositoryAccountBalances$inboundSchema:
       current: z.nullable(z.number().int()),
       currency: z.string(),
     });
-
-/** @internal */
-export type AccountAttributesDepositoryAccountBalances$Outbound = {
-  available: number | null;
-  current: number | null;
-  currency: string;
-};
-
-/** @internal */
-export const AccountAttributesDepositoryAccountBalances$outboundSchema:
-  z.ZodType<
-    AccountAttributesDepositoryAccountBalances$Outbound,
-    z.ZodTypeDef,
-    AccountAttributesDepositoryAccountBalances
-  > = z.object({
-    available: z.nullable(z.number().int()),
-    current: z.nullable(z.number().int()),
-    currency: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesDepositoryAccountBalances$ {
-  /** @deprecated use `AccountAttributesDepositoryAccountBalances$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesDepositoryAccountBalances$inboundSchema;
-  /** @deprecated use `AccountAttributesDepositoryAccountBalances$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesDepositoryAccountBalances$outboundSchema;
-  /** @deprecated use `AccountAttributesDepositoryAccountBalances$Outbound` instead. */
-  export type Outbound = AccountAttributesDepositoryAccountBalances$Outbound;
-}
-
-export function accountAttributesDepositoryAccountBalancesToJSON(
-  accountAttributesDepositoryAccountBalances:
-    AccountAttributesDepositoryAccountBalances,
-): string {
-  return JSON.stringify(
-    AccountAttributesDepositoryAccountBalances$outboundSchema.parse(
-      accountAttributesDepositoryAccountBalances,
-    ),
-  );
-}
 
 export function accountAttributesDepositoryAccountBalancesFromJSON(
   jsonString: string,
@@ -632,52 +567,6 @@ export const AccountAttributesDepositoryAccountCapabilities$inboundSchema:
     });
   });
 
-/** @internal */
-export type AccountAttributesDepositoryAccountCapabilities$Outbound = {
-  transfer_destination: Array<TransferDestinationCapability$Outbound>;
-};
-
-/** @internal */
-export const AccountAttributesDepositoryAccountCapabilities$outboundSchema:
-  z.ZodType<
-    AccountAttributesDepositoryAccountCapabilities$Outbound,
-    z.ZodTypeDef,
-    AccountAttributesDepositoryAccountCapabilities
-  > = z.object({
-    transferDestination: z.array(TransferDestinationCapability$outboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      transferDestination: "transfer_destination",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesDepositoryAccountCapabilities$ {
-  /** @deprecated use `AccountAttributesDepositoryAccountCapabilities$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesDepositoryAccountCapabilities$inboundSchema;
-  /** @deprecated use `AccountAttributesDepositoryAccountCapabilities$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesDepositoryAccountCapabilities$outboundSchema;
-  /** @deprecated use `AccountAttributesDepositoryAccountCapabilities$Outbound` instead. */
-  export type Outbound =
-    AccountAttributesDepositoryAccountCapabilities$Outbound;
-}
-
-export function accountAttributesDepositoryAccountCapabilitiesToJSON(
-  accountAttributesDepositoryAccountCapabilities:
-    AccountAttributesDepositoryAccountCapabilities,
-): string {
-  return JSON.stringify(
-    AccountAttributesDepositoryAccountCapabilities$outboundSchema.parse(
-      accountAttributesDepositoryAccountCapabilities,
-    ),
-  );
-}
-
 export function accountAttributesDepositoryAccountCapabilitiesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -698,23 +587,10 @@ export function accountAttributesDepositoryAccountCapabilitiesFromJSON(
 export const AccountAttributesDepositorySubtype$inboundSchema: z.ZodNativeEnum<
   typeof AccountAttributesDepositorySubtype
 > = z.nativeEnum(AccountAttributesDepositorySubtype);
-
 /** @internal */
 export const AccountAttributesDepositorySubtype$outboundSchema: z.ZodNativeEnum<
   typeof AccountAttributesDepositorySubtype
 > = AccountAttributesDepositorySubtype$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesDepositorySubtype$ {
-  /** @deprecated use `AccountAttributesDepositorySubtype$inboundSchema` instead. */
-  export const inboundSchema = AccountAttributesDepositorySubtype$inboundSchema;
-  /** @deprecated use `AccountAttributesDepositorySubtype$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesDepositorySubtype$outboundSchema;
-}
 
 /** @internal */
 export const DepositoryAccountDetails$inboundSchema: z.ZodType<
@@ -734,7 +610,6 @@ export const DepositoryAccountDetails$inboundSchema: z.ZodType<
     "account_number": "accountNumber",
   });
 });
-
 /** @internal */
 export type DepositoryAccountDetails$Outbound = {
   first_name: string;
@@ -762,19 +637,6 @@ export const DepositoryAccountDetails$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DepositoryAccountDetails$ {
-  /** @deprecated use `DepositoryAccountDetails$inboundSchema` instead. */
-  export const inboundSchema = DepositoryAccountDetails$inboundSchema;
-  /** @deprecated use `DepositoryAccountDetails$outboundSchema` instead. */
-  export const outboundSchema = DepositoryAccountDetails$outboundSchema;
-  /** @deprecated use `DepositoryAccountDetails$Outbound` instead. */
-  export type Outbound = DepositoryAccountDetails$Outbound;
-}
-
 export function depositoryAccountDetailsToJSON(
   depositoryAccountDetails: DepositoryAccountDetails,
 ): string {
@@ -782,7 +644,6 @@ export function depositoryAccountDetailsToJSON(
     DepositoryAccountDetails$outboundSchema.parse(depositoryAccountDetails),
   );
 }
-
 export function depositoryAccountDetailsFromJSON(
   jsonString: string,
 ): SafeParseResult<DepositoryAccountDetails, SDKValidationError> {
@@ -821,64 +682,6 @@ export const Depository$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type Depository$Outbound = {
-  verification_status: string;
-  balances: AccountAttributesDepositoryAccountBalances$Outbound;
-  capabilities: AccountAttributesDepositoryAccountCapabilities$Outbound;
-  name: string;
-  account_type: "DEPOSITORY";
-  subtype: string;
-  details: DepositoryAccountDetails$Outbound;
-};
-
-/** @internal */
-export const Depository$outboundSchema: z.ZodType<
-  Depository$Outbound,
-  z.ZodTypeDef,
-  Depository
-> = z.object({
-  verificationStatus:
-    AccountAttributesDepositoryVerificationStatus$outboundSchema,
-  accountBalances: z.lazy(() =>
-    AccountAttributesDepositoryAccountBalances$outboundSchema
-  ),
-  accountCapabilities: z.lazy(() =>
-    AccountAttributesDepositoryAccountCapabilities$outboundSchema
-  ),
-  name: z.string(),
-  accountType: z.literal("DEPOSITORY"),
-  subtype: AccountAttributesDepositorySubtype$outboundSchema,
-  depositoryAccountDetails: z.lazy(() =>
-    DepositoryAccountDetails$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    verificationStatus: "verification_status",
-    accountBalances: "balances",
-    accountCapabilities: "capabilities",
-    accountType: "account_type",
-    depositoryAccountDetails: "details",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Depository$ {
-  /** @deprecated use `Depository$inboundSchema` instead. */
-  export const inboundSchema = Depository$inboundSchema;
-  /** @deprecated use `Depository$outboundSchema` instead. */
-  export const outboundSchema = Depository$outboundSchema;
-  /** @deprecated use `Depository$Outbound` instead. */
-  export type Outbound = Depository$Outbound;
-}
-
-export function depositoryToJSON(depository: Depository): string {
-  return JSON.stringify(Depository$outboundSchema.parse(depository));
-}
-
 export function depositoryFromJSON(
   jsonString: string,
 ): SafeParseResult<Depository, SDKValidationError> {
@@ -895,24 +698,6 @@ export const AccountAttributesEarningsBalanceVerificationStatus$inboundSchema:
     .nativeEnum(AccountAttributesEarningsBalanceVerificationStatus);
 
 /** @internal */
-export const AccountAttributesEarningsBalanceVerificationStatus$outboundSchema:
-  z.ZodNativeEnum<typeof AccountAttributesEarningsBalanceVerificationStatus> =
-    AccountAttributesEarningsBalanceVerificationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesEarningsBalanceVerificationStatus$ {
-  /** @deprecated use `AccountAttributesEarningsBalanceVerificationStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesEarningsBalanceVerificationStatus$inboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceVerificationStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesEarningsBalanceVerificationStatus$outboundSchema;
-}
-
-/** @internal */
 export const AccountAttributesEarningsBalanceAccountBalances$inboundSchema:
   z.ZodType<
     AccountAttributesEarningsBalanceAccountBalances,
@@ -923,52 +708,6 @@ export const AccountAttributesEarningsBalanceAccountBalances$inboundSchema:
     current: z.nullable(z.number().int()),
     currency: z.string(),
   });
-
-/** @internal */
-export type AccountAttributesEarningsBalanceAccountBalances$Outbound = {
-  available: number | null;
-  current: number | null;
-  currency: string;
-};
-
-/** @internal */
-export const AccountAttributesEarningsBalanceAccountBalances$outboundSchema:
-  z.ZodType<
-    AccountAttributesEarningsBalanceAccountBalances$Outbound,
-    z.ZodTypeDef,
-    AccountAttributesEarningsBalanceAccountBalances
-  > = z.object({
-    available: z.nullable(z.number().int()),
-    current: z.nullable(z.number().int()),
-    currency: z.string(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesEarningsBalanceAccountBalances$ {
-  /** @deprecated use `AccountAttributesEarningsBalanceAccountBalances$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesEarningsBalanceAccountBalances$inboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceAccountBalances$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesEarningsBalanceAccountBalances$outboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceAccountBalances$Outbound` instead. */
-  export type Outbound =
-    AccountAttributesEarningsBalanceAccountBalances$Outbound;
-}
-
-export function accountAttributesEarningsBalanceAccountBalancesToJSON(
-  accountAttributesEarningsBalanceAccountBalances:
-    AccountAttributesEarningsBalanceAccountBalances,
-): string {
-  return JSON.stringify(
-    AccountAttributesEarningsBalanceAccountBalances$outboundSchema.parse(
-      accountAttributesEarningsBalanceAccountBalances,
-    ),
-  );
-}
 
 export function accountAttributesEarningsBalanceAccountBalancesFromJSON(
   jsonString: string,
@@ -1000,52 +739,6 @@ export const AccountAttributesEarningsBalanceAccountCapabilities$inboundSchema:
     });
   });
 
-/** @internal */
-export type AccountAttributesEarningsBalanceAccountCapabilities$Outbound = {
-  transfer_destination: Array<TransferDestinationCapability$Outbound>;
-};
-
-/** @internal */
-export const AccountAttributesEarningsBalanceAccountCapabilities$outboundSchema:
-  z.ZodType<
-    AccountAttributesEarningsBalanceAccountCapabilities$Outbound,
-    z.ZodTypeDef,
-    AccountAttributesEarningsBalanceAccountCapabilities
-  > = z.object({
-    transferDestination: z.array(TransferDestinationCapability$outboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      transferDestination: "transfer_destination",
-    });
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesEarningsBalanceAccountCapabilities$ {
-  /** @deprecated use `AccountAttributesEarningsBalanceAccountCapabilities$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesEarningsBalanceAccountCapabilities$inboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceAccountCapabilities$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesEarningsBalanceAccountCapabilities$outboundSchema;
-  /** @deprecated use `AccountAttributesEarningsBalanceAccountCapabilities$Outbound` instead. */
-  export type Outbound =
-    AccountAttributesEarningsBalanceAccountCapabilities$Outbound;
-}
-
-export function accountAttributesEarningsBalanceAccountCapabilitiesToJSON(
-  accountAttributesEarningsBalanceAccountCapabilities:
-    AccountAttributesEarningsBalanceAccountCapabilities,
-): string {
-  return JSON.stringify(
-    AccountAttributesEarningsBalanceAccountCapabilities$outboundSchema.parse(
-      accountAttributesEarningsBalanceAccountCapabilities,
-    ),
-  );
-}
-
 export function accountAttributesEarningsBalanceAccountCapabilitiesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1065,33 +758,6 @@ export function accountAttributesEarningsBalanceAccountCapabilitiesFromJSON(
 /** @internal */
 export const Details$inboundSchema: z.ZodType<Details, z.ZodTypeDef, unknown> =
   z.object({});
-
-/** @internal */
-export type Details$Outbound = {};
-
-/** @internal */
-export const Details$outboundSchema: z.ZodType<
-  Details$Outbound,
-  z.ZodTypeDef,
-  Details
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Details$ {
-  /** @deprecated use `Details$inboundSchema` instead. */
-  export const inboundSchema = Details$inboundSchema;
-  /** @deprecated use `Details$outboundSchema` instead. */
-  export const outboundSchema = Details$outboundSchema;
-  /** @deprecated use `Details$Outbound` instead. */
-  export type Outbound = Details$Outbound;
-}
-
-export function detailsToJSON(details: Details): string {
-  return JSON.stringify(Details$outboundSchema.parse(details));
-}
 
 export function detailsFromJSON(
   jsonString: string,
@@ -1130,65 +796,6 @@ export const EarningsBalanceReadOnly$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type EarningsBalanceReadOnly$Outbound = {
-  verification_status: string;
-  balances: AccountAttributesEarningsBalanceAccountBalances$Outbound;
-  capabilities: AccountAttributesEarningsBalanceAccountCapabilities$Outbound;
-  name: string;
-  account_type: "EARNINGS_BALANCE";
-  subtype: "ODP";
-  details: Details$Outbound;
-};
-
-/** @internal */
-export const EarningsBalanceReadOnly$outboundSchema: z.ZodType<
-  EarningsBalanceReadOnly$Outbound,
-  z.ZodTypeDef,
-  EarningsBalanceReadOnly
-> = z.object({
-  verificationStatus:
-    AccountAttributesEarningsBalanceVerificationStatus$outboundSchema,
-  accountBalances: z.lazy(() =>
-    AccountAttributesEarningsBalanceAccountBalances$outboundSchema
-  ),
-  accountCapabilities: z.lazy(() =>
-    AccountAttributesEarningsBalanceAccountCapabilities$outboundSchema
-  ),
-  name: z.string(),
-  accountType: z.literal("EARNINGS_BALANCE"),
-  subtype: z.literal("ODP"),
-  details: z.lazy(() => Details$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    verificationStatus: "verification_status",
-    accountBalances: "balances",
-    accountCapabilities: "capabilities",
-    accountType: "account_type",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EarningsBalanceReadOnly$ {
-  /** @deprecated use `EarningsBalanceReadOnly$inboundSchema` instead. */
-  export const inboundSchema = EarningsBalanceReadOnly$inboundSchema;
-  /** @deprecated use `EarningsBalanceReadOnly$outboundSchema` instead. */
-  export const outboundSchema = EarningsBalanceReadOnly$outboundSchema;
-  /** @deprecated use `EarningsBalanceReadOnly$Outbound` instead. */
-  export type Outbound = EarningsBalanceReadOnly$Outbound;
-}
-
-export function earningsBalanceReadOnlyToJSON(
-  earningsBalanceReadOnly: EarningsBalanceReadOnly,
-): string {
-  return JSON.stringify(
-    EarningsBalanceReadOnly$outboundSchema.parse(earningsBalanceReadOnly),
-  );
-}
-
 export function earningsBalanceReadOnlyFromJSON(
   jsonString: string,
 ): SafeParseResult<EarningsBalanceReadOnly, SDKValidationError> {
@@ -1205,24 +812,6 @@ export const AccountAttributesCardVerificationStatus$inboundSchema:
     .nativeEnum(AccountAttributesCardVerificationStatus);
 
 /** @internal */
-export const AccountAttributesCardVerificationStatus$outboundSchema:
-  z.ZodNativeEnum<typeof AccountAttributesCardVerificationStatus> =
-    AccountAttributesCardVerificationStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesCardVerificationStatus$ {
-  /** @deprecated use `AccountAttributesCardVerificationStatus$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesCardVerificationStatus$inboundSchema;
-  /** @deprecated use `AccountAttributesCardVerificationStatus$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesCardVerificationStatus$outboundSchema;
-}
-
-/** @internal */
 export const AccountAttributesCardAccountBalances$inboundSchema: z.ZodType<
   AccountAttributesCardAccountBalances,
   z.ZodTypeDef,
@@ -1232,49 +821,6 @@ export const AccountAttributesCardAccountBalances$inboundSchema: z.ZodType<
   current: z.nullable(z.number().int()),
   currency: z.string(),
 });
-
-/** @internal */
-export type AccountAttributesCardAccountBalances$Outbound = {
-  available: number | null;
-  current: number | null;
-  currency: string;
-};
-
-/** @internal */
-export const AccountAttributesCardAccountBalances$outboundSchema: z.ZodType<
-  AccountAttributesCardAccountBalances$Outbound,
-  z.ZodTypeDef,
-  AccountAttributesCardAccountBalances
-> = z.object({
-  available: z.nullable(z.number().int()),
-  current: z.nullable(z.number().int()),
-  currency: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesCardAccountBalances$ {
-  /** @deprecated use `AccountAttributesCardAccountBalances$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesCardAccountBalances$inboundSchema;
-  /** @deprecated use `AccountAttributesCardAccountBalances$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesCardAccountBalances$outboundSchema;
-  /** @deprecated use `AccountAttributesCardAccountBalances$Outbound` instead. */
-  export type Outbound = AccountAttributesCardAccountBalances$Outbound;
-}
-
-export function accountAttributesCardAccountBalancesToJSON(
-  accountAttributesCardAccountBalances: AccountAttributesCardAccountBalances,
-): string {
-  return JSON.stringify(
-    AccountAttributesCardAccountBalances$outboundSchema.parse(
-      accountAttributesCardAccountBalances,
-    ),
-  );
-}
 
 export function accountAttributesCardAccountBalancesFromJSON(
   jsonString: string,
@@ -1300,50 +846,6 @@ export const AccountAttributesCardAccountCapabilities$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type AccountAttributesCardAccountCapabilities$Outbound = {
-  transfer_destination: Array<TransferDestinationCapability$Outbound>;
-};
-
-/** @internal */
-export const AccountAttributesCardAccountCapabilities$outboundSchema: z.ZodType<
-  AccountAttributesCardAccountCapabilities$Outbound,
-  z.ZodTypeDef,
-  AccountAttributesCardAccountCapabilities
-> = z.object({
-  transferDestination: z.array(TransferDestinationCapability$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    transferDestination: "transfer_destination",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesCardAccountCapabilities$ {
-  /** @deprecated use `AccountAttributesCardAccountCapabilities$inboundSchema` instead. */
-  export const inboundSchema =
-    AccountAttributesCardAccountCapabilities$inboundSchema;
-  /** @deprecated use `AccountAttributesCardAccountCapabilities$outboundSchema` instead. */
-  export const outboundSchema =
-    AccountAttributesCardAccountCapabilities$outboundSchema;
-  /** @deprecated use `AccountAttributesCardAccountCapabilities$Outbound` instead. */
-  export type Outbound = AccountAttributesCardAccountCapabilities$Outbound;
-}
-
-export function accountAttributesCardAccountCapabilitiesToJSON(
-  accountAttributesCardAccountCapabilities:
-    AccountAttributesCardAccountCapabilities,
-): string {
-  return JSON.stringify(
-    AccountAttributesCardAccountCapabilities$outboundSchema.parse(
-      accountAttributesCardAccountCapabilities,
-    ),
-  );
-}
-
 export function accountAttributesCardAccountCapabilitiesFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1364,22 +866,10 @@ export function accountAttributesCardAccountCapabilitiesFromJSON(
 export const AccountAttributesCardSubtype$inboundSchema: z.ZodNativeEnum<
   typeof AccountAttributesCardSubtype
 > = z.nativeEnum(AccountAttributesCardSubtype);
-
 /** @internal */
 export const AccountAttributesCardSubtype$outboundSchema: z.ZodNativeEnum<
   typeof AccountAttributesCardSubtype
 > = AccountAttributesCardSubtype$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesCardSubtype$ {
-  /** @deprecated use `AccountAttributesCardSubtype$inboundSchema` instead. */
-  export const inboundSchema = AccountAttributesCardSubtype$inboundSchema;
-  /** @deprecated use `AccountAttributesCardSubtype$outboundSchema` instead. */
-  export const outboundSchema = AccountAttributesCardSubtype$outboundSchema;
-}
 
 /** @internal */
 export const CardAccountDetailsOutput$inboundSchema: z.ZodType<
@@ -1402,59 +892,6 @@ export const CardAccountDetailsOutput$inboundSchema: z.ZodType<
     "expiration_year": "expirationYear",
   });
 });
-
-/** @internal */
-export type CardAccountDetailsOutput$Outbound = {
-  last_four: string;
-  issuer: string;
-  first_name: string;
-  last_name: string;
-  expiration_month: string;
-  expiration_year: string;
-};
-
-/** @internal */
-export const CardAccountDetailsOutput$outboundSchema: z.ZodType<
-  CardAccountDetailsOutput$Outbound,
-  z.ZodTypeDef,
-  CardAccountDetailsOutput
-> = z.object({
-  lastFour: z.string(),
-  issuer: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  expirationMonth: z.string(),
-  expirationYear: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    lastFour: "last_four",
-    firstName: "first_name",
-    lastName: "last_name",
-    expirationMonth: "expiration_month",
-    expirationYear: "expiration_year",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardAccountDetailsOutput$ {
-  /** @deprecated use `CardAccountDetailsOutput$inboundSchema` instead. */
-  export const inboundSchema = CardAccountDetailsOutput$inboundSchema;
-  /** @deprecated use `CardAccountDetailsOutput$outboundSchema` instead. */
-  export const outboundSchema = CardAccountDetailsOutput$outboundSchema;
-  /** @deprecated use `CardAccountDetailsOutput$Outbound` instead. */
-  export type Outbound = CardAccountDetailsOutput$Outbound;
-}
-
-export function cardAccountDetailsOutputToJSON(
-  cardAccountDetailsOutput: CardAccountDetailsOutput,
-): string {
-  return JSON.stringify(
-    CardAccountDetailsOutput$outboundSchema.parse(cardAccountDetailsOutput),
-  );
-}
 
 export function cardAccountDetailsOutputFromJSON(
   jsonString: string,
@@ -1491,61 +928,6 @@ export const CardOutput$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type CardOutput$Outbound = {
-  verification_status: string;
-  balances: AccountAttributesCardAccountBalances$Outbound;
-  capabilities: AccountAttributesCardAccountCapabilities$Outbound;
-  name: string;
-  account_type: "CARD";
-  subtype: string;
-  details: CardAccountDetailsOutput$Outbound;
-};
-
-/** @internal */
-export const CardOutput$outboundSchema: z.ZodType<
-  CardOutput$Outbound,
-  z.ZodTypeDef,
-  CardOutput
-> = z.object({
-  verificationStatus: AccountAttributesCardVerificationStatus$outboundSchema,
-  accountBalances: z.lazy(() =>
-    AccountAttributesCardAccountBalances$outboundSchema
-  ),
-  accountCapabilities: z.lazy(() =>
-    AccountAttributesCardAccountCapabilities$outboundSchema
-  ),
-  name: z.string(),
-  accountType: z.literal("CARD"),
-  subtype: AccountAttributesCardSubtype$outboundSchema,
-  cardAccountDetails: z.lazy(() => CardAccountDetailsOutput$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    verificationStatus: "verification_status",
-    accountBalances: "balances",
-    accountCapabilities: "capabilities",
-    accountType: "account_type",
-    cardAccountDetails: "details",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardOutput$ {
-  /** @deprecated use `CardOutput$inboundSchema` instead. */
-  export const inboundSchema = CardOutput$inboundSchema;
-  /** @deprecated use `CardOutput$outboundSchema` instead. */
-  export const outboundSchema = CardOutput$outboundSchema;
-  /** @deprecated use `CardOutput$Outbound` instead. */
-  export type Outbound = CardOutput$Outbound;
-}
-
-export function cardOutputToJSON(cardOutput: CardOutput): string {
-  return JSON.stringify(CardOutput$outboundSchema.parse(cardOutput));
-}
-
 export function cardOutputFromJSON(
   jsonString: string,
 ): SafeParseResult<CardOutput, SDKValidationError> {
@@ -1567,44 +949,6 @@ export const AccountAttributesOutput$inboundSchema: z.ZodType<
   z.lazy(() => Depository$inboundSchema),
 ]);
 
-/** @internal */
-export type AccountAttributesOutput$Outbound =
-  | CardOutput$Outbound
-  | EarningsBalanceReadOnly$Outbound
-  | Depository$Outbound;
-
-/** @internal */
-export const AccountAttributesOutput$outboundSchema: z.ZodType<
-  AccountAttributesOutput$Outbound,
-  z.ZodTypeDef,
-  AccountAttributesOutput
-> = z.union([
-  z.lazy(() => CardOutput$outboundSchema),
-  z.lazy(() => EarningsBalanceReadOnly$outboundSchema),
-  z.lazy(() => Depository$outboundSchema),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesOutput$ {
-  /** @deprecated use `AccountAttributesOutput$inboundSchema` instead. */
-  export const inboundSchema = AccountAttributesOutput$inboundSchema;
-  /** @deprecated use `AccountAttributesOutput$outboundSchema` instead. */
-  export const outboundSchema = AccountAttributesOutput$outboundSchema;
-  /** @deprecated use `AccountAttributesOutput$Outbound` instead. */
-  export type Outbound = AccountAttributesOutput$Outbound;
-}
-
-export function accountAttributesOutputToJSON(
-  accountAttributesOutput: AccountAttributesOutput,
-): string {
-  return JSON.stringify(
-    AccountAttributesOutput$outboundSchema.parse(accountAttributesOutput),
-  );
-}
-
 export function accountAttributesOutputFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountAttributesOutput, SDKValidationError> {
@@ -1614,23 +958,6 @@ export function accountAttributesOutputFromJSON(
     `Failed to parse 'AccountAttributesOutput' from JSON`,
   );
 }
-
-/** @internal */
-export const DepositoryInput$inboundSchema: z.ZodType<
-  DepositoryInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  account_type: z.literal("DEPOSITORY"),
-  subtype: AccountAttributesDepositorySubtype$inboundSchema,
-  details: z.lazy(() => DepositoryAccountDetails$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "account_type": "accountType",
-    "details": "depositoryAccountDetails",
-  });
-});
 
 /** @internal */
 export type DepositoryInput$Outbound = {
@@ -1659,41 +986,11 @@ export const DepositoryInput$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DepositoryInput$ {
-  /** @deprecated use `DepositoryInput$inboundSchema` instead. */
-  export const inboundSchema = DepositoryInput$inboundSchema;
-  /** @deprecated use `DepositoryInput$outboundSchema` instead. */
-  export const outboundSchema = DepositoryInput$outboundSchema;
-  /** @deprecated use `DepositoryInput$Outbound` instead. */
-  export type Outbound = DepositoryInput$Outbound;
-}
-
 export function depositoryInputToJSON(
   depositoryInput: DepositoryInput,
 ): string {
   return JSON.stringify(DepositoryInput$outboundSchema.parse(depositoryInput));
 }
-
-export function depositoryInputFromJSON(
-  jsonString: string,
-): SafeParseResult<DepositoryInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DepositoryInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DepositoryInput' from JSON`,
-  );
-}
-
-/** @internal */
-export const EarningsBalanceReadOnlyInput$inboundSchema: z.ZodType<
-  EarningsBalanceReadOnlyInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
 
 /** @internal */
 export type EarningsBalanceReadOnlyInput$Outbound = {};
@@ -1705,19 +1002,6 @@ export const EarningsBalanceReadOnlyInput$outboundSchema: z.ZodType<
   EarningsBalanceReadOnlyInput
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EarningsBalanceReadOnlyInput$ {
-  /** @deprecated use `EarningsBalanceReadOnlyInput$inboundSchema` instead. */
-  export const inboundSchema = EarningsBalanceReadOnlyInput$inboundSchema;
-  /** @deprecated use `EarningsBalanceReadOnlyInput$outboundSchema` instead. */
-  export const outboundSchema = EarningsBalanceReadOnlyInput$outboundSchema;
-  /** @deprecated use `EarningsBalanceReadOnlyInput$Outbound` instead. */
-  export type Outbound = EarningsBalanceReadOnlyInput$Outbound;
-}
-
 export function earningsBalanceReadOnlyInputToJSON(
   earningsBalanceReadOnlyInput: EarningsBalanceReadOnlyInput,
 ): string {
@@ -1727,49 +1011,6 @@ export function earningsBalanceReadOnlyInputToJSON(
     ),
   );
 }
-
-export function earningsBalanceReadOnlyInputFromJSON(
-  jsonString: string,
-): SafeParseResult<EarningsBalanceReadOnlyInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EarningsBalanceReadOnlyInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EarningsBalanceReadOnlyInput' from JSON`,
-  );
-}
-
-/** @internal */
-export const CardAccountDetailsInput$inboundSchema: z.ZodType<
-  CardAccountDetailsInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  token: z.string(),
-  issuer: z.string(),
-  first_name: z.string(),
-  last_name: z.string(),
-  expiration_month: z.string(),
-  expiration_year: z.string(),
-  address_line_one: z.string(),
-  address_line_two: z.string().optional(),
-  address_city: z.string(),
-  address_state: z.string(),
-  address_zip_code: z.string(),
-  address_country: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "expiration_month": "expirationMonth",
-    "expiration_year": "expirationYear",
-    "address_line_one": "addressLineOne",
-    "address_line_two": "addressLineTwo",
-    "address_city": "addressCity",
-    "address_state": "addressState",
-    "address_zip_code": "addressZipCode",
-    "address_country": "addressCountry",
-  });
-});
 
 /** @internal */
 export type CardAccountDetailsInput$Outbound = {
@@ -1820,19 +1061,6 @@ export const CardAccountDetailsInput$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardAccountDetailsInput$ {
-  /** @deprecated use `CardAccountDetailsInput$inboundSchema` instead. */
-  export const inboundSchema = CardAccountDetailsInput$inboundSchema;
-  /** @deprecated use `CardAccountDetailsInput$outboundSchema` instead. */
-  export const outboundSchema = CardAccountDetailsInput$outboundSchema;
-  /** @deprecated use `CardAccountDetailsInput$Outbound` instead. */
-  export type Outbound = CardAccountDetailsInput$Outbound;
-}
-
 export function cardAccountDetailsInputToJSON(
   cardAccountDetailsInput: CardAccountDetailsInput,
 ): string {
@@ -1840,33 +1068,6 @@ export function cardAccountDetailsInputToJSON(
     CardAccountDetailsInput$outboundSchema.parse(cardAccountDetailsInput),
   );
 }
-
-export function cardAccountDetailsInputFromJSON(
-  jsonString: string,
-): SafeParseResult<CardAccountDetailsInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CardAccountDetailsInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CardAccountDetailsInput' from JSON`,
-  );
-}
-
-/** @internal */
-export const CardInput$inboundSchema: z.ZodType<
-  CardInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  account_type: z.literal("CARD"),
-  subtype: AccountAttributesCardSubtype$inboundSchema,
-  details: z.lazy(() => CardAccountDetailsInput$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "account_type": "accountType",
-    "details": "cardAccountDetails",
-  });
-});
 
 /** @internal */
 export type CardInput$Outbound = {
@@ -1893,43 +1094,9 @@ export const CardInput$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CardInput$ {
-  /** @deprecated use `CardInput$inboundSchema` instead. */
-  export const inboundSchema = CardInput$inboundSchema;
-  /** @deprecated use `CardInput$outboundSchema` instead. */
-  export const outboundSchema = CardInput$outboundSchema;
-  /** @deprecated use `CardInput$Outbound` instead. */
-  export type Outbound = CardInput$Outbound;
-}
-
 export function cardInputToJSON(cardInput: CardInput): string {
   return JSON.stringify(CardInput$outboundSchema.parse(cardInput));
 }
-
-export function cardInputFromJSON(
-  jsonString: string,
-): SafeParseResult<CardInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CardInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CardInput' from JSON`,
-  );
-}
-
-/** @internal */
-export const AccountAttributesInput$inboundSchema: z.ZodType<
-  AccountAttributesInput,
-  z.ZodTypeDef,
-  unknown
-> = z.union([
-  z.lazy(() => CardInput$inboundSchema),
-  z.lazy(() => DepositoryInput$inboundSchema),
-  z.lazy(() => EarningsBalanceReadOnlyInput$inboundSchema),
-]);
 
 /** @internal */
 export type AccountAttributesInput$Outbound =
@@ -1948,33 +1115,10 @@ export const AccountAttributesInput$outboundSchema: z.ZodType<
   z.lazy(() => EarningsBalanceReadOnlyInput$outboundSchema),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountAttributesInput$ {
-  /** @deprecated use `AccountAttributesInput$inboundSchema` instead. */
-  export const inboundSchema = AccountAttributesInput$inboundSchema;
-  /** @deprecated use `AccountAttributesInput$outboundSchema` instead. */
-  export const outboundSchema = AccountAttributesInput$outboundSchema;
-  /** @deprecated use `AccountAttributesInput$Outbound` instead. */
-  export type Outbound = AccountAttributesInput$Outbound;
-}
-
 export function accountAttributesInputToJSON(
   accountAttributesInput: AccountAttributesInput,
 ): string {
   return JSON.stringify(
     AccountAttributesInput$outboundSchema.parse(accountAttributesInput),
-  );
-}
-
-export function accountAttributesInputFromJSON(
-  jsonString: string,
-): SafeParseResult<AccountAttributesInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AccountAttributesInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AccountAttributesInput' from JSON`,
   );
 }

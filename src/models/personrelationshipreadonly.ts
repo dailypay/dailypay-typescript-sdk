@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PersonIdentifier,
   PersonIdentifier$inboundSchema,
-  PersonIdentifier$Outbound,
-  PersonIdentifier$outboundSchema,
 } from "./personidentifier.js";
 
 export type PersonRelationshipReadOnly = {
@@ -25,41 +23,6 @@ export const PersonRelationshipReadOnly$inboundSchema: z.ZodType<
 > = z.object({
   data: PersonIdentifier$inboundSchema,
 });
-
-/** @internal */
-export type PersonRelationshipReadOnly$Outbound = {
-  data: PersonIdentifier$Outbound;
-};
-
-/** @internal */
-export const PersonRelationshipReadOnly$outboundSchema: z.ZodType<
-  PersonRelationshipReadOnly$Outbound,
-  z.ZodTypeDef,
-  PersonRelationshipReadOnly
-> = z.object({
-  data: PersonIdentifier$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonRelationshipReadOnly$ {
-  /** @deprecated use `PersonRelationshipReadOnly$inboundSchema` instead. */
-  export const inboundSchema = PersonRelationshipReadOnly$inboundSchema;
-  /** @deprecated use `PersonRelationshipReadOnly$outboundSchema` instead. */
-  export const outboundSchema = PersonRelationshipReadOnly$outboundSchema;
-  /** @deprecated use `PersonRelationshipReadOnly$Outbound` instead. */
-  export type Outbound = PersonRelationshipReadOnly$Outbound;
-}
-
-export function personRelationshipReadOnlyToJSON(
-  personRelationshipReadOnly: PersonRelationshipReadOnly,
-): string {
-  return JSON.stringify(
-    PersonRelationshipReadOnly$outboundSchema.parse(personRelationshipReadOnly),
-  );
-}
 
 export function personRelationshipReadOnlyFromJSON(
   jsonString: string,

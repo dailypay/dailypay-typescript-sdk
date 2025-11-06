@@ -3,18 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountRelationship,
-  AccountRelationship$inboundSchema,
   AccountRelationship$Outbound,
   AccountRelationship$outboundSchema,
 } from "./accountrelationship.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PersonRelationship,
-  PersonRelationship$inboundSchema,
   PersonRelationship$Outbound,
   PersonRelationship$outboundSchema,
 } from "./personrelationship.js";
@@ -29,17 +24,6 @@ export type TransferCreateRelationships = {
   destination: AccountRelationship;
   person: PersonRelationship;
 };
-
-/** @internal */
-export const TransferCreateRelationships$inboundSchema: z.ZodType<
-  TransferCreateRelationships,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  origin: AccountRelationship$inboundSchema,
-  destination: AccountRelationship$inboundSchema,
-  person: PersonRelationship$inboundSchema,
-});
 
 /** @internal */
 export type TransferCreateRelationships$Outbound = {
@@ -59,19 +43,6 @@ export const TransferCreateRelationships$outboundSchema: z.ZodType<
   person: PersonRelationship$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferCreateRelationships$ {
-  /** @deprecated use `TransferCreateRelationships$inboundSchema` instead. */
-  export const inboundSchema = TransferCreateRelationships$inboundSchema;
-  /** @deprecated use `TransferCreateRelationships$outboundSchema` instead. */
-  export const outboundSchema = TransferCreateRelationships$outboundSchema;
-  /** @deprecated use `TransferCreateRelationships$Outbound` instead. */
-  export type Outbound = TransferCreateRelationships$Outbound;
-}
-
 export function transferCreateRelationshipsToJSON(
   transferCreateRelationships: TransferCreateRelationships,
 ): string {
@@ -79,15 +50,5 @@ export function transferCreateRelationshipsToJSON(
     TransferCreateRelationships$outboundSchema.parse(
       transferCreateRelationships,
     ),
-  );
-}
-
-export function transferCreateRelationshipsFromJSON(
-  jsonString: string,
-): SafeParseResult<TransferCreateRelationships, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TransferCreateRelationships$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TransferCreateRelationships' from JSON`,
   );
 }

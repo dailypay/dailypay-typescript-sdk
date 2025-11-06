@@ -34,73 +34,6 @@ export type ListOrganizationsResponse = {
 };
 
 /** @internal */
-export const ListOrganizationsGlobals$inboundSchema: z.ZodType<
-  ListOrganizationsGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ListOrganizationsGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ListOrganizationsGlobals$outboundSchema: z.ZodType<
-  ListOrganizationsGlobals$Outbound,
-  z.ZodTypeDef,
-  ListOrganizationsGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListOrganizationsGlobals$ {
-  /** @deprecated use `ListOrganizationsGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListOrganizationsGlobals$inboundSchema;
-  /** @deprecated use `ListOrganizationsGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListOrganizationsGlobals$outboundSchema;
-  /** @deprecated use `ListOrganizationsGlobals$Outbound` instead. */
-  export type Outbound = ListOrganizationsGlobals$Outbound;
-}
-
-export function listOrganizationsGlobalsToJSON(
-  listOrganizationsGlobals: ListOrganizationsGlobals,
-): string {
-  return JSON.stringify(
-    ListOrganizationsGlobals$outboundSchema.parse(listOrganizationsGlobals),
-  );
-}
-
-export function listOrganizationsGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListOrganizationsGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListOrganizationsGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListOrganizationsGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListOrganizationsRequest$inboundSchema: z.ZodType<
-  ListOrganizationsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "filter-by": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "filter-by": "filterBy",
-  });
-});
-
-/** @internal */
 export type ListOrganizationsRequest$Outbound = {
   "filter-by"?: string | undefined;
 };
@@ -118,34 +51,11 @@ export const ListOrganizationsRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListOrganizationsRequest$ {
-  /** @deprecated use `ListOrganizationsRequest$inboundSchema` instead. */
-  export const inboundSchema = ListOrganizationsRequest$inboundSchema;
-  /** @deprecated use `ListOrganizationsRequest$outboundSchema` instead. */
-  export const outboundSchema = ListOrganizationsRequest$outboundSchema;
-  /** @deprecated use `ListOrganizationsRequest$Outbound` instead. */
-  export type Outbound = ListOrganizationsRequest$Outbound;
-}
-
 export function listOrganizationsRequestToJSON(
   listOrganizationsRequest: ListOrganizationsRequest,
 ): string {
   return JSON.stringify(
     ListOrganizationsRequest$outboundSchema.parse(listOrganizationsRequest),
-  );
-}
-
-export function listOrganizationsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListOrganizationsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListOrganizationsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListOrganizationsRequest' from JSON`,
   );
 }
 
@@ -163,48 +73,6 @@ export const ListOrganizationsResponse$inboundSchema: z.ZodType<
     "OrganizationsData": "organizationsData",
   });
 });
-
-/** @internal */
-export type ListOrganizationsResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  OrganizationsData?: models.OrganizationsData$Outbound | undefined;
-};
-
-/** @internal */
-export const ListOrganizationsResponse$outboundSchema: z.ZodType<
-  ListOrganizationsResponse$Outbound,
-  z.ZodTypeDef,
-  ListOrganizationsResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  organizationsData: models.OrganizationsData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    organizationsData: "OrganizationsData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListOrganizationsResponse$ {
-  /** @deprecated use `ListOrganizationsResponse$inboundSchema` instead. */
-  export const inboundSchema = ListOrganizationsResponse$inboundSchema;
-  /** @deprecated use `ListOrganizationsResponse$outboundSchema` instead. */
-  export const outboundSchema = ListOrganizationsResponse$outboundSchema;
-  /** @deprecated use `ListOrganizationsResponse$Outbound` instead. */
-  export type Outbound = ListOrganizationsResponse$Outbound;
-}
-
-export function listOrganizationsResponseToJSON(
-  listOrganizationsResponse: ListOrganizationsResponse,
-): string {
-  return JSON.stringify(
-    ListOrganizationsResponse$outboundSchema.parse(listOrganizationsResponse),
-  );
-}
 
 export function listOrganizationsResponseFromJSON(
   jsonString: string,

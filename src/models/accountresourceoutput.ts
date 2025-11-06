@@ -8,20 +8,11 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountAttributesOutput,
   AccountAttributesOutput$inboundSchema,
-  AccountAttributesOutput$Outbound,
-  AccountAttributesOutput$outboundSchema,
 } from "./accountattributesoutput.js";
-import {
-  AccountLinks,
-  AccountLinks$inboundSchema,
-  AccountLinks$Outbound,
-  AccountLinks$outboundSchema,
-} from "./accountlinks.js";
+import { AccountLinks, AccountLinks$inboundSchema } from "./accountlinks.js";
 import {
   AccountRelationships,
   AccountRelationships$inboundSchema,
-  AccountRelationships$Outbound,
-  AccountRelationships$outboundSchema,
 } from "./accountrelationships.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -54,49 +45,6 @@ export const AccountResourceOutput$inboundSchema: z.ZodType<
   links: AccountLinks$inboundSchema,
   relationships: AccountRelationships$inboundSchema,
 });
-
-/** @internal */
-export type AccountResourceOutput$Outbound = {
-  id: string;
-  type: "accounts";
-  attributes: AccountAttributesOutput$Outbound;
-  links: AccountLinks$Outbound;
-  relationships: AccountRelationships$Outbound;
-};
-
-/** @internal */
-export const AccountResourceOutput$outboundSchema: z.ZodType<
-  AccountResourceOutput$Outbound,
-  z.ZodTypeDef,
-  AccountResourceOutput
-> = z.object({
-  id: z.string(),
-  type: z.literal("accounts"),
-  attributes: AccountAttributesOutput$outboundSchema,
-  links: AccountLinks$outboundSchema,
-  relationships: AccountRelationships$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountResourceOutput$ {
-  /** @deprecated use `AccountResourceOutput$inboundSchema` instead. */
-  export const inboundSchema = AccountResourceOutput$inboundSchema;
-  /** @deprecated use `AccountResourceOutput$outboundSchema` instead. */
-  export const outboundSchema = AccountResourceOutput$outboundSchema;
-  /** @deprecated use `AccountResourceOutput$Outbound` instead. */
-  export type Outbound = AccountResourceOutput$Outbound;
-}
-
-export function accountResourceOutputToJSON(
-  accountResourceOutput: AccountResourceOutput,
-): string {
-  return JSON.stringify(
-    AccountResourceOutput$outboundSchema.parse(accountResourceOutput),
-  );
-}
 
 export function accountResourceOutputFromJSON(
   jsonString: string,

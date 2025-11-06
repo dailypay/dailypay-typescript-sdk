@@ -20,37 +20,6 @@ export const TransferLinks$inboundSchema: z.ZodType<
   self: z.string(),
 });
 
-/** @internal */
-export type TransferLinks$Outbound = {
-  self: string;
-};
-
-/** @internal */
-export const TransferLinks$outboundSchema: z.ZodType<
-  TransferLinks$Outbound,
-  z.ZodTypeDef,
-  TransferLinks
-> = z.object({
-  self: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferLinks$ {
-  /** @deprecated use `TransferLinks$inboundSchema` instead. */
-  export const inboundSchema = TransferLinks$inboundSchema;
-  /** @deprecated use `TransferLinks$outboundSchema` instead. */
-  export const outboundSchema = TransferLinks$outboundSchema;
-  /** @deprecated use `TransferLinks$Outbound` instead. */
-  export type Outbound = TransferLinks$Outbound;
-}
-
-export function transferLinksToJSON(transferLinks: TransferLinks): string {
-  return JSON.stringify(TransferLinks$outboundSchema.parse(transferLinks));
-}
-
 export function transferLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferLinks, SDKValidationError> {

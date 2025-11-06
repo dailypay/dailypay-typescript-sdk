@@ -557,6 +557,7 @@ The default server `https://api.{environment}.com` contains variables and is set
 import { SDK } from "@dailypay/dailypay";
 
 const sdk = new SDK({
+  serverIdx: 0,
   environment: "dailypayuat",
   version: 3,
   security: {

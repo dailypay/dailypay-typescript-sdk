@@ -9,21 +9,15 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountRelationship,
   AccountRelationship$inboundSchema,
-  AccountRelationship$Outbound,
-  AccountRelationship$outboundSchema,
 } from "./accountrelationship.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OrganizationRelationship,
   OrganizationRelationship$inboundSchema,
-  OrganizationRelationship$Outbound,
-  OrganizationRelationship$outboundSchema,
 } from "./organizationrelationship.js";
 import {
   PersonRelationshipReadOnly,
   PersonRelationshipReadOnly$inboundSchema,
-  PersonRelationshipReadOnly$Outbound,
-  PersonRelationshipReadOnly$outboundSchema,
 } from "./personrelationshipreadonly.js";
 
 /**
@@ -53,52 +47,6 @@ export const JobRelationships$inboundSchema: z.ZodType<
     "direct_deposit_default_card": "directDepositDefaultCard",
   });
 });
-
-/** @internal */
-export type JobRelationships$Outbound = {
-  person: PersonRelationshipReadOnly$Outbound;
-  organization: OrganizationRelationship$Outbound;
-  direct_deposit_default_depository?: AccountRelationship$Outbound | undefined;
-  direct_deposit_default_card?: AccountRelationship$Outbound | undefined;
-};
-
-/** @internal */
-export const JobRelationships$outboundSchema: z.ZodType<
-  JobRelationships$Outbound,
-  z.ZodTypeDef,
-  JobRelationships
-> = z.object({
-  person: PersonRelationshipReadOnly$outboundSchema,
-  organization: OrganizationRelationship$outboundSchema,
-  directDepositDefaultDepository: AccountRelationship$outboundSchema.optional(),
-  directDepositDefaultCard: AccountRelationship$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    directDepositDefaultDepository: "direct_deposit_default_depository",
-    directDepositDefaultCard: "direct_deposit_default_card",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobRelationships$ {
-  /** @deprecated use `JobRelationships$inboundSchema` instead. */
-  export const inboundSchema = JobRelationships$inboundSchema;
-  /** @deprecated use `JobRelationships$outboundSchema` instead. */
-  export const outboundSchema = JobRelationships$outboundSchema;
-  /** @deprecated use `JobRelationships$Outbound` instead. */
-  export type Outbound = JobRelationships$Outbound;
-}
-
-export function jobRelationshipsToJSON(
-  jobRelationships: JobRelationships,
-): string {
-  return JSON.stringify(
-    JobRelationships$outboundSchema.parse(jobRelationships),
-  );
-}
 
 export function jobRelationshipsFromJSON(
   jsonString: string,

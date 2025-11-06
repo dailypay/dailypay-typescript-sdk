@@ -34,73 +34,6 @@ export type ReadPersonResponse = {
 };
 
 /** @internal */
-export const ReadPersonGlobals$inboundSchema: z.ZodType<
-  ReadPersonGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ReadPersonGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ReadPersonGlobals$outboundSchema: z.ZodType<
-  ReadPersonGlobals$Outbound,
-  z.ZodTypeDef,
-  ReadPersonGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadPersonGlobals$ {
-  /** @deprecated use `ReadPersonGlobals$inboundSchema` instead. */
-  export const inboundSchema = ReadPersonGlobals$inboundSchema;
-  /** @deprecated use `ReadPersonGlobals$outboundSchema` instead. */
-  export const outboundSchema = ReadPersonGlobals$outboundSchema;
-  /** @deprecated use `ReadPersonGlobals$Outbound` instead. */
-  export type Outbound = ReadPersonGlobals$Outbound;
-}
-
-export function readPersonGlobalsToJSON(
-  readPersonGlobals: ReadPersonGlobals,
-): string {
-  return JSON.stringify(
-    ReadPersonGlobals$outboundSchema.parse(readPersonGlobals),
-  );
-}
-
-export function readPersonGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadPersonGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadPersonGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadPersonGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ReadPersonRequest$inboundSchema: z.ZodType<
-  ReadPersonRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  person_id: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "person_id": "personId",
-  });
-});
-
-/** @internal */
 export type ReadPersonRequest$Outbound = {
   person_id: string;
 };
@@ -118,34 +51,11 @@ export const ReadPersonRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadPersonRequest$ {
-  /** @deprecated use `ReadPersonRequest$inboundSchema` instead. */
-  export const inboundSchema = ReadPersonRequest$inboundSchema;
-  /** @deprecated use `ReadPersonRequest$outboundSchema` instead. */
-  export const outboundSchema = ReadPersonRequest$outboundSchema;
-  /** @deprecated use `ReadPersonRequest$Outbound` instead. */
-  export type Outbound = ReadPersonRequest$Outbound;
-}
-
 export function readPersonRequestToJSON(
   readPersonRequest: ReadPersonRequest,
 ): string {
   return JSON.stringify(
     ReadPersonRequest$outboundSchema.parse(readPersonRequest),
-  );
-}
-
-export function readPersonRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadPersonRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadPersonRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadPersonRequest' from JSON`,
   );
 }
 
@@ -163,48 +73,6 @@ export const ReadPersonResponse$inboundSchema: z.ZodType<
     "PersonData": "personData",
   });
 });
-
-/** @internal */
-export type ReadPersonResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  PersonData?: models.PersonData$Outbound | undefined;
-};
-
-/** @internal */
-export const ReadPersonResponse$outboundSchema: z.ZodType<
-  ReadPersonResponse$Outbound,
-  z.ZodTypeDef,
-  ReadPersonResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  personData: models.PersonData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    personData: "PersonData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadPersonResponse$ {
-  /** @deprecated use `ReadPersonResponse$inboundSchema` instead. */
-  export const inboundSchema = ReadPersonResponse$inboundSchema;
-  /** @deprecated use `ReadPersonResponse$outboundSchema` instead. */
-  export const outboundSchema = ReadPersonResponse$outboundSchema;
-  /** @deprecated use `ReadPersonResponse$Outbound` instead. */
-  export type Outbound = ReadPersonResponse$Outbound;
-}
-
-export function readPersonResponseToJSON(
-  readPersonResponse: ReadPersonResponse,
-): string {
-  return JSON.stringify(
-    ReadPersonResponse$outboundSchema.parse(readPersonResponse),
-  );
-}
 
 export function readPersonResponseFromJSON(
   jsonString: string,

@@ -23,37 +23,6 @@ export const PersonLinks$inboundSchema: z.ZodType<
   self: z.string(),
 });
 
-/** @internal */
-export type PersonLinks$Outbound = {
-  self: string;
-};
-
-/** @internal */
-export const PersonLinks$outboundSchema: z.ZodType<
-  PersonLinks$Outbound,
-  z.ZodTypeDef,
-  PersonLinks
-> = z.object({
-  self: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonLinks$ {
-  /** @deprecated use `PersonLinks$inboundSchema` instead. */
-  export const inboundSchema = PersonLinks$inboundSchema;
-  /** @deprecated use `PersonLinks$outboundSchema` instead. */
-  export const outboundSchema = PersonLinks$outboundSchema;
-  /** @deprecated use `PersonLinks$Outbound` instead. */
-  export type Outbound = PersonLinks$Outbound;
-}
-
-export function personLinksToJSON(personLinks: PersonLinks): string {
-  return JSON.stringify(PersonLinks$outboundSchema.parse(personLinks));
-}
-
 export function personLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PersonLinks, SDKValidationError> {

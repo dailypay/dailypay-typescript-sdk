@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
@@ -19,19 +16,6 @@ export type PersonAttributesInput = {
    */
   stateOfResidence?: string | undefined;
 };
-
-/** @internal */
-export const PersonAttributesInput$inboundSchema: z.ZodType<
-  PersonAttributesInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  state_of_residence: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "state_of_residence": "stateOfResidence",
-  });
-});
 
 /** @internal */
 export type PersonAttributesInput$Outbound = {
@@ -51,33 +35,10 @@ export const PersonAttributesInput$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonAttributesInput$ {
-  /** @deprecated use `PersonAttributesInput$inboundSchema` instead. */
-  export const inboundSchema = PersonAttributesInput$inboundSchema;
-  /** @deprecated use `PersonAttributesInput$outboundSchema` instead. */
-  export const outboundSchema = PersonAttributesInput$outboundSchema;
-  /** @deprecated use `PersonAttributesInput$Outbound` instead. */
-  export type Outbound = PersonAttributesInput$Outbound;
-}
-
 export function personAttributesInputToJSON(
   personAttributesInput: PersonAttributesInput,
 ): string {
   return JSON.stringify(
     PersonAttributesInput$outboundSchema.parse(personAttributesInput),
-  );
-}
-
-export function personAttributesInputFromJSON(
-  jsonString: string,
-): SafeParseResult<PersonAttributesInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersonAttributesInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersonAttributesInput' from JSON`,
   );
 }

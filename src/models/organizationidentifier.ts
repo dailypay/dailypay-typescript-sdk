@@ -22,43 +22,6 @@ export const OrganizationIdentifier$inboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/** @internal */
-export type OrganizationIdentifier$Outbound = {
-  type: "organizations";
-  id: string;
-};
-
-/** @internal */
-export const OrganizationIdentifier$outboundSchema: z.ZodType<
-  OrganizationIdentifier$Outbound,
-  z.ZodTypeDef,
-  OrganizationIdentifier
-> = z.object({
-  type: z.literal("organizations"),
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationIdentifier$ {
-  /** @deprecated use `OrganizationIdentifier$inboundSchema` instead. */
-  export const inboundSchema = OrganizationIdentifier$inboundSchema;
-  /** @deprecated use `OrganizationIdentifier$outboundSchema` instead. */
-  export const outboundSchema = OrganizationIdentifier$outboundSchema;
-  /** @deprecated use `OrganizationIdentifier$Outbound` instead. */
-  export type Outbound = OrganizationIdentifier$Outbound;
-}
-
-export function organizationIdentifierToJSON(
-  organizationIdentifier: OrganizationIdentifier,
-): string {
-  return JSON.stringify(
-    OrganizationIdentifier$outboundSchema.parse(organizationIdentifier),
-  );
-}
-
 export function organizationIdentifierFromJSON(
   jsonString: string,
 ): SafeParseResult<OrganizationIdentifier, SDKValidationError> {

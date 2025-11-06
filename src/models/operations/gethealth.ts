@@ -32,48 +32,6 @@ export const GetHealthResponse$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type GetHealthResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  Health200?: models.Health200$Outbound | undefined;
-};
-
-/** @internal */
-export const GetHealthResponse$outboundSchema: z.ZodType<
-  GetHealthResponse$Outbound,
-  z.ZodTypeDef,
-  GetHealthResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  health200: models.Health200$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    health200: "Health200",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetHealthResponse$ {
-  /** @deprecated use `GetHealthResponse$inboundSchema` instead. */
-  export const inboundSchema = GetHealthResponse$inboundSchema;
-  /** @deprecated use `GetHealthResponse$outboundSchema` instead. */
-  export const outboundSchema = GetHealthResponse$outboundSchema;
-  /** @deprecated use `GetHealthResponse$Outbound` instead. */
-  export type Outbound = GetHealthResponse$Outbound;
-}
-
-export function getHealthResponseToJSON(
-  getHealthResponse: GetHealthResponse,
-): string {
-  return JSON.stringify(
-    GetHealthResponse$outboundSchema.parse(getHealthResponse),
-  );
-}
-
 export function getHealthResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetHealthResponse, SDKValidationError> {

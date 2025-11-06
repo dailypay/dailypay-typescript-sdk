@@ -6,23 +6,11 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  JobAttributes,
-  JobAttributes$inboundSchema,
-  JobAttributes$Outbound,
-  JobAttributes$outboundSchema,
-} from "./jobattributes.js";
-import {
-  JobLinks,
-  JobLinks$inboundSchema,
-  JobLinks$Outbound,
-  JobLinks$outboundSchema,
-} from "./joblinks.js";
+import { JobAttributes, JobAttributes$inboundSchema } from "./jobattributes.js";
+import { JobLinks, JobLinks$inboundSchema } from "./joblinks.js";
 import {
   JobRelationships,
   JobRelationships$inboundSchema,
-  JobRelationships$Outbound,
-  JobRelationships$outboundSchema,
 } from "./jobrelationships.js";
 
 /**
@@ -51,45 +39,6 @@ export const JobResource$inboundSchema: z.ZodType<
   links: JobLinks$inboundSchema,
   relationships: JobRelationships$inboundSchema,
 });
-
-/** @internal */
-export type JobResource$Outbound = {
-  type: "jobs";
-  id: string;
-  attributes: JobAttributes$Outbound;
-  links: JobLinks$Outbound;
-  relationships: JobRelationships$Outbound;
-};
-
-/** @internal */
-export const JobResource$outboundSchema: z.ZodType<
-  JobResource$Outbound,
-  z.ZodTypeDef,
-  JobResource
-> = z.object({
-  type: z.literal("jobs"),
-  id: z.string(),
-  attributes: JobAttributes$outboundSchema,
-  links: JobLinks$outboundSchema,
-  relationships: JobRelationships$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobResource$ {
-  /** @deprecated use `JobResource$inboundSchema` instead. */
-  export const inboundSchema = JobResource$inboundSchema;
-  /** @deprecated use `JobResource$outboundSchema` instead. */
-  export const outboundSchema = JobResource$outboundSchema;
-  /** @deprecated use `JobResource$Outbound` instead. */
-  export type Outbound = JobResource$Outbound;
-}
-
-export function jobResourceToJSON(jobResource: JobResource): string {
-  return JSON.stringify(JobResource$outboundSchema.parse(jobResource));
-}
 
 export function jobResourceFromJSON(
   jsonString: string,

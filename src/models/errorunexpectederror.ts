@@ -97,41 +97,6 @@ export const ErrorUnexpectedErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorUnexpectedErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorUnexpectedErrorLinks$outboundSchema: z.ZodType<
-  ErrorUnexpectedErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorUnexpectedErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorUnexpectedErrorLinks$ {
-  /** @deprecated use `ErrorUnexpectedErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorUnexpectedErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorUnexpectedErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorUnexpectedErrorLinks$Outbound;
-}
-
-export function errorUnexpectedErrorLinksToJSON(
-  errorUnexpectedErrorLinks: ErrorUnexpectedErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorUnexpectedErrorLinks$outboundSchema.parse(errorUnexpectedErrorLinks),
-  );
-}
-
 export function errorUnexpectedErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorUnexpectedErrorLinks, SDKValidationError> {
@@ -152,45 +117,6 @@ export const ErrorUnexpectedErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorUnexpectedErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorUnexpectedErrorSource$outboundSchema: z.ZodType<
-  ErrorUnexpectedErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorUnexpectedErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorUnexpectedErrorSource$ {
-  /** @deprecated use `ErrorUnexpectedErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorUnexpectedErrorSource$inboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorUnexpectedErrorSource$outboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorSource$Outbound` instead. */
-  export type Outbound = ErrorUnexpectedErrorSource$Outbound;
-}
-
-export function errorUnexpectedErrorSourceToJSON(
-  errorUnexpectedErrorSource: ErrorUnexpectedErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorUnexpectedErrorSource$outboundSchema.parse(errorUnexpectedErrorSource),
-  );
-}
 
 export function errorUnexpectedErrorSourceFromJSON(
   jsonString: string,
@@ -217,48 +143,6 @@ export const ErrorUnexpectedErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorUnexpectedErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorUnexpectedErrorMeta$outboundSchema: z.ZodType<
-  ErrorUnexpectedErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorUnexpectedErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorUnexpectedErrorMeta$ {
-  /** @deprecated use `ErrorUnexpectedErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorUnexpectedErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorUnexpectedErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorUnexpectedErrorMeta$Outbound;
-}
-
-export function errorUnexpectedErrorMetaToJSON(
-  errorUnexpectedErrorMeta: ErrorUnexpectedErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorUnexpectedErrorMeta$outboundSchema.parse(errorUnexpectedErrorMeta),
-  );
-}
-
 export function errorUnexpectedErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorUnexpectedErrorMeta, SDKValidationError> {
@@ -275,22 +159,6 @@ export const ErrorUnexpectedErrorCode$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(ErrorUnexpectedErrorCode);
 
 /** @internal */
-export const ErrorUnexpectedErrorCode$outboundSchema: z.ZodNativeEnum<
-  typeof ErrorUnexpectedErrorCode
-> = ErrorUnexpectedErrorCode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorUnexpectedErrorCode$ {
-  /** @deprecated use `ErrorUnexpectedErrorCode$inboundSchema` instead. */
-  export const inboundSchema = ErrorUnexpectedErrorCode$inboundSchema;
-  /** @deprecated use `ErrorUnexpectedErrorCode$outboundSchema` instead. */
-  export const outboundSchema = ErrorUnexpectedErrorCode$outboundSchema;
-}
-
-/** @internal */
 export const ErrorUnexpectedError$inboundSchema: z.ZodType<
   ErrorUnexpectedError,
   z.ZodTypeDef,
@@ -303,51 +171,6 @@ export const ErrorUnexpectedError$inboundSchema: z.ZodType<
   meta: z.lazy(() => ErrorUnexpectedErrorMeta$inboundSchema),
   code: ErrorUnexpectedErrorCode$inboundSchema,
 });
-
-/** @internal */
-export type ErrorUnexpectedError$Outbound = {
-  status: string;
-  detail: string;
-  links: ErrorUnexpectedErrorLinks$Outbound;
-  source?: ErrorUnexpectedErrorSource$Outbound | undefined;
-  meta: ErrorUnexpectedErrorMeta$Outbound;
-  code: string;
-};
-
-/** @internal */
-export const ErrorUnexpectedError$outboundSchema: z.ZodType<
-  ErrorUnexpectedError$Outbound,
-  z.ZodTypeDef,
-  ErrorUnexpectedError
-> = z.object({
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorUnexpectedErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorUnexpectedErrorSource$outboundSchema).optional(),
-  meta: z.lazy(() => ErrorUnexpectedErrorMeta$outboundSchema),
-  code: ErrorUnexpectedErrorCode$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorUnexpectedError$ {
-  /** @deprecated use `ErrorUnexpectedError$inboundSchema` instead. */
-  export const inboundSchema = ErrorUnexpectedError$inboundSchema;
-  /** @deprecated use `ErrorUnexpectedError$outboundSchema` instead. */
-  export const outboundSchema = ErrorUnexpectedError$outboundSchema;
-  /** @deprecated use `ErrorUnexpectedError$Outbound` instead. */
-  export type Outbound = ErrorUnexpectedError$Outbound;
-}
-
-export function errorUnexpectedErrorToJSON(
-  errorUnexpectedError: ErrorUnexpectedError,
-): string {
-  return JSON.stringify(
-    ErrorUnexpectedError$outboundSchema.parse(errorUnexpectedError),
-  );
-}
 
 export function errorUnexpectedErrorFromJSON(
   jsonString: string,

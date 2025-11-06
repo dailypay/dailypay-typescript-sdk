@@ -42,74 +42,6 @@ export type ReadTransferResponse = {
 };
 
 /** @internal */
-export const ReadTransferGlobals$inboundSchema: z.ZodType<
-  ReadTransferGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ReadTransferGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ReadTransferGlobals$outboundSchema: z.ZodType<
-  ReadTransferGlobals$Outbound,
-  z.ZodTypeDef,
-  ReadTransferGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadTransferGlobals$ {
-  /** @deprecated use `ReadTransferGlobals$inboundSchema` instead. */
-  export const inboundSchema = ReadTransferGlobals$inboundSchema;
-  /** @deprecated use `ReadTransferGlobals$outboundSchema` instead. */
-  export const outboundSchema = ReadTransferGlobals$outboundSchema;
-  /** @deprecated use `ReadTransferGlobals$Outbound` instead. */
-  export type Outbound = ReadTransferGlobals$Outbound;
-}
-
-export function readTransferGlobalsToJSON(
-  readTransferGlobals: ReadTransferGlobals,
-): string {
-  return JSON.stringify(
-    ReadTransferGlobals$outboundSchema.parse(readTransferGlobals),
-  );
-}
-
-export function readTransferGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadTransferGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadTransferGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadTransferGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ReadTransferRequest$inboundSchema: z.ZodType<
-  ReadTransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  include: z.string().optional(),
-  transfer_id: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "transfer_id": "transferId",
-  });
-});
-
-/** @internal */
 export type ReadTransferRequest$Outbound = {
   include?: string | undefined;
   transfer_id: string;
@@ -129,34 +61,11 @@ export const ReadTransferRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadTransferRequest$ {
-  /** @deprecated use `ReadTransferRequest$inboundSchema` instead. */
-  export const inboundSchema = ReadTransferRequest$inboundSchema;
-  /** @deprecated use `ReadTransferRequest$outboundSchema` instead. */
-  export const outboundSchema = ReadTransferRequest$outboundSchema;
-  /** @deprecated use `ReadTransferRequest$Outbound` instead. */
-  export type Outbound = ReadTransferRequest$Outbound;
-}
-
 export function readTransferRequestToJSON(
   readTransferRequest: ReadTransferRequest,
 ): string {
   return JSON.stringify(
     ReadTransferRequest$outboundSchema.parse(readTransferRequest),
-  );
-}
-
-export function readTransferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadTransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadTransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadTransferRequest' from JSON`,
   );
 }
 
@@ -174,48 +83,6 @@ export const ReadTransferResponse$inboundSchema: z.ZodType<
     "TransferData": "transferData",
   });
 });
-
-/** @internal */
-export type ReadTransferResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  TransferData?: models.TransferData$Outbound | undefined;
-};
-
-/** @internal */
-export const ReadTransferResponse$outboundSchema: z.ZodType<
-  ReadTransferResponse$Outbound,
-  z.ZodTypeDef,
-  ReadTransferResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  transferData: models.TransferData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    transferData: "TransferData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadTransferResponse$ {
-  /** @deprecated use `ReadTransferResponse$inboundSchema` instead. */
-  export const inboundSchema = ReadTransferResponse$inboundSchema;
-  /** @deprecated use `ReadTransferResponse$outboundSchema` instead. */
-  export const outboundSchema = ReadTransferResponse$outboundSchema;
-  /** @deprecated use `ReadTransferResponse$Outbound` instead. */
-  export type Outbound = ReadTransferResponse$Outbound;
-}
-
-export function readTransferResponseToJSON(
-  readTransferResponse: ReadTransferResponse,
-): string {
-  return JSON.stringify(
-    ReadTransferResponse$outboundSchema.parse(readTransferResponse),
-  );
-}
 
 export function readTransferResponseFromJSON(
   jsonString: string,
