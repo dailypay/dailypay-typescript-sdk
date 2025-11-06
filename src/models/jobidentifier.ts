@@ -22,39 +22,6 @@ export const JobIdentifier$inboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/** @internal */
-export type JobIdentifier$Outbound = {
-  type: "jobs";
-  id: string;
-};
-
-/** @internal */
-export const JobIdentifier$outboundSchema: z.ZodType<
-  JobIdentifier$Outbound,
-  z.ZodTypeDef,
-  JobIdentifier
-> = z.object({
-  type: z.literal("jobs"),
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobIdentifier$ {
-  /** @deprecated use `JobIdentifier$inboundSchema` instead. */
-  export const inboundSchema = JobIdentifier$inboundSchema;
-  /** @deprecated use `JobIdentifier$outboundSchema` instead. */
-  export const outboundSchema = JobIdentifier$outboundSchema;
-  /** @deprecated use `JobIdentifier$Outbound` instead. */
-  export type Outbound = JobIdentifier$Outbound;
-}
-
-export function jobIdentifierToJSON(jobIdentifier: JobIdentifier): string {
-  return JSON.stringify(JobIdentifier$outboundSchema.parse(jobIdentifier));
-}
-
 export function jobIdentifierFromJSON(
   jsonString: string,
 ): SafeParseResult<JobIdentifier, SDKValidationError> {

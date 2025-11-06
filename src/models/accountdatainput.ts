@@ -3,28 +3,15 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountResourceInput,
-  AccountResourceInput$inboundSchema,
   AccountResourceInput$Outbound,
   AccountResourceInput$outboundSchema,
 } from "./accountresourceinput.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AccountDataInput = {
   data: AccountResourceInput;
 };
-
-/** @internal */
-export const AccountDataInput$inboundSchema: z.ZodType<
-  AccountDataInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  data: AccountResourceInput$inboundSchema,
-});
 
 /** @internal */
 export type AccountDataInput$Outbound = {
@@ -40,33 +27,10 @@ export const AccountDataInput$outboundSchema: z.ZodType<
   data: AccountResourceInput$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountDataInput$ {
-  /** @deprecated use `AccountDataInput$inboundSchema` instead. */
-  export const inboundSchema = AccountDataInput$inboundSchema;
-  /** @deprecated use `AccountDataInput$outboundSchema` instead. */
-  export const outboundSchema = AccountDataInput$outboundSchema;
-  /** @deprecated use `AccountDataInput$Outbound` instead. */
-  export type Outbound = AccountDataInput$Outbound;
-}
-
 export function accountDataInputToJSON(
   accountDataInput: AccountDataInput,
 ): string {
   return JSON.stringify(
     AccountDataInput$outboundSchema.parse(accountDataInput),
-  );
-}
-
-export function accountDataInputFromJSON(
-  jsonString: string,
-): SafeParseResult<AccountDataInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AccountDataInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AccountDataInput' from JSON`,
   );
 }

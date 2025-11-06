@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferCreateResource,
-  TransferCreateResource$inboundSchema,
   TransferCreateResource$Outbound,
   TransferCreateResource$outboundSchema,
 } from "./transfercreateresource.js";
@@ -16,15 +12,6 @@ import {
 export type TransferCreateData = {
   data: TransferCreateResource;
 };
-
-/** @internal */
-export const TransferCreateData$inboundSchema: z.ZodType<
-  TransferCreateData,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  data: TransferCreateResource$inboundSchema,
-});
 
 /** @internal */
 export type TransferCreateData$Outbound = {
@@ -40,33 +27,10 @@ export const TransferCreateData$outboundSchema: z.ZodType<
   data: TransferCreateResource$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferCreateData$ {
-  /** @deprecated use `TransferCreateData$inboundSchema` instead. */
-  export const inboundSchema = TransferCreateData$inboundSchema;
-  /** @deprecated use `TransferCreateData$outboundSchema` instead. */
-  export const outboundSchema = TransferCreateData$outboundSchema;
-  /** @deprecated use `TransferCreateData$Outbound` instead. */
-  export type Outbound = TransferCreateData$Outbound;
-}
-
 export function transferCreateDataToJSON(
   transferCreateData: TransferCreateData,
 ): string {
   return JSON.stringify(
     TransferCreateData$outboundSchema.parse(transferCreateData),
-  );
-}
-
-export function transferCreateDataFromJSON(
-  jsonString: string,
-): SafeParseResult<TransferCreateData, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TransferCreateData$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TransferCreateData' from JSON`,
   );
 }

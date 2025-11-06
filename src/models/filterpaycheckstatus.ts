@@ -14,22 +14,6 @@ export const FilterPaycheckStatus = {
 export type FilterPaycheckStatus = ClosedEnum<typeof FilterPaycheckStatus>;
 
 /** @internal */
-export const FilterPaycheckStatus$inboundSchema: z.ZodNativeEnum<
-  typeof FilterPaycheckStatus
-> = z.nativeEnum(FilterPaycheckStatus);
-
-/** @internal */
 export const FilterPaycheckStatus$outboundSchema: z.ZodNativeEnum<
   typeof FilterPaycheckStatus
-> = FilterPaycheckStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FilterPaycheckStatus$ {
-  /** @deprecated use `FilterPaycheckStatus$inboundSchema` instead. */
-  export const inboundSchema = FilterPaycheckStatus$inboundSchema;
-  /** @deprecated use `FilterPaycheckStatus$outboundSchema` instead. */
-  export const outboundSchema = FilterPaycheckStatus$outboundSchema;
-}
+> = z.nativeEnum(FilterPaycheckStatus);

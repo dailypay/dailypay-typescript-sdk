@@ -20,37 +20,6 @@ export const PaycheckLinks$inboundSchema: z.ZodType<
   self: z.string(),
 });
 
-/** @internal */
-export type PaycheckLinks$Outbound = {
-  self: string;
-};
-
-/** @internal */
-export const PaycheckLinks$outboundSchema: z.ZodType<
-  PaycheckLinks$Outbound,
-  z.ZodTypeDef,
-  PaycheckLinks
-> = z.object({
-  self: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaycheckLinks$ {
-  /** @deprecated use `PaycheckLinks$inboundSchema` instead. */
-  export const inboundSchema = PaycheckLinks$inboundSchema;
-  /** @deprecated use `PaycheckLinks$outboundSchema` instead. */
-  export const outboundSchema = PaycheckLinks$outboundSchema;
-  /** @deprecated use `PaycheckLinks$Outbound` instead. */
-  export type Outbound = PaycheckLinks$Outbound;
-}
-
-export function paycheckLinksToJSON(paycheckLinks: PaycheckLinks): string {
-  return JSON.stringify(PaycheckLinks$outboundSchema.parse(paycheckLinks));
-}
-
 export function paycheckLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<PaycheckLinks, SDKValidationError> {

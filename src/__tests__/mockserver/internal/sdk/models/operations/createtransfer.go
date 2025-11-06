@@ -43,8 +43,8 @@ type CreateTransferRequest struct {
 	//
 	// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
 	//
-	Include            *string                       `queryParam:"style=form,explode=true,name=include"`
-	TransferCreateData components.TransferCreateData `request:"mediaType=application/vnd.api+json"`
+	Include *string                       `queryParam:"style=form,explode=true,name=include"`
+	Body    components.TransferCreateData `request:"mediaType=application/vnd.api+json"`
 }
 
 func (c CreateTransferRequest) MarshalJSON() ([]byte, error) {
@@ -52,7 +52,7 @@ func (c CreateTransferRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateTransferRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"Idempotency-Key", "TransferCreateData"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"Idempotency-Key", "body"}); err != nil {
 		return err
 	}
 	return nil
@@ -79,11 +79,11 @@ func (o *CreateTransferRequest) GetInclude() *string {
 	return o.Include
 }
 
-func (o *CreateTransferRequest) GetTransferCreateData() components.TransferCreateData {
+func (o *CreateTransferRequest) GetBody() components.TransferCreateData {
 	if o == nil {
 		return components.TransferCreateData{}
 	}
-	return o.TransferCreateData
+	return o.Body
 }
 
 type CreateTransferResponse struct {

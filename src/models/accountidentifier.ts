@@ -21,7 +21,6 @@ export const AccountIdentifier$inboundSchema: z.ZodType<
   type: z.literal("accounts"),
   id: z.string(),
 });
-
 /** @internal */
 export type AccountIdentifier$Outbound = {
   type: "accounts";
@@ -38,19 +37,6 @@ export const AccountIdentifier$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountIdentifier$ {
-  /** @deprecated use `AccountIdentifier$inboundSchema` instead. */
-  export const inboundSchema = AccountIdentifier$inboundSchema;
-  /** @deprecated use `AccountIdentifier$outboundSchema` instead. */
-  export const outboundSchema = AccountIdentifier$outboundSchema;
-  /** @deprecated use `AccountIdentifier$Outbound` instead. */
-  export type Outbound = AccountIdentifier$Outbound;
-}
-
 export function accountIdentifierToJSON(
   accountIdentifier: AccountIdentifier,
 ): string {
@@ -58,7 +44,6 @@ export function accountIdentifierToJSON(
     AccountIdentifier$outboundSchema.parse(accountIdentifier),
   );
 }
-
 export function accountIdentifierFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountIdentifier, SDKValidationError> {

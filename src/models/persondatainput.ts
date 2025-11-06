@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PersonResourceInput,
-  PersonResourceInput$inboundSchema,
   PersonResourceInput$Outbound,
   PersonResourceInput$outboundSchema,
 } from "./personresourceinput.js";
@@ -16,15 +12,6 @@ import {
 export type PersonDataInput = {
   data: PersonResourceInput;
 };
-
-/** @internal */
-export const PersonDataInput$inboundSchema: z.ZodType<
-  PersonDataInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  data: PersonResourceInput$inboundSchema,
-});
 
 /** @internal */
 export type PersonDataInput$Outbound = {
@@ -40,31 +27,8 @@ export const PersonDataInput$outboundSchema: z.ZodType<
   data: PersonResourceInput$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonDataInput$ {
-  /** @deprecated use `PersonDataInput$inboundSchema` instead. */
-  export const inboundSchema = PersonDataInput$inboundSchema;
-  /** @deprecated use `PersonDataInput$outboundSchema` instead. */
-  export const outboundSchema = PersonDataInput$outboundSchema;
-  /** @deprecated use `PersonDataInput$Outbound` instead. */
-  export type Outbound = PersonDataInput$Outbound;
-}
-
 export function personDataInputToJSON(
   personDataInput: PersonDataInput,
 ): string {
   return JSON.stringify(PersonDataInput$outboundSchema.parse(personDataInput));
-}
-
-export function personDataInputFromJSON(
-  jsonString: string,
-): SafeParseResult<PersonDataInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PersonDataInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PersonDataInput' from JSON`,
-  );
 }

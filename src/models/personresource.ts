@@ -9,15 +9,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PersonAttributes,
   PersonAttributes$inboundSchema,
-  PersonAttributes$Outbound,
-  PersonAttributes$outboundSchema,
 } from "./personattributes.js";
-import {
-  PersonLinks,
-  PersonLinks$inboundSchema,
-  PersonLinks$Outbound,
-  PersonLinks$outboundSchema,
-} from "./personlinks.js";
+import { PersonLinks, PersonLinks$inboundSchema } from "./personlinks.js";
 
 export type PersonResource = {
   type: "people";
@@ -40,43 +33,6 @@ export const PersonResource$inboundSchema: z.ZodType<
   attributes: PersonAttributes$inboundSchema,
   links: PersonLinks$inboundSchema,
 });
-
-/** @internal */
-export type PersonResource$Outbound = {
-  type: "people";
-  id: string;
-  attributes: PersonAttributes$Outbound;
-  links: PersonLinks$Outbound;
-};
-
-/** @internal */
-export const PersonResource$outboundSchema: z.ZodType<
-  PersonResource$Outbound,
-  z.ZodTypeDef,
-  PersonResource
-> = z.object({
-  type: z.literal("people"),
-  id: z.string(),
-  attributes: PersonAttributes$outboundSchema,
-  links: PersonLinks$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonResource$ {
-  /** @deprecated use `PersonResource$inboundSchema` instead. */
-  export const inboundSchema = PersonResource$inboundSchema;
-  /** @deprecated use `PersonResource$outboundSchema` instead. */
-  export const outboundSchema = PersonResource$outboundSchema;
-  /** @deprecated use `PersonResource$Outbound` instead. */
-  export type Outbound = PersonResource$Outbound;
-}
-
-export function personResourceToJSON(personResource: PersonResource): string {
-  return JSON.stringify(PersonResource$outboundSchema.parse(personResource));
-}
 
 export function personResourceFromJSON(
   jsonString: string,

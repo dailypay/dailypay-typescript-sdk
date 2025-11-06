@@ -35,75 +35,6 @@ export type UpdatePersonResponse = {
 };
 
 /** @internal */
-export const UpdatePersonGlobals$inboundSchema: z.ZodType<
-  UpdatePersonGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type UpdatePersonGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const UpdatePersonGlobals$outboundSchema: z.ZodType<
-  UpdatePersonGlobals$Outbound,
-  z.ZodTypeDef,
-  UpdatePersonGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePersonGlobals$ {
-  /** @deprecated use `UpdatePersonGlobals$inboundSchema` instead. */
-  export const inboundSchema = UpdatePersonGlobals$inboundSchema;
-  /** @deprecated use `UpdatePersonGlobals$outboundSchema` instead. */
-  export const outboundSchema = UpdatePersonGlobals$outboundSchema;
-  /** @deprecated use `UpdatePersonGlobals$Outbound` instead. */
-  export type Outbound = UpdatePersonGlobals$Outbound;
-}
-
-export function updatePersonGlobalsToJSON(
-  updatePersonGlobals: UpdatePersonGlobals,
-): string {
-  return JSON.stringify(
-    UpdatePersonGlobals$outboundSchema.parse(updatePersonGlobals),
-  );
-}
-
-export function updatePersonGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePersonGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePersonGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePersonGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdatePersonRequest$inboundSchema: z.ZodType<
-  UpdatePersonRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  person_id: z.string(),
-  PersonData: models.PersonDataInput$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "person_id": "personId",
-    "PersonData": "personData",
-  });
-});
-
-/** @internal */
 export type UpdatePersonRequest$Outbound = {
   person_id: string;
   PersonData: models.PersonDataInput$Outbound;
@@ -124,34 +55,11 @@ export const UpdatePersonRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePersonRequest$ {
-  /** @deprecated use `UpdatePersonRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdatePersonRequest$inboundSchema;
-  /** @deprecated use `UpdatePersonRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdatePersonRequest$outboundSchema;
-  /** @deprecated use `UpdatePersonRequest$Outbound` instead. */
-  export type Outbound = UpdatePersonRequest$Outbound;
-}
-
 export function updatePersonRequestToJSON(
   updatePersonRequest: UpdatePersonRequest,
 ): string {
   return JSON.stringify(
     UpdatePersonRequest$outboundSchema.parse(updatePersonRequest),
-  );
-}
-
-export function updatePersonRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePersonRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePersonRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePersonRequest' from JSON`,
   );
 }
 
@@ -169,48 +77,6 @@ export const UpdatePersonResponse$inboundSchema: z.ZodType<
     "PersonData": "personData",
   });
 });
-
-/** @internal */
-export type UpdatePersonResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  PersonData?: models.PersonData$Outbound | undefined;
-};
-
-/** @internal */
-export const UpdatePersonResponse$outboundSchema: z.ZodType<
-  UpdatePersonResponse$Outbound,
-  z.ZodTypeDef,
-  UpdatePersonResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  personData: models.PersonData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    personData: "PersonData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePersonResponse$ {
-  /** @deprecated use `UpdatePersonResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdatePersonResponse$inboundSchema;
-  /** @deprecated use `UpdatePersonResponse$outboundSchema` instead. */
-  export const outboundSchema = UpdatePersonResponse$outboundSchema;
-  /** @deprecated use `UpdatePersonResponse$Outbound` instead. */
-  export type Outbound = UpdatePersonResponse$Outbound;
-}
-
-export function updatePersonResponseToJSON(
-  updatePersonResponse: UpdatePersonResponse,
-): string {
-  return JSON.stringify(
-    UpdatePersonResponse$outboundSchema.parse(updatePersonResponse),
-  );
-}
 
 export function updatePersonResponseFromJSON(
   jsonString: string,

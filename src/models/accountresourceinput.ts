@@ -3,21 +3,16 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountAttributesInput,
-  AccountAttributesInput$inboundSchema,
   AccountAttributesInput$Outbound,
   AccountAttributesInput$outboundSchema,
 } from "./accountattributesoutput.js";
 import {
   AccountRelationships,
-  AccountRelationships$inboundSchema,
   AccountRelationships$Outbound,
   AccountRelationships$outboundSchema,
 } from "./accountrelationships.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AccountResourceInput = {
   /**
@@ -30,17 +25,6 @@ export type AccountResourceInput = {
   attributes: AccountAttributesInput;
   relationships: AccountRelationships;
 };
-
-/** @internal */
-export const AccountResourceInput$inboundSchema: z.ZodType<
-  AccountResourceInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.literal("accounts"),
-  attributes: AccountAttributesInput$inboundSchema,
-  relationships: AccountRelationships$inboundSchema,
-});
 
 /** @internal */
 export type AccountResourceInput$Outbound = {
@@ -60,33 +44,10 @@ export const AccountResourceInput$outboundSchema: z.ZodType<
   relationships: AccountRelationships$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountResourceInput$ {
-  /** @deprecated use `AccountResourceInput$inboundSchema` instead. */
-  export const inboundSchema = AccountResourceInput$inboundSchema;
-  /** @deprecated use `AccountResourceInput$outboundSchema` instead. */
-  export const outboundSchema = AccountResourceInput$outboundSchema;
-  /** @deprecated use `AccountResourceInput$Outbound` instead. */
-  export type Outbound = AccountResourceInput$Outbound;
-}
-
 export function accountResourceInputToJSON(
   accountResourceInput: AccountResourceInput,
 ): string {
   return JSON.stringify(
     AccountResourceInput$outboundSchema.parse(accountResourceInput),
-  );
-}
-
-export function accountResourceInputFromJSON(
-  jsonString: string,
-): SafeParseResult<AccountResourceInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AccountResourceInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AccountResourceInput' from JSON`,
   );
 }

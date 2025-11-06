@@ -90,40 +90,6 @@ export type CreateGenericCardTokenResponse = {
 };
 
 /** @internal */
-export const CreateGenericCardTokenRequest$inboundSchema: z.ZodType<
-  CreateGenericCardTokenRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  first_name: z.string(),
-  last_name: z.string(),
-  card_number: z.string(),
-  expiration_year: z.string(),
-  expiration_month: z.string(),
-  cvv: z.nullable(z.string()).optional(),
-  address_line_one: z.string(),
-  address_line_two: z.nullable(z.string()).optional(),
-  address_city: z.string(),
-  address_state: z.string(),
-  address_zip_code: z.string(),
-  address_country: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "card_number": "cardNumber",
-    "expiration_year": "expirationYear",
-    "expiration_month": "expirationMonth",
-    "address_line_one": "addressLineOne",
-    "address_line_two": "addressLineTwo",
-    "address_city": "addressCity",
-    "address_state": "addressState",
-    "address_zip_code": "addressZipCode",
-    "address_country": "addressCountry",
-  });
-});
-
-/** @internal */
 export type CreateGenericCardTokenRequest$Outbound = {
   first_name: string;
   last_name: string;
@@ -173,19 +139,6 @@ export const CreateGenericCardTokenRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateGenericCardTokenRequest$ {
-  /** @deprecated use `CreateGenericCardTokenRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateGenericCardTokenRequest$inboundSchema;
-  /** @deprecated use `CreateGenericCardTokenRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateGenericCardTokenRequest$outboundSchema;
-  /** @deprecated use `CreateGenericCardTokenRequest$Outbound` instead. */
-  export type Outbound = CreateGenericCardTokenRequest$Outbound;
-}
-
 export function createGenericCardTokenRequestToJSON(
   createGenericCardTokenRequest: CreateGenericCardTokenRequest,
 ): string {
@@ -193,16 +146,6 @@ export function createGenericCardTokenRequestToJSON(
     CreateGenericCardTokenRequest$outboundSchema.parse(
       createGenericCardTokenRequest,
     ),
-  );
-}
-
-export function createGenericCardTokenRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateGenericCardTokenRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateGenericCardTokenRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateGenericCardTokenRequest' from JSON`,
   );
 }
 
@@ -214,44 +157,6 @@ export const CreateGenericCardTokenResponseBody$inboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
 });
-
-/** @internal */
-export type CreateGenericCardTokenResponseBody$Outbound = {
-  token: string;
-};
-
-/** @internal */
-export const CreateGenericCardTokenResponseBody$outboundSchema: z.ZodType<
-  CreateGenericCardTokenResponseBody$Outbound,
-  z.ZodTypeDef,
-  CreateGenericCardTokenResponseBody
-> = z.object({
-  token: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateGenericCardTokenResponseBody$ {
-  /** @deprecated use `CreateGenericCardTokenResponseBody$inboundSchema` instead. */
-  export const inboundSchema = CreateGenericCardTokenResponseBody$inboundSchema;
-  /** @deprecated use `CreateGenericCardTokenResponseBody$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateGenericCardTokenResponseBody$outboundSchema;
-  /** @deprecated use `CreateGenericCardTokenResponseBody$Outbound` instead. */
-  export type Outbound = CreateGenericCardTokenResponseBody$Outbound;
-}
-
-export function createGenericCardTokenResponseBodyToJSON(
-  createGenericCardTokenResponseBody: CreateGenericCardTokenResponseBody,
-): string {
-  return JSON.stringify(
-    CreateGenericCardTokenResponseBody$outboundSchema.parse(
-      createGenericCardTokenResponseBody,
-    ),
-  );
-}
 
 export function createGenericCardTokenResponseBodyFromJSON(
   jsonString: string,
@@ -278,50 +183,6 @@ export const CreateGenericCardTokenResponse$inboundSchema: z.ZodType<
     "HttpMeta": "httpMeta",
   });
 });
-
-/** @internal */
-export type CreateGenericCardTokenResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  object?: CreateGenericCardTokenResponseBody$Outbound | undefined;
-};
-
-/** @internal */
-export const CreateGenericCardTokenResponse$outboundSchema: z.ZodType<
-  CreateGenericCardTokenResponse$Outbound,
-  z.ZodTypeDef,
-  CreateGenericCardTokenResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  object: z.lazy(() => CreateGenericCardTokenResponseBody$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateGenericCardTokenResponse$ {
-  /** @deprecated use `CreateGenericCardTokenResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateGenericCardTokenResponse$inboundSchema;
-  /** @deprecated use `CreateGenericCardTokenResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateGenericCardTokenResponse$outboundSchema;
-  /** @deprecated use `CreateGenericCardTokenResponse$Outbound` instead. */
-  export type Outbound = CreateGenericCardTokenResponse$Outbound;
-}
-
-export function createGenericCardTokenResponseToJSON(
-  createGenericCardTokenResponse: CreateGenericCardTokenResponse,
-): string {
-  return JSON.stringify(
-    CreateGenericCardTokenResponse$outboundSchema.parse(
-      createGenericCardTokenResponse,
-    ),
-  );
-}
 
 export function createGenericCardTokenResponseFromJSON(
   jsonString: string,

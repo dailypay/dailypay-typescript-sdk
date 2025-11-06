@@ -9,14 +9,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FundingSourceAttributes,
   FundingSourceAttributes$inboundSchema,
-  FundingSourceAttributes$Outbound,
-  FundingSourceAttributes$outboundSchema,
 } from "./fundingsourceattributes.js";
 import {
   FundingSourceRelationships,
   FundingSourceRelationships$inboundSchema,
-  FundingSourceRelationships$Outbound,
-  FundingSourceRelationships$outboundSchema,
 } from "./fundingsourcerelationships.js";
 
 /**
@@ -40,47 +36,6 @@ export const FundingSourceResource$inboundSchema: z.ZodType<
   attributes: FundingSourceAttributes$inboundSchema,
   relationships: FundingSourceRelationships$inboundSchema,
 });
-
-/** @internal */
-export type FundingSourceResource$Outbound = {
-  id: string;
-  type: "funding_sources";
-  attributes: FundingSourceAttributes$Outbound;
-  relationships: FundingSourceRelationships$Outbound;
-};
-
-/** @internal */
-export const FundingSourceResource$outboundSchema: z.ZodType<
-  FundingSourceResource$Outbound,
-  z.ZodTypeDef,
-  FundingSourceResource
-> = z.object({
-  id: z.string(),
-  type: z.literal("funding_sources"),
-  attributes: FundingSourceAttributes$outboundSchema,
-  relationships: FundingSourceRelationships$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FundingSourceResource$ {
-  /** @deprecated use `FundingSourceResource$inboundSchema` instead. */
-  export const inboundSchema = FundingSourceResource$inboundSchema;
-  /** @deprecated use `FundingSourceResource$outboundSchema` instead. */
-  export const outboundSchema = FundingSourceResource$outboundSchema;
-  /** @deprecated use `FundingSourceResource$Outbound` instead. */
-  export type Outbound = FundingSourceResource$Outbound;
-}
-
-export function fundingSourceResourceToJSON(
-  fundingSourceResource: FundingSourceResource,
-): string {
-  return JSON.stringify(
-    FundingSourceResource$outboundSchema.parse(fundingSourceResource),
-  );
-}
 
 export function fundingSourceResourceFromJSON(
   jsonString: string,

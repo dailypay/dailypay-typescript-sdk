@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TransferIdentifier,
   TransferIdentifier$inboundSchema,
-  TransferIdentifier$Outbound,
-  TransferIdentifier$outboundSchema,
 } from "./transferidentifier.js";
 
 export type TransferRelationship = {
@@ -25,41 +23,6 @@ export const TransferRelationship$inboundSchema: z.ZodType<
 > = z.object({
   data: TransferIdentifier$inboundSchema,
 });
-
-/** @internal */
-export type TransferRelationship$Outbound = {
-  data: TransferIdentifier$Outbound;
-};
-
-/** @internal */
-export const TransferRelationship$outboundSchema: z.ZodType<
-  TransferRelationship$Outbound,
-  z.ZodTypeDef,
-  TransferRelationship
-> = z.object({
-  data: TransferIdentifier$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferRelationship$ {
-  /** @deprecated use `TransferRelationship$inboundSchema` instead. */
-  export const inboundSchema = TransferRelationship$inboundSchema;
-  /** @deprecated use `TransferRelationship$outboundSchema` instead. */
-  export const outboundSchema = TransferRelationship$outboundSchema;
-  /** @deprecated use `TransferRelationship$Outbound` instead. */
-  export type Outbound = TransferRelationship$Outbound;
-}
-
-export function transferRelationshipToJSON(
-  transferRelationship: TransferRelationship,
-): string {
-  return JSON.stringify(
-    TransferRelationship$outboundSchema.parse(transferRelationship),
-  );
-}
 
 export function transferRelationshipFromJSON(
   jsonString: string,

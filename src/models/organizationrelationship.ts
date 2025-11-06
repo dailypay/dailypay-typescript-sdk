@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OrganizationIdentifier,
   OrganizationIdentifier$inboundSchema,
-  OrganizationIdentifier$Outbound,
-  OrganizationIdentifier$outboundSchema,
 } from "./organizationidentifier.js";
 
 export type OrganizationRelationship = {
@@ -25,41 +23,6 @@ export const OrganizationRelationship$inboundSchema: z.ZodType<
 > = z.object({
   data: OrganizationIdentifier$inboundSchema,
 });
-
-/** @internal */
-export type OrganizationRelationship$Outbound = {
-  data: OrganizationIdentifier$Outbound;
-};
-
-/** @internal */
-export const OrganizationRelationship$outboundSchema: z.ZodType<
-  OrganizationRelationship$Outbound,
-  z.ZodTypeDef,
-  OrganizationRelationship
-> = z.object({
-  data: OrganizationIdentifier$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationRelationship$ {
-  /** @deprecated use `OrganizationRelationship$inboundSchema` instead. */
-  export const inboundSchema = OrganizationRelationship$inboundSchema;
-  /** @deprecated use `OrganizationRelationship$outboundSchema` instead. */
-  export const outboundSchema = OrganizationRelationship$outboundSchema;
-  /** @deprecated use `OrganizationRelationship$Outbound` instead. */
-  export type Outbound = OrganizationRelationship$Outbound;
-}
-
-export function organizationRelationshipToJSON(
-  organizationRelationship: OrganizationRelationship,
-): string {
-  return JSON.stringify(
-    OrganizationRelationship$outboundSchema.parse(organizationRelationship),
-  );
-}
 
 export function organizationRelationshipFromJSON(
   jsonString: string,

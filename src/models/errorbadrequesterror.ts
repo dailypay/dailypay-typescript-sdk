@@ -83,41 +83,6 @@ export const ErrorBadRequestErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorBadRequestErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorBadRequestErrorLinks$outboundSchema: z.ZodType<
-  ErrorBadRequestErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorBadRequestErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorBadRequestErrorLinks$ {
-  /** @deprecated use `ErrorBadRequestErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorBadRequestErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorBadRequestErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorBadRequestErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorBadRequestErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorBadRequestErrorLinks$Outbound;
-}
-
-export function errorBadRequestErrorLinksToJSON(
-  errorBadRequestErrorLinks: ErrorBadRequestErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorBadRequestErrorLinks$outboundSchema.parse(errorBadRequestErrorLinks),
-  );
-}
-
 export function errorBadRequestErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorBadRequestErrorLinks, SDKValidationError> {
@@ -138,45 +103,6 @@ export const ErrorBadRequestErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorBadRequestErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorBadRequestErrorSource$outboundSchema: z.ZodType<
-  ErrorBadRequestErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorBadRequestErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorBadRequestErrorSource$ {
-  /** @deprecated use `ErrorBadRequestErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorBadRequestErrorSource$inboundSchema;
-  /** @deprecated use `ErrorBadRequestErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorBadRequestErrorSource$outboundSchema;
-  /** @deprecated use `ErrorBadRequestErrorSource$Outbound` instead. */
-  export type Outbound = ErrorBadRequestErrorSource$Outbound;
-}
-
-export function errorBadRequestErrorSourceToJSON(
-  errorBadRequestErrorSource: ErrorBadRequestErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorBadRequestErrorSource$outboundSchema.parse(errorBadRequestErrorSource),
-  );
-}
 
 export function errorBadRequestErrorSourceFromJSON(
   jsonString: string,
@@ -203,48 +129,6 @@ export const ErrorBadRequestErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorBadRequestErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorBadRequestErrorMeta$outboundSchema: z.ZodType<
-  ErrorBadRequestErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorBadRequestErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorBadRequestErrorMeta$ {
-  /** @deprecated use `ErrorBadRequestErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorBadRequestErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorBadRequestErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorBadRequestErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorBadRequestErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorBadRequestErrorMeta$Outbound;
-}
-
-export function errorBadRequestErrorMetaToJSON(
-  errorBadRequestErrorMeta: ErrorBadRequestErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorBadRequestErrorMeta$outboundSchema.parse(errorBadRequestErrorMeta),
-  );
-}
-
 export function errorBadRequestErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorBadRequestErrorMeta, SDKValidationError> {
@@ -268,51 +152,6 @@ export const ErrorBadRequestError$inboundSchema: z.ZodType<
   source: z.lazy(() => ErrorBadRequestErrorSource$inboundSchema).optional(),
   meta: z.lazy(() => ErrorBadRequestErrorMeta$inboundSchema),
 });
-
-/** @internal */
-export type ErrorBadRequestError$Outbound = {
-  code: string;
-  status: string;
-  detail: string;
-  links: ErrorBadRequestErrorLinks$Outbound;
-  source?: ErrorBadRequestErrorSource$Outbound | undefined;
-  meta: ErrorBadRequestErrorMeta$Outbound;
-};
-
-/** @internal */
-export const ErrorBadRequestError$outboundSchema: z.ZodType<
-  ErrorBadRequestError$Outbound,
-  z.ZodTypeDef,
-  ErrorBadRequestError
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorBadRequestErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorBadRequestErrorSource$outboundSchema).optional(),
-  meta: z.lazy(() => ErrorBadRequestErrorMeta$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorBadRequestError$ {
-  /** @deprecated use `ErrorBadRequestError$inboundSchema` instead. */
-  export const inboundSchema = ErrorBadRequestError$inboundSchema;
-  /** @deprecated use `ErrorBadRequestError$outboundSchema` instead. */
-  export const outboundSchema = ErrorBadRequestError$outboundSchema;
-  /** @deprecated use `ErrorBadRequestError$Outbound` instead. */
-  export type Outbound = ErrorBadRequestError$Outbound;
-}
-
-export function errorBadRequestErrorToJSON(
-  errorBadRequestError: ErrorBadRequestError,
-): string {
-  return JSON.stringify(
-    ErrorBadRequestError$outboundSchema.parse(errorBadRequestError),
-  );
-}
 
 export function errorBadRequestErrorFromJSON(
   jsonString: string,

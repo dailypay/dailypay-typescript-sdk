@@ -34,8 +34,8 @@ func (o *CreateAccountGlobals) GetVersion() *int64 {
 type CreateAccountRequest struct {
 	// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
 	//
-	Version     *int64                      `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
-	AccountData components.AccountDataInput `request:"mediaType=application/vnd.api+json"`
+	Version *int64                      `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
+	Body    components.AccountDataInput `request:"mediaType=application/vnd.api+json"`
 }
 
 func (c CreateAccountRequest) MarshalJSON() ([]byte, error) {
@@ -43,7 +43,7 @@ func (c CreateAccountRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CreateAccountRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"AccountData"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, []string{"body"}); err != nil {
 		return err
 	}
 	return nil
@@ -56,11 +56,11 @@ func (o *CreateAccountRequest) GetVersion() *int64 {
 	return o.Version
 }
 
-func (o *CreateAccountRequest) GetAccountData() components.AccountDataInput {
+func (o *CreateAccountRequest) GetBody() components.AccountDataInput {
 	if o == nil {
 		return components.AccountDataInput{}
 	}
-	return o.AccountData
+	return o.Body
 }
 
 type CreateAccountResponse struct {

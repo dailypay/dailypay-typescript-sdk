@@ -9,27 +9,19 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountRelationship,
   AccountRelationship$inboundSchema,
-  AccountRelationship$Outbound,
-  AccountRelationship$outboundSchema,
 } from "./accountrelationship.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FundingSourcesRelationship,
   FundingSourcesRelationship$inboundSchema,
-  FundingSourcesRelationship$Outbound,
-  FundingSourcesRelationship$outboundSchema,
 } from "./fundingsourcesrelationship.js";
 import {
   PaycheckRelationship,
   PaycheckRelationship$inboundSchema,
-  PaycheckRelationship$Outbound,
-  PaycheckRelationship$outboundSchema,
 } from "./paycheckrelationship.js";
 import {
   PersonRelationship,
   PersonRelationship$inboundSchema,
-  PersonRelationship$Outbound,
-  PersonRelationship$outboundSchema,
 } from "./personrelationship.js";
 
 /**
@@ -74,38 +66,6 @@ export const Origin$inboundSchema: z.ZodType<Origin, z.ZodTypeDef, unknown> = z
     PaycheckRelationship$inboundSchema,
   ]);
 
-/** @internal */
-export type Origin$Outbound =
-  | AccountRelationship$Outbound
-  | PaycheckRelationship$Outbound;
-
-/** @internal */
-export const Origin$outboundSchema: z.ZodType<
-  Origin$Outbound,
-  z.ZodTypeDef,
-  Origin
-> = z.union([
-  AccountRelationship$outboundSchema,
-  PaycheckRelationship$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Origin$ {
-  /** @deprecated use `Origin$inboundSchema` instead. */
-  export const inboundSchema = Origin$inboundSchema;
-  /** @deprecated use `Origin$outboundSchema` instead. */
-  export const outboundSchema = Origin$outboundSchema;
-  /** @deprecated use `Origin$Outbound` instead. */
-  export type Outbound = Origin$Outbound;
-}
-
-export function originToJSON(origin: Origin): string {
-  return JSON.stringify(Origin$outboundSchema.parse(origin));
-}
-
 export function originFromJSON(
   jsonString: string,
 ): SafeParseResult<Origin, SDKValidationError> {
@@ -136,57 +96,6 @@ export const TransferRelationships$inboundSchema: z.ZodType<
     "final_funding_sources": "finalFundingSources",
   });
 });
-
-/** @internal */
-export type TransferRelationships$Outbound = {
-  origin: AccountRelationship$Outbound | PaycheckRelationship$Outbound;
-  destination: AccountRelationship$Outbound;
-  person: PersonRelationship$Outbound;
-  estimated_funding_sources: FundingSourcesRelationship$Outbound;
-  final_funding_sources: FundingSourcesRelationship$Outbound;
-};
-
-/** @internal */
-export const TransferRelationships$outboundSchema: z.ZodType<
-  TransferRelationships$Outbound,
-  z.ZodTypeDef,
-  TransferRelationships
-> = z.object({
-  origin: z.union([
-    AccountRelationship$outboundSchema,
-    PaycheckRelationship$outboundSchema,
-  ]),
-  destination: AccountRelationship$outboundSchema,
-  person: PersonRelationship$outboundSchema,
-  estimatedFundingSources: FundingSourcesRelationship$outboundSchema,
-  finalFundingSources: FundingSourcesRelationship$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    estimatedFundingSources: "estimated_funding_sources",
-    finalFundingSources: "final_funding_sources",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferRelationships$ {
-  /** @deprecated use `TransferRelationships$inboundSchema` instead. */
-  export const inboundSchema = TransferRelationships$inboundSchema;
-  /** @deprecated use `TransferRelationships$outboundSchema` instead. */
-  export const outboundSchema = TransferRelationships$outboundSchema;
-  /** @deprecated use `TransferRelationships$Outbound` instead. */
-  export type Outbound = TransferRelationships$Outbound;
-}
-
-export function transferRelationshipsToJSON(
-  transferRelationships: TransferRelationships,
-): string {
-  return JSON.stringify(
-    TransferRelationships$outboundSchema.parse(transferRelationships),
-  );
-}
 
 export function transferRelationshipsFromJSON(
   jsonString: string,

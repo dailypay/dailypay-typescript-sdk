@@ -46,76 +46,6 @@ export type ListTransfersResponse = {
 };
 
 /** @internal */
-export const ListTransfersGlobals$inboundSchema: z.ZodType<
-  ListTransfersGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ListTransfersGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ListTransfersGlobals$outboundSchema: z.ZodType<
-  ListTransfersGlobals$Outbound,
-  z.ZodTypeDef,
-  ListTransfersGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTransfersGlobals$ {
-  /** @deprecated use `ListTransfersGlobals$inboundSchema` instead. */
-  export const inboundSchema = ListTransfersGlobals$inboundSchema;
-  /** @deprecated use `ListTransfersGlobals$outboundSchema` instead. */
-  export const outboundSchema = ListTransfersGlobals$outboundSchema;
-  /** @deprecated use `ListTransfersGlobals$Outbound` instead. */
-  export type Outbound = ListTransfersGlobals$Outbound;
-}
-
-export function listTransfersGlobalsToJSON(
-  listTransfersGlobals: ListTransfersGlobals,
-): string {
-  return JSON.stringify(
-    ListTransfersGlobals$outboundSchema.parse(listTransfersGlobals),
-  );
-}
-
-export function listTransfersGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListTransfersGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListTransfersGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListTransfersGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListTransfersRequest$inboundSchema: z.ZodType<
-  ListTransfersRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "filter[person.id]": z.string().optional(),
-  include: z.string().optional(),
-  "filter-by": z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "filter[person.id]": "filterPersonId",
-    "filter-by": "filterBy",
-  });
-});
-
-/** @internal */
 export type ListTransfersRequest$Outbound = {
   "filter[person.id]"?: string | undefined;
   include?: string | undefined;
@@ -138,34 +68,11 @@ export const ListTransfersRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTransfersRequest$ {
-  /** @deprecated use `ListTransfersRequest$inboundSchema` instead. */
-  export const inboundSchema = ListTransfersRequest$inboundSchema;
-  /** @deprecated use `ListTransfersRequest$outboundSchema` instead. */
-  export const outboundSchema = ListTransfersRequest$outboundSchema;
-  /** @deprecated use `ListTransfersRequest$Outbound` instead. */
-  export type Outbound = ListTransfersRequest$Outbound;
-}
-
 export function listTransfersRequestToJSON(
   listTransfersRequest: ListTransfersRequest,
 ): string {
   return JSON.stringify(
     ListTransfersRequest$outboundSchema.parse(listTransfersRequest),
-  );
-}
-
-export function listTransfersRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListTransfersRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListTransfersRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListTransfersRequest' from JSON`,
   );
 }
 
@@ -183,48 +90,6 @@ export const ListTransfersResponse$inboundSchema: z.ZodType<
     "TransfersData": "transfersData",
   });
 });
-
-/** @internal */
-export type ListTransfersResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  TransfersData?: models.TransfersData$Outbound | undefined;
-};
-
-/** @internal */
-export const ListTransfersResponse$outboundSchema: z.ZodType<
-  ListTransfersResponse$Outbound,
-  z.ZodTypeDef,
-  ListTransfersResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  transfersData: models.TransfersData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    transfersData: "TransfersData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListTransfersResponse$ {
-  /** @deprecated use `ListTransfersResponse$inboundSchema` instead. */
-  export const inboundSchema = ListTransfersResponse$inboundSchema;
-  /** @deprecated use `ListTransfersResponse$outboundSchema` instead. */
-  export const outboundSchema = ListTransfersResponse$outboundSchema;
-  /** @deprecated use `ListTransfersResponse$Outbound` instead. */
-  export type Outbound = ListTransfersResponse$Outbound;
-}
-
-export function listTransfersResponseToJSON(
-  listTransfersResponse: ListTransfersResponse,
-): string {
-  return JSON.stringify(
-    ListTransfersResponse$outboundSchema.parse(listTransfersResponse),
-  );
-}
 
 export function listTransfersResponseFromJSON(
   jsonString: string,

@@ -9,14 +9,10 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FundingSourceResource,
   FundingSourceResource$inboundSchema,
-  FundingSourceResource$Outbound,
-  FundingSourceResource$outboundSchema,
 } from "./fundingsourceresource.js";
 import {
   TransferResource,
   TransferResource$inboundSchema,
-  TransferResource$Outbound,
-  TransferResource$outboundSchema,
 } from "./transferresource.js";
 
 /**
@@ -36,39 +32,6 @@ export const TransferData$inboundSchema: z.ZodType<
   data: TransferResource$inboundSchema,
   included: z.array(FundingSourceResource$inboundSchema).optional(),
 });
-
-/** @internal */
-export type TransferData$Outbound = {
-  data: TransferResource$Outbound;
-  included?: Array<FundingSourceResource$Outbound> | undefined;
-};
-
-/** @internal */
-export const TransferData$outboundSchema: z.ZodType<
-  TransferData$Outbound,
-  z.ZodTypeDef,
-  TransferData
-> = z.object({
-  data: TransferResource$outboundSchema,
-  included: z.array(FundingSourceResource$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferData$ {
-  /** @deprecated use `TransferData$inboundSchema` instead. */
-  export const inboundSchema = TransferData$inboundSchema;
-  /** @deprecated use `TransferData$outboundSchema` instead. */
-  export const outboundSchema = TransferData$outboundSchema;
-  /** @deprecated use `TransferData$Outbound` instead. */
-  export type Outbound = TransferData$Outbound;
-}
-
-export function transferDataToJSON(transferData: TransferData): string {
-  return JSON.stringify(TransferData$outboundSchema.parse(transferData));
-}
 
 export function transferDataFromJSON(
   jsonString: string,

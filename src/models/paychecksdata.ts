@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaycheckResource,
   PaycheckResource$inboundSchema,
-  PaycheckResource$Outbound,
-  PaycheckResource$outboundSchema,
 } from "./paycheckresource.js";
 
 /**
@@ -28,37 +26,6 @@ export const PaychecksData$inboundSchema: z.ZodType<
 > = z.object({
   data: z.array(PaycheckResource$inboundSchema),
 });
-
-/** @internal */
-export type PaychecksData$Outbound = {
-  data: Array<PaycheckResource$Outbound>;
-};
-
-/** @internal */
-export const PaychecksData$outboundSchema: z.ZodType<
-  PaychecksData$Outbound,
-  z.ZodTypeDef,
-  PaychecksData
-> = z.object({
-  data: z.array(PaycheckResource$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaychecksData$ {
-  /** @deprecated use `PaychecksData$inboundSchema` instead. */
-  export const inboundSchema = PaychecksData$inboundSchema;
-  /** @deprecated use `PaychecksData$outboundSchema` instead. */
-  export const outboundSchema = PaychecksData$outboundSchema;
-  /** @deprecated use `PaychecksData$Outbound` instead. */
-  export type Outbound = PaychecksData$Outbound;
-}
-
-export function paychecksDataToJSON(paychecksData: PaychecksData): string {
-  return JSON.stringify(PaychecksData$outboundSchema.parse(paychecksData));
-}
 
 export function paychecksDataFromJSON(
   jsonString: string,

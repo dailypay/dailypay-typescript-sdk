@@ -3,26 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SchemeOauthClientCredentialsToken = {
   clientID: string;
   clientSecret: string;
   tokenURL?: string | undefined;
 };
-
-/** @internal */
-export const SchemeOauthClientCredentialsToken$inboundSchema: z.ZodType<
-  SchemeOauthClientCredentialsToken,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  clientID: z.string(),
-  clientSecret: z.string(),
-  tokenURL: z.string().default("https://api.dailypay.com/oauth/token"),
-});
 
 /** @internal */
 export type SchemeOauthClientCredentialsToken$Outbound = {
@@ -42,20 +28,6 @@ export const SchemeOauthClientCredentialsToken$outboundSchema: z.ZodType<
   tokenURL: z.string().default("https://api.dailypay.com/oauth/token"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SchemeOauthClientCredentialsToken$ {
-  /** @deprecated use `SchemeOauthClientCredentialsToken$inboundSchema` instead. */
-  export const inboundSchema = SchemeOauthClientCredentialsToken$inboundSchema;
-  /** @deprecated use `SchemeOauthClientCredentialsToken$outboundSchema` instead. */
-  export const outboundSchema =
-    SchemeOauthClientCredentialsToken$outboundSchema;
-  /** @deprecated use `SchemeOauthClientCredentialsToken$Outbound` instead. */
-  export type Outbound = SchemeOauthClientCredentialsToken$Outbound;
-}
-
 export function schemeOauthClientCredentialsTokenToJSON(
   schemeOauthClientCredentialsToken: SchemeOauthClientCredentialsToken,
 ): string {
@@ -63,15 +35,5 @@ export function schemeOauthClientCredentialsTokenToJSON(
     SchemeOauthClientCredentialsToken$outboundSchema.parse(
       schemeOauthClientCredentialsToken,
     ),
-  );
-}
-
-export function schemeOauthClientCredentialsTokenFromJSON(
-  jsonString: string,
-): SafeParseResult<SchemeOauthClientCredentialsToken, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SchemeOauthClientCredentialsToken$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SchemeOauthClientCredentialsToken' from JSON`,
   );
 }

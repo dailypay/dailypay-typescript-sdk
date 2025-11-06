@@ -9,20 +9,11 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PaycheckAttributes,
   PaycheckAttributes$inboundSchema,
-  PaycheckAttributes$Outbound,
-  PaycheckAttributes$outboundSchema,
 } from "./paycheckattributes.js";
-import {
-  PaycheckLinks,
-  PaycheckLinks$inboundSchema,
-  PaycheckLinks$Outbound,
-  PaycheckLinks$outboundSchema,
-} from "./paychecklinks.js";
+import { PaycheckLinks, PaycheckLinks$inboundSchema } from "./paychecklinks.js";
 import {
   PaycheckRelationships,
   PaycheckRelationships$inboundSchema,
-  PaycheckRelationships$Outbound,
-  PaycheckRelationships$outboundSchema,
 } from "./paycheckrelationships.js";
 
 export type PaycheckResource = {
@@ -45,49 +36,6 @@ export const PaycheckResource$inboundSchema: z.ZodType<
   links: PaycheckLinks$inboundSchema,
   relationships: PaycheckRelationships$inboundSchema,
 });
-
-/** @internal */
-export type PaycheckResource$Outbound = {
-  type: "paychecks";
-  id: string;
-  attributes: PaycheckAttributes$Outbound;
-  links: PaycheckLinks$Outbound;
-  relationships: PaycheckRelationships$Outbound;
-};
-
-/** @internal */
-export const PaycheckResource$outboundSchema: z.ZodType<
-  PaycheckResource$Outbound,
-  z.ZodTypeDef,
-  PaycheckResource
-> = z.object({
-  type: z.literal("paychecks"),
-  id: z.string(),
-  attributes: PaycheckAttributes$outboundSchema,
-  links: PaycheckLinks$outboundSchema,
-  relationships: PaycheckRelationships$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaycheckResource$ {
-  /** @deprecated use `PaycheckResource$inboundSchema` instead. */
-  export const inboundSchema = PaycheckResource$inboundSchema;
-  /** @deprecated use `PaycheckResource$outboundSchema` instead. */
-  export const outboundSchema = PaycheckResource$outboundSchema;
-  /** @deprecated use `PaycheckResource$Outbound` instead. */
-  export type Outbound = PaycheckResource$Outbound;
-}
-
-export function paycheckResourceToJSON(
-  paycheckResource: PaycheckResource,
-): string {
-  return JSON.stringify(
-    PaycheckResource$outboundSchema.parse(paycheckResource),
-  );
-}
 
 export function paycheckResourceFromJSON(
   jsonString: string,

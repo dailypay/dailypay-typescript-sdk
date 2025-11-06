@@ -46,76 +46,6 @@ export type CreateTransferResponse = {
 };
 
 /** @internal */
-export const CreateTransferGlobals$inboundSchema: z.ZodType<
-  CreateTransferGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type CreateTransferGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const CreateTransferGlobals$outboundSchema: z.ZodType<
-  CreateTransferGlobals$Outbound,
-  z.ZodTypeDef,
-  CreateTransferGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateTransferGlobals$ {
-  /** @deprecated use `CreateTransferGlobals$inboundSchema` instead. */
-  export const inboundSchema = CreateTransferGlobals$inboundSchema;
-  /** @deprecated use `CreateTransferGlobals$outboundSchema` instead. */
-  export const outboundSchema = CreateTransferGlobals$outboundSchema;
-  /** @deprecated use `CreateTransferGlobals$Outbound` instead. */
-  export type Outbound = CreateTransferGlobals$Outbound;
-}
-
-export function createTransferGlobalsToJSON(
-  createTransferGlobals: CreateTransferGlobals,
-): string {
-  return JSON.stringify(
-    CreateTransferGlobals$outboundSchema.parse(createTransferGlobals),
-  );
-}
-
-export function createTransferGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateTransferGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateTransferGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateTransferGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateTransferRequest$inboundSchema: z.ZodType<
-  CreateTransferRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  "Idempotency-Key": z.string(),
-  include: z.string().optional(),
-  TransferCreateData: models.TransferCreateData$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Idempotency-Key": "idempotencyKey",
-    "TransferCreateData": "transferCreateData",
-  });
-});
-
-/** @internal */
 export type CreateTransferRequest$Outbound = {
   "Idempotency-Key": string;
   include?: string | undefined;
@@ -138,34 +68,11 @@ export const CreateTransferRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateTransferRequest$ {
-  /** @deprecated use `CreateTransferRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateTransferRequest$inboundSchema;
-  /** @deprecated use `CreateTransferRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateTransferRequest$outboundSchema;
-  /** @deprecated use `CreateTransferRequest$Outbound` instead. */
-  export type Outbound = CreateTransferRequest$Outbound;
-}
-
 export function createTransferRequestToJSON(
   createTransferRequest: CreateTransferRequest,
 ): string {
   return JSON.stringify(
     CreateTransferRequest$outboundSchema.parse(createTransferRequest),
-  );
-}
-
-export function createTransferRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateTransferRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateTransferRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateTransferRequest' from JSON`,
   );
 }
 
@@ -183,48 +90,6 @@ export const CreateTransferResponse$inboundSchema: z.ZodType<
     "TransferData": "transferData",
   });
 });
-
-/** @internal */
-export type CreateTransferResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  TransferData?: models.TransferData$Outbound | undefined;
-};
-
-/** @internal */
-export const CreateTransferResponse$outboundSchema: z.ZodType<
-  CreateTransferResponse$Outbound,
-  z.ZodTypeDef,
-  CreateTransferResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  transferData: models.TransferData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    transferData: "TransferData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateTransferResponse$ {
-  /** @deprecated use `CreateTransferResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateTransferResponse$inboundSchema;
-  /** @deprecated use `CreateTransferResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateTransferResponse$outboundSchema;
-  /** @deprecated use `CreateTransferResponse$Outbound` instead. */
-  export type Outbound = CreateTransferResponse$Outbound;
-}
-
-export function createTransferResponseToJSON(
-  createTransferResponse: CreateTransferResponse,
-): string {
-  return JSON.stringify(
-    CreateTransferResponse$outboundSchema.parse(createTransferResponse),
-  );
-}
 
 export function createTransferResponseFromJSON(
   jsonString: string,

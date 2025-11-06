@@ -83,43 +83,6 @@ export const ErrorAccountCreateErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorAccountCreateErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorAccountCreateErrorLinks$outboundSchema: z.ZodType<
-  ErrorAccountCreateErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorAccountCreateErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorAccountCreateErrorLinks$ {
-  /** @deprecated use `ErrorAccountCreateErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorAccountCreateErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorAccountCreateErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorAccountCreateErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorAccountCreateErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorAccountCreateErrorLinks$Outbound;
-}
-
-export function errorAccountCreateErrorLinksToJSON(
-  errorAccountCreateErrorLinks: ErrorAccountCreateErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorAccountCreateErrorLinks$outboundSchema.parse(
-      errorAccountCreateErrorLinks,
-    ),
-  );
-}
-
 export function errorAccountCreateErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorAccountCreateErrorLinks, SDKValidationError> {
@@ -140,47 +103,6 @@ export const ErrorAccountCreateErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorAccountCreateErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorAccountCreateErrorSource$outboundSchema: z.ZodType<
-  ErrorAccountCreateErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorAccountCreateErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorAccountCreateErrorSource$ {
-  /** @deprecated use `ErrorAccountCreateErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorAccountCreateErrorSource$inboundSchema;
-  /** @deprecated use `ErrorAccountCreateErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorAccountCreateErrorSource$outboundSchema;
-  /** @deprecated use `ErrorAccountCreateErrorSource$Outbound` instead. */
-  export type Outbound = ErrorAccountCreateErrorSource$Outbound;
-}
-
-export function errorAccountCreateErrorSourceToJSON(
-  errorAccountCreateErrorSource: ErrorAccountCreateErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorAccountCreateErrorSource$outboundSchema.parse(
-      errorAccountCreateErrorSource,
-    ),
-  );
-}
 
 export function errorAccountCreateErrorSourceFromJSON(
   jsonString: string,
@@ -207,50 +129,6 @@ export const ErrorAccountCreateErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorAccountCreateErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorAccountCreateErrorMeta$outboundSchema: z.ZodType<
-  ErrorAccountCreateErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorAccountCreateErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorAccountCreateErrorMeta$ {
-  /** @deprecated use `ErrorAccountCreateErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorAccountCreateErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorAccountCreateErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorAccountCreateErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorAccountCreateErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorAccountCreateErrorMeta$Outbound;
-}
-
-export function errorAccountCreateErrorMetaToJSON(
-  errorAccountCreateErrorMeta: ErrorAccountCreateErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorAccountCreateErrorMeta$outboundSchema.parse(
-      errorAccountCreateErrorMeta,
-    ),
-  );
-}
-
 export function errorAccountCreateErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorAccountCreateErrorMeta, SDKValidationError> {
@@ -274,51 +152,6 @@ export const ErrorAccountCreateError$inboundSchema: z.ZodType<
   source: z.lazy(() => ErrorAccountCreateErrorSource$inboundSchema).optional(),
   meta: z.lazy(() => ErrorAccountCreateErrorMeta$inboundSchema),
 });
-
-/** @internal */
-export type ErrorAccountCreateError$Outbound = {
-  code: string;
-  status: string;
-  detail: string;
-  links: ErrorAccountCreateErrorLinks$Outbound;
-  source?: ErrorAccountCreateErrorSource$Outbound | undefined;
-  meta: ErrorAccountCreateErrorMeta$Outbound;
-};
-
-/** @internal */
-export const ErrorAccountCreateError$outboundSchema: z.ZodType<
-  ErrorAccountCreateError$Outbound,
-  z.ZodTypeDef,
-  ErrorAccountCreateError
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorAccountCreateErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorAccountCreateErrorSource$outboundSchema).optional(),
-  meta: z.lazy(() => ErrorAccountCreateErrorMeta$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorAccountCreateError$ {
-  /** @deprecated use `ErrorAccountCreateError$inboundSchema` instead. */
-  export const inboundSchema = ErrorAccountCreateError$inboundSchema;
-  /** @deprecated use `ErrorAccountCreateError$outboundSchema` instead. */
-  export const outboundSchema = ErrorAccountCreateError$outboundSchema;
-  /** @deprecated use `ErrorAccountCreateError$Outbound` instead. */
-  export type Outbound = ErrorAccountCreateError$Outbound;
-}
-
-export function errorAccountCreateErrorToJSON(
-  errorAccountCreateError: ErrorAccountCreateError,
-): string {
-  return JSON.stringify(
-    ErrorAccountCreateError$outboundSchema.parse(errorAccountCreateError),
-  );
-}
 
 export function errorAccountCreateErrorFromJSON(
   jsonString: string,

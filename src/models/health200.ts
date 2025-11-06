@@ -31,39 +31,6 @@ export const Health200$inboundSchema: z.ZodType<
   version: z.string(),
 });
 
-/** @internal */
-export type Health200$Outbound = {
-  status: string;
-  version: string;
-};
-
-/** @internal */
-export const Health200$outboundSchema: z.ZodType<
-  Health200$Outbound,
-  z.ZodTypeDef,
-  Health200
-> = z.object({
-  status: z.string(),
-  version: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Health200$ {
-  /** @deprecated use `Health200$inboundSchema` instead. */
-  export const inboundSchema = Health200$inboundSchema;
-  /** @deprecated use `Health200$outboundSchema` instead. */
-  export const outboundSchema = Health200$outboundSchema;
-  /** @deprecated use `Health200$Outbound` instead. */
-  export type Outbound = Health200$Outbound;
-}
-
-export function health200ToJSON(health200: Health200): string {
-  return JSON.stringify(Health200$outboundSchema.parse(health200));
-}
-
 export function health200FromJSON(
   jsonString: string,
 ): SafeParseResult<Health200, SDKValidationError> {

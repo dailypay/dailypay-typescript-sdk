@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PersonResource,
   PersonResource$inboundSchema,
-  PersonResource$Outbound,
-  PersonResource$outboundSchema,
 } from "./personresource.js";
 
 /**
@@ -28,37 +26,6 @@ export const PersonData$inboundSchema: z.ZodType<
 > = z.object({
   data: PersonResource$inboundSchema,
 });
-
-/** @internal */
-export type PersonData$Outbound = {
-  data: PersonResource$Outbound;
-};
-
-/** @internal */
-export const PersonData$outboundSchema: z.ZodType<
-  PersonData$Outbound,
-  z.ZodTypeDef,
-  PersonData
-> = z.object({
-  data: PersonResource$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PersonData$ {
-  /** @deprecated use `PersonData$inboundSchema` instead. */
-  export const inboundSchema = PersonData$inboundSchema;
-  /** @deprecated use `PersonData$outboundSchema` instead. */
-  export const outboundSchema = PersonData$outboundSchema;
-  /** @deprecated use `PersonData$Outbound` instead. */
-  export type Outbound = PersonData$Outbound;
-}
-
-export function personDataToJSON(personData: PersonData): string {
-  return JSON.stringify(PersonData$outboundSchema.parse(personData));
-}
 
 export function personDataFromJSON(
   jsonString: string,

@@ -8,8 +8,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountResourceOutput,
   AccountResourceOutput$inboundSchema,
-  AccountResourceOutput$Outbound,
-  AccountResourceOutput$outboundSchema,
 } from "./accountresourceoutput.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -28,41 +26,6 @@ export const AccountDataOutput$inboundSchema: z.ZodType<
 > = z.object({
   data: AccountResourceOutput$inboundSchema,
 });
-
-/** @internal */
-export type AccountDataOutput$Outbound = {
-  data: AccountResourceOutput$Outbound;
-};
-
-/** @internal */
-export const AccountDataOutput$outboundSchema: z.ZodType<
-  AccountDataOutput$Outbound,
-  z.ZodTypeDef,
-  AccountDataOutput
-> = z.object({
-  data: AccountResourceOutput$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountDataOutput$ {
-  /** @deprecated use `AccountDataOutput$inboundSchema` instead. */
-  export const inboundSchema = AccountDataOutput$inboundSchema;
-  /** @deprecated use `AccountDataOutput$outboundSchema` instead. */
-  export const outboundSchema = AccountDataOutput$outboundSchema;
-  /** @deprecated use `AccountDataOutput$Outbound` instead. */
-  export type Outbound = AccountDataOutput$Outbound;
-}
-
-export function accountDataOutputToJSON(
-  accountDataOutput: AccountDataOutput,
-): string {
-  return JSON.stringify(
-    AccountDataOutput$outboundSchema.parse(accountDataOutput),
-  );
-}
 
 export function accountDataOutputFromJSON(
   jsonString: string,

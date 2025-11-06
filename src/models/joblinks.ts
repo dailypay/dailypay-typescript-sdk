@@ -20,37 +20,6 @@ export const JobLinks$inboundSchema: z.ZodType<
   self: z.string(),
 });
 
-/** @internal */
-export type JobLinks$Outbound = {
-  self: string;
-};
-
-/** @internal */
-export const JobLinks$outboundSchema: z.ZodType<
-  JobLinks$Outbound,
-  z.ZodTypeDef,
-  JobLinks
-> = z.object({
-  self: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobLinks$ {
-  /** @deprecated use `JobLinks$inboundSchema` instead. */
-  export const inboundSchema = JobLinks$inboundSchema;
-  /** @deprecated use `JobLinks$outboundSchema` instead. */
-  export const outboundSchema = JobLinks$outboundSchema;
-  /** @deprecated use `JobLinks$Outbound` instead. */
-  export type Outbound = JobLinks$Outbound;
-}
-
-export function jobLinksToJSON(jobLinks: JobLinks): string {
-  return JSON.stringify(JobLinks$outboundSchema.parse(jobLinks));
-}
-
 export function jobLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<JobLinks, SDKValidationError> {

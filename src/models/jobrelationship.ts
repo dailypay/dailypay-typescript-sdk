@@ -6,12 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  JobIdentifier,
-  JobIdentifier$inboundSchema,
-  JobIdentifier$Outbound,
-  JobIdentifier$outboundSchema,
-} from "./jobidentifier.js";
+import { JobIdentifier, JobIdentifier$inboundSchema } from "./jobidentifier.js";
 
 export type JobRelationship = {
   data: JobIdentifier;
@@ -25,39 +20,6 @@ export const JobRelationship$inboundSchema: z.ZodType<
 > = z.object({
   data: JobIdentifier$inboundSchema,
 });
-
-/** @internal */
-export type JobRelationship$Outbound = {
-  data: JobIdentifier$Outbound;
-};
-
-/** @internal */
-export const JobRelationship$outboundSchema: z.ZodType<
-  JobRelationship$Outbound,
-  z.ZodTypeDef,
-  JobRelationship
-> = z.object({
-  data: JobIdentifier$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobRelationship$ {
-  /** @deprecated use `JobRelationship$inboundSchema` instead. */
-  export const inboundSchema = JobRelationship$inboundSchema;
-  /** @deprecated use `JobRelationship$outboundSchema` instead. */
-  export const outboundSchema = JobRelationship$outboundSchema;
-  /** @deprecated use `JobRelationship$Outbound` instead. */
-  export type Outbound = JobRelationship$Outbound;
-}
-
-export function jobRelationshipToJSON(
-  jobRelationship: JobRelationship,
-): string {
-  return JSON.stringify(JobRelationship$outboundSchema.parse(jobRelationship));
-}
 
 export function jobRelationshipFromJSON(
   jsonString: string,

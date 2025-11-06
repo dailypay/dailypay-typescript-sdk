@@ -22,43 +22,6 @@ export const TransferIdentifier$inboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/** @internal */
-export type TransferIdentifier$Outbound = {
-  type: "transfers";
-  id: string;
-};
-
-/** @internal */
-export const TransferIdentifier$outboundSchema: z.ZodType<
-  TransferIdentifier$Outbound,
-  z.ZodTypeDef,
-  TransferIdentifier
-> = z.object({
-  type: z.literal("transfers"),
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferIdentifier$ {
-  /** @deprecated use `TransferIdentifier$inboundSchema` instead. */
-  export const inboundSchema = TransferIdentifier$inboundSchema;
-  /** @deprecated use `TransferIdentifier$outboundSchema` instead. */
-  export const outboundSchema = TransferIdentifier$outboundSchema;
-  /** @deprecated use `TransferIdentifier$Outbound` instead. */
-  export type Outbound = TransferIdentifier$Outbound;
-}
-
-export function transferIdentifierToJSON(
-  transferIdentifier: TransferIdentifier,
-): string {
-  return JSON.stringify(
-    TransferIdentifier$outboundSchema.parse(transferIdentifier),
-  );
-}
-
 export function transferIdentifierFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferIdentifier, SDKValidationError> {

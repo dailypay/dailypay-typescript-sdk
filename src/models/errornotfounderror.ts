@@ -96,41 +96,6 @@ export const ErrorNotFoundErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorNotFoundErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorNotFoundErrorLinks$outboundSchema: z.ZodType<
-  ErrorNotFoundErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorNotFoundErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorNotFoundErrorLinks$ {
-  /** @deprecated use `ErrorNotFoundErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorNotFoundErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorNotFoundErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorNotFoundErrorLinks$Outbound;
-}
-
-export function errorNotFoundErrorLinksToJSON(
-  errorNotFoundErrorLinks: ErrorNotFoundErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorNotFoundErrorLinks$outboundSchema.parse(errorNotFoundErrorLinks),
-  );
-}
-
 export function errorNotFoundErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorNotFoundErrorLinks, SDKValidationError> {
@@ -151,45 +116,6 @@ export const ErrorNotFoundErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorNotFoundErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorNotFoundErrorSource$outboundSchema: z.ZodType<
-  ErrorNotFoundErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorNotFoundErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorNotFoundErrorSource$ {
-  /** @deprecated use `ErrorNotFoundErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorNotFoundErrorSource$inboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorNotFoundErrorSource$outboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorSource$Outbound` instead. */
-  export type Outbound = ErrorNotFoundErrorSource$Outbound;
-}
-
-export function errorNotFoundErrorSourceToJSON(
-  errorNotFoundErrorSource: ErrorNotFoundErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorNotFoundErrorSource$outboundSchema.parse(errorNotFoundErrorSource),
-  );
-}
 
 export function errorNotFoundErrorSourceFromJSON(
   jsonString: string,
@@ -216,48 +142,6 @@ export const ErrorNotFoundErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorNotFoundErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorNotFoundErrorMeta$outboundSchema: z.ZodType<
-  ErrorNotFoundErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorNotFoundErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorNotFoundErrorMeta$ {
-  /** @deprecated use `ErrorNotFoundErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorNotFoundErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorNotFoundErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorNotFoundErrorMeta$Outbound;
-}
-
-export function errorNotFoundErrorMetaToJSON(
-  errorNotFoundErrorMeta: ErrorNotFoundErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorNotFoundErrorMeta$outboundSchema.parse(errorNotFoundErrorMeta),
-  );
-}
-
 export function errorNotFoundErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorNotFoundErrorMeta, SDKValidationError> {
@@ -274,22 +158,6 @@ export const ErrorNotFoundErrorCode$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(ErrorNotFoundErrorCode);
 
 /** @internal */
-export const ErrorNotFoundErrorCode$outboundSchema: z.ZodNativeEnum<
-  typeof ErrorNotFoundErrorCode
-> = ErrorNotFoundErrorCode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorNotFoundErrorCode$ {
-  /** @deprecated use `ErrorNotFoundErrorCode$inboundSchema` instead. */
-  export const inboundSchema = ErrorNotFoundErrorCode$inboundSchema;
-  /** @deprecated use `ErrorNotFoundErrorCode$outboundSchema` instead. */
-  export const outboundSchema = ErrorNotFoundErrorCode$outboundSchema;
-}
-
-/** @internal */
 export const ErrorNotFoundError$inboundSchema: z.ZodType<
   ErrorNotFoundError,
   z.ZodTypeDef,
@@ -302,51 +170,6 @@ export const ErrorNotFoundError$inboundSchema: z.ZodType<
   meta: z.lazy(() => ErrorNotFoundErrorMeta$inboundSchema),
   code: ErrorNotFoundErrorCode$inboundSchema,
 });
-
-/** @internal */
-export type ErrorNotFoundError$Outbound = {
-  status: string;
-  detail: string;
-  links: ErrorNotFoundErrorLinks$Outbound;
-  source?: ErrorNotFoundErrorSource$Outbound | undefined;
-  meta: ErrorNotFoundErrorMeta$Outbound;
-  code: string;
-};
-
-/** @internal */
-export const ErrorNotFoundError$outboundSchema: z.ZodType<
-  ErrorNotFoundError$Outbound,
-  z.ZodTypeDef,
-  ErrorNotFoundError
-> = z.object({
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorNotFoundErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorNotFoundErrorSource$outboundSchema).optional(),
-  meta: z.lazy(() => ErrorNotFoundErrorMeta$outboundSchema),
-  code: ErrorNotFoundErrorCode$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorNotFoundError$ {
-  /** @deprecated use `ErrorNotFoundError$inboundSchema` instead. */
-  export const inboundSchema = ErrorNotFoundError$inboundSchema;
-  /** @deprecated use `ErrorNotFoundError$outboundSchema` instead. */
-  export const outboundSchema = ErrorNotFoundError$outboundSchema;
-  /** @deprecated use `ErrorNotFoundError$Outbound` instead. */
-  export type Outbound = ErrorNotFoundError$Outbound;
-}
-
-export function errorNotFoundErrorToJSON(
-  errorNotFoundError: ErrorNotFoundError,
-): string {
-  return JSON.stringify(
-    ErrorNotFoundError$outboundSchema.parse(errorNotFoundError),
-  );
-}
 
 export function errorNotFoundErrorFromJSON(
   jsonString: string,

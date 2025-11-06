@@ -83,41 +83,6 @@ export const ErrorJobUpdateErrorLinks$inboundSchema: z.ZodType<
   about: z.string().optional(),
 });
 
-/** @internal */
-export type ErrorJobUpdateErrorLinks$Outbound = {
-  about?: string | undefined;
-};
-
-/** @internal */
-export const ErrorJobUpdateErrorLinks$outboundSchema: z.ZodType<
-  ErrorJobUpdateErrorLinks$Outbound,
-  z.ZodTypeDef,
-  ErrorJobUpdateErrorLinks
-> = z.object({
-  about: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorJobUpdateErrorLinks$ {
-  /** @deprecated use `ErrorJobUpdateErrorLinks$inboundSchema` instead. */
-  export const inboundSchema = ErrorJobUpdateErrorLinks$inboundSchema;
-  /** @deprecated use `ErrorJobUpdateErrorLinks$outboundSchema` instead. */
-  export const outboundSchema = ErrorJobUpdateErrorLinks$outboundSchema;
-  /** @deprecated use `ErrorJobUpdateErrorLinks$Outbound` instead. */
-  export type Outbound = ErrorJobUpdateErrorLinks$Outbound;
-}
-
-export function errorJobUpdateErrorLinksToJSON(
-  errorJobUpdateErrorLinks: ErrorJobUpdateErrorLinks,
-): string {
-  return JSON.stringify(
-    ErrorJobUpdateErrorLinks$outboundSchema.parse(errorJobUpdateErrorLinks),
-  );
-}
-
 export function errorJobUpdateErrorLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorJobUpdateErrorLinks, SDKValidationError> {
@@ -138,45 +103,6 @@ export const ErrorJobUpdateErrorSource$inboundSchema: z.ZodType<
   pointer: z.string().optional(),
   header: z.string().optional(),
 });
-
-/** @internal */
-export type ErrorJobUpdateErrorSource$Outbound = {
-  parameter?: string | undefined;
-  pointer?: string | undefined;
-  header?: string | undefined;
-};
-
-/** @internal */
-export const ErrorJobUpdateErrorSource$outboundSchema: z.ZodType<
-  ErrorJobUpdateErrorSource$Outbound,
-  z.ZodTypeDef,
-  ErrorJobUpdateErrorSource
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorJobUpdateErrorSource$ {
-  /** @deprecated use `ErrorJobUpdateErrorSource$inboundSchema` instead. */
-  export const inboundSchema = ErrorJobUpdateErrorSource$inboundSchema;
-  /** @deprecated use `ErrorJobUpdateErrorSource$outboundSchema` instead. */
-  export const outboundSchema = ErrorJobUpdateErrorSource$outboundSchema;
-  /** @deprecated use `ErrorJobUpdateErrorSource$Outbound` instead. */
-  export type Outbound = ErrorJobUpdateErrorSource$Outbound;
-}
-
-export function errorJobUpdateErrorSourceToJSON(
-  errorJobUpdateErrorSource: ErrorJobUpdateErrorSource,
-): string {
-  return JSON.stringify(
-    ErrorJobUpdateErrorSource$outboundSchema.parse(errorJobUpdateErrorSource),
-  );
-}
 
 export function errorJobUpdateErrorSourceFromJSON(
   jsonString: string,
@@ -203,48 +129,6 @@ export const ErrorJobUpdateErrorMeta$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type ErrorJobUpdateErrorMeta$Outbound = {
-  request_id?: string | undefined;
-  trace_id?: string | undefined;
-};
-
-/** @internal */
-export const ErrorJobUpdateErrorMeta$outboundSchema: z.ZodType<
-  ErrorJobUpdateErrorMeta$Outbound,
-  z.ZodTypeDef,
-  ErrorJobUpdateErrorMeta
-> = z.object({
-  requestId: z.string().optional(),
-  traceId: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    requestId: "request_id",
-    traceId: "trace_id",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorJobUpdateErrorMeta$ {
-  /** @deprecated use `ErrorJobUpdateErrorMeta$inboundSchema` instead. */
-  export const inboundSchema = ErrorJobUpdateErrorMeta$inboundSchema;
-  /** @deprecated use `ErrorJobUpdateErrorMeta$outboundSchema` instead. */
-  export const outboundSchema = ErrorJobUpdateErrorMeta$outboundSchema;
-  /** @deprecated use `ErrorJobUpdateErrorMeta$Outbound` instead. */
-  export type Outbound = ErrorJobUpdateErrorMeta$Outbound;
-}
-
-export function errorJobUpdateErrorMetaToJSON(
-  errorJobUpdateErrorMeta: ErrorJobUpdateErrorMeta,
-): string {
-  return JSON.stringify(
-    ErrorJobUpdateErrorMeta$outboundSchema.parse(errorJobUpdateErrorMeta),
-  );
-}
-
 export function errorJobUpdateErrorMetaFromJSON(
   jsonString: string,
 ): SafeParseResult<ErrorJobUpdateErrorMeta, SDKValidationError> {
@@ -268,51 +152,6 @@ export const ErrorJobUpdateError$inboundSchema: z.ZodType<
   source: z.lazy(() => ErrorJobUpdateErrorSource$inboundSchema).optional(),
   meta: z.lazy(() => ErrorJobUpdateErrorMeta$inboundSchema),
 });
-
-/** @internal */
-export type ErrorJobUpdateError$Outbound = {
-  code: string;
-  status: string;
-  detail: string;
-  links: ErrorJobUpdateErrorLinks$Outbound;
-  source?: ErrorJobUpdateErrorSource$Outbound | undefined;
-  meta: ErrorJobUpdateErrorMeta$Outbound;
-};
-
-/** @internal */
-export const ErrorJobUpdateError$outboundSchema: z.ZodType<
-  ErrorJobUpdateError$Outbound,
-  z.ZodTypeDef,
-  ErrorJobUpdateError
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorJobUpdateErrorLinks$outboundSchema),
-  source: z.lazy(() => ErrorJobUpdateErrorSource$outboundSchema).optional(),
-  meta: z.lazy(() => ErrorJobUpdateErrorMeta$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorJobUpdateError$ {
-  /** @deprecated use `ErrorJobUpdateError$inboundSchema` instead. */
-  export const inboundSchema = ErrorJobUpdateError$inboundSchema;
-  /** @deprecated use `ErrorJobUpdateError$outboundSchema` instead. */
-  export const outboundSchema = ErrorJobUpdateError$outboundSchema;
-  /** @deprecated use `ErrorJobUpdateError$Outbound` instead. */
-  export type Outbound = ErrorJobUpdateError$Outbound;
-}
-
-export function errorJobUpdateErrorToJSON(
-  errorJobUpdateError: ErrorJobUpdateError,
-): string {
-  return JSON.stringify(
-    ErrorJobUpdateError$outboundSchema.parse(errorJobUpdateError),
-  );
-}
 
 export function errorJobUpdateErrorFromJSON(
   jsonString: string,

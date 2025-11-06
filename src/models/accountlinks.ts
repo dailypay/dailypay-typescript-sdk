@@ -23,37 +23,6 @@ export const AccountLinks$inboundSchema: z.ZodType<
   self: z.string(),
 });
 
-/** @internal */
-export type AccountLinks$Outbound = {
-  self: string;
-};
-
-/** @internal */
-export const AccountLinks$outboundSchema: z.ZodType<
-  AccountLinks$Outbound,
-  z.ZodTypeDef,
-  AccountLinks
-> = z.object({
-  self: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountLinks$ {
-  /** @deprecated use `AccountLinks$inboundSchema` instead. */
-  export const inboundSchema = AccountLinks$inboundSchema;
-  /** @deprecated use `AccountLinks$outboundSchema` instead. */
-  export const outboundSchema = AccountLinks$outboundSchema;
-  /** @deprecated use `AccountLinks$Outbound` instead. */
-  export type Outbound = AccountLinks$Outbound;
-}
-
-export function accountLinksToJSON(accountLinks: AccountLinks): string {
-  return JSON.stringify(AccountLinks$outboundSchema.parse(accountLinks));
-}
-
 export function accountLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountLinks, SDKValidationError> {

@@ -22,43 +22,6 @@ export const PaycheckIdentifier$inboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/** @internal */
-export type PaycheckIdentifier$Outbound = {
-  type: "paychecks";
-  id: string;
-};
-
-/** @internal */
-export const PaycheckIdentifier$outboundSchema: z.ZodType<
-  PaycheckIdentifier$Outbound,
-  z.ZodTypeDef,
-  PaycheckIdentifier
-> = z.object({
-  type: z.literal("paychecks"),
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PaycheckIdentifier$ {
-  /** @deprecated use `PaycheckIdentifier$inboundSchema` instead. */
-  export const inboundSchema = PaycheckIdentifier$inboundSchema;
-  /** @deprecated use `PaycheckIdentifier$outboundSchema` instead. */
-  export const outboundSchema = PaycheckIdentifier$outboundSchema;
-  /** @deprecated use `PaycheckIdentifier$Outbound` instead. */
-  export type Outbound = PaycheckIdentifier$Outbound;
-}
-
-export function paycheckIdentifierToJSON(
-  paycheckIdentifier: PaycheckIdentifier,
-): string {
-  return JSON.stringify(
-    PaycheckIdentifier$outboundSchema.parse(paycheckIdentifier),
-  );
-}
-
 export function paycheckIdentifierFromJSON(
   jsonString: string,
 ): SafeParseResult<PaycheckIdentifier, SDKValidationError> {

@@ -20,12 +20,13 @@ generation:
   sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   tests:
     generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.7.5
+  version: 0.8.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -34,6 +35,8 @@ typescript:
   additionalPackageJSON:
     publishConfig:
       registry: https://npm.pkg.github.com
+  additionalScripts: {}
+  alwaysIncludeInboundAndOutbound: false
   author: DailyPay, Inc.
   baseErrorName: DailyPayError
   clientServerStatusCodesAsErrors: true
@@ -43,6 +46,7 @@ typescript:
   enableMCPServer: true
   enableReactQuery: true
   enumFormat: union
+  exportZodModelNamespace: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   generateExamples: true

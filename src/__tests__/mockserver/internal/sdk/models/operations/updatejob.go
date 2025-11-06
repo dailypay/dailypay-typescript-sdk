@@ -36,8 +36,8 @@ type UpdateJobRequest struct {
 	//
 	Version *int64 `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
 	// Unique ID of the job
-	JobID         string                   `pathParam:"style=simple,explode=false,name=job_id"`
-	JobUpdateData components.JobUpdateData `request:"mediaType=application/vnd.api+json"`
+	JobID string                   `pathParam:"style=simple,explode=false,name=job_id"`
+	Body  components.JobUpdateData `request:"mediaType=application/vnd.api+json"`
 }
 
 func (u UpdateJobRequest) MarshalJSON() ([]byte, error) {
@@ -45,7 +45,7 @@ func (u UpdateJobRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (u *UpdateJobRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"job_id", "JobUpdateData"}); err != nil {
+	if err := utils.UnmarshalJSON(data, &u, "", false, []string{"job_id", "body"}); err != nil {
 		return err
 	}
 	return nil
@@ -65,11 +65,11 @@ func (o *UpdateJobRequest) GetJobID() string {
 	return o.JobID
 }
 
-func (o *UpdateJobRequest) GetJobUpdateData() components.JobUpdateData {
+func (o *UpdateJobRequest) GetBody() components.JobUpdateData {
 	if o == nil {
 		return components.JobUpdateData{}
 	}
-	return o.JobUpdateData
+	return o.Body
 }
 
 type UpdateJobResponse struct {

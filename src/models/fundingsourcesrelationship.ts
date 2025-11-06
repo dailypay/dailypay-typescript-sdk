@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FundingSourceIdentifier,
   FundingSourceIdentifier$inboundSchema,
-  FundingSourceIdentifier$Outbound,
-  FundingSourceIdentifier$outboundSchema,
 } from "./fundingsourceidentifier.js";
 
 export type FundingSourcesRelationship = {
@@ -25,41 +23,6 @@ export const FundingSourcesRelationship$inboundSchema: z.ZodType<
 > = z.object({
   data: z.array(FundingSourceIdentifier$inboundSchema),
 });
-
-/** @internal */
-export type FundingSourcesRelationship$Outbound = {
-  data: Array<FundingSourceIdentifier$Outbound>;
-};
-
-/** @internal */
-export const FundingSourcesRelationship$outboundSchema: z.ZodType<
-  FundingSourcesRelationship$Outbound,
-  z.ZodTypeDef,
-  FundingSourcesRelationship
-> = z.object({
-  data: z.array(FundingSourceIdentifier$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FundingSourcesRelationship$ {
-  /** @deprecated use `FundingSourcesRelationship$inboundSchema` instead. */
-  export const inboundSchema = FundingSourcesRelationship$inboundSchema;
-  /** @deprecated use `FundingSourcesRelationship$outboundSchema` instead. */
-  export const outboundSchema = FundingSourcesRelationship$outboundSchema;
-  /** @deprecated use `FundingSourcesRelationship$Outbound` instead. */
-  export type Outbound = FundingSourcesRelationship$Outbound;
-}
-
-export function fundingSourcesRelationshipToJSON(
-  fundingSourcesRelationship: FundingSourcesRelationship,
-): string {
-  return JSON.stringify(
-    FundingSourcesRelationship$outboundSchema.parse(fundingSourcesRelationship),
-  );
-}
 
 export function fundingSourcesRelationshipFromJSON(
   jsonString: string,

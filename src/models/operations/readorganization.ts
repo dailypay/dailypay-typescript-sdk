@@ -34,73 +34,6 @@ export type ReadOrganizationResponse = {
 };
 
 /** @internal */
-export const ReadOrganizationGlobals$inboundSchema: z.ZodType<
-  ReadOrganizationGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ReadOrganizationGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ReadOrganizationGlobals$outboundSchema: z.ZodType<
-  ReadOrganizationGlobals$Outbound,
-  z.ZodTypeDef,
-  ReadOrganizationGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadOrganizationGlobals$ {
-  /** @deprecated use `ReadOrganizationGlobals$inboundSchema` instead. */
-  export const inboundSchema = ReadOrganizationGlobals$inboundSchema;
-  /** @deprecated use `ReadOrganizationGlobals$outboundSchema` instead. */
-  export const outboundSchema = ReadOrganizationGlobals$outboundSchema;
-  /** @deprecated use `ReadOrganizationGlobals$Outbound` instead. */
-  export type Outbound = ReadOrganizationGlobals$Outbound;
-}
-
-export function readOrganizationGlobalsToJSON(
-  readOrganizationGlobals: ReadOrganizationGlobals,
-): string {
-  return JSON.stringify(
-    ReadOrganizationGlobals$outboundSchema.parse(readOrganizationGlobals),
-  );
-}
-
-export function readOrganizationGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadOrganizationGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadOrganizationGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadOrganizationGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ReadOrganizationRequest$inboundSchema: z.ZodType<
-  ReadOrganizationRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  organization_id: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "organization_id": "organizationId",
-  });
-});
-
-/** @internal */
 export type ReadOrganizationRequest$Outbound = {
   organization_id: string;
 };
@@ -118,34 +51,11 @@ export const ReadOrganizationRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadOrganizationRequest$ {
-  /** @deprecated use `ReadOrganizationRequest$inboundSchema` instead. */
-  export const inboundSchema = ReadOrganizationRequest$inboundSchema;
-  /** @deprecated use `ReadOrganizationRequest$outboundSchema` instead. */
-  export const outboundSchema = ReadOrganizationRequest$outboundSchema;
-  /** @deprecated use `ReadOrganizationRequest$Outbound` instead. */
-  export type Outbound = ReadOrganizationRequest$Outbound;
-}
-
 export function readOrganizationRequestToJSON(
   readOrganizationRequest: ReadOrganizationRequest,
 ): string {
   return JSON.stringify(
     ReadOrganizationRequest$outboundSchema.parse(readOrganizationRequest),
-  );
-}
-
-export function readOrganizationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadOrganizationRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadOrganizationRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadOrganizationRequest' from JSON`,
   );
 }
 
@@ -163,48 +73,6 @@ export const ReadOrganizationResponse$inboundSchema: z.ZodType<
     "OrganizationData": "organizationData",
   });
 });
-
-/** @internal */
-export type ReadOrganizationResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  OrganizationData?: models.OrganizationData$Outbound | undefined;
-};
-
-/** @internal */
-export const ReadOrganizationResponse$outboundSchema: z.ZodType<
-  ReadOrganizationResponse$Outbound,
-  z.ZodTypeDef,
-  ReadOrganizationResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  organizationData: models.OrganizationData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    organizationData: "OrganizationData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadOrganizationResponse$ {
-  /** @deprecated use `ReadOrganizationResponse$inboundSchema` instead. */
-  export const inboundSchema = ReadOrganizationResponse$inboundSchema;
-  /** @deprecated use `ReadOrganizationResponse$outboundSchema` instead. */
-  export const outboundSchema = ReadOrganizationResponse$outboundSchema;
-  /** @deprecated use `ReadOrganizationResponse$Outbound` instead. */
-  export type Outbound = ReadOrganizationResponse$Outbound;
-}
-
-export function readOrganizationResponseToJSON(
-  readOrganizationResponse: ReadOrganizationResponse,
-): string {
-  return JSON.stringify(
-    ReadOrganizationResponse$outboundSchema.parse(readOrganizationResponse),
-  );
-}
 
 export function readOrganizationResponseFromJSON(
   jsonString: string,

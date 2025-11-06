@@ -20,41 +20,6 @@ export const OrganizationLinks$inboundSchema: z.ZodType<
   self: z.string(),
 });
 
-/** @internal */
-export type OrganizationLinks$Outbound = {
-  self: string;
-};
-
-/** @internal */
-export const OrganizationLinks$outboundSchema: z.ZodType<
-  OrganizationLinks$Outbound,
-  z.ZodTypeDef,
-  OrganizationLinks
-> = z.object({
-  self: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationLinks$ {
-  /** @deprecated use `OrganizationLinks$inboundSchema` instead. */
-  export const inboundSchema = OrganizationLinks$inboundSchema;
-  /** @deprecated use `OrganizationLinks$outboundSchema` instead. */
-  export const outboundSchema = OrganizationLinks$outboundSchema;
-  /** @deprecated use `OrganizationLinks$Outbound` instead. */
-  export type Outbound = OrganizationLinks$Outbound;
-}
-
-export function organizationLinksToJSON(
-  organizationLinks: OrganizationLinks,
-): string {
-  return JSON.stringify(
-    OrganizationLinks$outboundSchema.parse(organizationLinks),
-  );
-}
-
 export function organizationLinksFromJSON(
   jsonString: string,
 ): SafeParseResult<OrganizationLinks, SDKValidationError> {

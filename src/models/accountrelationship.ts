@@ -25,7 +25,6 @@ export const AccountRelationship$inboundSchema: z.ZodType<
 > = z.object({
   data: AccountIdentifier$inboundSchema,
 });
-
 /** @internal */
 export type AccountRelationship$Outbound = {
   data: AccountIdentifier$Outbound;
@@ -40,19 +39,6 @@ export const AccountRelationship$outboundSchema: z.ZodType<
   data: AccountIdentifier$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AccountRelationship$ {
-  /** @deprecated use `AccountRelationship$inboundSchema` instead. */
-  export const inboundSchema = AccountRelationship$inboundSchema;
-  /** @deprecated use `AccountRelationship$outboundSchema` instead. */
-  export const outboundSchema = AccountRelationship$outboundSchema;
-  /** @deprecated use `AccountRelationship$Outbound` instead. */
-  export type Outbound = AccountRelationship$Outbound;
-}
-
 export function accountRelationshipToJSON(
   accountRelationship: AccountRelationship,
 ): string {
@@ -60,7 +46,6 @@ export function accountRelationshipToJSON(
     AccountRelationship$outboundSchema.parse(accountRelationship),
   );
 }
-
 export function accountRelationshipFromJSON(
   jsonString: string,
 ): SafeParseResult<AccountRelationship, SDKValidationError> {

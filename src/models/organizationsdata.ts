@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OrganizationResource,
   OrganizationResource$inboundSchema,
-  OrganizationResource$Outbound,
-  OrganizationResource$outboundSchema,
 } from "./organizationresource.js";
 
 /**
@@ -28,41 +26,6 @@ export const OrganizationsData$inboundSchema: z.ZodType<
 > = z.object({
   data: z.array(OrganizationResource$inboundSchema),
 });
-
-/** @internal */
-export type OrganizationsData$Outbound = {
-  data: Array<OrganizationResource$Outbound>;
-};
-
-/** @internal */
-export const OrganizationsData$outboundSchema: z.ZodType<
-  OrganizationsData$Outbound,
-  z.ZodTypeDef,
-  OrganizationsData
-> = z.object({
-  data: z.array(OrganizationResource$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationsData$ {
-  /** @deprecated use `OrganizationsData$inboundSchema` instead. */
-  export const inboundSchema = OrganizationsData$inboundSchema;
-  /** @deprecated use `OrganizationsData$outboundSchema` instead. */
-  export const outboundSchema = OrganizationsData$outboundSchema;
-  /** @deprecated use `OrganizationsData$Outbound` instead. */
-  export type Outbound = OrganizationsData$Outbound;
-}
-
-export function organizationsDataToJSON(
-  organizationsData: OrganizationsData,
-): string {
-  return JSON.stringify(
-    OrganizationsData$outboundSchema.parse(organizationsData),
-  );
-}
 
 export function organizationsDataFromJSON(
   jsonString: string,

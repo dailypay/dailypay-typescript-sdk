@@ -133,41 +133,13 @@ export const TransferAttributesStatus$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(TransferAttributesStatus);
 
 /** @internal */
-export const TransferAttributesStatus$outboundSchema: z.ZodNativeEnum<
-  typeof TransferAttributesStatus
-> = TransferAttributesStatus$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferAttributesStatus$ {
-  /** @deprecated use `TransferAttributesStatus$inboundSchema` instead. */
-  export const inboundSchema = TransferAttributesStatus$inboundSchema;
-  /** @deprecated use `TransferAttributesStatus$outboundSchema` instead. */
-  export const outboundSchema = TransferAttributesStatus$outboundSchema;
-}
-
-/** @internal */
 export const TransferAttributesSchedule$inboundSchema: z.ZodNativeEnum<
   typeof TransferAttributesSchedule
 > = z.nativeEnum(TransferAttributesSchedule);
-
 /** @internal */
 export const TransferAttributesSchedule$outboundSchema: z.ZodNativeEnum<
   typeof TransferAttributesSchedule
 > = TransferAttributesSchedule$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferAttributesSchedule$ {
-  /** @deprecated use `TransferAttributesSchedule$inboundSchema` instead. */
-  export const inboundSchema = TransferAttributesSchedule$inboundSchema;
-  /** @deprecated use `TransferAttributesSchedule$outboundSchema` instead. */
-  export const outboundSchema = TransferAttributesSchedule$outboundSchema;
-}
 
 /** @internal */
 export const TransferAttributes$inboundSchema: z.ZodType<
@@ -194,60 +166,6 @@ export const TransferAttributes$inboundSchema: z.ZodType<
   });
 });
 
-/** @internal */
-export type TransferAttributes$Outbound = {
-  preview: boolean;
-  amount: number;
-  currency: string;
-  status: string;
-  schedule: string;
-  submitted_at: string;
-  resolved_at: string | null;
-  fee: number;
-};
-
-/** @internal */
-export const TransferAttributes$outboundSchema: z.ZodType<
-  TransferAttributes$Outbound,
-  z.ZodTypeDef,
-  TransferAttributes
-> = z.object({
-  preview: z.boolean().default(false),
-  amount: z.number().int(),
-  currency: z.string(),
-  status: TransferAttributesStatus$outboundSchema,
-  schedule: TransferAttributesSchedule$outboundSchema,
-  submittedAt: z.date().transform(v => v.toISOString()),
-  resolvedAt: z.nullable(z.date().transform(v => v.toISOString())),
-  fee: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    submittedAt: "submitted_at",
-    resolvedAt: "resolved_at",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferAttributes$ {
-  /** @deprecated use `TransferAttributes$inboundSchema` instead. */
-  export const inboundSchema = TransferAttributes$inboundSchema;
-  /** @deprecated use `TransferAttributes$outboundSchema` instead. */
-  export const outboundSchema = TransferAttributes$outboundSchema;
-  /** @deprecated use `TransferAttributes$Outbound` instead. */
-  export type Outbound = TransferAttributes$Outbound;
-}
-
-export function transferAttributesToJSON(
-  transferAttributes: TransferAttributes,
-): string {
-  return JSON.stringify(
-    TransferAttributes$outboundSchema.parse(transferAttributes),
-  );
-}
-
 export function transferAttributesFromJSON(
   jsonString: string,
 ): SafeParseResult<TransferAttributes, SDKValidationError> {
@@ -257,18 +175,6 @@ export function transferAttributesFromJSON(
     `Failed to parse 'TransferAttributes' from JSON`,
   );
 }
-
-/** @internal */
-export const TransferAttributesInput$inboundSchema: z.ZodType<
-  TransferAttributesInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  preview: z.boolean().default(false),
-  amount: z.number().int(),
-  currency: z.string(),
-  schedule: TransferAttributesSchedule$inboundSchema,
-});
 
 /** @internal */
 export type TransferAttributesInput$Outbound = {
@@ -290,33 +196,10 @@ export const TransferAttributesInput$outboundSchema: z.ZodType<
   schedule: TransferAttributesSchedule$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TransferAttributesInput$ {
-  /** @deprecated use `TransferAttributesInput$inboundSchema` instead. */
-  export const inboundSchema = TransferAttributesInput$inboundSchema;
-  /** @deprecated use `TransferAttributesInput$outboundSchema` instead. */
-  export const outboundSchema = TransferAttributesInput$outboundSchema;
-  /** @deprecated use `TransferAttributesInput$Outbound` instead. */
-  export type Outbound = TransferAttributesInput$Outbound;
-}
-
 export function transferAttributesInputToJSON(
   transferAttributesInput: TransferAttributesInput,
 ): string {
   return JSON.stringify(
     TransferAttributesInput$outboundSchema.parse(transferAttributesInput),
-  );
-}
-
-export function transferAttributesInputFromJSON(
-  jsonString: string,
-): SafeParseResult<TransferAttributesInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TransferAttributesInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TransferAttributesInput' from JSON`,
   );
 }

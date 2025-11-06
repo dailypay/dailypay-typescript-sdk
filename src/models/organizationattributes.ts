@@ -28,43 +28,6 @@ export const OrganizationAttributes$inboundSchema: z.ZodType<
   products: z.array(z.string()).optional(),
 });
 
-/** @internal */
-export type OrganizationAttributes$Outbound = {
-  name?: string | undefined;
-  products?: Array<string> | undefined;
-};
-
-/** @internal */
-export const OrganizationAttributes$outboundSchema: z.ZodType<
-  OrganizationAttributes$Outbound,
-  z.ZodTypeDef,
-  OrganizationAttributes
-> = z.object({
-  name: z.string().optional(),
-  products: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OrganizationAttributes$ {
-  /** @deprecated use `OrganizationAttributes$inboundSchema` instead. */
-  export const inboundSchema = OrganizationAttributes$inboundSchema;
-  /** @deprecated use `OrganizationAttributes$outboundSchema` instead. */
-  export const outboundSchema = OrganizationAttributes$outboundSchema;
-  /** @deprecated use `OrganizationAttributes$Outbound` instead. */
-  export type Outbound = OrganizationAttributes$Outbound;
-}
-
-export function organizationAttributesToJSON(
-  organizationAttributes: OrganizationAttributes,
-): string {
-  return JSON.stringify(
-    OrganizationAttributes$outboundSchema.parse(organizationAttributes),
-  );
-}
-
 export function organizationAttributesFromJSON(
   jsonString: string,
 ): SafeParseResult<OrganizationAttributes, SDKValidationError> {

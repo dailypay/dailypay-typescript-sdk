@@ -34,73 +34,6 @@ export type ReadPaycheckResponse = {
 };
 
 /** @internal */
-export const ReadPaycheckGlobals$inboundSchema: z.ZodType<
-  ReadPaycheckGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ReadPaycheckGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ReadPaycheckGlobals$outboundSchema: z.ZodType<
-  ReadPaycheckGlobals$Outbound,
-  z.ZodTypeDef,
-  ReadPaycheckGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadPaycheckGlobals$ {
-  /** @deprecated use `ReadPaycheckGlobals$inboundSchema` instead. */
-  export const inboundSchema = ReadPaycheckGlobals$inboundSchema;
-  /** @deprecated use `ReadPaycheckGlobals$outboundSchema` instead. */
-  export const outboundSchema = ReadPaycheckGlobals$outboundSchema;
-  /** @deprecated use `ReadPaycheckGlobals$Outbound` instead. */
-  export type Outbound = ReadPaycheckGlobals$Outbound;
-}
-
-export function readPaycheckGlobalsToJSON(
-  readPaycheckGlobals: ReadPaycheckGlobals,
-): string {
-  return JSON.stringify(
-    ReadPaycheckGlobals$outboundSchema.parse(readPaycheckGlobals),
-  );
-}
-
-export function readPaycheckGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadPaycheckGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadPaycheckGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadPaycheckGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ReadPaycheckRequest$inboundSchema: z.ZodType<
-  ReadPaycheckRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  paycheck_id: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "paycheck_id": "paycheckId",
-  });
-});
-
-/** @internal */
 export type ReadPaycheckRequest$Outbound = {
   paycheck_id: string;
 };
@@ -118,34 +51,11 @@ export const ReadPaycheckRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadPaycheckRequest$ {
-  /** @deprecated use `ReadPaycheckRequest$inboundSchema` instead. */
-  export const inboundSchema = ReadPaycheckRequest$inboundSchema;
-  /** @deprecated use `ReadPaycheckRequest$outboundSchema` instead. */
-  export const outboundSchema = ReadPaycheckRequest$outboundSchema;
-  /** @deprecated use `ReadPaycheckRequest$Outbound` instead. */
-  export type Outbound = ReadPaycheckRequest$Outbound;
-}
-
 export function readPaycheckRequestToJSON(
   readPaycheckRequest: ReadPaycheckRequest,
 ): string {
   return JSON.stringify(
     ReadPaycheckRequest$outboundSchema.parse(readPaycheckRequest),
-  );
-}
-
-export function readPaycheckRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadPaycheckRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadPaycheckRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadPaycheckRequest' from JSON`,
   );
 }
 
@@ -163,48 +73,6 @@ export const ReadPaycheckResponse$inboundSchema: z.ZodType<
     "PaycheckData": "paycheckData",
   });
 });
-
-/** @internal */
-export type ReadPaycheckResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  PaycheckData?: models.PaycheckData$Outbound | undefined;
-};
-
-/** @internal */
-export const ReadPaycheckResponse$outboundSchema: z.ZodType<
-  ReadPaycheckResponse$Outbound,
-  z.ZodTypeDef,
-  ReadPaycheckResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  paycheckData: models.PaycheckData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    paycheckData: "PaycheckData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadPaycheckResponse$ {
-  /** @deprecated use `ReadPaycheckResponse$inboundSchema` instead. */
-  export const inboundSchema = ReadPaycheckResponse$inboundSchema;
-  /** @deprecated use `ReadPaycheckResponse$outboundSchema` instead. */
-  export const outboundSchema = ReadPaycheckResponse$outboundSchema;
-  /** @deprecated use `ReadPaycheckResponse$Outbound` instead. */
-  export type Outbound = ReadPaycheckResponse$Outbound;
-}
-
-export function readPaycheckResponseToJSON(
-  readPaycheckResponse: ReadPaycheckResponse,
-): string {
-  return JSON.stringify(
-    ReadPaycheckResponse$outboundSchema.parse(readPaycheckResponse),
-  );
-}
 
 export function readPaycheckResponseFromJSON(
   jsonString: string,

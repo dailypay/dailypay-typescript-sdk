@@ -34,69 +34,6 @@ export type ReadJobResponse = {
 };
 
 /** @internal */
-export const ReadJobGlobals$inboundSchema: z.ZodType<
-  ReadJobGlobals,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/** @internal */
-export type ReadJobGlobals$Outbound = {
-  version: number;
-};
-
-/** @internal */
-export const ReadJobGlobals$outboundSchema: z.ZodType<
-  ReadJobGlobals$Outbound,
-  z.ZodTypeDef,
-  ReadJobGlobals
-> = z.object({
-  version: z.number().int().default(3),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadJobGlobals$ {
-  /** @deprecated use `ReadJobGlobals$inboundSchema` instead. */
-  export const inboundSchema = ReadJobGlobals$inboundSchema;
-  /** @deprecated use `ReadJobGlobals$outboundSchema` instead. */
-  export const outboundSchema = ReadJobGlobals$outboundSchema;
-  /** @deprecated use `ReadJobGlobals$Outbound` instead. */
-  export type Outbound = ReadJobGlobals$Outbound;
-}
-
-export function readJobGlobalsToJSON(readJobGlobals: ReadJobGlobals): string {
-  return JSON.stringify(ReadJobGlobals$outboundSchema.parse(readJobGlobals));
-}
-
-export function readJobGlobalsFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadJobGlobals, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadJobGlobals$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadJobGlobals' from JSON`,
-  );
-}
-
-/** @internal */
-export const ReadJobRequest$inboundSchema: z.ZodType<
-  ReadJobRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  job_id: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "job_id": "jobId",
-  });
-});
-
-/** @internal */
 export type ReadJobRequest$Outbound = {
   job_id: string;
 };
@@ -114,31 +51,8 @@ export const ReadJobRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadJobRequest$ {
-  /** @deprecated use `ReadJobRequest$inboundSchema` instead. */
-  export const inboundSchema = ReadJobRequest$inboundSchema;
-  /** @deprecated use `ReadJobRequest$outboundSchema` instead. */
-  export const outboundSchema = ReadJobRequest$outboundSchema;
-  /** @deprecated use `ReadJobRequest$Outbound` instead. */
-  export type Outbound = ReadJobRequest$Outbound;
-}
-
 export function readJobRequestToJSON(readJobRequest: ReadJobRequest): string {
   return JSON.stringify(ReadJobRequest$outboundSchema.parse(readJobRequest));
-}
-
-export function readJobRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ReadJobRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ReadJobRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ReadJobRequest' from JSON`,
-  );
 }
 
 /** @internal */
@@ -155,46 +69,6 @@ export const ReadJobResponse$inboundSchema: z.ZodType<
     "JobData": "jobData",
   });
 });
-
-/** @internal */
-export type ReadJobResponse$Outbound = {
-  HttpMeta: models.HTTPMetadata$Outbound;
-  JobData?: models.JobData$Outbound | undefined;
-};
-
-/** @internal */
-export const ReadJobResponse$outboundSchema: z.ZodType<
-  ReadJobResponse$Outbound,
-  z.ZodTypeDef,
-  ReadJobResponse
-> = z.object({
-  httpMeta: models.HTTPMetadata$outboundSchema,
-  jobData: models.JobData$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    httpMeta: "HttpMeta",
-    jobData: "JobData",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReadJobResponse$ {
-  /** @deprecated use `ReadJobResponse$inboundSchema` instead. */
-  export const inboundSchema = ReadJobResponse$inboundSchema;
-  /** @deprecated use `ReadJobResponse$outboundSchema` instead. */
-  export const outboundSchema = ReadJobResponse$outboundSchema;
-  /** @deprecated use `ReadJobResponse$Outbound` instead. */
-  export type Outbound = ReadJobResponse$Outbound;
-}
-
-export function readJobResponseToJSON(
-  readJobResponse: ReadJobResponse,
-): string {
-  return JSON.stringify(ReadJobResponse$outboundSchema.parse(readJobResponse));
-}
 
 export function readJobResponseFromJSON(
   jsonString: string,
