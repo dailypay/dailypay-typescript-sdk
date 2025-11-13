@@ -142,7 +142,6 @@ import {
 ## list
 
 Returns a collection of paycheck objects. This object details a person's pay and pay period.
-See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
 
 
 ### Example Usage

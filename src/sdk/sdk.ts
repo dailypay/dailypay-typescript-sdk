@@ -4,7 +4,7 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Accounts } from "./accounts.js";
-import { Cards } from "./cards.js";
+import { CardTokenization } from "./cardtokenization.js";
 import { Health } from "./health.js";
 import { Jobs } from "./jobs.js";
 import { Organizations } from "./organizations.js";
@@ -43,9 +43,9 @@ export class SDK extends ClientSDK {
     return (this._people ??= new People(this._options));
   }
 
-  private _cards?: Cards;
-  get cards(): Cards {
-    return (this._cards ??= new Cards(this._options));
+  private _cardTokenization?: CardTokenization;
+  get cardTokenization(): CardTokenization {
+    return (this._cardTokenization ??= new CardTokenization(this._options));
   }
 
   private _health?: Health;

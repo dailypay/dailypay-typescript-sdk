@@ -33,7 +33,6 @@ export type PaychecksListQueryData = operations.ListPaychecksResponse;
  *
  * @remarks
  * Returns a collection of paycheck objects. This object details a person's pay and pay period.
- * See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function usePaychecksList(
   request?: operations.ListPaychecksRequest | undefined,
@@ -55,7 +54,6 @@ export function usePaychecksList(
  *
  * @remarks
  * Returns a collection of paycheck objects. This object details a person's pay and pay period.
- * See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function usePaychecksListSuspense(
   request?: operations.ListPaychecksRequest | undefined,

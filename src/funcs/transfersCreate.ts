@@ -42,6 +42,7 @@ export function transfersCreate(
     | errors.TransferCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
+    | errors.ErrorConflict
     | errors.ErrorUnexpected
     | DailyPayError
     | ResponseValidationError
@@ -71,6 +72,7 @@ async function $do(
       | errors.TransferCreateError
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
+      | errors.ErrorConflict
       | errors.ErrorUnexpected
       | DailyPayError
       | ResponseValidationError
@@ -154,7 +156,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "409", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -172,6 +174,7 @@ async function $do(
     | errors.TransferCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
+    | errors.ErrorConflict
     | errors.ErrorUnexpected
     | DailyPayError
     | ResponseValidationError
@@ -193,6 +196,9 @@ async function $do(
       ctype: "application/vnd.api+json",
     }),
     M.jsonErr(403, errors.ErrorForbidden$inboundSchema, {
+      ctype: "application/vnd.api+json",
+    }),
+    M.jsonErr(409, errors.ErrorConflict$inboundSchema, {
       ctype: "application/vnd.api+json",
     }),
     M.jsonErr(500, errors.ErrorUnexpected$inboundSchema, {

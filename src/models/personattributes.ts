@@ -35,7 +35,7 @@ export const DisallowReason = {
 export type DisallowReason = ClosedEnum<typeof DisallowReason>;
 
 /**
- * The DailyPay Visa®️ Prepaid Card program.
+ * The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.
  *
  * @remarks
  */
@@ -55,13 +55,13 @@ export type DailyPayCardProductEntitlement = {
 };
 
 /**
- * Products that the person is enrolled in or eligible for.
+ * Products that the person is enrolled in or eligible for. This data is refreshed nightly.
  *
  * @remarks
  */
 export type Products = {
   /**
-   * The DailyPay Visa®️ Prepaid Card program.
+   * The DailyPay Visa®️ Prepaid Card program. A person can be either eligible or enrolled, but not both.
    *
    * @remarks
    */
@@ -89,7 +89,7 @@ export type PersonAttributes = {
    */
   stateOfResidence?: string | undefined;
   /**
-   * Products that the person is enrolled in or eligible for.
+   * Products that the person is enrolled in or eligible for. This data is refreshed nightly.
    *
    * @remarks
    */

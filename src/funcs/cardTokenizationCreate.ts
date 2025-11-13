@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
  */
-export function cardsCreate(
+export function cardTokenizationCreate(
   client: SDKCore,
   request: operations.CreateGenericCardTokenRequest,
   options?: RequestOptions,

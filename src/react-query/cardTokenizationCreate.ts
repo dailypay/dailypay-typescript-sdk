@@ -8,7 +8,7 @@ import {
   UseMutationResult,
 } from "@tanstack/react-query";
 import { SDKCore } from "../core.js";
-import { cardsCreate } from "../funcs/cardsCreate.js";
+import { cardTokenizationCreate } from "../funcs/cardTokenizationCreate.js";
 import { combineSignals } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -16,12 +16,13 @@ import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import { MutationHookOptions } from "./_types.js";
 
-export type CardsCreateMutationVariables = {
+export type CardTokenizationCreateMutationVariables = {
   request: operations.CreateGenericCardTokenRequest;
   options?: RequestOptions;
 };
 
-export type CardsCreateMutationData = operations.CreateGenericCardTokenResponse;
+export type CardTokenizationCreateMutationData =
+  operations.CreateGenericCardTokenResponse;
 
 /**
  * Obtain a card token
@@ -29,43 +30,43 @@ export type CardsCreateMutationData = operations.CreateGenericCardTokenResponse;
  * @remarks
  * Obtain a PCI DSS Compliant card token. This token must be used in order to add a card to a user’s DailyPay account.
  */
-export function useCardsCreateMutation(
+export function useCardTokenizationCreateMutation(
   options?: MutationHookOptions<
-    CardsCreateMutationData,
+    CardTokenizationCreateMutationData,
     Error,
-    CardsCreateMutationVariables
+    CardTokenizationCreateMutationVariables
   >,
 ): UseMutationResult<
-  CardsCreateMutationData,
+  CardTokenizationCreateMutationData,
   Error,
-  CardsCreateMutationVariables
+  CardTokenizationCreateMutationVariables
 > {
   const client = useSDKContext();
   return useMutation({
-    ...buildCardsCreateMutation(client, options),
+    ...buildCardTokenizationCreateMutation(client, options),
     ...options,
   });
 }
 
-export function mutationKeyCardsCreate(): MutationKey {
-  return ["@dailypay/dailypay", "Cards", "create"];
+export function mutationKeyCardTokenizationCreate(): MutationKey {
+  return ["@dailypay/dailypay", "Card Tokenization", "create"];
 }
 
-export function buildCardsCreateMutation(
+export function buildCardTokenizationCreateMutation(
   client$: SDKCore,
   hookOptions?: RequestOptions,
 ): {
   mutationKey: MutationKey;
   mutationFn: (
-    variables: CardsCreateMutationVariables,
-  ) => Promise<CardsCreateMutationData>;
+    variables: CardTokenizationCreateMutationVariables,
+  ) => Promise<CardTokenizationCreateMutationData>;
 } {
   return {
-    mutationKey: mutationKeyCardsCreate(),
-    mutationFn: function cardsCreateMutationFn({
+    mutationKey: mutationKeyCardTokenizationCreate(),
+    mutationFn: function cardTokenizationCreateMutationFn({
       request,
       options,
-    }): Promise<CardsCreateMutationData> {
+    }): Promise<CardTokenizationCreateMutationData> {
       const mergedOptions = {
         ...hookOptions,
         ...options,
@@ -78,7 +79,7 @@ export function buildCardsCreateMutation(
           ),
         },
       };
-      return unwrapAsync(cardsCreate(
+      return unwrapAsync(cardTokenizationCreate(
         client$,
         request,
         mergedOptions,

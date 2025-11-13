@@ -32,7 +32,6 @@ export type TransfersListQueryData = operations.ListTransfersResponse;
  *
  * @remarks
  * Returns a list of transfer objects.
- * See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useTransfersList(
   request?: operations.ListTransfersRequest | undefined,
@@ -54,7 +53,6 @@ export function useTransfersList(
  *
  * @remarks
  * Returns a list of transfer objects.
- * See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useTransfersListSuspense(
   request?: operations.ListTransfersRequest | undefined,

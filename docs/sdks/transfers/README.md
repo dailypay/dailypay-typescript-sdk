@@ -142,7 +142,6 @@ import {
 ## list
 
 Returns a list of transfer objects.
-See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
 
 
 ### Example Usage
@@ -427,5 +426,6 @@ import {
 | errors.TransferCreateError | 400                        | application/vnd.api+json   |
 | errors.ErrorUnauthorized   | 401                        | application/vnd.api+json   |
 | errors.ErrorForbidden      | 403                        | application/vnd.api+json   |
+| errors.ErrorConflict       | 409                        | application/vnd.api+json   |
 | errors.ErrorUnexpected     | 500                        | application/vnd.api+json   |
 | errors.SDKDefaultError     | 4XX, 5XX                   | \*/\*                      |
