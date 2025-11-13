@@ -30,7 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a list of transfer objects.
- * See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function transfersList(
   client: SDKCore,

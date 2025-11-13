@@ -33,7 +33,6 @@ export type AccountsListQueryData = operations.ListAccountsResponse;
  *
  * @remarks
  * Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
- * See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useAccountsList(
   request?: operations.ListAccountsRequest | undefined,
@@ -55,7 +54,6 @@ export function useAccountsList(
  *
  * @remarks
  * Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
- * See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useAccountsListSuspense(
   request?: operations.ListAccountsRequest | undefined,

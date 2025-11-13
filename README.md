@@ -254,9 +254,9 @@ run();
 * [list](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [create](docs/sdks/accounts/README.md#create) - Create an Account object
 
-### [cards](docs/sdks/cards/README.md)
+### [cardTokenization](docs/sdks/cardtokenization/README.md)
 
-* [create](docs/sdks/cards/README.md#create) - Obtain a card token
+* [create](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 
 ### [health](docs/sdks/health/README.md)
 
@@ -310,7 +310,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`accountsCreate`](docs/sdks/accounts/README.md#create) - Create an Account object
 - [`accountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`accountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
-- [`cardsCreate`](docs/sdks/cards/README.md#create) - Obtain a card token
+- [`cardTokenizationCreate`](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 - [`healthGetHealth`](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 - [`jobsList`](docs/sdks/jobs/README.md#list) - Get a list of job objects
 - [`jobsRead`](docs/sdks/jobs/README.md#read) - Get a job object
@@ -353,7 +353,7 @@ To learn about this feature and how to get started, check
 - [`useAccountsCreateMutation`](docs/sdks/accounts/README.md#create) - Create an Account object
 - [`useAccountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`useAccountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
-- [`useCardsCreateMutation`](docs/sdks/cards/README.md#create) - Obtain a card token
+- [`useCardTokenizationCreateMutation`](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 - [`useHealthGetHealth`](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 - [`useJobsList`](docs/sdks/jobs/README.md#list) - Get a list of job objects
 - [`useJobsRead`](docs/sdks/jobs/README.md#read) - Get a job object
@@ -515,7 +515,7 @@ run();
   * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
   * [`ErrorForbidden`](./src/models/errors/errorforbidden.ts): Not authorized to perform this operation. Status code `403`. *
 
-<details><summary>Less common errors (11)</summary>
+<details><summary>Less common errors (12)</summary>
 
 <br />
 
@@ -533,6 +533,7 @@ run();
 * [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 17 methods.*
 * [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
 * [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
+* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 17 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -620,7 +621,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK();
 
 async function run() {
-  const result = await sdk.cards.create({
+  const result = await sdk.cardTokenization.create({
     firstName: "Edith",
     lastName: "Clarke",
     cardNumber: "4007589999999912",

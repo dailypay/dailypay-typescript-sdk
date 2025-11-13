@@ -14,6 +14,7 @@ export * from "./accountresourceoutput.js";
 export * from "./accountsdata.js";
 export * from "./erroraccountcreateerror.js";
 export * from "./errorbadrequesterror.js";
+export * from "./errorconflicterror.js";
 export * from "./errorforbiddenerror.js";
 export * from "./errorjobupdateerror.js";
 export * from "./errornotfounderror.js";

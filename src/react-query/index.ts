@@ -8,7 +8,7 @@ export * from "./_types.js";
 export * from "./accountsCreate.js";
 export * from "./accountsList.js";
 export * from "./accountsRead.js";
-export * from "./cardsCreate.js";
+export * from "./cardTokenizationCreate.js";
 export * from "./healthGetHealth.js";
 export * from "./jobsList.js";
 export * from "./jobsRead.js";

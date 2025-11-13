@@ -25,7 +25,7 @@ export const SchemeOauthClientCredentialsToken$outboundSchema: z.ZodType<
 > = z.object({
   clientID: z.string(),
   clientSecret: z.string(),
-  tokenURL: z.string().default("https://api.dailypay.com/oauth/token"),
+  tokenURL: z.string().default("https://auth.dailypay.com/oauth2/token"),
 });
 
 export function schemeOauthClientCredentialsTokenToJSON(

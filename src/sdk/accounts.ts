@@ -33,7 +33,6 @@ export class Accounts extends ClientSDK {
    *
    * @remarks
    * Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
-   * See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
    */
   async list(
     request?: operations.ListAccountsRequest | undefined,

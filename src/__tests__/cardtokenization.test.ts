@@ -6,14 +6,14 @@ import { expect, test } from "vitest";
 import { SDK } from "../index.js";
 import { createTestHTTPClient } from "./testclient.js";
 
-test("Cards Create Generic Card Token", async () => {
+test("Card Tokenization Create Generic Card Token", async () => {
   const testHttpClient = createTestHTTPClient("createGenericCardToken");
 
   const sdk = new SDK({
     httpClient: testHttpClient,
   });
 
-  const result = await sdk.cards.create({
+  const result = await sdk.cardTokenization.create({
     firstName: "Edith",
     lastName: "Clarke",
     cardNumber: "4007589999999912",

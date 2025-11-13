@@ -13,7 +13,7 @@ actions:
             const sdk = new SDK();
 
             async function run() {
-              const result = await sdk.cards.create({
+              const result = await sdk.cardTokenization.create({
                 firstName: "Edith",
                 lastName: "Clarke",
                 cardNumber: "4007589999999912",
