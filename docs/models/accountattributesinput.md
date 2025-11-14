@@ -14,7 +14,6 @@ const value: models.CardInput = {
   subtype: "DEBIT",
   cardAccountDetails: {
     token: "HX46TY794RG",
-    issuer: "411600",
     firstName: "Edith",
     lastName: "Clarke",
     expirationMonth: "02",

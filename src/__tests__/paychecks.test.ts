@@ -81,6 +81,8 @@ test("Paychecks List Paychecks", async () => {
   });
 
   const result = await sdk.paychecks.list({
+    filterJobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    filterStatus: "DEPOSITED",
     filterDepositExpectedAtGte: new Date("2023-03-15T04:00:00Z"),
     filterDepositExpectedAtLt: new Date("2023-03-15T04:00:00Z"),
     filterPayPeriodEndsAtGte: new Date("2023-03-15T04:00:00Z"),

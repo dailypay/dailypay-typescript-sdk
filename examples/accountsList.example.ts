@@ -26,7 +26,9 @@ const sdk = new SDK({
 
 async function main() {
   const result = await sdk.accounts.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
     filterAccountType: "EARNINGS_BALANCE",
+    filterSubtype: "ODP",
   });
 
   console.log(result);

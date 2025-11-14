@@ -37,7 +37,9 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await accountsList(sdk, {
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
     filterAccountType: "EARNINGS_BALANCE",
+    filterSubtype: "ODP",
   });
   if (res.ok) {
     const { value: result } = res;

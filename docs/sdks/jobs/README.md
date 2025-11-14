@@ -316,7 +316,13 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.jobs.list();
+  const result = await sdk.jobs.list({
+    filterExternalIdentifiersPrimaryIdentifier: "PRIMARY_ID_98765",
+    filterExternalIdentifiersEmployeeId: "EMP123456",
+    filterExternalIdentifiersGroup: "12345",
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterOrganizationId: "f0b30634-108c-439c-a8c1-c6a91197f022",
+  });
 
   console.log(result);
 }
@@ -346,7 +352,13 @@ const sdk = new SDKCore({
 });
 
 async function run() {
-  const res = await jobsList(sdk);
+  const res = await jobsList(sdk, {
+    filterExternalIdentifiersPrimaryIdentifier: "PRIMARY_ID_98765",
+    filterExternalIdentifiersEmployeeId: "EMP123456",
+    filterExternalIdentifiersGroup: "12345",
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterOrganizationId: "f0b30634-108c-439c-a8c1-c6a91197f022",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

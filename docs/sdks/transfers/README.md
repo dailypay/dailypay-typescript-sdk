@@ -162,7 +162,9 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.transfers.list();
+  const result = await sdk.transfers.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+  });
 
   console.log(result);
 }
@@ -192,7 +194,9 @@ const sdk = new SDKCore({
 });
 
 async function run() {
-  const res = await transfersList(sdk);
+  const res = await transfersList(sdk, {
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -280,7 +284,7 @@ const sdk = new SDK({
 
 async function run() {
   const result = await sdk.transfers.create({
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     transferCreateData: {
       data: {
         type: "transfers",
@@ -344,7 +348,7 @@ const sdk = new SDKCore({
 
 async function run() {
   const res = await transfersCreate(sdk, {
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     transferCreateData: {
       data: {
         type: "transfers",

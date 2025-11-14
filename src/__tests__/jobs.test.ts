@@ -197,7 +197,13 @@ test("Jobs List Jobs", async () => {
     },
   });
 
-  const result = await sdk.jobs.list();
+  const result = await sdk.jobs.list({
+    filterExternalIdentifiersPrimaryIdentifier: "PRIMARY_ID_98765",
+    filterExternalIdentifiersEmployeeId: "EMP123456",
+    filterExternalIdentifiersGroup: "12345",
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterOrganizationId: "f0b30634-108c-439c-a8c1-c6a91197f022",
+  });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.jobsData).toBeDefined();
   expect(result.jobsData).toEqual({
