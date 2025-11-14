@@ -448,10 +448,6 @@ export type CardAccountDetailsInput = {
    */
   token: string;
   /**
-   * The issuer of the card.
-   */
-  issuer: string;
-  /**
    * The first name of the account holder.
    */
   firstName: string;
@@ -1015,7 +1011,6 @@ export function earningsBalanceReadOnlyInputToJSON(
 /** @internal */
 export type CardAccountDetailsInput$Outbound = {
   token: string;
-  issuer: string;
   first_name: string;
   last_name: string;
   expiration_month: string;
@@ -1035,7 +1030,6 @@ export const CardAccountDetailsInput$outboundSchema: z.ZodType<
   CardAccountDetailsInput
 > = z.object({
   token: z.string(),
-  issuer: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   expirationMonth: z.string(),

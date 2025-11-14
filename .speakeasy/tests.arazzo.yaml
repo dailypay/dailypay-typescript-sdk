@@ -98,6 +98,21 @@ workflows:
       - stepId: test
         operationId: listJobs
         parameters:
+          - name: filter[external_identifiers.primary_identifier]
+            in: query
+            value: PRIMARY_ID_98765
+          - name: filter[external_identifiers.employee_id]
+            in: query
+            value: EMP123456
+          - name: filter[external_identifiers.group]
+            in: query
+            value: "12345"
+          - name: filter[person.id]
+            in: query
+            value: aa860051-c411-4709-9685-c1b716df611b
+          - name: filter[organization.id]
+            in: query
+            value: f0b30634-108c-439c-a8c1-c6a91197f022
           - name: DailyPay-API-Version
             in: header
             value: 3
@@ -138,6 +153,12 @@ workflows:
           - name: filter[account_type]
             in: query
             value: EARNINGS_BALANCE
+          - name: filter[person.id]
+            in: query
+            value: aa860051-c411-4709-9685-c1b716df611b
+          - name: filter[subtype]
+            in: query
+            value: ODP
           - name: DailyPay-API-Version
             in: header
             value: 3
@@ -209,7 +230,6 @@ workflows:
                   expiration_month: "02"
                   expiration_year: "2027"
                   first_name: Edith
-                  issuer: "411600"
                   last_name: Clarke
                   token: abc.efg.123
                 name: Acme Bank Debit Card
@@ -254,6 +274,9 @@ workflows:
       - stepId: test
         operationId: listTransfers
         parameters:
+          - name: filter[person.id]
+            in: query
+            value: aa860051-c411-4709-9685-c1b716df611b
           - name: DailyPay-API-Version
             in: header
             value: 3
@@ -276,7 +299,7 @@ workflows:
             value: 3
           - name: Idempotency-Key
             in: header
-            value: ea9f2225-403b-4e2c-93b0-0eda090ffa65
+            value: e2736aa1-78c4-4cc6-b0a6-848e733f232a
         requestBody:
           contentType: application/vnd.api+json
           payload:
@@ -353,6 +376,12 @@ workflows:
           - name: filter[pay_period_starts_at__lt]
             in: query
             value: "2023-03-15T04:00:00Z"
+          - name: filter[job.id]
+            in: query
+            value: e9d84b0d-92ba-43c9-93bf-7c993313fa6f
+          - name: filter[status]
+            in: query
+            value: DEPOSITED
           - name: DailyPay-API-Version
             in: header
             value: 3

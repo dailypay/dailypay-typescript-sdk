@@ -120,7 +120,9 @@ test("Transfers List Transfers", async () => {
     },
   });
 
-  const result = await sdk.transfers.list();
+  const result = await sdk.transfers.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+  });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.transfersData).toBeDefined();
   expect(result.transfersData).toEqual({
@@ -169,7 +171,7 @@ test("Transfers Create Transfer", async () => {
   });
 
   const result = await sdk.transfers.create({
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     transferCreateData: {
       data: {
         type: "transfers",
