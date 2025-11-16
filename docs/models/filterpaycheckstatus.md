@@ -5,7 +5,7 @@
 ```typescript
 import { FilterPaycheckStatus } from "@dailypay/dailypay/models";
 
-let value: FilterPaycheckStatus = "DEPOSITED";
+let value: FilterPaycheckStatus = "IN_TRANSIT";
 ```
 
 ## Values
