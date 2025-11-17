@@ -224,6 +224,7 @@ test("Accounts Create Account Card", async () => {
         subtype: "DEBIT",
         cardAccountDetails: {
           token: "abc.efg.123",
+          issuer: "411600",
           firstName: "Edith",
           lastName: "Clarke",
           expirationMonth: "02",
