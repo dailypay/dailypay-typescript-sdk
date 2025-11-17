@@ -62,7 +62,7 @@ test("Organizations List Organizations", async () => {
     },
   });
 
-  const result = await sdk.organizations.list({});
+  const result = await sdk.organizations.list();
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.organizationsData).toBeDefined();
   expect(result.organizationsData).toEqual({
