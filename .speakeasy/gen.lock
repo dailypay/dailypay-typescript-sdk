@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: a9c33e466fad7a1e8249ff3254d6c1fc
-  docVersion: 3.0.0-beta95
-  speakeasyVersion: 1.660.0
-  generationVersion: 2.760.2
-  releaseVersion: 0.8.4
-  configChecksum: 7579c72aeaba04e7d859b4d75d2b0afa
+  docChecksum: 76ec3e0eec63f06d3f5e0050d59893f1
+  docVersion: 3.0.0-beta96
+  speakeasyVersion: 1.664.0
+  generationVersion: 2.766.1
+  releaseVersion: 0.8.5
+  configChecksum: 7726870d3f8935222580f79e442f463b
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.26.9
+    core: 3.26.12
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -36,7 +36,7 @@ features:
     retries: 2.83.0
     sdkHooks: 0.3.0
     tests: 0.17.3
-    unions: 2.86.0
+    unions: 2.86.2
 generatedFiles:
   - .gitattributes
   - .npmignore
@@ -998,4 +998,3 @@ generatedTests:
   createGenericCardToken: "2025-07-02T14:55:51-03:00"
   getHealth: "2025-07-02T14:55:51-03:00"
   createAccount: "2025-07-08T13:03:32-03:00"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `sdk.accounts.create()`: \n  *  `request.data.attributes.[card].cardAccountDetails.issuer` **Removed** **Breaking** :warning:\n"

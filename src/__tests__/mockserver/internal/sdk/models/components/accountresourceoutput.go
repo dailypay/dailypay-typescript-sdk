@@ -46,6 +46,18 @@ func (o *AccountResourceOutput) GetAttributes() AccountAttributesOutput {
 	return o.Attributes
 }
 
+func (o *AccountResourceOutput) GetAttributesCard() *CardOutput {
+	return o.GetAttributes().CardOutput
+}
+
+func (o *AccountResourceOutput) GetAttributesEarningsBalance() *EarningsBalanceReadOnly {
+	return o.GetAttributes().EarningsBalanceReadOnly
+}
+
+func (o *AccountResourceOutput) GetAttributesDepository() *Depository {
+	return o.GetAttributes().Depository
+}
+
 func (o *AccountResourceOutput) GetLinks() AccountLinks {
 	if o == nil {
 		return AccountLinks{}

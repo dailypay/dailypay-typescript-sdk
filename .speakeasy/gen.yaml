@@ -26,7 +26,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.8.4
+  version: 0.8.5
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -49,7 +49,9 @@ typescript:
   exportZodModelNamespace: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
+  formStringArrayEncodeMode: encoded-string
   forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: "false"
   generateExamples: true
   imports:
     option: openapi
@@ -59,6 +61,7 @@ typescript:
       operations: models/operations
       shared: models
       webhooks: models/webhooks
+  inferUnionDiscriminators: true
   inputModelSuffix: input
   jsonpath: rfc9535
   laxMode: strict
@@ -66,6 +69,7 @@ typescript:
   methodArguments: infer-optional-args
   modelPropertyCasing: camel
   moduleFormat: dual
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageName: '@dailypay/dailypay'
   responseFormat: envelope-http
