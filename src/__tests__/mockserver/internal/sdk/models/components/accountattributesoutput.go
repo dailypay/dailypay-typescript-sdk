@@ -807,9 +807,9 @@ func (o *CardOutput) GetCardAccountDetails() CardAccountDetailsOutput {
 type AccountAttributesOutputType string
 
 const (
-	AccountAttributesOutputTypeCardOutput              AccountAttributesOutputType = "Card_output"
-	AccountAttributesOutputTypeEarningsBalanceReadOnly AccountAttributesOutputType = "Earnings Balance (read only)"
-	AccountAttributesOutputTypeDepository              AccountAttributesOutputType = "Depository"
+	AccountAttributesOutputTypeCard            AccountAttributesOutputType = "CARD"
+	AccountAttributesOutputTypeEarningsBalance AccountAttributesOutputType = "EARNINGS_BALANCE"
+	AccountAttributesOutputTypeDepository      AccountAttributesOutputType = "DEPOSITORY"
 )
 
 // AccountAttributesOutput - The details of the account.
@@ -821,20 +821,20 @@ type AccountAttributesOutput struct {
 	Type AccountAttributesOutputType
 }
 
-func CreateAccountAttributesOutputCardOutput(cardOutput CardOutput) AccountAttributesOutput {
-	typ := AccountAttributesOutputTypeCardOutput
+func CreateAccountAttributesOutputCard(card CardOutput) AccountAttributesOutput {
+	typ := AccountAttributesOutputTypeCard
 
 	return AccountAttributesOutput{
-		CardOutput: &cardOutput,
+		CardOutput: &card,
 		Type:       typ,
 	}
 }
 
-func CreateAccountAttributesOutputEarningsBalanceReadOnly(earningsBalanceReadOnly EarningsBalanceReadOnly) AccountAttributesOutput {
-	typ := AccountAttributesOutputTypeEarningsBalanceReadOnly
+func CreateAccountAttributesOutputEarningsBalance(earningsBalance EarningsBalanceReadOnly) AccountAttributesOutput {
+	typ := AccountAttributesOutputTypeEarningsBalance
 
 	return AccountAttributesOutput{
-		EarningsBalanceReadOnly: &earningsBalanceReadOnly,
+		EarningsBalanceReadOnly: &earningsBalance,
 		Type:                    typ,
 	}
 }
@@ -850,23 +850,41 @@ func CreateAccountAttributesOutputDepository(depository Depository) AccountAttri
 
 func (u *AccountAttributesOutput) UnmarshalJSON(data []byte) error {
 
-	var cardOutput CardOutput = CardOutput{}
-	if err := utils.UnmarshalJSON(data, &cardOutput, "", true, nil); err == nil {
-		u.CardOutput = &cardOutput
-		u.Type = AccountAttributesOutputTypeCardOutput
-		return nil
+	type discriminator struct {
+		AccountType string `json:"account_type"`
 	}
 
-	var earningsBalanceReadOnly EarningsBalanceReadOnly = EarningsBalanceReadOnly{}
-	if err := utils.UnmarshalJSON(data, &earningsBalanceReadOnly, "", true, nil); err == nil {
-		u.EarningsBalanceReadOnly = &earningsBalanceReadOnly
-		u.Type = AccountAttributesOutputTypeEarningsBalanceReadOnly
-		return nil
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
 
-	var depository Depository = Depository{}
-	if err := utils.UnmarshalJSON(data, &depository, "", true, nil); err == nil {
-		u.Depository = &depository
+	switch dis.AccountType {
+	case "CARD":
+		cardOutput := new(CardOutput)
+		if err := utils.UnmarshalJSON(data, &cardOutput, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AccountType == CARD) type CardOutput within AccountAttributesOutput: %w", string(data), err)
+		}
+
+		u.CardOutput = cardOutput
+		u.Type = AccountAttributesOutputTypeCard
+		return nil
+	case "EARNINGS_BALANCE":
+		earningsBalanceReadOnly := new(EarningsBalanceReadOnly)
+		if err := utils.UnmarshalJSON(data, &earningsBalanceReadOnly, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AccountType == EARNINGS_BALANCE) type EarningsBalanceReadOnly within AccountAttributesOutput: %w", string(data), err)
+		}
+
+		u.EarningsBalanceReadOnly = earningsBalanceReadOnly
+		u.Type = AccountAttributesOutputTypeEarningsBalance
+		return nil
+	case "DEPOSITORY":
+		depository := new(Depository)
+		if err := utils.UnmarshalJSON(data, &depository, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (AccountType == DEPOSITORY) type Depository within AccountAttributesOutput: %w", string(data), err)
+		}
+
+		u.Depository = depository
 		u.Type = AccountAttributesOutputTypeDepository
 		return nil
 	}

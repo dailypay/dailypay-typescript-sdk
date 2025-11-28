@@ -408,9 +408,9 @@ export type CardOutput = {
  * The details of the account.
  */
 export type AccountAttributesOutput =
-  | CardOutput
-  | EarningsBalanceReadOnly
-  | Depository;
+  | (CardOutput & { accountType: "CARD" })
+  | (EarningsBalanceReadOnly & { accountType: "EARNINGS_BALANCE" })
+  | (Depository & { accountType: "DEPOSITORY" });
 
 /**
  * An account with type `DEPOSITORY` and subtype `SAVINGS` or `CHECKING`.
@@ -940,9 +940,21 @@ export const AccountAttributesOutput$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  z.lazy(() => CardOutput$inboundSchema),
-  z.lazy(() => EarningsBalanceReadOnly$inboundSchema),
-  z.lazy(() => Depository$inboundSchema),
+  z.lazy(() => CardOutput$inboundSchema).and(
+    z.object({ account_type: z.literal("CARD") }).transform((v) => ({
+      accountType: v.account_type,
+    })),
+  ),
+  z.lazy(() => EarningsBalanceReadOnly$inboundSchema).and(
+    z.object({ account_type: z.literal("EARNINGS_BALANCE") }).transform((
+      v,
+    ) => ({ accountType: v.account_type })),
+  ),
+  z.lazy(() => Depository$inboundSchema).and(
+    z.object({ account_type: z.literal("DEPOSITORY") }).transform((v) => ({
+      accountType: v.account_type,
+    })),
+  ),
 ]);
 
 export function accountAttributesOutputFromJSON(
