@@ -122,7 +122,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "updatePerson",
-    oAuth2Scopes: ["client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
