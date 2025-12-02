@@ -15,5 +15,5 @@ let value: TransferIdentifier = {
 
 | Field                                | Type                                 | Required                             | Description                          | Example                              |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `type`                               | *string*                             | :heavy_check_mark:                   | N/A                                  |                                      |
+| `type`                               | *"transfers"*                        | :heavy_check_mark:                   | N/A                                  |                                      |
 | `id`                                 | *string*                             | :heavy_check_mark:                   | N/A                                  | aba332a2-24a2-46de-8257-5040e71ab210 |

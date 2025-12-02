@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 76ec3e0eec63f06d3f5e0050d59893f1
-  docVersion: 3.0.0-beta96
-  speakeasyVersion: 1.664.0
-  generationVersion: 2.766.1
-  releaseVersion: 0.8.5
-  configChecksum: 7726870d3f8935222580f79e442f463b
+  docChecksum: e5523e894b66a18737191a9f822a486c
+  docVersion: 3.0.0-beta97
+  speakeasyVersion: 1.666.0
+  generationVersion: 2.768.0
+  releaseVersion: 0.9.0
+  configChecksum: fbfecdae51ae579856495b0f3391466d
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.26.12
+    core: 3.26.13
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -34,9 +34,9 @@ features:
     reactQueryHooks: 0.2.3
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.3.0
+    sdkHooks: 0.4.0
     tests: 0.17.3
-    unions: 2.86.2
+    unions: 2.86.3
 generatedFiles:
   - .gitattributes
   - .npmignore
@@ -457,6 +457,7 @@ generatedFiles:
   - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
+  - src/hooks/oauth2scopes.ts
   - src/hooks/types.ts
   - src/index.ts
   - src/lib/base64.ts
