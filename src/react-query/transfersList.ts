@@ -86,8 +86,8 @@ export function setTransfersListData(
   client: QueryClient,
   queryKeyBase: [
     parameters: {
-      filterPersonId?: string | undefined;
       include?: string | undefined;
+      filterPersonId?: string | undefined;
       filterBy?: string | undefined;
     },
   ],
@@ -102,8 +102,8 @@ export function invalidateTransfersList(
   client: QueryClient,
   queryKeyBase: TupleToPrefixes<
     [parameters: {
-      filterPersonId?: string | undefined;
       include?: string | undefined;
+      filterPersonId?: string | undefined;
       filterBy?: string | undefined;
     }]
   >,
@@ -135,8 +135,8 @@ export function buildTransfersListQuery(
 } {
   return {
     queryKey: queryKeyTransfersList({
-      filterPersonId: request?.filterPersonId,
       include: request?.include,
+      filterPersonId: request?.filterPersonId,
       filterBy: request?.filterBy,
     }),
     queryFn: async function transfersListQueryFn(
@@ -159,8 +159,8 @@ export function buildTransfersListQuery(
 
 export function queryKeyTransfersList(
   parameters: {
-    filterPersonId?: string | undefined;
     include?: string | undefined;
+    filterPersonId?: string | undefined;
     filterBy?: string | undefined;
   },
 ): QueryKey {

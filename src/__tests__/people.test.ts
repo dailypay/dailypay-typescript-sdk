@@ -100,3 +100,55 @@ test("People Update Person", async () => {
     },
   });
 });
+
+test("People Update Person State Of Residence", async () => {
+  const testHttpClient = createTestHTTPClient("updatePerson-StateOfResidence");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.people.update({
+    personId: "aa860051-c411-4709-9685-c1b716df611b",
+    personData: {
+      data: {
+        type: "people",
+        id: "aa860051-c411-4709-9685-c1b716df611b",
+        attributes: {
+          stateOfResidence: "NY",
+        },
+      },
+    },
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.personData).toBeDefined();
+  expect(result.personData).toEqual({
+    data: {
+      type: "people",
+      id: "aa860051-c411-4709-9685-c1b716df611b",
+      attributes: {
+        disallowReason: null,
+        stateOfResidence: "NY",
+        products: {
+          dailyPayCardProductEntitlement: {
+            eligible: true,
+            enrolled: false,
+          },
+        },
+      },
+      links: {
+        self:
+          "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b",
+      },
+    },
+  });
+});
