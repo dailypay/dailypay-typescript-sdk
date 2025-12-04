@@ -20,10 +20,6 @@ export type ListTransfersGlobals = {
 
 export type ListTransfersRequest = {
   /**
-   * Limit the results to documents related to a specific person
-   */
-  filterPersonId?: string | undefined;
-  /**
    * Add related resources to the response.
    *
    * @remarks
@@ -31,6 +27,10 @@ export type ListTransfersRequest = {
    * The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
    */
   include?: string | undefined;
+  /**
+   * Limit the results to documents related to a specific person
+   */
+  filterPersonId?: string | undefined;
   /**
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
@@ -47,8 +47,8 @@ export type ListTransfersResponse = {
 
 /** @internal */
 export type ListTransfersRequest$Outbound = {
-  "filter[person.id]"?: string | undefined;
   include?: string | undefined;
+  "filter[person.id]"?: string | undefined;
   "filter-by"?: string | undefined;
 };
 
@@ -58,8 +58,8 @@ export const ListTransfersRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListTransfersRequest
 > = z.object({
-  filterPersonId: z.string().optional(),
   include: z.string().optional(),
+  filterPersonId: z.string().optional(),
   filterBy: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {

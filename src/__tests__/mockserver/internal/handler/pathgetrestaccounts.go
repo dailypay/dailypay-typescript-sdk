@@ -8,6 +8,7 @@ import (
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
 	"mockserver/internal/tracking"
 	"net/http"
@@ -23,6 +24,10 @@ func pathGetRestAccounts(dir *logging.HTTPFileDirectory, rt *tracking.RequestTra
 		switch fmt.Sprintf("%s[%d]", test, count) {
 		case "listAccounts[0]":
 			dir.HandlerFunc("listAccounts", testListAccountsListAccounts0)(w, req)
+		case "listAccounts-ODPAccounts[0]":
+			dir.HandlerFunc("listAccounts", testListAccountsListAccountsODPAccounts0)(w, req)
+		case "listAccounts-AllAccounts[0]":
+			dir.HandlerFunc("listAccounts", testListAccountsListAccountsAllAccounts0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -47,6 +52,172 @@ func testListAccountsListAccounts0(w http.ResponseWriter, req *http.Request) {
 	}
 	var respBody *components.AccountsData = &components.AccountsData{
 		Data: []components.AccountResourceOutput{},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testListAccountsListAccountsODPAccounts0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.AccountsData = &components.AccountsData{
+		Data: []components.AccountResourceOutput{
+			components.AccountResourceOutput{
+				ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+				Attributes: components.CreateAccountAttributesOutputEarningsBalance(
+					components.EarningsBalanceReadOnly{
+						VerificationStatus: components.AccountAttributesEarningsBalanceVerificationStatusVerified,
+						AccountBalances: components.AccountAttributesEarningsBalanceAccountBalances{
+							Available: types.Int64(7250),
+							Current:   types.Int64(0),
+							Currency:  "USD",
+						},
+						AccountCapabilities: components.AccountAttributesEarningsBalanceAccountCapabilities{
+							TransferDestination: []components.TransferDestinationCapability{},
+						},
+						Name:    "DailyPay On-Demand Pay Balance",
+						Details: components.Details{},
+					},
+				),
+				Links: components.AccountLinks{
+					Self: "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+				},
+				Relationships: components.AccountRelationships{
+					Person: components.PersonRelationship{
+						Data: components.PersonIdentifier{
+							ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+				},
+			},
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testListAccountsListAccountsAllAccounts0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.AccountsData = &components.AccountsData{
+		Data: []components.AccountResourceOutput{
+			components.AccountResourceOutput{
+				ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+				Attributes: components.CreateAccountAttributesOutputEarningsBalance(
+					components.EarningsBalanceReadOnly{
+						VerificationStatus: components.AccountAttributesEarningsBalanceVerificationStatusVerified,
+						AccountBalances: components.AccountAttributesEarningsBalanceAccountBalances{
+							Available: types.Int64(7250),
+							Current:   types.Int64(0),
+							Currency:  "USD",
+						},
+						AccountCapabilities: components.AccountAttributesEarningsBalanceAccountCapabilities{
+							TransferDestination: []components.TransferDestinationCapability{},
+						},
+						Name:    "DailyPay On-Demand Pay Balance",
+						Details: components.Details{},
+					},
+				),
+				Links: components.AccountLinks{
+					Self: "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+				},
+				Relationships: components.AccountRelationships{
+					Person: components.PersonRelationship{
+						Data: components.PersonIdentifier{
+							ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+				},
+			},
+			components.AccountResourceOutput{
+				ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+				Attributes: components.CreateAccountAttributesOutputDepository(
+					components.Depository{
+						VerificationStatus: components.AccountAttributesDepositoryVerificationStatusVerified,
+						AccountBalances: components.AccountAttributesDepositoryAccountBalances{
+							Available: nil,
+							Current:   nil,
+							Currency:  "USD",
+						},
+						AccountCapabilities: components.AccountAttributesDepositoryAccountCapabilities{
+							TransferDestination: []components.TransferDestinationCapability{
+								components.TransferDestinationCapability{
+									Schedule: components.TransferDestinationCapabilityScheduleNextBusinessDay,
+									Fee:      299,
+									Currency: "USD",
+								},
+							},
+						},
+						Name:    "Acme Bank Checking Account",
+						Subtype: components.AccountAttributesDepositorySubtypeChecking,
+						DepositoryAccountDetails: components.DepositoryAccountDetails{
+							FirstName:     "Edith",
+							LastName:      "Clarke",
+							RoutingNumber: "XXXXX2021",
+							AccountNumber: "XXXXXX4321",
+						},
+					},
+				),
+				Links: components.AccountLinks{
+					Self: "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+				},
+				Relationships: components.AccountRelationships{
+					Person: components.PersonRelationship{
+						Data: components.PersonIdentifier{
+							ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+				},
+			},
+		},
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 

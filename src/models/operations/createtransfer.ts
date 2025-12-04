@@ -20,13 +20,6 @@ export type CreateTransferGlobals = {
 
 export type CreateTransferRequest = {
   /**
-   * An idempotency key is a unique string that you provide to ensure a request is only processed once.
-   *
-   * @remarks
-   * Any number of requests with the same idempotency key and payload will return an identical response.
-   */
-  idempotencyKey: string;
-  /**
    * Add related resources to the response.
    *
    * @remarks
@@ -34,6 +27,13 @@ export type CreateTransferRequest = {
    * The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
    */
   include?: string | undefined;
+  /**
+   * An idempotency key is a unique string that you provide to ensure a request is only processed once.
+   *
+   * @remarks
+   * Any number of requests with the same idempotency key and payload will return an identical response.
+   */
+  idempotencyKey: string;
   transferCreateData: models.TransferCreateData;
 };
 
@@ -47,8 +47,8 @@ export type CreateTransferResponse = {
 
 /** @internal */
 export type CreateTransferRequest$Outbound = {
-  "Idempotency-Key": string;
   include?: string | undefined;
+  "Idempotency-Key": string;
   TransferCreateData: models.TransferCreateData$Outbound;
 };
 
@@ -58,8 +58,8 @@ export const CreateTransferRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateTransferRequest
 > = z.object({
-  idempotencyKey: z.string(),
   include: z.string().optional(),
+  idempotencyKey: z.string(),
   transferCreateData: models.TransferCreateData$outboundSchema,
 }).transform((v) => {
   return remap$(v, {

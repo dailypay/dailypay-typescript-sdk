@@ -24,6 +24,10 @@ func pathPostRestTransfers(dir *logging.HTTPFileDirectory, rt *tracking.RequestT
 		switch fmt.Sprintf("%s[%d]", test, count) {
 		case "createTransfer[0]":
 			dir.HandlerFunc("createTransfer", testCreateTransferCreateTransfer0)(w, req)
+		case "createTransfer-Instant[0]":
+			dir.HandlerFunc("createTransfer", testCreateTransferCreateTransferInstant0)(w, req)
+		case "createTransfer-NextDay[0]":
+			dir.HandlerFunc("createTransfer", testCreateTransferCreateTransferNextDay0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -94,6 +98,222 @@ func testCreateTransferCreateTransfer0(w http.ResponseWriter, req *http.Request)
 				},
 				FinalFundingSources: components.FundingSourcesRelationship{
 					Data: []components.FundingSourceIdentifier{},
+				},
+			},
+		},
+		Included: []components.FundingSourceResource{
+			components.FundingSourceResource{
+				ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+				Attributes: components.FundingSourceAttributes{
+					Amount:   2500,
+					Currency: "USD",
+				},
+				Relationships: components.FundingSourceRelationships{
+					Source: components.PaycheckRelationship{
+						Data: components.PaycheckIdentifier{
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+					Transfer: components.TransferRelationship{
+						Data: components.TransferIdentifier{
+							ID: "aba332a2-24a2-46de-8257-5040e71ab210",
+						},
+					},
+				},
+			},
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testCreateTransferCreateTransferInstant0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.ContentType(req, "application/vnd.api+json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.TransferData = &components.TransferData{
+		Data: components.TransferResource{
+			ID: "aba332a2-24a2-46de-8257-5040e71ab210",
+			Attributes: components.TransferAttributes{
+				Preview:     types.Bool(true),
+				Amount:      2500,
+				Currency:    "USD",
+				Status:      components.TransferAttributesStatusFailed,
+				Schedule:    components.TransferAttributesScheduleWithinThirtyMinutes,
+				SubmittedAt: types.MustTimeFromString("2021-04-21T21:30:58.051Z"),
+				ResolvedAt:  types.MustNewTimeFromString("2021-04-21T21:30:58.051Z"),
+				Fee:         0,
+			},
+			Links: components.TransferLinks{
+				Self: "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210",
+			},
+			Relationships: components.TransferRelationships{
+				Origin: components.CreateOriginAccountRelationship(
+					components.AccountRelationship{
+						Data: components.AccountIdentifier{
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+				),
+				Destination: components.AccountRelationship{
+					Data: components.AccountIdentifier{
+						ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+					},
+				},
+				Person: components.PersonRelationship{
+					Data: components.PersonIdentifier{
+						ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+					},
+				},
+				EstimatedFundingSources: components.FundingSourcesRelationship{
+					Data: []components.FundingSourceIdentifier{
+						components.FundingSourceIdentifier{
+							ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+						},
+					},
+				},
+				FinalFundingSources: components.FundingSourcesRelationship{
+					Data: []components.FundingSourceIdentifier{
+						components.FundingSourceIdentifier{
+							ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+						},
+					},
+				},
+			},
+		},
+		Included: []components.FundingSourceResource{
+			components.FundingSourceResource{
+				ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+				Attributes: components.FundingSourceAttributes{
+					Amount:   2500,
+					Currency: "USD",
+				},
+				Relationships: components.FundingSourceRelationships{
+					Source: components.PaycheckRelationship{
+						Data: components.PaycheckIdentifier{
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+					Transfer: components.TransferRelationship{
+						Data: components.TransferIdentifier{
+							ID: "aba332a2-24a2-46de-8257-5040e71ab210",
+						},
+					},
+				},
+			},
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testCreateTransferCreateTransferNextDay0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.ContentType(req, "application/vnd.api+json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.TransferData = &components.TransferData{
+		Data: components.TransferResource{
+			ID: "aba332a2-24a2-46de-8257-5040e71ab210",
+			Attributes: components.TransferAttributes{
+				Preview:     types.Bool(true),
+				Amount:      2500,
+				Currency:    "USD",
+				Status:      components.TransferAttributesStatusFailed,
+				Schedule:    components.TransferAttributesScheduleWithinThirtyMinutes,
+				SubmittedAt: types.MustTimeFromString("2021-04-21T21:30:58.051Z"),
+				ResolvedAt:  types.MustNewTimeFromString("2021-04-21T21:30:58.051Z"),
+				Fee:         0,
+			},
+			Links: components.TransferLinks{
+				Self: "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210",
+			},
+			Relationships: components.TransferRelationships{
+				Origin: components.CreateOriginAccountRelationship(
+					components.AccountRelationship{
+						Data: components.AccountIdentifier{
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+						},
+					},
+				),
+				Destination: components.AccountRelationship{
+					Data: components.AccountIdentifier{
+						ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+					},
+				},
+				Person: components.PersonRelationship{
+					Data: components.PersonIdentifier{
+						ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+					},
+				},
+				EstimatedFundingSources: components.FundingSourcesRelationship{
+					Data: []components.FundingSourceIdentifier{
+						components.FundingSourceIdentifier{
+							ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+						},
+					},
+				},
+				FinalFundingSources: components.FundingSourcesRelationship{
+					Data: []components.FundingSourceIdentifier{
+						components.FundingSourceIdentifier{
+							ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+						},
+					},
 				},
 			},
 		},

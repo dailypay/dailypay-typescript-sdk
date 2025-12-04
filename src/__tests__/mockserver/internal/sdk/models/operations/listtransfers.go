@@ -35,13 +35,13 @@ type ListTransfersRequest struct {
 	// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
 	//
 	Version *int64 `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
-	// Limit the results to documents related to a specific person
-	FilterPersonID *string `queryParam:"style=form,explode=true,name=filter[person.id]"`
 	// Add related resources to the response.
 	//
 	// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
 	//
 	Include *string `queryParam:"style=form,explode=true,name=include"`
+	// Limit the results to documents related to a specific person
+	FilterPersonID *string `queryParam:"style=form,explode=true,name=filter[person.id]"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	FilterBy *string `queryParam:"style=form,explode=true,name=filter"`
 }
@@ -64,18 +64,18 @@ func (o *ListTransfersRequest) GetVersion() *int64 {
 	return o.Version
 }
 
-func (o *ListTransfersRequest) GetFilterPersonID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.FilterPersonID
-}
-
 func (o *ListTransfersRequest) GetInclude() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Include
+}
+
+func (o *ListTransfersRequest) GetFilterPersonID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.FilterPersonID
 }
 
 func (o *ListTransfersRequest) GetFilterBy() *string {

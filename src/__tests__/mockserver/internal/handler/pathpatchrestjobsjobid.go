@@ -24,6 +24,10 @@ func pathPatchRestJobsJobID(dir *logging.HTTPFileDirectory, rt *tracking.Request
 		switch fmt.Sprintf("%s[%d]", test, count) {
 		case "updateJob[0]":
 			dir.HandlerFunc("updateJob", testUpdateJobUpdateJob0)(w, req)
+		case "updateJob-DirectDeposit[0]":
+			dir.HandlerFunc("updateJob", testUpdateJobUpdateJobDirectDeposit0)(w, req)
+		case "updateJob-Deactivate[0]":
+			dir.HandlerFunc("updateJob", testUpdateJobUpdateJobDeactivate0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -31,6 +35,172 @@ func pathPatchRestJobsJobID(dir *logging.HTTPFileDirectory, rt *tracking.Request
 }
 
 func testUpdateJobUpdateJob0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.ContentType(req, "application/vnd.api+json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.JobData = &components.JobData{
+		Data: components.JobResource{
+			ID: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+			Attributes: components.JobAttributes{
+				ExternalIdentifiers: map[string]string{
+					"primary_identifier": "0123456789",
+				},
+				FirstName:        types.String("Edith"),
+				LastName:         types.String("Clarke"),
+				ActivationStatus: components.ActivationStatusDeactivated.ToPointer(),
+				WageRate: components.WageRate{
+					Amount:    2500,
+					Currency:  "USD",
+					Frequency: components.FrequencyHourly,
+				},
+				Title:               types.String("Computer"),
+				Department:          types.String("Finance"),
+				Location:            types.String("New York, New York"),
+				DirectDepositStatus: components.DirectDepositStatusSetupComplete,
+			},
+			Links: components.JobLinks{
+				Self: "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+			},
+			Relationships: components.JobRelationships{
+				Person: components.PersonRelationshipReadOnly{
+					Data: components.PersonIdentifier{
+						ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+					},
+				},
+				Organization: components.OrganizationRelationship{
+					Data: components.OrganizationIdentifier{
+						ID: "f0b30634-108c-439c-a8c1-c6a91197f022",
+					},
+				},
+				DirectDepositDefaultDepository: &components.AccountRelationship{
+					Data: components.AccountIdentifier{
+						ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+					},
+				},
+				DirectDepositDefaultCard: &components.AccountRelationship{
+					Data: components.AccountIdentifier{
+						ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+					},
+				},
+			},
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testUpdateJobUpdateJobDirectDeposit0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.ContentType(req, "application/vnd.api+json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.JobData = &components.JobData{
+		Data: components.JobResource{
+			ID: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+			Attributes: components.JobAttributes{
+				ExternalIdentifiers: map[string]string{
+					"primary_identifier": "0123456789",
+				},
+				FirstName:        types.String("Edith"),
+				LastName:         types.String("Clarke"),
+				ActivationStatus: components.ActivationStatusDeactivated.ToPointer(),
+				WageRate: components.WageRate{
+					Amount:    2500,
+					Currency:  "USD",
+					Frequency: components.FrequencyHourly,
+				},
+				Title:               types.String("Computer"),
+				Department:          types.String("Finance"),
+				Location:            types.String("New York, New York"),
+				DirectDepositStatus: components.DirectDepositStatusSetupComplete,
+			},
+			Links: components.JobLinks{
+				Self: "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+			},
+			Relationships: components.JobRelationships{
+				Person: components.PersonRelationshipReadOnly{
+					Data: components.PersonIdentifier{
+						ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+					},
+				},
+				Organization: components.OrganizationRelationship{
+					Data: components.OrganizationIdentifier{
+						ID: "f0b30634-108c-439c-a8c1-c6a91197f022",
+					},
+				},
+				DirectDepositDefaultDepository: &components.AccountRelationship{
+					Data: components.AccountIdentifier{
+						ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+					},
+				},
+				DirectDepositDefaultCard: &components.AccountRelationship{
+					Data: components.AccountIdentifier{
+						ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+					},
+				},
+			},
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testUpdateJobUpdateJobDeactivate0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)

@@ -23,6 +23,7 @@ test("Transfers Read Transfer", async () => {
   });
 
   const result = await sdk.transfers.read({
+    include: "estimated_funding_sources,final_funding_sources",
     transferId: "aba332a2-24a2-46de-8257-5040e71ab210",
   });
   expect(result.httpMeta.response.status).toBe(200);
@@ -121,6 +122,7 @@ test("Transfers List Transfers", async () => {
   });
 
   const result = await sdk.transfers.list({
+    include: "estimated_funding_sources,final_funding_sources",
     filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
   });
   expect(result.httpMeta.response.status).toBe(200);
@@ -254,6 +256,276 @@ test("Transfers Create Transfer", async () => {
         },
         finalFundingSources: {
           data: [],
+        },
+      },
+    },
+    included: [
+      {
+        id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+        type: "funding_sources",
+        attributes: {
+          amount: 2500,
+          currency: "USD",
+        },
+        relationships: {
+          source: {
+            data: {
+              type: "paychecks",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+            },
+          },
+          transfer: {
+            data: {
+              type: "transfers",
+              id: "aba332a2-24a2-46de-8257-5040e71ab210",
+            },
+          },
+        },
+      },
+    ],
+  });
+});
+
+test("Transfers Create Transfer Instant", async () => {
+  const testHttpClient = createTestHTTPClient("createTransfer-Instant");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.transfers.create({
+    include: "estimated_funding_sources,final_funding_sources",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
+    transferCreateData: {
+      data: {
+        type: "transfers",
+        attributes: {
+          preview: true,
+          amount: 15000,
+          currency: "USD",
+          schedule: "WITHIN_THIRTY_MINUTES",
+        },
+        relationships: {
+          origin: {
+            data: {
+              type: "accounts",
+              id: "123e4567-e89b-12d3-a456-426614174000",
+            },
+          },
+          destination: {
+            data: {
+              type: "accounts",
+              id: "223e4567-e89b-12d3-a456-426614174001",
+            },
+          },
+          person: {
+            data: {
+              type: "people",
+              id: "aa860051-c411-4709-9685-c1b716df611b",
+            },
+          },
+        },
+      },
+    },
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.transferData).toBeDefined();
+  expect(result.transferData).toEqual({
+    data: {
+      type: "transfers",
+      id: "aba332a2-24a2-46de-8257-5040e71ab210",
+      attributes: {
+        preview: true,
+        amount: 2500,
+        currency: "USD",
+        status: "FAILED",
+        schedule: "WITHIN_THIRTY_MINUTES",
+        submittedAt: new Date("2021-04-21T21:30:58.051Z"),
+        resolvedAt: new Date("2021-04-21T21:30:58.051Z"),
+        fee: 0,
+      },
+      links: {
+        self:
+          "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210",
+      },
+      relationships: {
+        origin: {
+          data: {
+            type: "paychecks",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+        destination: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+        person: {
+          data: {
+            type: "people",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+        estimatedFundingSources: {
+          data: [
+            {
+              type: "funding_sources",
+              id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+            },
+          ],
+        },
+        finalFundingSources: {
+          data: [
+            {
+              type: "funding_sources",
+              id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+            },
+          ],
+        },
+      },
+    },
+    included: [
+      {
+        id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+        type: "funding_sources",
+        attributes: {
+          amount: 2500,
+          currency: "USD",
+        },
+        relationships: {
+          source: {
+            data: {
+              type: "paychecks",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+            },
+          },
+          transfer: {
+            data: {
+              type: "transfers",
+              id: "aba332a2-24a2-46de-8257-5040e71ab210",
+            },
+          },
+        },
+      },
+    ],
+  });
+});
+
+test("Transfers Create Transfer Next Day", async () => {
+  const testHttpClient = createTestHTTPClient("createTransfer-NextDay");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.transfers.create({
+    include: "estimated_funding_sources,final_funding_sources",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
+    transferCreateData: {
+      data: {
+        type: "transfers",
+        attributes: {
+          preview: true,
+          amount: 15000,
+          currency: "USD",
+          schedule: "NEXT_BUSINESS_DAY",
+        },
+        relationships: {
+          origin: {
+            data: {
+              type: "accounts",
+              id: "123e4567-e89b-12d3-a456-426614174000",
+            },
+          },
+          destination: {
+            data: {
+              type: "accounts",
+              id: "223e4567-e89b-12d3-a456-426614174001",
+            },
+          },
+          person: {
+            data: {
+              type: "people",
+              id: "aa860051-c411-4709-9685-c1b716df611b",
+            },
+          },
+        },
+      },
+    },
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.transferData).toBeDefined();
+  expect(result.transferData).toEqual({
+    data: {
+      type: "transfers",
+      id: "aba332a2-24a2-46de-8257-5040e71ab210",
+      attributes: {
+        preview: true,
+        amount: 2500,
+        currency: "USD",
+        status: "FAILED",
+        schedule: "WITHIN_THIRTY_MINUTES",
+        submittedAt: new Date("2021-04-21T21:30:58.051Z"),
+        resolvedAt: new Date("2021-04-21T21:30:58.051Z"),
+        fee: 0,
+      },
+      links: {
+        self:
+          "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210",
+      },
+      relationships: {
+        origin: {
+          data: {
+            type: "paychecks",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+        destination: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+        person: {
+          data: {
+            type: "people",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+        estimatedFundingSources: {
+          data: [
+            {
+              type: "funding_sources",
+              id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+            },
+          ],
+        },
+        finalFundingSources: {
+          data: [
+            {
+              type: "funding_sources",
+              id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+            },
+          ],
         },
       },
     },
