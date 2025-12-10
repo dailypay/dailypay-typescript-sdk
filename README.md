@@ -250,42 +250,42 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [accounts](docs/sdks/accounts/README.md)
+### [Accounts](docs/sdks/accounts/README.md)
 
 * [read](docs/sdks/accounts/README.md#read) - Get an Account object
 * [list](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [create](docs/sdks/accounts/README.md#create) - Create an Account object
 
-### [cardTokenization](docs/sdks/cardtokenization/README.md)
+### [CardTokenization](docs/sdks/cardtokenization/README.md)
 
 * [create](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 
-### [health](docs/sdks/health/README.md)
+### [Health](docs/sdks/health/README.md)
 
 * [getHealth](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 
-### [jobs](docs/sdks/jobs/README.md)
+### [Jobs](docs/sdks/jobs/README.md)
 
 * [read](docs/sdks/jobs/README.md#read) - Get a job object
 * [update](docs/sdks/jobs/README.md#update) - Update paycheck settings or deactivate a job
 * [list](docs/sdks/jobs/README.md#list) - Get a list of job objects
 
-### [organizations](docs/sdks/organizations/README.md)
+### [Organizations](docs/sdks/organizations/README.md)
 
 * [read](docs/sdks/organizations/README.md#read) - Get an organization
 * [list](docs/sdks/organizations/README.md#list) - List organizations
 
-### [paychecks](docs/sdks/paychecks/README.md)
+### [Paychecks](docs/sdks/paychecks/README.md)
 
 * [read](docs/sdks/paychecks/README.md#read) - Get a Paycheck object
 * [list](docs/sdks/paychecks/README.md#list) - Get a list of paycheck objects
 
-### [people](docs/sdks/people/README.md)
+### [People](docs/sdks/people/README.md)
 
 * [read](docs/sdks/people/README.md#read) - Get a person object
 * [update](docs/sdks/people/README.md#update) - Update a person
 
-### [transfers](docs/sdks/transfers/README.md)
+### [Transfers](docs/sdks/transfers/README.md)
 
 * [read](docs/sdks/transfers/README.md#read) - Get a transfer object
 * [list](docs/sdks/transfers/README.md#list) - Get a list of transfers

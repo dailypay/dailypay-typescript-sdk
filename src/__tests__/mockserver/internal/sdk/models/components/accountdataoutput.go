@@ -2,7 +2,6 @@
 
 package components
 
-// AccountDataOutput - Returns the account object.
 type AccountDataOutput struct {
 	Data AccountResourceOutput `json:"data"`
 }

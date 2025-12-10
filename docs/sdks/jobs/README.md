@@ -1,5 +1,4 @@
 # Jobs
-(*jobs*)
 
 ## Overview
 
