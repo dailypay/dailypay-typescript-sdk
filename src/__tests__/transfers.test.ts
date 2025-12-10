@@ -360,7 +360,7 @@ test("Transfers Create Transfer Instant", async () => {
       relationships: {
         origin: {
           data: {
-            type: "paychecks",
+            type: "accounts",
             id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
           },
         },
@@ -495,7 +495,7 @@ test("Transfers Create Transfer Next Day", async () => {
       relationships: {
         origin: {
           data: {
-            type: "paychecks",
+            type: "accounts",
             id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
           },
         },
