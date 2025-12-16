@@ -46,12 +46,12 @@ func testReadAccountReadAccount0(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	var respBody *components.AccountDataOutput = &components.AccountDataOutput{
-		Data: components.AccountResourceOutput{
+	var respBody *components.AccountData = &components.AccountData{
+		Data: components.AccountResource{
 			ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
-			Attributes: components.CreateAccountAttributesOutputDepository(
+			Attributes: components.CreateAccountAttributesDepository(
 				components.Depository{
-					VerificationStatus: components.AccountAttributesDepositoryVerificationStatusVerified,
+					AccountVerificationStatus: components.AccountAttributesDepositoryAccountVerificationStatusVerified,
 					AccountBalances: components.AccountAttributesDepositoryAccountBalances{
 						Available: types.Int64(12000),
 						Current:   types.Int64(50000),
@@ -73,7 +73,7 @@ func testReadAccountReadAccount0(w http.ResponseWriter, req *http.Request) {
 					},
 					Name:    "Checking Account",
 					Subtype: components.AccountAttributesDepositorySubtypeChecking,
-					DepositoryAccountDetails: components.DepositoryAccountDetails{
+					DepositoryAccountDetails: components.AccountAttributesDepositoryDepositoryAccountDetails{
 						FirstName:     "Edith",
 						LastName:      "Clarke",
 						RoutingNumber: "XXXXX2021",

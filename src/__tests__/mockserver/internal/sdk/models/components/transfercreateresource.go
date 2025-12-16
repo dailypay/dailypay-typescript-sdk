@@ -14,7 +14,7 @@ type TransferCreateResource struct {
 	// Created when a person takes an advance against a future paycheck, or on a daily basis
 	// when we update estimated earnings based on current employment.
 	//
-	Attributes    TransferAttributesInput     `json:"attributes"`
+	Attributes    TransferCreateAttributes    `json:"attributes"`
 	Relationships TransferCreateRelationships `json:"relationships"`
 }
 
@@ -40,9 +40,9 @@ func (o *TransferCreateResource) GetID() *string {
 	return o.ID
 }
 
-func (o *TransferCreateResource) GetAttributes() TransferAttributesInput {
+func (o *TransferCreateResource) GetAttributes() TransferCreateAttributes {
 	if o == nil {
-		return TransferAttributesInput{}
+		return TransferCreateAttributes{}
 	}
 	return o.Attributes
 }

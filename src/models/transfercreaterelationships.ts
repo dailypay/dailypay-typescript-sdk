@@ -14,22 +14,17 @@ import {
   PersonRelationship$outboundSchema,
 } from "./personrelationship.js";
 
-/**
- * The relationships between the transfer and other resources, including the destination account, the origination account, and the person who initiated the transfer.
- *
- * @remarks
- */
 export type TransferCreateRelationships = {
   origin: AccountRelationship;
-  destination: AccountRelationship;
-  person: PersonRelationship;
+  destination?: AccountRelationship | undefined;
+  person?: PersonRelationship | undefined;
 };
 
 /** @internal */
 export type TransferCreateRelationships$Outbound = {
   origin: AccountRelationship$Outbound;
-  destination: AccountRelationship$Outbound;
-  person: PersonRelationship$Outbound;
+  destination?: AccountRelationship$Outbound | undefined;
+  person?: PersonRelationship$Outbound | undefined;
 };
 
 /** @internal */
@@ -39,8 +34,8 @@ export const TransferCreateRelationships$outboundSchema: z.ZodType<
   TransferCreateRelationships
 > = z.object({
   origin: AccountRelationship$outboundSchema,
-  destination: AccountRelationship$outboundSchema,
-  person: PersonRelationship$outboundSchema,
+  destination: AccountRelationship$outboundSchema.optional(),
+  person: PersonRelationship$outboundSchema.optional(),
 });
 
 export function transferCreateRelationshipsToJSON(

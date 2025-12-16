@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { accountsRead } from "../funcs/accountsRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type AccountsReadQueryData = operations.ReadAccountResponse;
+import {
+  AccountsReadQueryData,
+  buildAccountsReadQuery,
+  prefetchAccountsRead,
+  queryKeyAccountsRead,
+} from "./accountsRead.core.js";
+export {
+  type AccountsReadQueryData,
+  buildAccountsReadQuery,
+  prefetchAccountsRead,
+  queryKeyAccountsRead,
+};
 
 /**
  * Get an Account object
@@ -69,19 +72,6 @@ export function useAccountsReadSuspense(
   });
 }
 
-export function prefetchAccountsRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadAccountRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildAccountsReadQuery(
-      client$,
-      request,
-    ),
-  });
-}
-
 export function setAccountsReadData(
   client: QueryClient,
   queryKeyBase: [accountId: string],
@@ -111,36 +101,4 @@ export function invalidateAllAccountsRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Accounts", "read"],
   });
-}
-
-export function buildAccountsReadQuery(
-  client$: SDKCore,
-  request: operations.ReadAccountRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<AccountsReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyAccountsRead(request.accountId),
-    queryFn: async function accountsReadQueryFn(
-      ctx,
-    ): Promise<AccountsReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(accountsRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyAccountsRead(accountId: string): QueryKey {
-  return ["@dailypay/dailypay", "Accounts", "read", accountId];
 }

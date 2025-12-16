@@ -158,11 +158,11 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.people.update({
     personId: "aa860051-c411-4709-9685-c1b716df611b",
-    personData: {
-      data: {
+    personUpdateData: {
+      personUpdateResource: {
         type: "people",
         id: "aa860051-c411-4709-9685-c1b716df611b",
-        attributes: {
+        personUpdateAttributes: {
           stateOfResidence: "NY",
         },
       },
@@ -199,11 +199,11 @@ const sdk = new SDKCore({
 async function run() {
   const res = await peopleUpdate(sdk, {
     personId: "aa860051-c411-4709-9685-c1b716df611b",
-    personData: {
-      data: {
+    personUpdateData: {
+      personUpdateResource: {
         type: "people",
         id: "aa860051-c411-4709-9685-c1b716df611b",
-        attributes: {
+        personUpdateAttributes: {
           stateOfResidence: "NY",
         },
       },

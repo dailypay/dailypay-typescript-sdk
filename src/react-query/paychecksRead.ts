@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { paychecksRead } from "../funcs/paychecksRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type PaychecksReadQueryData = operations.ReadPaycheckResponse;
+import {
+  buildPaychecksReadQuery,
+  PaychecksReadQueryData,
+  prefetchPaychecksRead,
+  queryKeyPaychecksRead,
+} from "./paychecksRead.core.js";
+export {
+  buildPaychecksReadQuery,
+  type PaychecksReadQueryData,
+  prefetchPaychecksRead,
+  queryKeyPaychecksRead,
+};
 
 /**
  * Get a Paycheck object
@@ -69,19 +72,6 @@ export function usePaychecksReadSuspense(
   });
 }
 
-export function prefetchPaychecksRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadPaycheckRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildPaychecksReadQuery(
-      client$,
-      request,
-    ),
-  });
-}
-
 export function setPaychecksReadData(
   client: QueryClient,
   queryKeyBase: [paycheckId: string],
@@ -111,36 +101,4 @@ export function invalidateAllPaychecksRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Paychecks", "read"],
   });
-}
-
-export function buildPaychecksReadQuery(
-  client$: SDKCore,
-  request: operations.ReadPaycheckRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<PaychecksReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyPaychecksRead(request.paycheckId),
-    queryFn: async function paychecksReadQueryFn(
-      ctx,
-    ): Promise<PaychecksReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(paychecksRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyPaychecksRead(paycheckId: string): QueryKey {
-  return ["@dailypay/dailypay", "Paychecks", "read", paycheckId];
 }

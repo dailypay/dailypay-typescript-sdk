@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function accountsCreate(
   client: SDKCore,
-  request: models.AccountDataInput,
+  request: models.AccountCreateData,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -62,7 +62,7 @@ export function accountsCreate(
 
 async function $do(
   client: SDKCore,
-  request: models.AccountDataInput,
+  request: models.AccountCreateData,
   options?: RequestOptions,
 ): Promise<
   [
@@ -86,7 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.AccountDataInput$outboundSchema.parse(value),
+    (value) => models.AccountCreateData$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

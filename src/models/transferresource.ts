@@ -19,13 +19,6 @@ import {
 export type TransferResource = {
   type: "transfers";
   id: string;
-  /**
-   * An object representing a transfer of money from one account to another.
-   *
-   * @remarks
-   * Created when a person takes an advance against a future paycheck, or on a daily basis
-   * when we update estimated earnings based on current employment.
-   */
   attributes: TransferAttributes;
   links: TransferLinks;
   relationships: TransferRelationships;

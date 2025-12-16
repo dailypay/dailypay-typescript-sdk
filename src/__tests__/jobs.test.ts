@@ -101,13 +101,10 @@ test("Jobs Update Job", async () => {
   const result = await sdk.jobs.update({
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        attributes: {
-          activationStatus: "DEACTIVATED",
-        },
-        relationships: {
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",
@@ -120,6 +117,9 @@ test("Jobs Update Job", async () => {
               id: "2bc7d781-3247-46f6-b60f-4090d214936a",
             },
           },
+        },
+        jobUpdateAttributes: {
+          activationStatus: "DEACTIVATED",
         },
       },
     },
@@ -282,10 +282,10 @@ test("Jobs Update Job Direct Deposit", async () => {
   const result = await sdk.jobs.update({
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        relationships: {
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",
@@ -378,10 +378,10 @@ test("Jobs Update Job Deactivate", async () => {
   const result = await sdk.jobs.update({
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        attributes: {
+        jobUpdateAttributes: {
           activationStatus: "DEACTIVATED",
         },
       },

@@ -51,7 +51,7 @@ func testListAccountsListAccounts0(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	var respBody *components.AccountsData = &components.AccountsData{
-		Data: []components.AccountResourceOutput{},
+		Data: []components.AccountResource{},
 	}
 	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
 
@@ -85,12 +85,12 @@ func testListAccountsListAccountsODPAccounts0(w http.ResponseWriter, req *http.R
 		return
 	}
 	var respBody *components.AccountsData = &components.AccountsData{
-		Data: []components.AccountResourceOutput{
-			components.AccountResourceOutput{
-				ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
-				Attributes: components.CreateAccountAttributesOutputEarningsBalance(
+		Data: []components.AccountResource{
+			components.AccountResource{
+				ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+				Attributes: components.CreateAccountAttributesEarningsBalance(
 					components.EarningsBalanceReadOnly{
-						VerificationStatus: components.AccountAttributesEarningsBalanceVerificationStatusVerified,
+						AccountVerificationStatus: components.AccountAttributesEarningsBalanceAccountVerificationStatusVerified,
 						AccountBalances: components.AccountAttributesEarningsBalanceAccountBalances{
 							Available: types.Int64(7250),
 							Current:   types.Int64(0),
@@ -104,12 +104,12 @@ func testListAccountsListAccountsODPAccounts0(w http.ResponseWriter, req *http.R
 					},
 				),
 				Links: components.AccountLinks{
-					Self: "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+					Self: "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
 				},
 				Relationships: components.AccountRelationships{
 					Person: components.PersonRelationship{
 						Data: components.PersonIdentifier{
-							ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
 						},
 					},
 				},
@@ -148,12 +148,12 @@ func testListAccountsListAccountsAllAccounts0(w http.ResponseWriter, req *http.R
 		return
 	}
 	var respBody *components.AccountsData = &components.AccountsData{
-		Data: []components.AccountResourceOutput{
-			components.AccountResourceOutput{
-				ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
-				Attributes: components.CreateAccountAttributesOutputEarningsBalance(
+		Data: []components.AccountResource{
+			components.AccountResource{
+				ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+				Attributes: components.CreateAccountAttributesEarningsBalance(
 					components.EarningsBalanceReadOnly{
-						VerificationStatus: components.AccountAttributesEarningsBalanceVerificationStatusVerified,
+						AccountVerificationStatus: components.AccountAttributesEarningsBalanceAccountVerificationStatusVerified,
 						AccountBalances: components.AccountAttributesEarningsBalanceAccountBalances{
 							Available: types.Int64(7250),
 							Current:   types.Int64(0),
@@ -167,21 +167,21 @@ func testListAccountsListAccountsAllAccounts0(w http.ResponseWriter, req *http.R
 					},
 				),
 				Links: components.AccountLinks{
-					Self: "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+					Self: "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
 				},
 				Relationships: components.AccountRelationships{
 					Person: components.PersonRelationship{
 						Data: components.PersonIdentifier{
-							ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
 						},
 					},
 				},
 			},
-			components.AccountResourceOutput{
+			components.AccountResource{
 				ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
-				Attributes: components.CreateAccountAttributesOutputDepository(
+				Attributes: components.CreateAccountAttributesDepository(
 					components.Depository{
-						VerificationStatus: components.AccountAttributesDepositoryVerificationStatusVerified,
+						AccountVerificationStatus: components.AccountAttributesDepositoryAccountVerificationStatusVerified,
 						AccountBalances: components.AccountAttributesDepositoryAccountBalances{
 							Available: nil,
 							Current:   nil,
@@ -198,7 +198,7 @@ func testListAccountsListAccountsAllAccounts0(w http.ResponseWriter, req *http.R
 						},
 						Name:    "Acme Bank Checking Account",
 						Subtype: components.AccountAttributesDepositorySubtypeChecking,
-						DepositoryAccountDetails: components.DepositoryAccountDetails{
+						DepositoryAccountDetails: components.AccountAttributesDepositoryDepositoryAccountDetails{
 							FirstName:     "Edith",
 							LastName:      "Clarke",
 							RoutingNumber: "XXXXX2021",
@@ -207,12 +207,12 @@ func testListAccountsListAccountsAllAccounts0(w http.ResponseWriter, req *http.R
 					},
 				),
 				Links: components.AccountLinks{
-					Self: "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+					Self: "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
 				},
 				Relationships: components.AccountRelationships{
 					Person: components.PersonRelationship{
 						Data: components.PersonIdentifier{
-							ID: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
 						},
 					},
 				},

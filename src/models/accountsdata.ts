@@ -6,16 +6,16 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AccountResourceOutput,
-  AccountResourceOutput$inboundSchema,
-} from "./accountresourceoutput.js";
+  AccountResource,
+  AccountResource$inboundSchema,
+} from "./accountresource.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * Returns the account object.
  */
 export type AccountsData = {
-  data: Array<AccountResourceOutput>;
+  data: Array<AccountResource>;
 };
 
 /** @internal */
@@ -24,7 +24,7 @@ export const AccountsData$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  data: z.array(AccountResourceOutput$inboundSchema),
+  data: z.array(AccountResource$inboundSchema),
 });
 
 export function accountsDataFromJSON(

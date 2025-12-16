@@ -162,10 +162,10 @@ async function run() {
   const result = await sdk.jobs.update({
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        relationships: {
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",
@@ -214,10 +214,10 @@ async function run() {
   const res = await jobsUpdate(sdk, {
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        relationships: {
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",

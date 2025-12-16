@@ -4,10 +4,10 @@
 
 import * as z from "zod/v3";
 import {
-  TransferAttributesInput,
-  TransferAttributesInput$Outbound,
-  TransferAttributesInput$outboundSchema,
-} from "./transferattributes.js";
+  TransferCreateAttributes,
+  TransferCreateAttributes$Outbound,
+  TransferCreateAttributes$outboundSchema,
+} from "./transfercreateattributes.js";
 import {
   TransferCreateRelationships,
   TransferCreateRelationships$Outbound,
@@ -27,7 +27,7 @@ export type TransferCreateResource = {
    * Created when a person takes an advance against a future paycheck, or on a daily basis
    * when we update estimated earnings based on current employment.
    */
-  attributes: TransferAttributesInput;
+  attributes: TransferCreateAttributes;
   relationships: TransferCreateRelationships;
 };
 
@@ -35,7 +35,7 @@ export type TransferCreateResource = {
 export type TransferCreateResource$Outbound = {
   type: "transfers";
   id?: string | undefined;
-  attributes: TransferAttributesInput$Outbound;
+  attributes: TransferCreateAttributes$Outbound;
   relationships: TransferCreateRelationships$Outbound;
 };
 
@@ -47,7 +47,7 @@ export const TransferCreateResource$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("transfers"),
   id: z.string().optional(),
-  attributes: TransferAttributesInput$outboundSchema,
+  attributes: TransferCreateAttributes$outboundSchema,
   relationships: TransferCreateRelationships$outboundSchema,
 });
 

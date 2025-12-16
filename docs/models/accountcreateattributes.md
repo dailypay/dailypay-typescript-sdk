@@ -1,0 +1,46 @@
+# AccountCreateAttributes
+
+The details of the account.
+
+
+## Supported Types
+
+### `models.AccountCreateAttributesCard`
+
+```typescript
+const value: models.AccountCreateAttributesCard = {
+  name: "Debit Card",
+  accountType: "CARD",
+  subtype: "DEBIT",
+  createCardAccountDetails: {
+    token: "HX46TY794RG",
+    firstName: "Edith",
+    lastName: "Clarke",
+    expirationMonth: "02",
+    expirationYear: "2025",
+    addressLineOne: "123 Kebly Street",
+    addressLineTwo: "Apt #12",
+    addressCity: "Fort Lee",
+    addressState: "NJ",
+    addressZipCode: "72374",
+    addressCountry: "US",
+  },
+};
+```
+
+### `models.AccountCreateAttributesDepository`
+
+```typescript
+const value: models.AccountCreateAttributesDepository = {
+  name: "Checking Account",
+  accountType: "DEPOSITORY",
+  subtype: "CHECKING",
+  depositoryAccountDetails: {
+    firstName: "Edith",
+    lastName: "Clarke",
+    routingNumber: "XXXXX2021",
+    accountNumber: "XXXXXX4321",
+  },
+};
+```
+

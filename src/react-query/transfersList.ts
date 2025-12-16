@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { transfersList } from "../funcs/transfersList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type TransfersListQueryData = operations.ListTransfersResponse;
+import {
+  buildTransfersListQuery,
+  prefetchTransfersList,
+  queryKeyTransfersList,
+  TransfersListQueryData,
+} from "./transfersList.core.js";
+export {
+  buildTransfersListQuery,
+  prefetchTransfersList,
+  queryKeyTransfersList,
+  type TransfersListQueryData,
+};
 
 /**
  * Get a list of transfers
@@ -66,19 +69,6 @@ export function useTransfersListSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchTransfersList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListTransfersRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildTransfersListQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -123,46 +113,4 @@ export function invalidateAllTransfersList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Transfers", "list"],
   });
-}
-
-export function buildTransfersListQuery(
-  client$: SDKCore,
-  request?: operations.ListTransfersRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<TransfersListQueryData>;
-} {
-  return {
-    queryKey: queryKeyTransfersList({
-      include: request?.include,
-      filterPersonId: request?.filterPersonId,
-      filterBy: request?.filterBy,
-    }),
-    queryFn: async function transfersListQueryFn(
-      ctx,
-    ): Promise<TransfersListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(transfersList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyTransfersList(
-  parameters: {
-    include?: string | undefined;
-    filterPersonId?: string | undefined;
-    filterBy?: string | undefined;
-  },
-): QueryKey {
-  return ["@dailypay/dailypay", "Transfers", "list", parameters];
 }

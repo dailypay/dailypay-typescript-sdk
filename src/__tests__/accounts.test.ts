@@ -32,7 +32,7 @@ test("Accounts Read Account", async () => {
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
       type: "accounts",
       attributes: {
-        verificationStatus: "VERIFIED",
+        accountVerificationStatus: "VERIFIED",
         accountBalances: {
           available: 12000,
           current: 50000,
@@ -153,7 +153,7 @@ test("Accounts Create Account Depository", async () => {
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
       type: "accounts",
       attributes: {
-        verificationStatus: "VERIFIED",
+        accountVerificationStatus: "VERIFIED",
         accountBalances: {
           available: 12000,
           current: 50000,
@@ -222,7 +222,7 @@ test("Accounts Create Account Card", async () => {
         name: "Acme Bank Debit Card",
         accountType: "CARD",
         subtype: "DEBIT",
-        cardAccountDetails: {
+        createCardAccountDetails: {
           token: "abc.efg.123",
           firstName: "Edith",
           lastName: "Clarke",
@@ -252,7 +252,7 @@ test("Accounts Create Account Card", async () => {
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
       type: "accounts",
       attributes: {
-        verificationStatus: "VERIFIED",
+        accountVerificationStatus: "VERIFIED",
         accountBalances: {
           available: 12000,
           current: 50000,
@@ -324,10 +324,10 @@ test("Accounts List Accounts Odp Accounts", async () => {
   expect(result.accountsData).toEqual({
     data: [
       {
-        id: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+        id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
         type: "accounts",
         attributes: {
-          verificationStatus: "VERIFIED",
+          accountVerificationStatus: "VERIFIED",
           accountBalances: {
             available: 7250,
             current: 0,
@@ -343,13 +343,13 @@ test("Accounts List Accounts Odp Accounts", async () => {
         },
         links: {
           self:
-            "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+            "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
         },
         relationships: {
           person: {
             data: {
               type: "people",
-              id: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
             },
           },
         },
@@ -384,10 +384,10 @@ test("Accounts List Accounts All Accounts", async () => {
   expect(result.accountsData).toEqual({
     data: [
       {
-        id: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+        id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
         type: "accounts",
         attributes: {
-          verificationStatus: "VERIFIED",
+          accountVerificationStatus: "VERIFIED",
           accountBalances: {
             available: 7250,
             current: 0,
@@ -403,13 +403,13 @@ test("Accounts List Accounts All Accounts", async () => {
         },
         links: {
           self:
-            "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+            "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
         },
         relationships: {
           person: {
             data: {
               type: "people",
-              id: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
             },
           },
         },
@@ -418,7 +418,7 @@ test("Accounts List Accounts All Accounts", async () => {
         id: "2bc7d781-3247-46f6-b60f-4090d214936a",
         type: "accounts",
         attributes: {
-          verificationStatus: "VERIFIED",
+          accountVerificationStatus: "VERIFIED",
           accountBalances: {
             available: null,
             current: null,
@@ -445,13 +445,13 @@ test("Accounts List Accounts All Accounts", async () => {
         },
         links: {
           self:
-            "https://api.dailypay.com/accounts/fa8f641-5717-4562-b3fc-2c963f66afa6",
+            "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
         },
         relationships: {
           person: {
             data: {
               type: "people",
-              id: "fa8f641-5717-4562-b3fc-2c963f66afa6",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
             },
           },
         },

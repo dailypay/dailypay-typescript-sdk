@@ -3,61 +3,176 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../lib/primitives.js";
+import { ClosedEnum } from "../types/enums.js";
 import {
-  JobAttributesInput,
-  JobAttributesInput$Outbound,
-  JobAttributesInput$outboundSchema,
-} from "./jobattributes.js";
-import {
-  JobRelationshipsInput,
-  JobRelationshipsInput$Outbound,
-  JobRelationshipsInput$outboundSchema,
-} from "./jobrelationshipsinput.js";
+  AccountRelationship,
+  AccountRelationship$Outbound,
+  AccountRelationship$outboundSchema,
+} from "./accountrelationship.js";
+
+/**
+ * The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
+ */
+export type JobUpdateRelationships = {
+  directDepositDefaultDepository?: AccountRelationship | undefined;
+  directDepositDefaultCard?: AccountRelationship | undefined;
+};
+
+/**
+ * Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.
+ *
+ * @remarks
+ *
+ * To deactivate a job, update activation_status to `DEACTIVATED`.
+ */
+export const JobUpdateDataActivationStatus = {
+  Deactivated: "DEACTIVATED",
+  DeactivationPending: "DEACTIVATION_PENDING",
+  ActivationRequired: "ACTIVATION_REQUIRED",
+  ActivationUnderReview: "ACTIVATION_UNDER_REVIEW",
+  Activated: "ACTIVATED",
+} as const;
+/**
+ * Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.
+ *
+ * @remarks
+ *
+ * To deactivate a job, update activation_status to `DEACTIVATED`.
+ */
+export type JobUpdateDataActivationStatus = ClosedEnum<
+  typeof JobUpdateDataActivationStatus
+>;
+
+export type JobUpdateAttributes = {
+  /**
+   * Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.
+   *
+   * @remarks
+   *
+   * To deactivate a job, update activation_status to `DEACTIVATED`.
+   */
+  activationStatus?: JobUpdateDataActivationStatus | undefined;
+};
 
 /**
  * A job describes the financial relationship between a person and an organization.
  */
-export type Data = {
+export type JobUpdateResource = {
   type: "jobs";
   id: string;
-  attributes?: JobAttributesInput | undefined;
   /**
    * The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
    */
-  relationships?: JobRelationshipsInput | undefined;
+  jobUpdateRelationships?: JobUpdateRelationships | undefined;
+  jobUpdateAttributes?: JobUpdateAttributes | undefined;
 };
 
 export type JobUpdateData = {
   /**
    * A job describes the financial relationship between a person and an organization.
    */
-  data: Data;
+  jobUpdateResource: JobUpdateResource;
 };
 
 /** @internal */
-export type Data$Outbound = {
+export type JobUpdateRelationships$Outbound = {
+  direct_deposit_default_depository?: AccountRelationship$Outbound | undefined;
+  direct_deposit_default_card?: AccountRelationship$Outbound | undefined;
+};
+
+/** @internal */
+export const JobUpdateRelationships$outboundSchema: z.ZodType<
+  JobUpdateRelationships$Outbound,
+  z.ZodTypeDef,
+  JobUpdateRelationships
+> = z.object({
+  directDepositDefaultDepository: AccountRelationship$outboundSchema.optional(),
+  directDepositDefaultCard: AccountRelationship$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    directDepositDefaultDepository: "direct_deposit_default_depository",
+    directDepositDefaultCard: "direct_deposit_default_card",
+  });
+});
+
+export function jobUpdateRelationshipsToJSON(
+  jobUpdateRelationships: JobUpdateRelationships,
+): string {
+  return JSON.stringify(
+    JobUpdateRelationships$outboundSchema.parse(jobUpdateRelationships),
+  );
+}
+
+/** @internal */
+export const JobUpdateDataActivationStatus$outboundSchema: z.ZodNativeEnum<
+  typeof JobUpdateDataActivationStatus
+> = z.nativeEnum(JobUpdateDataActivationStatus);
+
+/** @internal */
+export type JobUpdateAttributes$Outbound = {
+  activation_status?: string | undefined;
+};
+
+/** @internal */
+export const JobUpdateAttributes$outboundSchema: z.ZodType<
+  JobUpdateAttributes$Outbound,
+  z.ZodTypeDef,
+  JobUpdateAttributes
+> = z.object({
+  activationStatus: JobUpdateDataActivationStatus$outboundSchema.optional(),
+}).transform((v) => {
+  return remap$(v, {
+    activationStatus: "activation_status",
+  });
+});
+
+export function jobUpdateAttributesToJSON(
+  jobUpdateAttributes: JobUpdateAttributes,
+): string {
+  return JSON.stringify(
+    JobUpdateAttributes$outboundSchema.parse(jobUpdateAttributes),
+  );
+}
+
+/** @internal */
+export type JobUpdateResource$Outbound = {
   type: "jobs";
   id: string;
-  attributes?: JobAttributesInput$Outbound | undefined;
-  relationships?: JobRelationshipsInput$Outbound | undefined;
+  relationships?: JobUpdateRelationships$Outbound | undefined;
+  attributes?: JobUpdateAttributes$Outbound | undefined;
 };
 
 /** @internal */
-export const Data$outboundSchema: z.ZodType<Data$Outbound, z.ZodTypeDef, Data> =
-  z.object({
-    type: z.literal("jobs"),
-    id: z.string(),
-    attributes: JobAttributesInput$outboundSchema.optional(),
-    relationships: JobRelationshipsInput$outboundSchema.optional(),
+export const JobUpdateResource$outboundSchema: z.ZodType<
+  JobUpdateResource$Outbound,
+  z.ZodTypeDef,
+  JobUpdateResource
+> = z.object({
+  type: z.literal("jobs"),
+  id: z.string(),
+  jobUpdateRelationships: z.lazy(() => JobUpdateRelationships$outboundSchema)
+    .optional(),
+  jobUpdateAttributes: z.lazy(() => JobUpdateAttributes$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    jobUpdateRelationships: "relationships",
+    jobUpdateAttributes: "attributes",
   });
+});
 
-export function dataToJSON(data: Data): string {
-  return JSON.stringify(Data$outboundSchema.parse(data));
+export function jobUpdateResourceToJSON(
+  jobUpdateResource: JobUpdateResource,
+): string {
+  return JSON.stringify(
+    JobUpdateResource$outboundSchema.parse(jobUpdateResource),
+  );
 }
 
 /** @internal */
 export type JobUpdateData$Outbound = {
-  data: Data$Outbound;
+  data: JobUpdateResource$Outbound;
 };
 
 /** @internal */
@@ -66,7 +181,11 @@ export const JobUpdateData$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   JobUpdateData
 > = z.object({
-  data: z.lazy(() => Data$outboundSchema),
+  jobUpdateResource: z.lazy(() => JobUpdateResource$outboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    jobUpdateResource: "data",
+  });
 });
 
 export function jobUpdateDataToJSON(jobUpdateData: JobUpdateData): string {
