@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { jobsList } from "../funcs/jobsList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type JobsListQueryData = operations.ListJobsResponse;
+import {
+  buildJobsListQuery,
+  JobsListQueryData,
+  prefetchJobsList,
+  queryKeyJobsList,
+} from "./jobsList.core.js";
+export {
+  buildJobsListQuery,
+  type JobsListQueryData,
+  prefetchJobsList,
+  queryKeyJobsList,
+};
 
 /**
  * Get a list of job objects
@@ -66,19 +69,6 @@ export function useJobsListSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchJobsList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListJobsRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildJobsListQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -129,52 +119,4 @@ export function invalidateAllJobsList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Jobs", "list"],
   });
-}
-
-export function buildJobsListQuery(
-  client$: SDKCore,
-  request?: operations.ListJobsRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<JobsListQueryData>;
-} {
-  return {
-    queryKey: queryKeyJobsList({
-      filterExternalIdentifiersPrimaryIdentifier: request
-        ?.filterExternalIdentifiersPrimaryIdentifier,
-      filterExternalIdentifiersEmployeeId: request
-        ?.filterExternalIdentifiersEmployeeId,
-      filterExternalIdentifiersGroup: request?.filterExternalIdentifiersGroup,
-      filterPersonId: request?.filterPersonId,
-      filterOrganizationId: request?.filterOrganizationId,
-      filterBy: request?.filterBy,
-    }),
-    queryFn: async function jobsListQueryFn(ctx): Promise<JobsListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(jobsList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyJobsList(
-  parameters: {
-    filterExternalIdentifiersPrimaryIdentifier?: string | undefined;
-    filterExternalIdentifiersEmployeeId?: string | undefined;
-    filterExternalIdentifiersGroup?: string | undefined;
-    filterPersonId?: string | undefined;
-    filterOrganizationId?: string | undefined;
-    filterBy?: string | undefined;
-  },
-): QueryKey {
-  return ["@dailypay/dailypay", "Jobs", "list", parameters];
 }

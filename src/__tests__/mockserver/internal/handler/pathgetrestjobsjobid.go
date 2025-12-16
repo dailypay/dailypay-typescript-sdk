@@ -55,7 +55,7 @@ func testReadJobReadJob0(w http.ResponseWriter, req *http.Request) {
 				},
 				FirstName:        types.String("Edith"),
 				LastName:         types.String("Clarke"),
-				ActivationStatus: components.ActivationStatusDeactivated.ToPointer(),
+				ActivationStatus: components.JobAttributesActivationStatusDeactivated,
 				WageRate: components.WageRate{
 					Amount:    2500,
 					Currency:  "USD",
@@ -70,7 +70,7 @@ func testReadJobReadJob0(w http.ResponseWriter, req *http.Request) {
 				Self: "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
 			},
 			Relationships: components.JobRelationships{
-				Person: components.PersonRelationshipReadOnly{
+				Person: components.PersonRelationship{
 					Data: components.PersonIdentifier{
 						ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
 					},

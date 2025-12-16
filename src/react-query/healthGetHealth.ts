@@ -5,23 +5,25 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { healthGetHealth } from "../funcs/healthGetHealth.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
-import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import { QueryHookOptions, SuspenseQueryHookOptions } from "./_types.js";
-
-export type HealthGetHealthQueryData = operations.GetHealthResponse;
+import {
+  buildHealthGetHealthQuery,
+  HealthGetHealthQueryData,
+  prefetchHealthGetHealth,
+  queryKeyHealthGetHealth,
+} from "./healthGetHealth.core.js";
+export {
+  buildHealthGetHealthQuery,
+  type HealthGetHealthQueryData,
+  prefetchHealthGetHealth,
+  queryKeyHealthGetHealth,
+};
 
 /**
  * Verify the status of the API
@@ -61,17 +63,6 @@ export function useHealthGetHealthSuspense(
   });
 }
 
-export function prefetchHealthGetHealth(
-  queryClient: QueryClient,
-  client$: SDKCore,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildHealthGetHealthQuery(
-      client$,
-    ),
-  });
-}
-
 export function setHealthGetHealthData(
   client: QueryClient,
   data: HealthGetHealthQueryData,
@@ -89,34 +80,4 @@ export function invalidateAllHealthGetHealth(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Health", "getHealth"],
   });
-}
-
-export function buildHealthGetHealthQuery(
-  client$: SDKCore,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<HealthGetHealthQueryData>;
-} {
-  return {
-    queryKey: queryKeyHealthGetHealth(),
-    queryFn: async function healthGetHealthQueryFn(
-      ctx,
-    ): Promise<HealthGetHealthQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(healthGetHealth(
-        client$,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyHealthGetHealth(): QueryKey {
-  return ["@dailypay/dailypay", "Health", "getHealth"];
 }

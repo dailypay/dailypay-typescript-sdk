@@ -16,15 +16,15 @@ import {
   OrganizationRelationship$inboundSchema,
 } from "./organizationrelationship.js";
 import {
-  PersonRelationshipReadOnly,
-  PersonRelationshipReadOnly$inboundSchema,
-} from "./personrelationshipreadonly.js";
+  PersonRelationship,
+  PersonRelationship$inboundSchema,
+} from "./personrelationship.js";
 
 /**
  * The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
  */
 export type JobRelationships = {
-  person: PersonRelationshipReadOnly;
+  person: PersonRelationship;
   organization: OrganizationRelationship;
   directDepositDefaultDepository?: AccountRelationship | undefined;
   directDepositDefaultCard?: AccountRelationship | undefined;
@@ -36,7 +36,7 @@ export const JobRelationships$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  person: PersonRelationshipReadOnly$inboundSchema,
+  person: PersonRelationship$inboundSchema,
   organization: OrganizationRelationship$inboundSchema,
   direct_deposit_default_depository: AccountRelationship$inboundSchema
     .optional(),

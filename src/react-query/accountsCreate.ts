@@ -18,7 +18,7 @@ import { useSDKContext } from "./_context.js";
 import { MutationHookOptions } from "./_types.js";
 
 export type AccountsCreateMutationVariables = {
-  request: models.AccountDataInput;
+  request: models.AccountCreateData;
   options?: RequestOptions;
 };
 

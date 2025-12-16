@@ -36,8 +36,8 @@ type UpdatePersonRequest struct {
 	//
 	Version *int64 `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
 	// Unique ID of the person
-	PersonID string                     `pathParam:"style=simple,explode=false,name=person_id"`
-	Body     components.PersonDataInput `request:"mediaType=application/vnd.api+json"`
+	PersonID string                      `pathParam:"style=simple,explode=false,name=person_id"`
+	Body     components.PersonUpdateData `request:"mediaType=application/vnd.api+json"`
 }
 
 func (u UpdatePersonRequest) MarshalJSON() ([]byte, error) {
@@ -65,9 +65,9 @@ func (o *UpdatePersonRequest) GetPersonID() string {
 	return o.PersonID
 }
 
-func (o *UpdatePersonRequest) GetBody() components.PersonDataInput {
+func (o *UpdatePersonRequest) GetBody() components.PersonUpdateData {
 	if o == nil {
-		return components.PersonDataInput{}
+		return components.PersonUpdateData{}
 	}
 	return o.Body
 }

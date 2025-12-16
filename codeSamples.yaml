@@ -240,10 +240,10 @@ actions:
               const result = await sdk.jobs.update({
                 jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
                 jobUpdateData: {
-                  data: {
+                  jobUpdateResource: {
                     type: "jobs",
                     id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-                    relationships: {
+                    jobUpdateRelationships: {
                       directDepositDefaultDepository: {
                         data: {
                           type: "accounts",
@@ -426,11 +426,11 @@ actions:
             async function run() {
               const result = await sdk.people.update({
                 personId: "aa860051-c411-4709-9685-c1b716df611b",
-                personData: {
-                  data: {
+                personUpdateData: {
+                  personUpdateResource: {
                     type: "people",
                     id: "aa860051-c411-4709-9685-c1b716df611b",
-                    attributes: {
+                    personUpdateAttributes: {
                       stateOfResidence: "NY",
                     },
                   },

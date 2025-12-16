@@ -34,8 +34,8 @@ func (o *CreateAccountGlobals) GetVersion() *int64 {
 type CreateAccountRequest struct {
 	// The version of the DailyPay API to use for this request. If not provided, the latest version of the API will be used.
 	//
-	Version *int64                      `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
-	Body    components.AccountDataInput `request:"mediaType=application/vnd.api+json"`
+	Version *int64                       `default:"3" header:"style=simple,explode=false,name=DailyPay-API-Version"`
+	Body    components.AccountCreateData `request:"mediaType=application/vnd.api+json"`
 }
 
 func (c CreateAccountRequest) MarshalJSON() ([]byte, error) {
@@ -56,9 +56,9 @@ func (o *CreateAccountRequest) GetVersion() *int64 {
 	return o.Version
 }
 
-func (o *CreateAccountRequest) GetBody() components.AccountDataInput {
+func (o *CreateAccountRequest) GetBody() components.AccountCreateData {
 	if o == nil {
-		return components.AccountDataInput{}
+		return components.AccountCreateData{}
 	}
 	return o.Body
 }
@@ -66,7 +66,7 @@ func (o *CreateAccountRequest) GetBody() components.AccountDataInput {
 type CreateAccountResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// Returns the account object.
-	AccountData *components.AccountDataOutput
+	AccountData *components.AccountData
 }
 
 func (o *CreateAccountResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -76,7 +76,7 @@ func (o *CreateAccountResponse) GetHTTPMeta() components.HTTPMetadata {
 	return o.HTTPMeta
 }
 
-func (o *CreateAccountResponse) GetAccountData() *components.AccountDataOutput {
+func (o *CreateAccountResponse) GetAccountData() *components.AccountData {
 	if o == nil {
 		return nil
 	}

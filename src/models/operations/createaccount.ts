@@ -23,7 +23,7 @@ export type CreateAccountResponse = {
   /**
    * Returns the account object.
    */
-  accountData?: models.AccountDataOutput | undefined;
+  accountData?: models.AccountData | undefined;
 };
 
 /** @internal */
@@ -33,7 +33,7 @@ export const CreateAccountResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   HttpMeta: models.HTTPMetadata$inboundSchema,
-  AccountData: models.AccountDataOutput$inboundSchema.optional(),
+  AccountData: models.AccountData$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "HttpMeta": "httpMeta",

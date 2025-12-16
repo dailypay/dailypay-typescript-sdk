@@ -10,21 +10,6 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * The status of the transfer.
- */
-export const TransferAttributesStatus = {
-  Pending: "PENDING",
-  Settled: "SETTLED",
-  Failed: "FAILED",
-} as const;
-/**
- * The status of the transfer.
- */
-export type TransferAttributesStatus = ClosedEnum<
-  typeof TransferAttributesStatus
->;
-
-/**
  * Set the schedule for the transfer. If not set, the transfer will be processed immediately.
  *
  * @remarks
@@ -45,6 +30,21 @@ export type TransferAttributesSchedule = ClosedEnum<
 >;
 
 /**
+ * The status of the transfer.
+ */
+export const TransferAttributesStatus = {
+  Pending: "PENDING",
+  Settled: "SETTLED",
+  Failed: "FAILED",
+} as const;
+/**
+ * The status of the transfer.
+ */
+export type TransferAttributesStatus = ClosedEnum<
+  typeof TransferAttributesStatus
+>;
+
+/**
  * An object representing a transfer of money from one account to another.
  *
  * @remarks
@@ -58,7 +58,7 @@ export type TransferAttributes = {
    * @remarks
    * When the preview field is true in the response to creating a transfer, that indicates no transfer was created.
    */
-  preview?: boolean | undefined;
+  preview: boolean;
   /**
    * A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
    */
@@ -68,16 +68,16 @@ export type TransferAttributes = {
    */
   currency: string;
   /**
-   * The status of the transfer.
-   */
-  status: TransferAttributesStatus;
-  /**
    * Set the schedule for the transfer. If not set, the transfer will be processed immediately.
    *
    * @remarks
    * A preview transfer will never send.
    */
   schedule: TransferAttributesSchedule;
+  /**
+   * The status of the transfer.
+   */
+  status: TransferAttributesStatus;
   /**
    * An ISO 8601 timestamp denoting the receipt for the request.
    */
@@ -95,51 +95,15 @@ export type TransferAttributes = {
   fee: number;
 };
 
-/**
- * An object representing a transfer of money from one account to another.
- *
- * @remarks
- * Created when a person takes an advance against a future paycheck, or on a daily basis
- * when we update estimated earnings based on current employment.
- */
-export type TransferAttributesInput = {
-  /**
-   * Include this field to preview a transfer without sending it, to see, for example, the fee that would be charged. This will return the same response as a typical transfer request.
-   *
-   * @remarks
-   * When the preview field is true in the response to creating a transfer, that indicates no transfer was created.
-   */
-  preview?: boolean | undefined;
-  /**
-   * A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
-   */
-  amount: number;
-  /**
-   * A three-letter ISO 4217 currency code. For example, `USD` for US Dollars, `EUR` for Euros, or `JPY` for Japanese Yen.
-   */
-  currency: string;
-  /**
-   * Set the schedule for the transfer. If not set, the transfer will be processed immediately.
-   *
-   * @remarks
-   * A preview transfer will never send.
-   */
-  schedule: TransferAttributesSchedule;
-};
+/** @internal */
+export const TransferAttributesSchedule$inboundSchema: z.ZodNativeEnum<
+  typeof TransferAttributesSchedule
+> = z.nativeEnum(TransferAttributesSchedule);
 
 /** @internal */
 export const TransferAttributesStatus$inboundSchema: z.ZodNativeEnum<
   typeof TransferAttributesStatus
 > = z.nativeEnum(TransferAttributesStatus);
-
-/** @internal */
-export const TransferAttributesSchedule$inboundSchema: z.ZodNativeEnum<
-  typeof TransferAttributesSchedule
-> = z.nativeEnum(TransferAttributesSchedule);
-/** @internal */
-export const TransferAttributesSchedule$outboundSchema: z.ZodNativeEnum<
-  typeof TransferAttributesSchedule
-> = TransferAttributesSchedule$inboundSchema;
 
 /** @internal */
 export const TransferAttributes$inboundSchema: z.ZodType<
@@ -150,8 +114,8 @@ export const TransferAttributes$inboundSchema: z.ZodType<
   preview: z.boolean().default(false),
   amount: z.number().int(),
   currency: z.string(),
-  status: TransferAttributesStatus$inboundSchema,
   schedule: TransferAttributesSchedule$inboundSchema,
+  status: TransferAttributesStatus$inboundSchema,
   submitted_at: z.string().datetime({ offset: true }).transform(v =>
     new Date(v)
   ),
@@ -173,33 +137,5 @@ export function transferAttributesFromJSON(
     jsonString,
     (x) => TransferAttributes$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'TransferAttributes' from JSON`,
-  );
-}
-
-/** @internal */
-export type TransferAttributesInput$Outbound = {
-  preview: boolean;
-  amount: number;
-  currency: string;
-  schedule: string;
-};
-
-/** @internal */
-export const TransferAttributesInput$outboundSchema: z.ZodType<
-  TransferAttributesInput$Outbound,
-  z.ZodTypeDef,
-  TransferAttributesInput
-> = z.object({
-  preview: z.boolean().default(false),
-  amount: z.number().int(),
-  currency: z.string(),
-  schedule: TransferAttributesSchedule$outboundSchema,
-});
-
-export function transferAttributesInputToJSON(
-  transferAttributesInput: TransferAttributesInput,
-): string {
-  return JSON.stringify(
-    TransferAttributesInput$outboundSchema.parse(transferAttributesInput),
   );
 }

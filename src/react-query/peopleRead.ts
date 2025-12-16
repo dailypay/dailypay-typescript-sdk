@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { peopleRead } from "../funcs/peopleRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type PeopleReadQueryData = operations.ReadPersonResponse;
+import {
+  buildPeopleReadQuery,
+  PeopleReadQueryData,
+  prefetchPeopleRead,
+  queryKeyPeopleRead,
+} from "./peopleRead.core.js";
+export {
+  buildPeopleReadQuery,
+  type PeopleReadQueryData,
+  prefetchPeopleRead,
+  queryKeyPeopleRead,
+};
 
 /**
  * Get a person object
@@ -69,19 +72,6 @@ export function usePeopleReadSuspense(
   });
 }
 
-export function prefetchPeopleRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadPersonRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildPeopleReadQuery(
-      client$,
-      request,
-    ),
-  });
-}
-
 export function setPeopleReadData(
   client: QueryClient,
   queryKeyBase: [personId: string],
@@ -111,36 +101,4 @@ export function invalidateAllPeopleRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "People", "read"],
   });
-}
-
-export function buildPeopleReadQuery(
-  client$: SDKCore,
-  request: operations.ReadPersonRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<PeopleReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyPeopleRead(request.personId),
-    queryFn: async function peopleReadQueryFn(
-      ctx,
-    ): Promise<PeopleReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(peopleRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyPeopleRead(personId: string): QueryKey {
-  return ["@dailypay/dailypay", "People", "read", personId];
 }

@@ -16,7 +16,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
  *
  * To deactivate a job, update activation_status to `DEACTIVATED`.
  */
-export const ActivationStatus = {
+export const JobAttributesActivationStatus = {
   Deactivated: "DEACTIVATED",
   DeactivationPending: "DEACTIVATION_PENDING",
   ActivationRequired: "ACTIVATION_REQUIRED",
@@ -30,7 +30,9 @@ export const ActivationStatus = {
  *
  * To deactivate a job, update activation_status to `DEACTIVATED`.
  */
-export type ActivationStatus = ClosedEnum<typeof ActivationStatus>;
+export type JobAttributesActivationStatus = ClosedEnum<
+  typeof JobAttributesActivationStatus
+>;
 
 export const Frequency = {
   Hourly: "HOURLY",
@@ -95,7 +97,7 @@ export type JobAttributes = {
    *
    * To deactivate a job, update activation_status to `DEACTIVATED`.
    */
-  activationStatus?: ActivationStatus | undefined;
+  activationStatus: JobAttributesActivationStatus;
   wageRate: WageRate;
   title?: string | null | undefined;
   department?: string | null | undefined;
@@ -110,25 +112,10 @@ export type JobAttributes = {
   directDepositStatus: DirectDepositStatus;
 };
 
-export type JobAttributesInput = {
-  /**
-   * Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.
-   *
-   * @remarks
-   *
-   * To deactivate a job, update activation_status to `DEACTIVATED`.
-   */
-  activationStatus?: ActivationStatus | undefined;
-};
-
 /** @internal */
-export const ActivationStatus$inboundSchema: z.ZodNativeEnum<
-  typeof ActivationStatus
-> = z.nativeEnum(ActivationStatus);
-/** @internal */
-export const ActivationStatus$outboundSchema: z.ZodNativeEnum<
-  typeof ActivationStatus
-> = ActivationStatus$inboundSchema;
+export const JobAttributesActivationStatus$inboundSchema: z.ZodNativeEnum<
+  typeof JobAttributesActivationStatus
+> = z.nativeEnum(JobAttributesActivationStatus);
 
 /** @internal */
 export const Frequency$inboundSchema: z.ZodNativeEnum<typeof Frequency> = z
@@ -169,7 +156,7 @@ export const JobAttributes$inboundSchema: z.ZodType<
   external_identifiers: z.record(z.string()).optional(),
   first_name: z.string().optional(),
   last_name: z.string().optional(),
-  activation_status: ActivationStatus$inboundSchema.optional(),
+  activation_status: JobAttributesActivationStatus$inboundSchema,
   wage_rate: z.lazy(() => WageRate$inboundSchema),
   title: z.nullable(z.string()).optional(),
   department: z.nullable(z.string()).optional(),
@@ -193,31 +180,5 @@ export function jobAttributesFromJSON(
     jsonString,
     (x) => JobAttributes$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'JobAttributes' from JSON`,
-  );
-}
-
-/** @internal */
-export type JobAttributesInput$Outbound = {
-  activation_status?: string | undefined;
-};
-
-/** @internal */
-export const JobAttributesInput$outboundSchema: z.ZodType<
-  JobAttributesInput$Outbound,
-  z.ZodTypeDef,
-  JobAttributesInput
-> = z.object({
-  activationStatus: ActivationStatus$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    activationStatus: "activation_status",
-  });
-});
-
-export function jobAttributesInputToJSON(
-  jobAttributesInput: JobAttributesInput,
-): string {
-  return JSON.stringify(
-    JobAttributesInput$outboundSchema.parse(jobAttributesInput),
   );
 }

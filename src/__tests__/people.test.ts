@@ -67,11 +67,11 @@ test("People Update Person", async () => {
 
   const result = await sdk.people.update({
     personId: "aa860051-c411-4709-9685-c1b716df611b",
-    personData: {
-      data: {
+    personUpdateData: {
+      personUpdateResource: {
         type: "people",
         id: "aa860051-c411-4709-9685-c1b716df611b",
-        attributes: {
+        personUpdateAttributes: {
           stateOfResidence: "NY",
         },
       },
@@ -119,11 +119,11 @@ test("People Update Person State Of Residence", async () => {
 
   const result = await sdk.people.update({
     personId: "aa860051-c411-4709-9685-c1b716df611b",
-    personData: {
-      data: {
+    personUpdateData: {
+      personUpdateResource: {
         type: "people",
         id: "aa860051-c411-4709-9685-c1b716df611b",
-        attributes: {
+        personUpdateAttributes: {
           stateOfResidence: "NY",
         },
       },

@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { transfersRead } from "../funcs/transfersRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type TransfersReadQueryData = operations.ReadTransferResponse;
+import {
+  buildTransfersReadQuery,
+  prefetchTransfersRead,
+  queryKeyTransfersRead,
+  TransfersReadQueryData,
+} from "./transfersRead.core.js";
+export {
+  buildTransfersReadQuery,
+  prefetchTransfersRead,
+  queryKeyTransfersRead,
+  type TransfersReadQueryData,
+};
 
 /**
  * Get a transfer object
@@ -73,19 +76,6 @@ export function useTransfersReadSuspense(
   });
 }
 
-export function prefetchTransfersRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadTransferRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildTransfersReadQuery(
-      client$,
-      request,
-    ),
-  });
-}
-
 export function setTransfersReadData(
   client: QueryClient,
   queryKeyBase: [
@@ -120,41 +110,4 @@ export function invalidateAllTransfersRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Transfers", "read"],
   });
-}
-
-export function buildTransfersReadQuery(
-  client$: SDKCore,
-  request: operations.ReadTransferRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<TransfersReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyTransfersRead(request.transferId, {
-      include: request.include,
-    }),
-    queryFn: async function transfersReadQueryFn(
-      ctx,
-    ): Promise<TransfersReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(transfersRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyTransfersRead(
-  transferId: string,
-  parameters: { include?: string | undefined },
-): QueryKey {
-  return ["@dailypay/dailypay", "Transfers", "read", transferId, parameters];
 }

@@ -5,27 +5,30 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { jobsRead } from "../funcs/jobsRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
-
-export type JobsReadQueryData = operations.ReadJobResponse;
+import {
+  buildJobsReadQuery,
+  JobsReadQueryData,
+  prefetchJobsRead,
+  queryKeyJobsRead,
+} from "./jobsRead.core.js";
+export {
+  buildJobsReadQuery,
+  type JobsReadQueryData,
+  prefetchJobsRead,
+  queryKeyJobsRead,
+};
 
 /**
  * Get a job object
@@ -69,19 +72,6 @@ export function useJobsReadSuspense(
   });
 }
 
-export function prefetchJobsRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadJobRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildJobsReadQuery(
-      client$,
-      request,
-    ),
-  });
-}
-
 export function setJobsReadData(
   client: QueryClient,
   queryKeyBase: [jobId: string],
@@ -111,34 +101,4 @@ export function invalidateAllJobsRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Jobs", "read"],
   });
-}
-
-export function buildJobsReadQuery(
-  client$: SDKCore,
-  request: operations.ReadJobRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<JobsReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyJobsRead(request.jobId),
-    queryFn: async function jobsReadQueryFn(ctx): Promise<JobsReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(jobsRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyJobsRead(jobId: string): QueryKey {
-  return ["@dailypay/dailypay", "Jobs", "read", jobId];
 }

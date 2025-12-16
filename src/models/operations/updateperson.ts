@@ -23,7 +23,7 @@ export type UpdatePersonRequest = {
    * Unique ID of the person
    */
   personId: string;
-  personData: models.PersonDataInput;
+  personUpdateData: models.PersonUpdateData;
 };
 
 export type UpdatePersonResponse = {
@@ -37,7 +37,7 @@ export type UpdatePersonResponse = {
 /** @internal */
 export type UpdatePersonRequest$Outbound = {
   person_id: string;
-  PersonData: models.PersonDataInput$Outbound;
+  PersonUpdateData: models.PersonUpdateData$Outbound;
 };
 
 /** @internal */
@@ -47,11 +47,11 @@ export const UpdatePersonRequest$outboundSchema: z.ZodType<
   UpdatePersonRequest
 > = z.object({
   personId: z.string(),
-  personData: models.PersonDataInput$outboundSchema,
+  personUpdateData: models.PersonUpdateData$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     personId: "person_id",
-    personData: "PersonData",
+    personUpdateData: "PersonUpdateData",
   });
 });
 

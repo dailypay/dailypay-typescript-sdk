@@ -6,13 +6,10 @@
 import { JobUpdateData } from "@dailypay/dailypay/models";
 
 let value: JobUpdateData = {
-  data: {
+  jobUpdateResource: {
     type: "jobs",
     id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-    attributes: {
-      activationStatus: "DEACTIVATED",
-    },
-    relationships: {
+    jobUpdateRelationships: {
       directDepositDefaultDepository: {
         data: {
           type: "accounts",
@@ -26,6 +23,9 @@ let value: JobUpdateData = {
         },
       },
     },
+    jobUpdateAttributes: {
+      activationStatus: "DEACTIVATED",
+    },
   },
 };
 ```
@@ -34,4 +34,4 @@ let value: JobUpdateData = {
 
 | Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `data`                                                                           | [models.Data](../models/data.md)                                                 | :heavy_check_mark:                                                               | A job describes the financial relationship between a person and an organization. |
+| `jobUpdateResource`                                                              | [models.JobUpdateResource](../models/jobupdateresource.md)                       | :heavy_check_mark:                                                               | A job describes the financial relationship between a person and an organization. |

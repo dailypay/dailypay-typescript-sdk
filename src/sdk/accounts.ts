@@ -52,7 +52,7 @@ export class Accounts extends ClientSDK {
    * Create an account object to store a person's bank or card information as a destination for funds.
    */
   async create(
-    request: models.AccountDataInput,
+    request: models.AccountCreateData,
     options?: RequestOptions,
   ): Promise<operations.CreateAccountResponse> {
     return unwrapAsync(accountsCreate(
