@@ -75,11 +75,7 @@ export function useTransfersListSuspense(
 export function setTransfersListData(
   client: QueryClient,
   queryKeyBase: [
-    parameters: {
-      include?: string | undefined;
-      filterPersonId?: string | undefined;
-      filterBy?: string | undefined;
-    },
+    parameters: { include?: string | undefined; filterBy?: string | undefined },
   ],
   data: TransfersListQueryData,
 ): TransfersListQueryData | undefined {
@@ -93,7 +89,6 @@ export function invalidateTransfersList(
   queryKeyBase: TupleToPrefixes<
     [parameters: {
       include?: string | undefined;
-      filterPersonId?: string | undefined;
       filterBy?: string | undefined;
     }]
   >,

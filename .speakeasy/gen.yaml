@@ -27,7 +27,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.10.1
+  version: 0.10.2
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -48,6 +48,7 @@ typescript:
   enableReactQuery: true
   enumFormat: union
   exportZodModelNamespace: false
+  flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string

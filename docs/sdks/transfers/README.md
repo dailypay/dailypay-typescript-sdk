@@ -165,7 +165,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.transfers.list({
     include: "estimated_funding_sources,final_funding_sources",
-    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
   });
 
   console.log(result);
@@ -198,7 +197,6 @@ const sdk = new SDKCore({
 async function run() {
   const res = await transfersList(sdk, {
     include: "estimated_funding_sources,final_funding_sources",
-    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
   });
   if (res.ok) {
     const { value: result } = res;
