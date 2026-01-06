@@ -123,7 +123,6 @@ test("Transfers List Transfers", async () => {
 
   const result = await sdk.transfers.list({
     include: "estimated_funding_sources,final_funding_sources",
-    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
   });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.transfersData).toBeDefined();

@@ -277,9 +277,6 @@ workflows:
       - stepId: test
         operationId: listTransfers
         parameters:
-          - name: filter[person.id]
-            in: query
-            value: aa860051-c411-4709-9685-c1b716df611b
           - name: include
             in: query
             value: estimated_funding_sources,final_funding_sources

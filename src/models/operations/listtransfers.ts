@@ -28,10 +28,6 @@ export type ListTransfersRequest = {
    */
   include?: string | undefined;
   /**
-   * Limit the results to documents related to a specific person
-   */
-  filterPersonId?: string | undefined;
-  /**
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   filterBy?: string | undefined;
@@ -48,7 +44,6 @@ export type ListTransfersResponse = {
 /** @internal */
 export type ListTransfersRequest$Outbound = {
   include?: string | undefined;
-  "filter[person.id]"?: string | undefined;
   "filter-by"?: string | undefined;
 };
 
@@ -59,11 +54,9 @@ export const ListTransfersRequest$outboundSchema: z.ZodType<
   ListTransfersRequest
 > = z.object({
   include: z.string().optional(),
-  filterPersonId: z.string().optional(),
   filterBy: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
-    filterPersonId: "filter[person.id]",
     filterBy: "filter-by",
   });
 });

@@ -99,7 +99,6 @@ async function $do(
 
   const query = encodeFormQuery({
     "filter": payload?.["filter-by"],
-    "filter[person.id]": payload?.["filter[person.id]"],
     "include": payload?.include,
   });
 
@@ -119,7 +118,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "listTransfers",
-    oAuth2Scopes: ["client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
