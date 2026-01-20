@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,21 @@ export {
   queryKeyJobsRead,
 };
 
+export type JobsReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a job object
  *
@@ -38,8 +64,8 @@ export {
  */
 export function useJobsRead(
   request: operations.ReadJobRequest,
-  options?: QueryHookOptions<JobsReadQueryData>,
-): UseQueryResult<JobsReadQueryData, Error> {
+  options?: QueryHookOptions<JobsReadQueryData, JobsReadQueryError>,
+): UseQueryResult<JobsReadQueryData, JobsReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildJobsReadQuery(
@@ -59,8 +85,8 @@ export function useJobsRead(
  */
 export function useJobsReadSuspense(
   request: operations.ReadJobRequest,
-  options?: SuspenseQueryHookOptions<JobsReadQueryData>,
-): UseSuspenseQueryResult<JobsReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<JobsReadQueryData, JobsReadQueryError>,
+): UseSuspenseQueryResult<JobsReadQueryData, JobsReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildJobsReadQuery(

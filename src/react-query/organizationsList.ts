@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,20 @@ export {
   queryKeyOrganizationsList,
 };
 
+export type OrganizationsListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * List organizations
  *
@@ -38,8 +63,11 @@ export {
  */
 export function useOrganizationsList(
   request?: operations.ListOrganizationsRequest | undefined,
-  options?: QueryHookOptions<OrganizationsListQueryData>,
-): UseQueryResult<OrganizationsListQueryData, Error> {
+  options?: QueryHookOptions<
+    OrganizationsListQueryData,
+    OrganizationsListQueryError
+  >,
+): UseQueryResult<OrganizationsListQueryData, OrganizationsListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildOrganizationsListQuery(
@@ -59,8 +87,14 @@ export function useOrganizationsList(
  */
 export function useOrganizationsListSuspense(
   request?: operations.ListOrganizationsRequest | undefined,
-  options?: SuspenseQueryHookOptions<OrganizationsListQueryData>,
-): UseSuspenseQueryResult<OrganizationsListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    OrganizationsListQueryData,
+    OrganizationsListQueryError
+  >,
+): UseSuspenseQueryResult<
+  OrganizationsListQueryData,
+  OrganizationsListQueryError
+> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildOrganizationsListQuery(

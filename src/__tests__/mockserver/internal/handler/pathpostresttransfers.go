@@ -75,7 +75,7 @@ func testCreateTransferCreateTransfer0(w http.ResponseWriter, req *http.Request)
 				Origin: components.CreateOriginAccountRelationship(
 					components.AccountRelationship{
 						Data: components.AccountIdentifier{
-							ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
+							ID: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
 						},
 					},
 				),
@@ -97,7 +97,11 @@ func testCreateTransferCreateTransfer0(w http.ResponseWriter, req *http.Request)
 					},
 				},
 				FinalFundingSources: components.FundingSourcesRelationship{
-					Data: []components.FundingSourceIdentifier{},
+					Data: []components.FundingSourceIdentifier{
+						components.FundingSourceIdentifier{
+							ID: "b5393c00b7c113fc2e5ae3e80c785bb2",
+						},
+					},
 				},
 			},
 		},

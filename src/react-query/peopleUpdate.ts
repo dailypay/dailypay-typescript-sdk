@@ -11,6 +11,17 @@ import { SDKCore } from "../core.js";
 import { peopleUpdate } from "../funcs/peopleUpdate.js";
 import { combineSignals } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
@@ -23,6 +34,21 @@ export type PeopleUpdateMutationVariables = {
 
 export type PeopleUpdateMutationData = operations.UpdatePersonResponse;
 
+export type PeopleUpdateMutationError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Update a person
  *
@@ -32,12 +58,12 @@ export type PeopleUpdateMutationData = operations.UpdatePersonResponse;
 export function usePeopleUpdateMutation(
   options?: MutationHookOptions<
     PeopleUpdateMutationData,
-    Error,
+    PeopleUpdateMutationError,
     PeopleUpdateMutationVariables
   >,
 ): UseMutationResult<
   PeopleUpdateMutationData,
-  Error,
+  PeopleUpdateMutationError,
   PeopleUpdateMutationVariables
 > {
   const client = useSDKContext();

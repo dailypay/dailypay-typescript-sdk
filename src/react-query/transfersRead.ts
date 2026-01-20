@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,21 @@ export {
   type TransfersReadQueryData,
 };
 
+export type TransfersReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a transfer object
  *
@@ -40,8 +66,8 @@ export {
  */
 export function useTransfersRead(
   request: operations.ReadTransferRequest,
-  options?: QueryHookOptions<TransfersReadQueryData>,
-): UseQueryResult<TransfersReadQueryData, Error> {
+  options?: QueryHookOptions<TransfersReadQueryData, TransfersReadQueryError>,
+): UseQueryResult<TransfersReadQueryData, TransfersReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildTransfersReadQuery(
@@ -63,8 +89,11 @@ export function useTransfersRead(
  */
 export function useTransfersReadSuspense(
   request: operations.ReadTransferRequest,
-  options?: SuspenseQueryHookOptions<TransfersReadQueryData>,
-): UseSuspenseQueryResult<TransfersReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    TransfersReadQueryData,
+    TransfersReadQueryError
+  >,
+): UseSuspenseQueryResult<TransfersReadQueryData, TransfersReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildTransfersReadQuery(

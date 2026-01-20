@@ -233,6 +233,7 @@ test("Accounts Create Account Card", async () => {
           addressState: "NJ",
           addressZipCode: "72374",
           addressCountry: "US",
+          issuer: "411600",
         },
       },
       relationships: {

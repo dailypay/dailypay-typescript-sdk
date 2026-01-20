@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
@@ -31,6 +42,20 @@ export {
   queryKeyAccountsList,
 };
 
+export type AccountsListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a list of Account objects
  *
@@ -39,8 +64,8 @@ export {
  */
 export function useAccountsList(
   request?: operations.ListAccountsRequest | undefined,
-  options?: QueryHookOptions<AccountsListQueryData>,
-): UseQueryResult<AccountsListQueryData, Error> {
+  options?: QueryHookOptions<AccountsListQueryData, AccountsListQueryError>,
+): UseQueryResult<AccountsListQueryData, AccountsListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildAccountsListQuery(
@@ -60,8 +85,11 @@ export function useAccountsList(
  */
 export function useAccountsListSuspense(
   request?: operations.ListAccountsRequest | undefined,
-  options?: SuspenseQueryHookOptions<AccountsListQueryData>,
-): UseSuspenseQueryResult<AccountsListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    AccountsListQueryData,
+    AccountsListQueryError
+  >,
+): UseSuspenseQueryResult<AccountsListQueryData, AccountsListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildAccountsListQuery(

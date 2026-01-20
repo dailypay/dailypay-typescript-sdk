@@ -68,6 +68,10 @@ export type CreateCardAccountDetails = {
    * The country code of the address for the card.
    */
   addressCountry: string;
+  /**
+   * The issuer of the card.
+   */
+  issuer: string;
 };
 
 /**
@@ -110,6 +114,7 @@ export type CreateCardAccountDetails$Outbound = {
   address_state: string;
   address_zip_code: string;
   address_country: string;
+  issuer: string;
 };
 
 /** @internal */
@@ -129,6 +134,7 @@ export const CreateCardAccountDetails$outboundSchema: z.ZodType<
   addressState: z.string(),
   addressZipCode: z.string(),
   addressCountry: z.string(),
+  issuer: z.string(),
 }).transform((v) => {
   return remap$(v, {
     firstName: "first_name",

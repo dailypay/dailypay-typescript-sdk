@@ -11,6 +11,16 @@ import { SDKCore } from "../core.js";
 import { cardTokenizationCreate } from "../funcs/cardTokenizationCreate.js";
 import { combineSignals } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
@@ -24,6 +34,16 @@ export type CardTokenizationCreateMutationVariables = {
 export type CardTokenizationCreateMutationData =
   operations.CreateGenericCardTokenResponse;
 
+export type CardTokenizationCreateMutationError =
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Obtain a card token
  *
@@ -33,12 +53,12 @@ export type CardTokenizationCreateMutationData =
 export function useCardTokenizationCreateMutation(
   options?: MutationHookOptions<
     CardTokenizationCreateMutationData,
-    Error,
+    CardTokenizationCreateMutationError,
     CardTokenizationCreateMutationVariables
   >,
 ): UseMutationResult<
   CardTokenizationCreateMutationData,
-  Error,
+  CardTokenizationCreateMutationError,
   CardTokenizationCreateMutationVariables
 > {
   const client = useSDKContext();

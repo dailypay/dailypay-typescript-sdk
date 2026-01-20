@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
@@ -31,6 +42,20 @@ export {
   queryKeyPaychecksList,
 };
 
+export type PaychecksListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a list of paycheck objects
  *
@@ -39,8 +64,8 @@ export {
  */
 export function usePaychecksList(
   request?: operations.ListPaychecksRequest | undefined,
-  options?: QueryHookOptions<PaychecksListQueryData>,
-): UseQueryResult<PaychecksListQueryData, Error> {
+  options?: QueryHookOptions<PaychecksListQueryData, PaychecksListQueryError>,
+): UseQueryResult<PaychecksListQueryData, PaychecksListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildPaychecksListQuery(
@@ -60,8 +85,11 @@ export function usePaychecksList(
  */
 export function usePaychecksListSuspense(
   request?: operations.ListPaychecksRequest | undefined,
-  options?: SuspenseQueryHookOptions<PaychecksListQueryData>,
-): UseSuspenseQueryResult<PaychecksListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    PaychecksListQueryData,
+    PaychecksListQueryError
+  >,
+): UseSuspenseQueryResult<PaychecksListQueryData, PaychecksListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildPaychecksListQuery(

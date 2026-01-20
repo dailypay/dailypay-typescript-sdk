@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,20 @@ export {
   type TransfersListQueryData,
 };
 
+export type TransfersListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a list of transfers
  *
@@ -38,8 +63,8 @@ export {
  */
 export function useTransfersList(
   request?: operations.ListTransfersRequest | undefined,
-  options?: QueryHookOptions<TransfersListQueryData>,
-): UseQueryResult<TransfersListQueryData, Error> {
+  options?: QueryHookOptions<TransfersListQueryData, TransfersListQueryError>,
+): UseQueryResult<TransfersListQueryData, TransfersListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildTransfersListQuery(
@@ -59,8 +84,11 @@ export function useTransfersList(
  */
 export function useTransfersListSuspense(
   request?: operations.ListTransfersRequest | undefined,
-  options?: SuspenseQueryHookOptions<TransfersListQueryData>,
-): UseSuspenseQueryResult<TransfersListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    TransfersListQueryData,
+    TransfersListQueryError
+  >,
+): UseSuspenseQueryResult<TransfersListQueryData, TransfersListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildTransfersListQuery(
@@ -75,7 +103,11 @@ export function useTransfersListSuspense(
 export function setTransfersListData(
   client: QueryClient,
   queryKeyBase: [
-    parameters: { include?: string | undefined; filterBy?: string | undefined },
+    parameters: {
+      include?: string | undefined;
+      filterSubmittedAtGt?: Date | undefined;
+      filterBy?: string | undefined;
+    },
   ],
   data: TransfersListQueryData,
 ): TransfersListQueryData | undefined {
@@ -89,6 +121,7 @@ export function invalidateTransfersList(
   queryKeyBase: TupleToPrefixes<
     [parameters: {
       include?: string | undefined;
+      filterSubmittedAtGt?: Date | undefined;
       filterBy?: string | undefined;
     }]
   >,

@@ -41,6 +41,7 @@ export function buildTransfersListQuery(
   return {
     queryKey: queryKeyTransfersList({
       include: request?.include,
+      filterSubmittedAtGt: request?.filterSubmittedAtGt,
       filterBy: request?.filterBy,
     }),
     queryFn: async function transfersListQueryFn(
@@ -67,7 +68,11 @@ export function buildTransfersListQuery(
 }
 
 export function queryKeyTransfersList(
-  parameters: { include?: string | undefined; filterBy?: string | undefined },
+  parameters: {
+    include?: string | undefined;
+    filterSubmittedAtGt?: Date | undefined;
+    filterBy?: string | undefined;
+  },
 ): QueryKey {
   return ["@dailypay/dailypay", "Transfers", "list", parameters];
 }

@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,20 @@ export {
   queryKeyJobsList,
 };
 
+export type JobsListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a list of job objects
  *
@@ -38,8 +63,8 @@ export {
  */
 export function useJobsList(
   request?: operations.ListJobsRequest | undefined,
-  options?: QueryHookOptions<JobsListQueryData>,
-): UseQueryResult<JobsListQueryData, Error> {
+  options?: QueryHookOptions<JobsListQueryData, JobsListQueryError>,
+): UseQueryResult<JobsListQueryData, JobsListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildJobsListQuery(
@@ -59,8 +84,8 @@ export function useJobsList(
  */
 export function useJobsListSuspense(
   request?: operations.ListJobsRequest | undefined,
-  options?: SuspenseQueryHookOptions<JobsListQueryData>,
-): UseSuspenseQueryResult<JobsListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<JobsListQueryData, JobsListQueryError>,
+): UseSuspenseQueryResult<JobsListQueryData, JobsListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildJobsListQuery(

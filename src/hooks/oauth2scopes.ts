@@ -3,7 +3,7 @@
  */
 
 /**
- * Available scopes for the  OAuth 2.0 scheme (clientCredentials flow).
+ * Available scopes for the oauth_client_credentials_token OAuth 2.0 scheme (clientCredentials flow).
  */
 export type OauthClientCredentialsTokenOAuth2Scope = /**
  * Read access to resources necessary to find a person by known identifiers.
@@ -11,7 +11,7 @@ export type OauthClientCredentialsTokenOAuth2Scope = /**
 "client:lookup";
 
 /**
- * Available scopes for the  OAuth 2.0 scheme (authorizationCode flow).
+ * Available scopes for the oauth_user_token OAuth 2.0 scheme (authorizationCode flow).
  */
 export type OauthUserTokenOAuth2Scope =
   /**
