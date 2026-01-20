@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,21 @@ export {
   queryKeyPeopleRead,
 };
 
+export type PeopleReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a person object
  *
@@ -38,8 +64,8 @@ export {
  */
 export function usePeopleRead(
   request: operations.ReadPersonRequest,
-  options?: QueryHookOptions<PeopleReadQueryData>,
-): UseQueryResult<PeopleReadQueryData, Error> {
+  options?: QueryHookOptions<PeopleReadQueryData, PeopleReadQueryError>,
+): UseQueryResult<PeopleReadQueryData, PeopleReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildPeopleReadQuery(
@@ -59,8 +85,8 @@ export function usePeopleRead(
  */
 export function usePeopleReadSuspense(
   request: operations.ReadPersonRequest,
-  options?: SuspenseQueryHookOptions<PeopleReadQueryData>,
-): UseSuspenseQueryResult<PeopleReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<PeopleReadQueryData, PeopleReadQueryError>,
+): UseSuspenseQueryResult<PeopleReadQueryData, PeopleReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildPeopleReadQuery(

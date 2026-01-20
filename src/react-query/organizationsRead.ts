@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,21 @@ export {
   queryKeyOrganizationsRead,
 };
 
+export type OrganizationsReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get an organization
  *
@@ -38,8 +64,11 @@ export {
  */
 export function useOrganizationsRead(
   request: operations.ReadOrganizationRequest,
-  options?: QueryHookOptions<OrganizationsReadQueryData>,
-): UseQueryResult<OrganizationsReadQueryData, Error> {
+  options?: QueryHookOptions<
+    OrganizationsReadQueryData,
+    OrganizationsReadQueryError
+  >,
+): UseQueryResult<OrganizationsReadQueryData, OrganizationsReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildOrganizationsReadQuery(
@@ -59,8 +88,14 @@ export function useOrganizationsRead(
  */
 export function useOrganizationsReadSuspense(
   request: operations.ReadOrganizationRequest,
-  options?: SuspenseQueryHookOptions<OrganizationsReadQueryData>,
-): UseSuspenseQueryResult<OrganizationsReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    OrganizationsReadQueryData,
+    OrganizationsReadQueryError
+  >,
+): UseSuspenseQueryResult<
+  OrganizationsReadQueryData,
+  OrganizationsReadQueryError
+> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildOrganizationsReadQuery(

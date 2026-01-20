@@ -11,6 +11,17 @@ import { SDKCore } from "../core.js";
 import { jobsUpdate } from "../funcs/jobsUpdate.js";
 import { combineSignals } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
@@ -23,6 +34,21 @@ export type JobsUpdateMutationVariables = {
 
 export type JobsUpdateMutationData = operations.UpdateJobResponse;
 
+export type JobsUpdateMutationError =
+  | errors.JobUpdateError
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Update paycheck settings or deactivate a job
  *
@@ -33,12 +59,12 @@ export type JobsUpdateMutationData = operations.UpdateJobResponse;
 export function useJobsUpdateMutation(
   options?: MutationHookOptions<
     JobsUpdateMutationData,
-    Error,
+    JobsUpdateMutationError,
     JobsUpdateMutationVariables
   >,
 ): UseMutationResult<
   JobsUpdateMutationData,
-  Error,
+  JobsUpdateMutationError,
   JobsUpdateMutationVariables
 > {
   const client = useSDKContext();

@@ -29,7 +29,7 @@ export type UpdateJobRequest = {
 export type UpdateJobResponse = {
   httpMeta: models.HTTPMetadata;
   /**
-   * Returns the job object.
+   * Returns the updated Job object
    */
   jobData?: models.JobData | undefined;
 };

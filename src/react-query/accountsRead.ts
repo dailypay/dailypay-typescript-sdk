@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,21 @@ export {
   queryKeyAccountsRead,
 };
 
+export type AccountsReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get an Account object
  *
@@ -38,8 +64,8 @@ export {
  */
 export function useAccountsRead(
   request: operations.ReadAccountRequest,
-  options?: QueryHookOptions<AccountsReadQueryData>,
-): UseQueryResult<AccountsReadQueryData, Error> {
+  options?: QueryHookOptions<AccountsReadQueryData, AccountsReadQueryError>,
+): UseQueryResult<AccountsReadQueryData, AccountsReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildAccountsReadQuery(
@@ -59,8 +85,11 @@ export function useAccountsRead(
  */
 export function useAccountsReadSuspense(
   request: operations.ReadAccountRequest,
-  options?: SuspenseQueryHookOptions<AccountsReadQueryData>,
-): UseSuspenseQueryResult<AccountsReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    AccountsReadQueryData,
+    AccountsReadQueryError
+  >,
+): UseSuspenseQueryResult<AccountsReadQueryData, AccountsReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildAccountsReadQuery(

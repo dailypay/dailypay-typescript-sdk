@@ -13,6 +13,7 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
@@ -27,7 +28,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.10.2
+  version: 0.10.3
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -75,6 +76,7 @@ typescript:
   outputModelSuffix: output
   packageName: '@dailypay/dailypay'
   preApplyUnionDiscriminators: true
+  preserveModelFieldNames: false
   responseFormat: envelope-http
   sseFlatResponse: false
   templateVersion: v2

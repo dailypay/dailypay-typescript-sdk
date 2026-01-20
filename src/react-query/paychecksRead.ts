@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { useSDKContext } from "./_context.js";
 import {
@@ -30,6 +41,21 @@ export {
   queryKeyPaychecksRead,
 };
 
+export type PaychecksReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Get a Paycheck object
  *
@@ -38,8 +64,8 @@ export {
  */
 export function usePaychecksRead(
   request: operations.ReadPaycheckRequest,
-  options?: QueryHookOptions<PaychecksReadQueryData>,
-): UseQueryResult<PaychecksReadQueryData, Error> {
+  options?: QueryHookOptions<PaychecksReadQueryData, PaychecksReadQueryError>,
+): UseQueryResult<PaychecksReadQueryData, PaychecksReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildPaychecksReadQuery(
@@ -59,8 +85,11 @@ export function usePaychecksRead(
  */
 export function usePaychecksReadSuspense(
   request: operations.ReadPaycheckRequest,
-  options?: SuspenseQueryHookOptions<PaychecksReadQueryData>,
-): UseSuspenseQueryResult<PaychecksReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    PaychecksReadQueryData,
+    PaychecksReadQueryError
+  >,
+): UseSuspenseQueryResult<PaychecksReadQueryData, PaychecksReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildPaychecksReadQuery(

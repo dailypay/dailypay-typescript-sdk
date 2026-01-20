@@ -123,6 +123,7 @@ test("Transfers List Transfers", async () => {
 
   const result = await sdk.transfers.list({
     include: "estimated_funding_sources,final_funding_sources",
+    filterSubmittedAtGt: new Date("2023-03-15T04:00:00Z"),
   });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.transfersData).toBeDefined();
@@ -172,6 +173,7 @@ test("Transfers Create Transfer", async () => {
   });
 
   const result = await sdk.transfers.create({
+    include: "estimated_funding_sources,final_funding_sources",
     idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     transferCreateData: {
       data: {
@@ -230,7 +232,7 @@ test("Transfers Create Transfer", async () => {
         origin: {
           data: {
             type: "accounts",
-            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
           },
         },
         destination: {
@@ -254,7 +256,12 @@ test("Transfers Create Transfer", async () => {
           ],
         },
         finalFundingSources: {
-          data: [],
+          data: [
+            {
+              type: "funding_sources",
+              id: "b5393c00b7c113fc2e5ae3e80c785bb2",
+            },
+          ],
         },
       },
     },

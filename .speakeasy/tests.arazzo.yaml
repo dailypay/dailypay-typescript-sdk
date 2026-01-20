@@ -89,7 +89,7 @@ workflows:
           - condition: $response.header.Content-Type == application/vnd.api+json
           - context: $response.body
             condition: |
-              {"data": {"type": "jobs", "id": "e9d84b0d-92ba-43c9-93bf-7c993313fa6f", "attributes": {"external_identifiers": {"primary_identifier": "0123456789"}, "first_name": "Edith", "last_name": "Clarke", "activation_status": "DEACTIVATED", "wage_rate": {"amount": 2500, "currency": "USD", "frequency": "HOURLY"}, "title": "Computer", "department": "Finance", "location": "New York, New York", "direct_deposit_status": "SETUP_COMPLETE"}, "links": {"self": "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"}, "relationships": {"person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "organization": {"data": {"type": "organizations", "id": "f0b30634-108c-439c-a8c1-c6a91197f022"}}, "direct_deposit_default_depository": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "direct_deposit_default_card": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
+              {"data":{"type":"jobs","id":"e9d84b0d-92ba-43c9-93bf-7c993313fa6f","attributes":{"external_identifiers":{"primary_identifier":"0123456789"},"first_name":"Edith","last_name":"Clarke","activation_status":"DEACTIVATED","wage_rate":{"amount":2500,"currency":"USD","frequency":"HOURLY"},"title":"Computer","department":"Finance","location":"New York, New York","direct_deposit_status":"SETUP_COMPLETE"},"links":{"self":"https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f"},"relationships":{"person":{"data":{"type":"people","id":"3fa8f641-5717-4562-b3fc-2c963f66afa6"}},"organization":{"data":{"type":"organizations","id":"f0b30634-108c-439c-a8c1-c6a91197f022"}},"direct_deposit_default_depository":{"data":{"type":"accounts","id":"2bc7d781-3247-46f6-b60f-4090d214936a"}},"direct_deposit_default_card":{"data":{"type":"accounts","id":"2bc7d781-3247-46f6-b60f-4090d214936a"}}}}}
             type: simple
     x-speakeasy-test-group: Jobs
     x-speakeasy-test-rebuild: true
@@ -230,6 +230,7 @@ workflows:
                   expiration_month: "02"
                   expiration_year: "2027"
                   first_name: Edith
+                  issuer: "411600"
                   last_name: Clarke
                   token: abc.efg.123
                 name: Acme Bank Debit Card
@@ -280,6 +281,9 @@ workflows:
           - name: include
             in: query
             value: estimated_funding_sources,final_funding_sources
+          - name: filter[submitted_at__gt]
+            in: query
+            value: "2023-03-15T04:00:00Z"
           - name: DailyPay-API-Version
             in: header
             value: 3
@@ -297,6 +301,9 @@ workflows:
       - stepId: test
         operationId: createTransfer
         parameters:
+          - name: include
+            in: query
+            value: estimated_funding_sources,final_funding_sources
           - name: DailyPay-API-Version
             in: header
             value: 3
@@ -332,7 +339,7 @@ workflows:
           - condition: $response.header.Content-Type == application/vnd.api+json
           - context: $response.body
             condition: |
-              {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210", "attributes": {"preview": true, "amount": 2500, "currency": "USD", "status": "FAILED", "schedule": "WITHIN_THIRTY_MINUTES", "submitted_at": "2021-04-21T21:30:58.051Z", "resolved_at": "2021-04-21T21:30:58.051Z", "fee": 0}, "links": {"self": "https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"}, "relationships": {"origin": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "destination": {"data": {"type": "accounts", "id": "2bc7d781-3247-46f6-b60f-4090d214936a"}}, "person": {"data": {"type": "people", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "estimated_funding_sources": {"data": [{"type": "funding_sources", "id": "b5393c00b7c113fc2e5ae3e80c785bb2"}]}, "final_funding_sources": {"data": []}}}, "included": [{"id": "b5393c00b7c113fc2e5ae3e80c785bb2", "type": "funding_sources", "attributes": {"amount": 2500, "currency": "USD"}, "relationships": {"source": {"data": {"type": "paychecks", "id": "3fa8f641-5717-4562-b3fc-2c963f66afa6"}}, "transfer": {"data": {"type": "transfers", "id": "aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
+              {"data":{"type":"transfers","id":"aba332a2-24a2-46de-8257-5040e71ab210","attributes":{"preview":true,"amount":2500,"currency":"USD","schedule":"WITHIN_THIRTY_MINUTES","status":"FAILED","submitted_at":"2021-04-21T21:30:58.051Z","resolved_at":"2021-04-21T21:30:58.051Z","fee":0},"links":{"self":"https://api.dailypay.com/rest/transfers/aba332a2-24a2-46de-8257-5040e71ab210"},"relationships":{"origin":{"data":{"type":"accounts","id":"3fa8f641-5717-4562-b3fc-2c963f66afa6"}},"destination":{"data":{"type":"accounts","id":"2bc7d781-3247-46f6-b60f-4090d214936a"}},"person":{"data":{"type":"people","id":"3fa8f641-5717-4562-b3fc-2c963f66afa6"}},"estimated_funding_sources":{"data":[{"type":"funding_sources","id":"b5393c00b7c113fc2e5ae3e80c785bb2"}]},"final_funding_sources":{"data":[{"type":"funding_sources","id":"b5393c00b7c113fc2e5ae3e80c785bb2"}]}}},"included":[{"id":"b5393c00b7c113fc2e5ae3e80c785bb2","type":"funding_sources","attributes":{"amount":2500,"currency":"USD"},"relationships":{"source":{"data":{"type":"paychecks","id":"3fa8f641-5717-4562-b3fc-2c963f66afa6"}},"transfer":{"data":{"type":"transfers","id":"aba332a2-24a2-46de-8257-5040e71ab210"}}}}]}
             type: simple
     x-speakeasy-test-group: Transfers
     x-speakeasy-test-rebuild: true
@@ -478,7 +485,7 @@ workflows:
           - condition: $response.header.Content-Type == application/vnd.api+json
           - context: $response.body
             condition: |
-              {"data": {"type": "people", "id": "aa860051-c411-4709-9685-c1b716df611b", "attributes": {"disallow_reason": null, "state_of_residence": "NY", "products": {"dailypay_card": {"eligible": true, "enrolled": false}}}, "links": {"self": "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
+              {"data":{"type":"people","id":"aa860051-c411-4709-9685-c1b716df611b","attributes":{"disallow_reason":null,"state_of_residence":"NY","products":{"dailypay_card":{"eligible":true,"enrolled":false}}},"links":{"self":"https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b"}}}
             type: simple
     x-speakeasy-test-group: People
     x-speakeasy-test-rebuild: true

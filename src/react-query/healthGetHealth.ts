@@ -10,6 +10,17 @@ import {
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { useSDKContext } from "./_context.js";
 import { QueryHookOptions, SuspenseQueryHookOptions } from "./_types.js";
 import {
@@ -25,6 +36,18 @@ export {
   queryKeyHealthGetHealth,
 };
 
+export type HealthGetHealthQueryError =
+  | errors.ErrorUnauthorized
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Verify the status of the API
  *
@@ -32,8 +55,11 @@ export {
  * Returns a 200 status code if the API is up and running.
  */
 export function useHealthGetHealth(
-  options?: QueryHookOptions<HealthGetHealthQueryData>,
-): UseQueryResult<HealthGetHealthQueryData, Error> {
+  options?: QueryHookOptions<
+    HealthGetHealthQueryData,
+    HealthGetHealthQueryError
+  >,
+): UseQueryResult<HealthGetHealthQueryData, HealthGetHealthQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildHealthGetHealthQuery(
@@ -51,8 +77,11 @@ export function useHealthGetHealth(
  * Returns a 200 status code if the API is up and running.
  */
 export function useHealthGetHealthSuspense(
-  options?: SuspenseQueryHookOptions<HealthGetHealthQueryData>,
-): UseSuspenseQueryResult<HealthGetHealthQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    HealthGetHealthQueryData,
+    HealthGetHealthQueryError
+  >,
+): UseSuspenseQueryResult<HealthGetHealthQueryData, HealthGetHealthQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildHealthGetHealthQuery(
