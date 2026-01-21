@@ -123,7 +123,6 @@ test("Transfers List Transfers", async () => {
 
   const result = await sdk.transfers.list({
     include: "estimated_funding_sources,final_funding_sources",
-    filterSubmittedAtGt: new Date("2023-03-15T04:00:00Z"),
   });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.transfersData).toBeDefined();
