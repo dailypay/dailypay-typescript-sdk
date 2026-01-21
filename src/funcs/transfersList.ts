@@ -99,7 +99,6 @@ async function $do(
 
   const query = encodeFormQuery({
     "filter": payload?.["filter-by"],
-    "filter[submitted_at__gt]": payload?.["filter[submitted_at__gt]"],
     "include": payload?.include,
   });
 

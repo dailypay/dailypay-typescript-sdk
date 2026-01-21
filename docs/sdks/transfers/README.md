@@ -165,7 +165,6 @@ const sdk = new SDK({
 async function run() {
   const result = await sdk.transfers.list({
     include: "estimated_funding_sources,final_funding_sources",
-    filterSubmittedAtGt: new Date("2023-03-15T04:00:00Z"),
   });
 
   console.log(result);
@@ -198,7 +197,6 @@ const sdk = new SDKCore({
 async function run() {
   const res = await transfersList(sdk, {
     include: "estimated_funding_sources,final_funding_sources",
-    filterSubmittedAtGt: new Date("2023-03-15T04:00:00Z"),
   });
   if (res.ok) {
     const { value: result } = res;

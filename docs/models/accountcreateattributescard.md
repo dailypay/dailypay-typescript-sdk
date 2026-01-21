@@ -23,7 +23,6 @@ let value: AccountCreateAttributesCard = {
     addressState: "NJ",
     addressZipCode: "72374",
     addressCountry: "US",
-    issuer: "411600",
   },
 };
 ```

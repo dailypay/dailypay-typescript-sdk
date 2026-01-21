@@ -19,7 +19,6 @@ let value: CreateCardAccountDetails = {
   addressState: "NJ",
   addressZipCode: "72374",
   addressCountry: "US",
-  issuer: "411600",
 };
 ```
 
@@ -38,4 +37,3 @@ let value: CreateCardAccountDetails = {
 | `addressState`                                                        | *string*                                                              | :heavy_check_mark:                                                    | The two-letter abbreviation of the state in the address for the card. | NJ                                                                    |
 | `addressZipCode`                                                      | *string*                                                              | :heavy_check_mark:                                                    | The zip code of the address for the card.                             | 72374                                                                 |
 | `addressCountry`                                                      | *string*                                                              | :heavy_check_mark:                                                    | The country code of the address for the card.                         | US                                                                    |
-| `issuer`                                                              | *string*                                                              | :heavy_check_mark:                                                    | The issuer of the card.                                               | 411600                                                                |
