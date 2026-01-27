@@ -230,6 +230,7 @@ workflows:
                   expiration_month: "02"
                   expiration_year: "2027"
                   first_name: Edith
+                  issuer: "411600"
                   last_name: Clarke
                   token: abc.efg.123
                 name: Acme Bank Debit Card
@@ -280,6 +281,9 @@ workflows:
           - name: include
             in: query
             value: estimated_funding_sources,final_funding_sources
+          - name: filter[submitted_at__gt]
+            in: query
+            value: "2023-03-15T04:00:00Z"
           - name: DailyPay-API-Version
             in: header
             value: 3

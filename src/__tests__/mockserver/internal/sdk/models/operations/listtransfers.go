@@ -5,6 +5,7 @@ package operations
 import (
 	"mockserver/internal/sdk/models/components"
 	"mockserver/internal/sdk/utils"
+	"time"
 )
 
 type ListTransfersGlobals struct {
@@ -40,6 +41,8 @@ type ListTransfersRequest struct {
 	// The value of the include parameter must be a comma-separated (U+002C COMMA, “,”) list of relationship paths.
 	//
 	Include *string `queryParam:"style=form,explode=true,name=include"`
+	// Limit the results to documents submitted after this date.
+	FilterSubmittedAtGt *time.Time `queryParam:"style=form,explode=true,name=filter[submitted_at__gt]"`
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	FilterBy *string `queryParam:"style=form,explode=true,name=filter"`
 }
@@ -67,6 +70,13 @@ func (o *ListTransfersRequest) GetInclude() *string {
 		return nil
 	}
 	return o.Include
+}
+
+func (o *ListTransfersRequest) GetFilterSubmittedAtGt() *time.Time {
+	if o == nil {
+		return nil
+	}
+	return o.FilterSubmittedAtGt
 }
 
 func (o *ListTransfersRequest) GetFilterBy() *string {
