@@ -28,6 +28,10 @@ export type ListTransfersRequest = {
    */
   include?: string | undefined;
   /**
+   * Limit the results to documents submitted after this date.
+   */
+  filterSubmittedAtGt?: Date | undefined;
+  /**
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   filterBy?: string | undefined;
@@ -44,6 +48,7 @@ export type ListTransfersResponse = {
 /** @internal */
 export type ListTransfersRequest$Outbound = {
   include?: string | undefined;
+  "filter[submitted_at__gt]"?: string | undefined;
   "filter-by"?: string | undefined;
 };
 
@@ -54,9 +59,11 @@ export const ListTransfersRequest$outboundSchema: z.ZodType<
   ListTransfersRequest
 > = z.object({
   include: z.string().optional(),
+  filterSubmittedAtGt: z.date().transform(v => v.toISOString()).optional(),
   filterBy: z.string().optional(),
 }).transform((v) => {
   return remap$(v, {
+    filterSubmittedAtGt: "filter[submitted_at__gt]",
     filterBy: "filter-by",
   });
 });
