@@ -279,3 +279,11 @@ Based on:
 - Speakeasy CLI 1.700.2 (2.801.2) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [typescript v0.10.7] .
+
+## 2026-02-05 17:16:27
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.705.0 (2.808.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v0.11.0] .
