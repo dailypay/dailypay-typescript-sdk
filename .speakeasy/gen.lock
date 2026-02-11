@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 9a654fb99df27c574a738f9b13c8d269
-  docVersion: 3.0.0-beta105
-  speakeasyVersion: 1.705.0
-  generationVersion: 2.808.1
-  releaseVersion: 0.11.0
-  configChecksum: c8ad5c545044fcc39c247ab0b5ba80b5
+  docChecksum: 3f03e079cc3984ad306126a31bb23af1
+  docVersion: 3.0.0-beta106
+  speakeasyVersion: 1.710.0
+  generationVersion: 2.818.4
+  releaseVersion: 0.11.1
+  configChecksum: a46e63554f0203abc97f4785663bd189
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 persistentEdits:
-  generation_id: 82e4bd92-5cf5-4dc2-9f74-6ecfe8289c96
-  pristine_commit_hash: 56c6ca29a77507f3dabe19f3df37003d30445083
-  pristine_tree_hash: 6eaf22fae01a3c2847f1247201a200ab8dc162ca
+  generation_id: 3512a878-fb57-46e9-8775-00ce2005a50f
+  pristine_commit_hash: 41febbf2bbb2c4b681ee37205d5e1ce4f27cd58e
+  pristine_tree_hash: 544ff042634054f48e656199a0dbd64e866d76a5
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -159,8 +159,8 @@ trackedFiles:
     pristine_git_object: 10b11e5e49c26c51f027c3f85b38a9f9dcf9d929
   docs/models/accountidentifier.md:
     id: 2deb88d06bb3
-    last_write_checksum: sha1:c9763b9943c3ffbf423e84af772f2d358058dae8
-    pristine_git_object: 502ac4c0dfb61f28d3e55b4ebd53c90824a519cb
+    last_write_checksum: sha1:bcd7697c78cf3ec4d7b2f15598e429085c81f90d
+    pristine_git_object: e67c2daf5f157d018f5c313bd28d7d2961f410c0
   docs/models/accountlinks.md:
     id: 47cf4847f5d2
     last_write_checksum: sha1:150af9a063dfd25d5b8c7bb82f33cd313149844c
@@ -455,8 +455,8 @@ trackedFiles:
     pristine_git_object: 25e9d184d4138d2cda92cc46d2c175a5fc0ac381
   docs/models/jobattributes.md:
     id: 4f4ec26dd614
-    last_write_checksum: sha1:66d520ff228434dc0207cdec9938ab867106b3ee
-    pristine_git_object: ec59549dd39199ed279f5b1a07740c7caa75da93
+    last_write_checksum: sha1:c83fbfd7665cab6a7e6165f8f86041794b7c26a2
+    pristine_git_object: abc7d1139ff0d6814defe6342503f605dad07f92
   docs/models/jobattributesactivationstatus.md:
     id: ecb33288fb33
     last_write_checksum: sha1:ca0356934b57c0958e7237d377ca5fe08a485498
@@ -491,8 +491,8 @@ trackedFiles:
     pristine_git_object: 84acdf3a94151eb8b58a35898c985b4e123cfcf2
   docs/models/jobupdateattributes.md:
     id: ce1618df413f
-    last_write_checksum: sha1:358995418976b68158a8d2e8183e0784bbad69a1
-    pristine_git_object: a72f4bb7b6f22924af4e4bf30e40de0038150b90
+    last_write_checksum: sha1:b488d4188ff62d6570dd9a56dd59e722a8fd42c9
+    pristine_git_object: 481bb554398b044c65e1336b26d8bcf1eedcb74a
   docs/models/jobupdatedata.md:
     id: 435f8bb5310f
     last_write_checksum: sha1:f196ff9163db3085c9530e1e3b606a26660b8362
@@ -891,8 +891,8 @@ trackedFiles:
     pristine_git_object: c4c30a60008b0496684d7d152584f7fec396fd4d
   docs/sdks/accounts/README.md:
     id: d6c754b1ca96
-    last_write_checksum: sha1:3291e40ee138844575e7f2bd5bae50a94d5ca124
-    pristine_git_object: 3f2c1d8cdd522dd743b60971c815acbd2cbea375
+    last_write_checksum: sha1:ea8260958c2ebae59627534bf4670c5ff596651e
+    pristine_git_object: 8006b225a5a5e318be45fbba561f662aef4e1c65
   docs/sdks/cardtokenization/README.md:
     id: 43823e4558a8
     last_write_checksum: sha1:12025e3373858990c0caf91d59f080ee405b05b3
@@ -903,8 +903,8 @@ trackedFiles:
     pristine_git_object: 918e7e43feb7ed6757e9fedd8ce811698a4b5ab2
   docs/sdks/jobs/README.md:
     id: 7371cdc8b89a
-    last_write_checksum: sha1:2355a68d367324f00711c9e1f5f5faba19f8fd1b
-    pristine_git_object: a60705cdc53286a0cb7979bcaf2815c62481b153
+    last_write_checksum: sha1:05380779bf21e63d55ada2be13ce60a135076283
+    pristine_git_object: 7b2c4364eeb9f705ed8d6887d76d5f6d1906243b
   docs/sdks/organizations/README.md:
     id: 3425667a2db5
     last_write_checksum: sha1:405ba44e9f3cac8da47e3a34d97bb4f502be6845
@@ -915,12 +915,12 @@ trackedFiles:
     pristine_git_object: a620690127cad5a7bf14bcff12e0f11a0d7f8021
   docs/sdks/people/README.md:
     id: ff7b3ee21c2b
-    last_write_checksum: sha1:a3a7762c35051ada52d3833557493a35a7187b53
-    pristine_git_object: 9e10ca7ba86ae845bd4fec3386778948ad2fc8f7
+    last_write_checksum: sha1:a6595fc0a7462a21152f1a16943fb439357a1a3d
+    pristine_git_object: d9065d95d2fbe79c9d40cb02aa987bfe77eb41ef
   docs/sdks/transfers/README.md:
     id: f56918861798
-    last_write_checksum: sha1:f7618340dceda7bf99ca3a4e433e4afd231111c2
-    pristine_git_object: 9a7c9fc97d2d5ca9ef7f90fb518bde43dc2dd69e
+    last_write_checksum: sha1:efc3fd7f3e602d98a43680e9a59c3f6f044a2f33
+    pristine_git_object: 615eb0fa372f79ec23795ebb204153dbdaebc056
   eslint.config.mjs:
     id: 461c8d07f6da
     last_write_checksum: sha1:9398f326377fe47f67af2df6eb6370750c0790b4
@@ -943,12 +943,12 @@ trackedFiles:
     pristine_git_object: 33c9616d0d04fc0f1bbcd5d45d4b1177e6346afb
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:6e820e421695c91005717e38807b2f0535fb773e
-    pristine_git_object: 5bb36a65aa9f4919382124a61447fbbe7ea34bea
+    last_write_checksum: sha1:a930729b13d7bfa0d6737859414254258d0656c9
+    pristine_git_object: ef68c70cf7095e6207b821c89332ce113cea05a5
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:6c7eb8e13fc37ff78103ead77a8a549dbcdf0d1a
-    pristine_git_object: dd7546f99cbbc94ed16933879b9cba79e877fa77
+    last_write_checksum: sha1:9b7fd3b005b53007e544e25b4f4af8bc73713a74
+    pristine_git_object: b0e7b1af81c5b204dba35088ddab0c5c5b39d14b
   src/__tests__/accounts.test.ts:
     id: 2566ee40ab54
     last_write_checksum: sha1:bb83c2108dd763307c633050fc6cbe6a14c50941
@@ -1423,8 +1423,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:c7efefdfd0b1c8fb32cb1859e2db9f27b953f241
-    pristine_git_object: 36f07526c79753cd72a406a441b555a8c5aa4cee
+    last_write_checksum: sha1:905869c8ff1d7cabec8aad252d8bb6e4ab5c7f51
+    pristine_git_object: 650f58e91ce938d4aa1372e1a9eaabb9d8d6ff6d
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
