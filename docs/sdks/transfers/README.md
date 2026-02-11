@@ -268,9 +268,9 @@ Request transfer of funds from an `EARNINGS_BALANCE` account to a
 personal `DEPOSITORY` or `CARD` account.
 
 
-### Example Usage
+### Example Usage: Instant
 
-<!-- UsageSnippet language="typescript" operationID="createTransfer" method="post" path="/rest/transfers" -->
+<!-- UsageSnippet language="typescript" operationID="createTransfer" method="post" path="/rest/transfers" example="Instant" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
@@ -361,6 +361,150 @@ async function run() {
           amount: 15000,
           currency: "USD",
           schedule: "WITHIN_THIRTY_MINUTES",
+        },
+        relationships: {
+          origin: {
+            data: {
+              type: "accounts",
+              id: "123e4567-e89b-12d3-a456-426614174000",
+            },
+          },
+          destination: {
+            data: {
+              type: "accounts",
+              id: "223e4567-e89b-12d3-a456-426614174001",
+            },
+          },
+          person: {
+            data: {
+              type: "people",
+              id: "aa860051-c411-4709-9685-c1b716df611b",
+            },
+          },
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("transfersCreate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Mutation hook for triggering the API call.
+  useTransfersCreateMutation
+} from "@dailypay/dailypay/react-query/transfersCreate.js";
+```
+### Example Usage: NextDay
+
+<!-- UsageSnippet language="typescript" operationID="createTransfer" method="post" path="/rest/transfers" example="NextDay" -->
+```typescript
+import { SDK } from "@dailypay/dailypay";
+
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
+  },
+});
+
+async function run() {
+  const result = await sdk.transfers.create({
+    include: "estimated_funding_sources,final_funding_sources",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
+    transferCreateData: {
+      data: {
+        type: "transfers",
+        attributes: {
+          preview: true,
+          amount: 15000,
+          currency: "USD",
+          schedule: "NEXT_BUSINESS_DAY",
+        },
+        relationships: {
+          origin: {
+            data: {
+              type: "accounts",
+              id: "123e4567-e89b-12d3-a456-426614174000",
+            },
+          },
+          destination: {
+            data: {
+              type: "accounts",
+              id: "223e4567-e89b-12d3-a456-426614174001",
+            },
+          },
+          person: {
+            data: {
+              type: "people",
+              id: "aa860051-c411-4709-9685-c1b716df611b",
+            },
+          },
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "@dailypay/dailypay/core.js";
+import { transfersCreate } from "@dailypay/dailypay/funcs/transfersCreate.js";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  version: 3,
+  security: {
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
+  },
+});
+
+async function run() {
+  const res = await transfersCreate(sdk, {
+    include: "estimated_funding_sources,final_funding_sources",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
+    transferCreateData: {
+      data: {
+        type: "transfers",
+        attributes: {
+          preview: true,
+          amount: 15000,
+          currency: "USD",
+          schedule: "NEXT_BUSINESS_DAY",
         },
         relationships: {
           origin: {

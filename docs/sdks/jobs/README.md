@@ -141,9 +141,107 @@ Update this job to set where pay should be deposited for paychecks related to th
 Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
 
 
-### Example Usage
+### Example Usage: Deactivate
 
-<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" example="Deactivate" -->
+```typescript
+import { SDK } from "@dailypay/dailypay";
+
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
+  },
+});
+
+async function run() {
+  const result = await sdk.jobs.update({
+    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    jobUpdateData: {
+      jobUpdateResource: {
+        type: "jobs",
+        id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+        jobUpdateAttributes: {
+          activationStatus: "DEACTIVATED",
+        },
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "@dailypay/dailypay/core.js";
+import { jobsUpdate } from "@dailypay/dailypay/funcs/jobsUpdate.js";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  version: 3,
+  security: {
+    oauthClientCredentialsToken: {
+      clientID: "<YOUR_CLIENT_ID_HERE>",
+      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+      tokenURL: "<YOUR_TOKEN_URL_HERE>",
+    },
+  },
+});
+
+async function run() {
+  const res = await jobsUpdate(sdk, {
+    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    jobUpdateData: {
+      jobUpdateResource: {
+        type: "jobs",
+        id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+        jobUpdateAttributes: {
+          activationStatus: "DEACTIVATED",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("jobsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Mutation hook for triggering the API call.
+  useJobsUpdateMutation
+} from "@dailypay/dailypay/react-query/jobsUpdate.js";
+```
+### Example Usage: DirectDeposit
+
+<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" example="DirectDeposit" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 

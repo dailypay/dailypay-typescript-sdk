@@ -140,7 +140,7 @@ Update a person object.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updatePerson" method="patch" path="/rest/people/{person_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updatePerson" method="patch" path="/rest/people/{person_id}" example="StateOfResidence" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
