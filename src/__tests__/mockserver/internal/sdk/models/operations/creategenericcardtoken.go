@@ -4,6 +4,7 @@ package operations
 
 import (
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/optionalnullable"
 )
 
 type CreateGenericCardTokenRequest struct {
@@ -18,11 +19,11 @@ type CreateGenericCardTokenRequest struct {
 	// The two-digit month of the expiration date for the card.
 	ExpirationMonth string `json:"expiration_month"`
 	// The CVV card code.
-	Cvv *string `json:"cvv,omitempty"`
+	Cvv optionalnullable.OptionalNullable[string] `json:"cvv,omitempty"`
 	// The first line of the address associated with the card.
 	AddressLineOne string `json:"address_line_one"`
 	// The second line of the address associated with the card.
-	AddressLineTwo *string `json:"address_line_two,omitempty"`
+	AddressLineTwo optionalnullable.OptionalNullable[string] `json:"address_line_two,omitempty"`
 	// The city component of the address associated with the card.
 	AddressCity string `json:"address_city"`
 	// The two-letter state component of the address associated with the card.
@@ -68,7 +69,7 @@ func (o *CreateGenericCardTokenRequest) GetExpirationMonth() string {
 	return o.ExpirationMonth
 }
 
-func (o *CreateGenericCardTokenRequest) GetCvv() *string {
+func (o *CreateGenericCardTokenRequest) GetCvv() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
@@ -82,7 +83,7 @@ func (o *CreateGenericCardTokenRequest) GetAddressLineOne() string {
 	return o.AddressLineOne
 }
 
-func (o *CreateGenericCardTokenRequest) GetAddressLineTwo() *string {
+func (o *CreateGenericCardTokenRequest) GetAddressLineTwo() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}

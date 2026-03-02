@@ -5,6 +5,7 @@ package server
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
@@ -31,6 +32,8 @@ func (s *Server) registerInternalHandlers(ctx context.Context) {
 
 	// HTTP log operation endpoint
 	s.RegisterHandlerFunc(ctx, []string{http.MethodGet}, internalPathPrefix+"/log/{operationId}", s.httpOperationHandler)
+	// OAuth2 token endpoint for testing OAuth2 client credentials flows
+	s.RegisterHandlerFunc(ctx, []string{http.MethodPost}, internalPathPrefix+"/oauth2/token", tokenHandler)
 
 	// Default all other requests to 404 Not Found
 	s.RegisterHandlerFunc(ctx, []string{}, "/", rootHandler)
@@ -334,6 +337,17 @@ func (s *Server) httpOperationHandler(w http.ResponseWriter, req *http.Request) 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
 	_, _ = wBuf.WriteTo(w)
+}
+
+// tokenHandler returns a mock OAuth2 token response for testing purposes.
+func tokenHandler(w http.ResponseWriter, _ *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]any{
+		"access_token": "mock-access-token",
+		"token_type":   "Bearer",
+		"expires_in":   3600,
+	})
 }
 
 // rootHandler returns a slightly customized [http.NotFoundHandler], saying
