@@ -102,7 +102,7 @@ async function $do(
     options: client._options,
     baseURL: baseURL ?? "",
     operationID: "createGenericCardToken",
-    oAuth2Scopes: ["client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: null,
 

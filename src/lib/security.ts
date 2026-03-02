@@ -86,7 +86,6 @@ type SecurityInputOAuth2ClientCredentials = {
     | {
       clientID?: string | undefined;
       clientSecret?: string | undefined;
-      tokenURL?: string | undefined;
     }
     | null
     | string

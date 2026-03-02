@@ -1,39 +1,39 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 3f03e079cc3984ad306126a31bb23af1
-  docVersion: 3.0.0-beta106
-  speakeasyVersion: 1.710.0
-  generationVersion: 2.818.4
-  releaseVersion: 0.11.1
-  configChecksum: a46e63554f0203abc97f4785663bd189
+  docChecksum: 95183525c6782f194e3a75b8274a893f
+  docVersion: 3.0.0-beta107
+  speakeasyVersion: 1.737.0
+  generationVersion: 2.845.15
+  releaseVersion: 0.11.2
+  configChecksum: cd56607edfb8ad7b27cd3955eb2ee528
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 persistentEdits:
-  generation_id: 3512a878-fb57-46e9-8775-00ce2005a50f
-  pristine_commit_hash: 41febbf2bbb2c4b681ee37205d5e1ce4f27cd58e
-  pristine_tree_hash: 544ff042634054f48e656199a0dbd64e866d76a5
+  generation_id: 3f20d30f-92c9-4f82-aae9-676064cb9b49
+  pristine_commit_hash: 18bc0de719780eedcc0436f98a938d965f5b38c0
+  pristine_tree_hash: 227024035cfa58da8b465341fc3763d1d019c1bc
 features:
   typescript:
     additionalDependencies: 0.1.0
-    constsAndDefaults: 0.1.13
-    core: 3.26.27
+    constsAndDefaults: 0.1.14
+    core: 3.26.38
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
-    examples: 2.82.4
+    examples: 2.82.5
     globalSecurity: 2.82.15
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.83.0
+    globalServerURLs: 2.83.1
     globals: 2.82.2
     hiddenGlobals: 0.1.0
     methodArguments: 0.1.2
-    methodServerURLs: 2.82.1
+    methodServerURLs: 2.82.2
     mockServer: 0.1.1
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.4
     nullables: 0.1.1
-    oauth2ClientCredentials: 1.1.1
+    oauth2ClientCredentials: 1.1.5
     reactQueryHooks: 0.2.4
     responseFormat: 0.3.0
     retries: 2.83.0
@@ -47,8 +47,8 @@ trackedFiles:
     pristine_git_object: 113eead5093c17d43a46159132885318f281a68a
   .npmignore:
     id: aa70c1f807c3
-    last_write_checksum: sha1:3d5eb92f81539175db1ff0280e0aefbdd701f200
-    pristine_git_object: cf98a6bf092538eb10ff0edc915102682ce9a6e6
+    last_write_checksum: sha1:425e91786e3b6cddd2b364bf3f9f9cd38e3c3e1a
+    pristine_git_object: 134e78a629b846b88e408199011801852bacc600
   FUNCTIONS.md:
     id: 21b9df02aaeb
     last_write_checksum: sha1:6cf2fe5b23a96f4fbc984e3598674bad30baa200
@@ -943,12 +943,12 @@ trackedFiles:
     pristine_git_object: 33c9616d0d04fc0f1bbcd5d45d4b1177e6346afb
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:a930729b13d7bfa0d6737859414254258d0656c9
-    pristine_git_object: ef68c70cf7095e6207b821c89332ce113cea05a5
+    last_write_checksum: sha1:7d04b30de0c6c2a5c1cbda954b0728c380bd5e81
+    pristine_git_object: b5b1893f2080cd5d7fbf59ee3c61ce7f74f6bfb0
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:9b7fd3b005b53007e544e25b4f4af8bc73713a74
-    pristine_git_object: b0e7b1af81c5b204dba35088ddab0c5c5b39d14b
+    last_write_checksum: sha1:583898be20cc8d1bc6b79557d1868cfd475d986d
+    pristine_git_object: 8d69ce6018f1590d3af04b73b9efdade280675e5
   src/__tests__/accounts.test.ts:
     id: 2566ee40ab54
     last_write_checksum: sha1:bb83c2108dd763307c633050fc6cbe6a14c50941
@@ -986,9 +986,9 @@ trackedFiles:
   src/__tests__/mockserver/README.md:
     last_write_checksum: sha1:aa2bb9124570a1c12a3c81d728100c305a59220c
   src/__tests__/mockserver/go.mod:
-    last_write_checksum: sha1:44fa2062991ca9acb37a7ade5fb75d0b7731154a
+    last_write_checksum: sha1:c2b6f5a81e03003990983f5befd1da3f1a0396b6
   src/__tests__/mockserver/go.sum:
-    last_write_checksum: sha1:d487c9e78318f86734588c530c3dfd01d02dd044
+    last_write_checksum: sha1:cdeb52f5f4c63d07ba612730867a95b0ddb14b2d
   src/__tests__/mockserver/internal/handler/assert/contenttype.go:
     last_write_checksum: sha1:2d059a68e53e70b269ddf897f8c6017f94434e18
   src/__tests__/mockserver/internal/handler/assert/header.go:
@@ -1012,9 +1012,9 @@ trackedFiles:
   src/__tests__/mockserver/internal/handler/pathgetresthealth.go:
     last_write_checksum: sha1:1b7cb3214625c3a29f20aa51e1f62117cb5d2be4
   src/__tests__/mockserver/internal/handler/pathgetrestjobs.go:
-    last_write_checksum: sha1:ad4d1a1b46f0514de5a164abcf360827914393cf
+    last_write_checksum: sha1:040b68f26f7be064c0f71fde7fa51b46886ee052
   src/__tests__/mockserver/internal/handler/pathgetrestjobsjobid.go:
-    last_write_checksum: sha1:8492c44668831c0482992b0aa213327084dc6899
+    last_write_checksum: sha1:b31ee7d43ba70c848e9f9b57b43cee4b8d8abc20
   src/__tests__/mockserver/internal/handler/pathgetrestorganizations.go:
     last_write_checksum: sha1:7f2d154a75f283ad316527e050a076fa3cf21dff
   src/__tests__/mockserver/internal/handler/pathgetrestorganizationsorganizationid.go:
@@ -1030,7 +1030,7 @@ trackedFiles:
   src/__tests__/mockserver/internal/handler/pathgetresttransferstransferid.go:
     last_write_checksum: sha1:e56ec88e5bad73606d21ef0ee41d13577c4ac54a
   src/__tests__/mockserver/internal/handler/pathpatchrestjobsjobid.go:
-    last_write_checksum: sha1:40cc0b95ea2ac604d8d12af40fe9f19e3e2ca7d4
+    last_write_checksum: sha1:4e6d416a7123f0184a4ba8cc29e496d79b6706f6
   src/__tests__/mockserver/internal/handler/pathpatchrestpeoplepersonid.go:
     last_write_checksum: sha1:e119e29bcc0ca9dd7d93fb74945ffd76c8d175c2
   src/__tests__/mockserver/internal/handler/pathpostcardsgeneric.go:
@@ -1120,7 +1120,7 @@ trackedFiles:
   src/__tests__/mockserver/internal/sdk/models/components/httpmetadata.go:
     last_write_checksum: sha1:9e4b58e3bb54db4360421109c2e169741499be16
   src/__tests__/mockserver/internal/sdk/models/components/jobattributes.go:
-    last_write_checksum: sha1:dfb2d5a0b3e43abb46a478e9ff3f7855a747c61a
+    last_write_checksum: sha1:ba489d29a3118e83d2a8579ad2ef907d4dd4ba45
   src/__tests__/mockserver/internal/sdk/models/components/jobdata.go:
     last_write_checksum: sha1:5f17bd2fb6329d920f6a61edadb4f4ff7513791b
   src/__tests__/mockserver/internal/sdk/models/components/jobidentifier.go:
@@ -1214,7 +1214,7 @@ trackedFiles:
   src/__tests__/mockserver/internal/sdk/models/operations/createaccount.go:
     last_write_checksum: sha1:563a864207df35502ee6d5e9c74445b56cf27132
   src/__tests__/mockserver/internal/sdk/models/operations/creategenericcardtoken.go:
-    last_write_checksum: sha1:be02d8d5b1c80c075c9a9ba05fdd867053e1ef89
+    last_write_checksum: sha1:67e8a15fec855866ba92a1459b1605ad1bf5e1ae
   src/__tests__/mockserver/internal/sdk/models/operations/createtransfer.go:
     last_write_checksum: sha1:9c72f9fb2e4cc3bb1778acba2b582dd87ff1982a
   src/__tests__/mockserver/internal/sdk/models/operations/gethealth.go:
@@ -1263,6 +1263,10 @@ trackedFiles:
     last_write_checksum: sha1:24e1ef3183c50419f317144c16fa41a5cc4663e3
   src/__tests__/mockserver/internal/sdk/models/sdkerrors/transfercreateerror.go:
     last_write_checksum: sha1:09e4651512de2ce5691d0b5c36dbcdc2b1ef9efe
+  src/__tests__/mockserver/internal/sdk/optionalnullable/optionalnullable.go:
+    last_write_checksum: sha1:aa5ff815f31a3657487ad5e0c3f023f573b1fcab
+  src/__tests__/mockserver/internal/sdk/optionalnullable/optionalnullable_test.go:
+    last_write_checksum: sha1:c0ca755fb35acd8f838567e22c2b5722592fe1c3
   src/__tests__/mockserver/internal/sdk/types/bigint.go:
     last_write_checksum: sha1:49b004005d0461fb04b846eca062b070b0360b31
   src/__tests__/mockserver/internal/sdk/types/date.go:
@@ -1276,7 +1280,7 @@ trackedFiles:
   src/__tests__/mockserver/internal/sdk/types/pointers.go:
     last_write_checksum: sha1:fc2275ea006257ba9ba4ff6f2a2cdb6205371eef
   src/__tests__/mockserver/internal/sdk/utils/json.go:
-    last_write_checksum: sha1:6c771a2a3442f04ef7f925fc37b3e16655cd6ab4
+    last_write_checksum: sha1:53a656712673e70bd0a3e9e8515bdab105e60f3e
   src/__tests__/mockserver/internal/sdk/utils/reflect.go:
     last_write_checksum: sha1:2e555f970ae33dd41130199d1b87c9864b485fdf
   src/__tests__/mockserver/internal/sdk/utils/sort.go:
@@ -1286,7 +1290,7 @@ trackedFiles:
   src/__tests__/mockserver/internal/server/generated_handlers.go:
     last_write_checksum: sha1:dbaa2e7beedda2a3e0ef373939f0424577cb2666
   src/__tests__/mockserver/internal/server/internal_handlers.go:
-    last_write_checksum: sha1:1c79af9ee45c9bde435f5acc711bc48c9f66315e
+    last_write_checksum: sha1:6b31fdc2a316735bd028bb822859a175d837fc5f
   src/__tests__/mockserver/internal/server/server.go:
     last_write_checksum: sha1:d97000314c64b937ff7a243cbc051c5591ab8722
   src/__tests__/mockserver/internal/server/server_option.go:
@@ -1339,8 +1343,8 @@ trackedFiles:
     pristine_git_object: b2799cd8315ea5e79e8b6d44ca89f6f1fb7c5884
   src/funcs/cardTokenizationCreate.ts:
     id: 784eec3dba07
-    last_write_checksum: sha1:97a0c3a25a4dc4225fedbb0091b897d0b7dd5b43
-    pristine_git_object: ee7b6447310d34c64af816be22c6ccf6f6c1bbaf
+    last_write_checksum: sha1:1e7d3f2e8793c2fea3d323f2a6b5d90fb9abc2ab
+    pristine_git_object: 76f42d8a18950e32651ece117d4b7685eff2d7a9
   src/funcs/healthGetHealth.ts:
     id: a1ac73bf7749
     last_write_checksum: sha1:7b8f13d7f68c27edfd483236ace354c3ac554389
@@ -1423,8 +1427,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:905869c8ff1d7cabec8aad252d8bb6e4ab5c7f51
-    pristine_git_object: 650f58e91ce938d4aa1372e1a9eaabb9d8d6ff6d
+    last_write_checksum: sha1:9ae36e6cc5f5fdb8188a4a2b7121af3c510f2c6f
+    pristine_git_object: 6f17c48bb1bd6d152ae35538b804c415bee18dc4
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -1475,8 +1479,8 @@ trackedFiles:
     pristine_git_object: 6d3f8525ef8d88a0babc04221e8a543d4d7e08f2
   src/lib/security.ts:
     id: 0502afa7922e
-    last_write_checksum: sha1:ff97ba6da1254cc63a217c2744fe50adca551d9c
-    pristine_git_object: 77c2968d531089704005010103f2b64b5cc22170
+    last_write_checksum: sha1:e322dab7824008b88085635dbda01feb5450b740
+    pristine_git_object: bee97a1925502394a56dd78d18d5a7f55577bc71
   src/lib/url.ts:
     id: b0057e24ed76
     last_write_checksum: sha1:d124050c7e755c0cce233b9e029afb584ff65201

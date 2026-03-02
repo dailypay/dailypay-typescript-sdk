@@ -8,6 +8,7 @@ import (
 	"mockserver/internal/handler/assert"
 	"mockserver/internal/logging"
 	"mockserver/internal/sdk/models/components"
+	"mockserver/internal/sdk/optionalnullable"
 	"mockserver/internal/sdk/types"
 	"mockserver/internal/sdk/utils"
 	"mockserver/internal/tracking"
@@ -61,8 +62,8 @@ func testReadJobReadJob0(w http.ResponseWriter, req *http.Request) {
 					Currency:  "USD",
 					Frequency: components.FrequencyHourly,
 				},
-				Title:               types.String("Computer"),
-				Department:          types.String("Finance"),
+				Title:               optionalnullable.From(types.String("Computer")),
+				Department:          optionalnullable.From(types.String("Finance")),
 				Location:            types.String("New York, New York"),
 				DirectDepositStatus: components.DirectDepositStatusSetupComplete,
 			},

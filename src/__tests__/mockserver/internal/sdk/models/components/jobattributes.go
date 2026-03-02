@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"fmt"
+	"mockserver/internal/sdk/optionalnullable"
 )
 
 // JobAttributesActivationStatus - Activation is the process of verifying that data is available for a Job,  and that a person has verified their identity as the Person associated with the Job. Only paychecks from Jobs with `activated` status will contribute to an earnings balance account.
@@ -155,11 +156,11 @@ type JobAttributes struct {
 	//
 	// To deactivate a job, update activation_status to `DEACTIVATED`.
 	//
-	ActivationStatus JobAttributesActivationStatus `json:"activation_status"`
-	WageRate         WageRate                      `json:"wage_rate"`
-	Title            *string                       `json:"title,omitempty"`
-	Department       *string                       `json:"department,omitempty"`
-	Location         *string                       `json:"location,omitempty"`
+	ActivationStatus JobAttributesActivationStatus             `json:"activation_status"`
+	WageRate         WageRate                                  `json:"wage_rate"`
+	Title            optionalnullable.OptionalNullable[string] `json:"title,omitempty"`
+	Department       optionalnullable.OptionalNullable[string] `json:"department,omitempty"`
+	Location         *string                                   `json:"location,omitempty"`
 	// - `SETUP_REQUIRED` Direct deposit is not set up for this Job. Update this resource's relationships to set up direct deposit.
 	// - `SETUP_PENDING` A system action is still pending.
 	// - `SETUP_COMPLETE` Direct deposit is set up for this Job.
@@ -202,14 +203,14 @@ func (o *JobAttributes) GetWageRate() WageRate {
 	return o.WageRate
 }
 
-func (o *JobAttributes) GetTitle() *string {
+func (o *JobAttributes) GetTitle() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
 	return o.Title
 }
 
-func (o *JobAttributes) GetDepartment() *string {
+func (o *JobAttributes) GetDepartment() optionalnullable.OptionalNullable[string] {
 	if o == nil {
 		return nil
 	}
