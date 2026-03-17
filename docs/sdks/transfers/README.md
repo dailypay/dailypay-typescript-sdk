@@ -31,11 +31,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -64,11 +60,7 @@ import { transfersRead } from "@dailypay/dailypay/funcs/transfersRead.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -154,11 +146,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -187,11 +175,7 @@ import { transfersList } from "@dailypay/dailypay/funcs/transfersList.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -277,11 +261,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -341,11 +321,7 @@ import { transfersCreate } from "@dailypay/dailypay/funcs/transfersCreate.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -421,11 +397,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -485,11 +457,7 @@ import { transfersCreate } from "@dailypay/dailypay/funcs/transfersCreate.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 

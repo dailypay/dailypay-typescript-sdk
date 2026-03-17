@@ -30,7 +30,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.11.2
+  version: 0.11.3
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -86,4 +86,6 @@ typescript:
   unionStrategy: left-to-right
   usageSDKInitImports: []
   useIndexModules: true
+  useOxlint: false
+  useTsgo: false
   zodVersion: v3
