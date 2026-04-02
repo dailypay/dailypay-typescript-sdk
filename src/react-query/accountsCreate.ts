@@ -11,6 +11,17 @@ import { SDKCore } from "../core.js";
 import { accountsCreate } from "../funcs/accountsCreate.js";
 import { combineSignals } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -18,11 +29,25 @@ import { useSDKContext } from "./_context.js";
 import { MutationHookOptions } from "./_types.js";
 
 export type AccountsCreateMutationVariables = {
-  request: models.AccountDataInput;
+  request: models.AccountCreateData;
   options?: RequestOptions;
 };
 
 export type AccountsCreateMutationData = operations.CreateAccountResponse;
+
+export type AccountsCreateMutationError =
+  | errors.AccountCreateError
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Create an Account object
@@ -33,12 +58,12 @@ export type AccountsCreateMutationData = operations.CreateAccountResponse;
 export function useAccountsCreateMutation(
   options?: MutationHookOptions<
     AccountsCreateMutationData,
-    Error,
+    AccountsCreateMutationError,
     AccountsCreateMutationVariables
   >,
 ): UseMutationResult<
   AccountsCreateMutationData,
-  Error,
+  AccountsCreateMutationError,
   AccountsCreateMutationVariables
 > {
   const client = useSDKContext();

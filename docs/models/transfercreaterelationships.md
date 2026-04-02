@@ -1,8 +1,5 @@
 # TransferCreateRelationships
 
-The relationships between the transfer and other resources, including the destination account, the origination account, and the person who initiated the transfer.
-
-
 ## Example Usage
 
 ```typescript
@@ -35,5 +32,5 @@ let value: TransferCreateRelationships = {
 | Field                                                          | Type                                                           | Required                                                       | Description                                                    |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | `origin`                                                       | [models.AccountRelationship](../models/accountrelationship.md) | :heavy_check_mark:                                             | N/A                                                            |
-| `destination`                                                  | [models.AccountRelationship](../models/accountrelationship.md) | :heavy_check_mark:                                             | N/A                                                            |
-| `person`                                                       | [models.PersonRelationship](../models/personrelationship.md)   | :heavy_check_mark:                                             | N/A                                                            |
+| `destination`                                                  | [models.AccountRelationship](../models/accountrelationship.md) | :heavy_minus_sign:                                             | N/A                                                            |
+| `person`                                                       | [models.PersonRelationship](../models/personrelationship.md)   | :heavy_minus_sign:                                             | N/A                                                            |

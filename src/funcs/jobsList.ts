@@ -30,7 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a collection of job objects. This object represents a person's employment details.
- * See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function jobsList(
   client: SDKCore,
@@ -126,15 +125,25 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "listJobs",
-    oAuth2Scopes: ["client:admin", "client:lookup", "client:admin"],
+    oAuth2Scopes: ["client:lookup", "client:admin"],
 
     resolvedSecurity: requestSecurity,
 
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.25,
+          maxElapsedTime: 30000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["408", "409", "5XX"],
   };
 
   const requestRes = client._createRequest(context, {

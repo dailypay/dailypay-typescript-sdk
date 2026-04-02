@@ -5,27 +5,56 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { peopleRead } from "../funcs/peopleRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildPeopleReadQuery,
+  PeopleReadQueryData,
+  prefetchPeopleRead,
+  queryKeyPeopleRead,
+} from "./peopleRead.core.js";
+export {
+  buildPeopleReadQuery,
+  type PeopleReadQueryData,
+  prefetchPeopleRead,
+  queryKeyPeopleRead,
+};
 
-export type PeopleReadQueryData = operations.ReadPersonResponse;
+export type PeopleReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a person object
@@ -35,8 +64,8 @@ export type PeopleReadQueryData = operations.ReadPersonResponse;
  */
 export function usePeopleRead(
   request: operations.ReadPersonRequest,
-  options?: QueryHookOptions<PeopleReadQueryData>,
-): UseQueryResult<PeopleReadQueryData, Error> {
+  options?: QueryHookOptions<PeopleReadQueryData, PeopleReadQueryError>,
+): UseQueryResult<PeopleReadQueryData, PeopleReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildPeopleReadQuery(
@@ -56,8 +85,8 @@ export function usePeopleRead(
  */
 export function usePeopleReadSuspense(
   request: operations.ReadPersonRequest,
-  options?: SuspenseQueryHookOptions<PeopleReadQueryData>,
-): UseSuspenseQueryResult<PeopleReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<PeopleReadQueryData, PeopleReadQueryError>,
+): UseSuspenseQueryResult<PeopleReadQueryData, PeopleReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildPeopleReadQuery(
@@ -66,19 +95,6 @@ export function usePeopleReadSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchPeopleRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadPersonRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildPeopleReadQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -111,36 +127,4 @@ export function invalidateAllPeopleRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "People", "read"],
   });
-}
-
-export function buildPeopleReadQuery(
-  client$: SDKCore,
-  request: operations.ReadPersonRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<PeopleReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyPeopleRead(request.personId),
-    queryFn: async function peopleReadQueryFn(
-      ctx,
-    ): Promise<PeopleReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(peopleRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyPeopleRead(personId: string): QueryKey {
-  return ["@dailypay/dailypay", "People", "read", personId];
 }

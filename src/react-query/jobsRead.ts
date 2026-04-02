@@ -5,27 +5,56 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { jobsRead } from "../funcs/jobsRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildJobsReadQuery,
+  JobsReadQueryData,
+  prefetchJobsRead,
+  queryKeyJobsRead,
+} from "./jobsRead.core.js";
+export {
+  buildJobsReadQuery,
+  type JobsReadQueryData,
+  prefetchJobsRead,
+  queryKeyJobsRead,
+};
 
-export type JobsReadQueryData = operations.ReadJobResponse;
+export type JobsReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a job object
@@ -35,8 +64,8 @@ export type JobsReadQueryData = operations.ReadJobResponse;
  */
 export function useJobsRead(
   request: operations.ReadJobRequest,
-  options?: QueryHookOptions<JobsReadQueryData>,
-): UseQueryResult<JobsReadQueryData, Error> {
+  options?: QueryHookOptions<JobsReadQueryData, JobsReadQueryError>,
+): UseQueryResult<JobsReadQueryData, JobsReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildJobsReadQuery(
@@ -56,8 +85,8 @@ export function useJobsRead(
  */
 export function useJobsReadSuspense(
   request: operations.ReadJobRequest,
-  options?: SuspenseQueryHookOptions<JobsReadQueryData>,
-): UseSuspenseQueryResult<JobsReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<JobsReadQueryData, JobsReadQueryError>,
+): UseSuspenseQueryResult<JobsReadQueryData, JobsReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildJobsReadQuery(
@@ -66,19 +95,6 @@ export function useJobsReadSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchJobsRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadJobRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildJobsReadQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -111,34 +127,4 @@ export function invalidateAllJobsRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Jobs", "read"],
   });
-}
-
-export function buildJobsReadQuery(
-  client$: SDKCore,
-  request: operations.ReadJobRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<JobsReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyJobsRead(request.jobId),
-    queryFn: async function jobsReadQueryFn(ctx): Promise<JobsReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(jobsRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyJobsRead(jobId: string): QueryKey {
-  return ["@dailypay/dailypay", "Jobs", "read", jobId];
 }

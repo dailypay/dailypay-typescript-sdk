@@ -1,5 +1,4 @@
 # Jobs
-(*jobs*)
 
 ## Overview
 
@@ -142,20 +141,16 @@ Update this job to set where pay should be deposited for paychecks related to th
 Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
 
 
-### Example Usage
+### Example Usage: Deactivate
 
-<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" example="Deactivate" -->
 ```typescript
 import { SDK } from "@dailypay/dailypay";
 
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -163,23 +158,110 @@ async function run() {
   const result = await sdk.jobs.update({
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        attributes: {
+        jobUpdateAttributes: {
           activationStatus: "DEACTIVATED",
         },
-        relationships: {
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "@dailypay/dailypay/core.js";
+import { jobsUpdate } from "@dailypay/dailypay/funcs/jobsUpdate.js";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
+
+async function run() {
+  const res = await jobsUpdate(sdk, {
+    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    jobUpdateData: {
+      jobUpdateResource: {
+        type: "jobs",
+        id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+        jobUpdateAttributes: {
+          activationStatus: "DEACTIVATED",
+        },
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("jobsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Mutation hook for triggering the API call.
+  useJobsUpdateMutation
+} from "@dailypay/dailypay/react-query/jobsUpdate.js";
+```
+### Example Usage: DirectDeposit
+
+<!-- UsageSnippet language="typescript" operationID="updateJob" method="patch" path="/rest/jobs/{job_id}" example="DirectDeposit" -->
+```typescript
+import { SDK } from "@dailypay/dailypay";
+
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.jobs.update({
+    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    jobUpdateData: {
+      jobUpdateResource: {
+        type: "jobs",
+        id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",
-              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+              id: "123e4567-e89b-12d3-a456-426614174000",
             },
           },
           directDepositDefaultCard: {
             data: {
               type: "accounts",
-              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+              id: "223e4567-e89b-12d3-a456-426614174001",
             },
           },
         },
@@ -206,11 +288,7 @@ import { jobsUpdate } from "@dailypay/dailypay/funcs/jobsUpdate.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -218,23 +296,20 @@ async function run() {
   const res = await jobsUpdate(sdk, {
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        attributes: {
-          activationStatus: "DEACTIVATED",
-        },
-        relationships: {
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",
-              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+              id: "123e4567-e89b-12d3-a456-426614174000",
             },
           },
           directDepositDefaultCard: {
             data: {
               type: "accounts",
-              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+              id: "223e4567-e89b-12d3-a456-426614174001",
             },
           },
         },
@@ -296,7 +371,6 @@ import {
 ## list
 
 Returns a collection of job objects. This object represents a person's employment details.
-See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
 
 
 ### Example Usage
@@ -317,7 +391,13 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.jobs.list();
+  const result = await sdk.jobs.list({
+    filterExternalIdentifiersPrimaryIdentifier: "PRIMARY_ID_98765",
+    filterExternalIdentifiersEmployeeId: "EMP123456",
+    filterExternalIdentifiersGroup: "12345",
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterOrganizationId: "f0b30634-108c-439c-a8c1-c6a91197f022",
+  });
 
   console.log(result);
 }
@@ -347,7 +427,13 @@ const sdk = new SDKCore({
 });
 
 async function run() {
-  const res = await jobsList(sdk);
+  const res = await jobsList(sdk, {
+    filterExternalIdentifiersPrimaryIdentifier: "PRIMARY_ID_98765",
+    filterExternalIdentifiersEmployeeId: "EMP123456",
+    filterExternalIdentifiersGroup: "12345",
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterOrganizationId: "f0b30634-108c-439c-a8c1-c6a91197f022",
+  });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

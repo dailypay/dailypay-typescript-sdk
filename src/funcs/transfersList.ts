@@ -30,7 +30,6 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a list of transfer objects.
- * See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function transfersList(
   client: SDKCore,
@@ -100,7 +99,7 @@ async function $do(
 
   const query = encodeFormQuery({
     "filter": payload?.["filter-by"],
-    "filter[person.id]": payload?.["filter[person.id]"],
+    "filter[submitted_at__gt]": payload?.["filter[submitted_at__gt]"],
     "include": payload?.include,
   });
 
@@ -120,15 +119,25 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "listTransfers",
-    oAuth2Scopes: ["client:admin", "client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.25,
+          maxElapsedTime: 30000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["408", "409", "5XX"],
   };
 
   const requestRes = client._createRequest(context, {

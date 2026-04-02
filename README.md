@@ -101,7 +101,9 @@ const sdk = new SDK({
 
 async function run() {
   const result = await sdk.accounts.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
     filterAccountType: "EARNINGS_BALANCE",
+    filterSubtype: "ODP",
   });
 
   console.log(result);
@@ -121,24 +123,20 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
 async function run() {
   const result = await sdk.transfers.create({
-    idempotencyKey: "ea9f2225-403b-4e2c-93b0-0eda090ffa65",
+    include: "estimated_funding_sources,final_funding_sources",
+    idempotencyKey: "e2736aa1-78c4-4cc6-b0a6-848e733f232a",
     transferCreateData: {
       data: {
         type: "transfers",
-        id: "aba332a2-24a2-46de-8257-5040e71ab210",
         attributes: {
           preview: true,
-          amount: 2500,
+          amount: 15000,
           currency: "USD",
           schedule: "WITHIN_THIRTY_MINUTES",
         },
@@ -146,19 +144,19 @@ async function run() {
           origin: {
             data: {
               type: "accounts",
-              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+              id: "123e4567-e89b-12d3-a456-426614174000",
             },
           },
           destination: {
             data: {
               type: "accounts",
-              id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+              id: "223e4567-e89b-12d3-a456-426614174001",
             },
           },
           person: {
             data: {
               type: "people",
-              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+              id: "aa860051-c411-4709-9685-c1b716df611b",
             },
           },
         },
@@ -248,43 +246,42 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [accounts](docs/sdks/accounts/README.md)
+### [Accounts](docs/sdks/accounts/README.md)
 
 * [read](docs/sdks/accounts/README.md#read) - Get an Account object
 * [list](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [create](docs/sdks/accounts/README.md#create) - Create an Account object
 
-### [cards](docs/sdks/cards/README.md)
+### [CardTokenization](docs/sdks/cardtokenization/README.md)
 
-* [create](docs/sdks/cards/README.md#create) - Obtain a card token
+* [create](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 
-### [health](docs/sdks/health/README.md)
+### [Health](docs/sdks/health/README.md)
 
 * [getHealth](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 
-### [jobs](docs/sdks/jobs/README.md)
+### [Jobs](docs/sdks/jobs/README.md)
 
 * [read](docs/sdks/jobs/README.md#read) - Get a job object
 * [update](docs/sdks/jobs/README.md#update) - Update paycheck settings or deactivate a job
 * [list](docs/sdks/jobs/README.md#list) - Get a list of job objects
 
-### [organizations](docs/sdks/organizations/README.md)
+### [Organizations](docs/sdks/organizations/README.md)
 
 * [read](docs/sdks/organizations/README.md#read) - Get an organization
 * [list](docs/sdks/organizations/README.md#list) - List organizations
 
-### [paychecks](docs/sdks/paychecks/README.md)
+### [Paychecks](docs/sdks/paychecks/README.md)
 
 * [read](docs/sdks/paychecks/README.md#read) - Get a Paycheck object
 * [list](docs/sdks/paychecks/README.md#list) - Get a list of paycheck objects
 
-### [people](docs/sdks/people/README.md)
+### [People](docs/sdks/people/README.md)
 
 * [read](docs/sdks/people/README.md#read) - Get a person object
 * [update](docs/sdks/people/README.md#update) - Update a person
 
-
-### [transfers](docs/sdks/transfers/README.md)
+### [Transfers](docs/sdks/transfers/README.md)
 
 * [read](docs/sdks/transfers/README.md#read) - Get a transfer object
 * [list](docs/sdks/transfers/README.md#list) - Get a list of transfers
@@ -311,7 +308,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`accountsCreate`](docs/sdks/accounts/README.md#create) - Create an Account object
 - [`accountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`accountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
-- [`cardsCreate`](docs/sdks/cards/README.md#create) - Obtain a card token
+- [`cardTokenizationCreate`](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 - [`healthGetHealth`](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 - [`jobsList`](docs/sdks/jobs/README.md#list) - Get a list of job objects
 - [`jobsRead`](docs/sdks/jobs/README.md#read) - Get a job object
@@ -354,7 +351,7 @@ To learn about this feature and how to get started, check
 - [`useAccountsCreateMutation`](docs/sdks/accounts/README.md#create) - Create an Account object
 - [`useAccountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`useAccountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
-- [`useCardsCreateMutation`](docs/sdks/cards/README.md#create) - Obtain a card token
+- [`useCardTokenizationCreateMutation`](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
 - [`useHealthGetHealth`](docs/sdks/health/README.md#gethealth) - Verify the status of the API
 - [`useJobsList`](docs/sdks/jobs/README.md#list) - Get a list of job objects
 - [`useJobsRead`](docs/sdks/jobs/README.md#read) - Get a job object
@@ -516,7 +513,7 @@ run();
   * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
   * [`ErrorForbidden`](./src/models/errors/errorforbidden.ts): Not authorized to perform this operation. Status code `403`. *
 
-<details><summary>Less common errors (11)</summary>
+<details><summary>Less common errors (12)</summary>
 
 <br />
 
@@ -534,6 +531,7 @@ run();
 * [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 17 methods.*
 * [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
 * [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
+* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 17 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -558,6 +556,7 @@ The default server `https://api.{environment}.com` contains variables and is set
 import { SDK } from "@dailypay/dailypay";
 
 const sdk = new SDK({
+  serverIdx: 0,
   environment: "dailypayuat",
   version: 3,
   security: {
@@ -620,7 +619,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK();
 
 async function run() {
-  const result = await sdk.cards.create({
+  const result = await sdk.cardTokenization.create({
     firstName: "Edith",
     lastName: "Clarke",
     cardNumber: "4007589999999912",
@@ -658,19 +657,23 @@ The `HTTPClient` constructor takes an optional `fetcher` argument that can be
 used to integrate a third-party HTTP client or when writing tests to mock out
 the HTTP client and feed in fixtures.
 
-The following example shows how to use the `"beforeRequest"` hook to to add a
-custom header and a timeout to requests and how to use the `"requestError"` hook
-to log errors:
+The following example shows how to:
+- route requests through a proxy server using [undici](https://www.npmjs.com/package/undici)'s ProxyAgent
+- use the `"beforeRequest"` hook to add a custom header and a timeout to requests
+- use the `"requestError"` hook to log errors
 
 ```typescript
 import { SDK } from "@dailypay/dailypay";
+import { ProxyAgent } from "undici";
 import { HTTPClient } from "@dailypay/dailypay/lib/http";
 
+const dispatcher = new ProxyAgent("http://proxy.example.com:8080");
+
 const httpClient = new HTTPClient({
-  // fetcher takes a function that has the same signature as native `fetch`.
-  fetcher: (request) => {
-    return fetch(request);
-  }
+  // 'fetcher' takes a function that has the same signature as native 'fetch'.
+  fetcher: (input, init) =>
+    // 'dispatcher' is specific to undici and not part of the standard Fetch API.
+    fetch(input, { ...init, dispatcher } as RequestInit),
 });
 
 httpClient.addHook("beforeRequest", (request) => {
@@ -690,7 +693,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new SDK({ httpClient });
+const sdk = new SDK({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

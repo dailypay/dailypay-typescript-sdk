@@ -1,5 +1,4 @@
 # Paychecks
-(*paychecks*)
 
 ## Overview
 
@@ -32,11 +31,7 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -64,11 +59,7 @@ import { paychecksRead } from "@dailypay/dailypay/funcs/paychecksRead.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
@@ -142,7 +133,6 @@ import {
 ## list
 
 Returns a collection of paycheck objects. This object details a person's pay and pay period.
-See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
 
 
 ### Example Usage
@@ -154,16 +144,14 @@ import { SDK } from "@dailypay/dailypay";
 const sdk = new SDK({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
 async function run() {
   const result = await sdk.paychecks.list({
+    filterJobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    filterStatus: "DEPOSITED",
     filterDepositExpectedAtGte: new Date("2023-03-15T04:00:00Z"),
     filterDepositExpectedAtLt: new Date("2023-03-15T04:00:00Z"),
     filterPayPeriodEndsAtGte: new Date("2023-03-15T04:00:00Z"),
@@ -191,16 +179,14 @@ import { paychecksList } from "@dailypay/dailypay/funcs/paychecksList.js";
 const sdk = new SDKCore({
   version: 3,
   security: {
-    oauthClientCredentialsToken: {
-      clientID: "<YOUR_CLIENT_ID_HERE>",
-      clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-      tokenURL: "<YOUR_TOKEN_URL_HERE>",
-    },
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
   },
 });
 
 async function run() {
   const res = await paychecksList(sdk, {
+    filterJobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    filterStatus: "DEPOSITED",
     filterDepositExpectedAtGte: new Date("2023-03-15T04:00:00Z"),
     filterDepositExpectedAtLt: new Date("2023-03-15T04:00:00Z"),
     filterPayPeriodEndsAtGte: new Date("2023-03-15T04:00:00Z"),

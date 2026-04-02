@@ -94,7 +94,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.PersonData, { explode: true });
+  const body = encodeJSON("body", payload.PersonUpdateData, { explode: true });
 
   const pathParams = {
     person_id: encodeSimple("person_id", payload.person_id, {
@@ -122,15 +122,25 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "updatePerson",
-    oAuth2Scopes: ["client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.25,
+          maxElapsedTime: 30000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["408", "409", "5XX"],
   };
 
   const requestRes = client._createRequest(context, {

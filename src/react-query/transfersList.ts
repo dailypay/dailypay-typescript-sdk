@@ -5,39 +5,66 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { transfersList } from "../funcs/transfersList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildTransfersListQuery,
+  prefetchTransfersList,
+  queryKeyTransfersList,
+  TransfersListQueryData,
+} from "./transfersList.core.js";
+export {
+  buildTransfersListQuery,
+  prefetchTransfersList,
+  queryKeyTransfersList,
+  type TransfersListQueryData,
+};
 
-export type TransfersListQueryData = operations.ListTransfersResponse;
+export type TransfersListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a list of transfers
  *
  * @remarks
  * Returns a list of transfer objects.
- * See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useTransfersList(
   request?: operations.ListTransfersRequest | undefined,
-  options?: QueryHookOptions<TransfersListQueryData>,
-): UseQueryResult<TransfersListQueryData, Error> {
+  options?: QueryHookOptions<TransfersListQueryData, TransfersListQueryError>,
+): UseQueryResult<TransfersListQueryData, TransfersListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildTransfersListQuery(
@@ -54,12 +81,14 @@ export function useTransfersList(
  *
  * @remarks
  * Returns a list of transfer objects.
- * See [Filtering Transfers](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useTransfersListSuspense(
   request?: operations.ListTransfersRequest | undefined,
-  options?: SuspenseQueryHookOptions<TransfersListQueryData>,
-): UseSuspenseQueryResult<TransfersListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    TransfersListQueryData,
+    TransfersListQueryError
+  >,
+): UseSuspenseQueryResult<TransfersListQueryData, TransfersListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildTransfersListQuery(
@@ -71,25 +100,12 @@ export function useTransfersListSuspense(
   });
 }
 
-export function prefetchTransfersList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListTransfersRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildTransfersListQuery(
-      client$,
-      request,
-    ),
-  });
-}
-
 export function setTransfersListData(
   client: QueryClient,
   queryKeyBase: [
     parameters: {
-      filterPersonId?: string | undefined;
       include?: string | undefined;
+      filterSubmittedAtGt?: Date | undefined;
       filterBy?: string | undefined;
     },
   ],
@@ -104,8 +120,8 @@ export function invalidateTransfersList(
   client: QueryClient,
   queryKeyBase: TupleToPrefixes<
     [parameters: {
-      filterPersonId?: string | undefined;
       include?: string | undefined;
+      filterSubmittedAtGt?: Date | undefined;
       filterBy?: string | undefined;
     }]
   >,
@@ -125,46 +141,4 @@ export function invalidateAllTransfersList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Transfers", "list"],
   });
-}
-
-export function buildTransfersListQuery(
-  client$: SDKCore,
-  request?: operations.ListTransfersRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<TransfersListQueryData>;
-} {
-  return {
-    queryKey: queryKeyTransfersList({
-      filterPersonId: request?.filterPersonId,
-      include: request?.include,
-      filterBy: request?.filterBy,
-    }),
-    queryFn: async function transfersListQueryFn(
-      ctx,
-    ): Promise<TransfersListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(transfersList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyTransfersList(
-  parameters: {
-    filterPersonId?: string | undefined;
-    include?: string | undefined;
-    filterBy?: string | undefined;
-  },
-): QueryKey {
-  return ["@dailypay/dailypay", "Transfers", "list", parameters];
 }

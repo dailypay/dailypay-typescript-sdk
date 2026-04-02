@@ -5,27 +5,55 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { organizationsList } from "../funcs/organizationsList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildOrganizationsListQuery,
+  OrganizationsListQueryData,
+  prefetchOrganizationsList,
+  queryKeyOrganizationsList,
+} from "./organizationsList.core.js";
+export {
+  buildOrganizationsListQuery,
+  type OrganizationsListQueryData,
+  prefetchOrganizationsList,
+  queryKeyOrganizationsList,
+};
 
-export type OrganizationsListQueryData = operations.ListOrganizationsResponse;
+export type OrganizationsListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * List organizations
@@ -35,8 +63,11 @@ export type OrganizationsListQueryData = operations.ListOrganizationsResponse;
  */
 export function useOrganizationsList(
   request?: operations.ListOrganizationsRequest | undefined,
-  options?: QueryHookOptions<OrganizationsListQueryData>,
-): UseQueryResult<OrganizationsListQueryData, Error> {
+  options?: QueryHookOptions<
+    OrganizationsListQueryData,
+    OrganizationsListQueryError
+  >,
+): UseQueryResult<OrganizationsListQueryData, OrganizationsListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildOrganizationsListQuery(
@@ -56,8 +87,14 @@ export function useOrganizationsList(
  */
 export function useOrganizationsListSuspense(
   request?: operations.ListOrganizationsRequest | undefined,
-  options?: SuspenseQueryHookOptions<OrganizationsListQueryData>,
-): UseSuspenseQueryResult<OrganizationsListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    OrganizationsListQueryData,
+    OrganizationsListQueryError
+  >,
+): UseSuspenseQueryResult<
+  OrganizationsListQueryData,
+  OrganizationsListQueryError
+> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildOrganizationsListQuery(
@@ -66,19 +103,6 @@ export function useOrganizationsListSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchOrganizationsList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListOrganizationsRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildOrganizationsListQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -113,40 +137,4 @@ export function invalidateAllOrganizationsList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Organizations", "list"],
   });
-}
-
-export function buildOrganizationsListQuery(
-  client$: SDKCore,
-  request?: operations.ListOrganizationsRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (
-    context: QueryFunctionContext,
-  ) => Promise<OrganizationsListQueryData>;
-} {
-  return {
-    queryKey: queryKeyOrganizationsList({ filterBy: request?.filterBy }),
-    queryFn: async function organizationsListQueryFn(
-      ctx,
-    ): Promise<OrganizationsListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(organizationsList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyOrganizationsList(
-  parameters: { filterBy?: string | undefined },
-): QueryKey {
-  return ["@dailypay/dailypay", "Organizations", "list", parameters];
 }

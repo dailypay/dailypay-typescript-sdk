@@ -11,6 +11,17 @@ import { SDKCore } from "../core.js";
 import { transfersCreate } from "../funcs/transfersCreate.js";
 import { combineSignals } from "../lib/primitives.js";
 import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
@@ -23,6 +34,21 @@ export type TransfersCreateMutationVariables = {
 
 export type TransfersCreateMutationData = operations.CreateTransferResponse;
 
+export type TransfersCreateMutationError =
+  | errors.TransferCreateError
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorConflict
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
+
 /**
  * Request a transfer
  *
@@ -33,12 +59,12 @@ export type TransfersCreateMutationData = operations.CreateTransferResponse;
 export function useTransfersCreateMutation(
   options?: MutationHookOptions<
     TransfersCreateMutationData,
-    Error,
+    TransfersCreateMutationError,
     TransfersCreateMutationVariables
   >,
 ): UseMutationResult<
   TransfersCreateMutationData,
-  Error,
+  TransfersCreateMutationError,
   TransfersCreateMutationVariables
 > {
   const client = useSDKContext();

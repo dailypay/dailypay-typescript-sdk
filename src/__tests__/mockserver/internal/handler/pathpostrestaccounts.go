@@ -53,12 +53,12 @@ func testCreateAccountCreateAccountDepository0(w http.ResponseWriter, req *http.
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	var respBody *components.AccountDataOutput = &components.AccountDataOutput{
-		Data: components.AccountResourceOutput{
+	var respBody *components.AccountData = &components.AccountData{
+		Data: components.AccountResource{
 			ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
-			Attributes: components.CreateAccountAttributesOutputDepository(
+			Attributes: components.CreateAccountAttributesDepository(
 				components.Depository{
-					VerificationStatus: components.AccountAttributesDepositoryVerificationStatusVerified,
+					AccountVerificationStatus: components.AccountAttributesDepositoryAccountVerificationStatusVerified,
 					AccountBalances: components.AccountAttributesDepositoryAccountBalances{
 						Available: types.Int64(12000),
 						Current:   types.Int64(50000),
@@ -80,7 +80,7 @@ func testCreateAccountCreateAccountDepository0(w http.ResponseWriter, req *http.
 					},
 					Name:    "Checking Account",
 					Subtype: components.AccountAttributesDepositorySubtypeChecking,
-					DepositoryAccountDetails: components.DepositoryAccountDetails{
+					DepositoryAccountDetails: components.AccountAttributesDepositoryDepositoryAccountDetails{
 						FirstName:     "Edith",
 						LastName:      "Clarke",
 						RoutingNumber: "XXXXX2021",
@@ -136,12 +136,12 @@ func testCreateAccountCreateAccountCard0(w http.ResponseWriter, req *http.Reques
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	var respBody *components.AccountDataOutput = &components.AccountDataOutput{
-		Data: components.AccountResourceOutput{
+	var respBody *components.AccountData = &components.AccountData{
+		Data: components.AccountResource{
 			ID: "2bc7d781-3247-46f6-b60f-4090d214936a",
-			Attributes: components.CreateAccountAttributesOutputDepository(
+			Attributes: components.CreateAccountAttributesDepository(
 				components.Depository{
-					VerificationStatus: components.AccountAttributesDepositoryVerificationStatusVerified,
+					AccountVerificationStatus: components.AccountAttributesDepositoryAccountVerificationStatusVerified,
 					AccountBalances: components.AccountAttributesDepositoryAccountBalances{
 						Available: types.Int64(12000),
 						Current:   types.Int64(50000),
@@ -163,7 +163,7 @@ func testCreateAccountCreateAccountCard0(w http.ResponseWriter, req *http.Reques
 					},
 					Name:    "Checking Account",
 					Subtype: components.AccountAttributesDepositorySubtypeChecking,
-					DepositoryAccountDetails: components.DepositoryAccountDetails{
+					DepositoryAccountDetails: components.AccountAttributesDepositoryDepositoryAccountDetails{
 						FirstName:     "Edith",
 						LastName:      "Clarke",
 						RoutingNumber: "XXXXX2021",

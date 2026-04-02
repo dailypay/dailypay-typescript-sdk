@@ -42,6 +42,7 @@ export function transfersCreate(
     | errors.TransferCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
+    | errors.ErrorConflict
     | errors.ErrorUnexpected
     | DailyPayError
     | ResponseValidationError
@@ -71,6 +72,7 @@ async function $do(
       | errors.TransferCreateError
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
+      | errors.ErrorConflict
       | errors.ErrorUnexpected
       | DailyPayError
       | ResponseValidationError
@@ -125,15 +127,25 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "createTransfer",
-    oAuth2Scopes: ["client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.25,
+          maxElapsedTime: 30000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["408", "409", "5XX"],
   };
 
   const requestRes = client._createRequest(context, {
@@ -154,7 +166,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "409", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -172,6 +184,7 @@ async function $do(
     | errors.TransferCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
+    | errors.ErrorConflict
     | errors.ErrorUnexpected
     | DailyPayError
     | ResponseValidationError
@@ -193,6 +206,9 @@ async function $do(
       ctype: "application/vnd.api+json",
     }),
     M.jsonErr(403, errors.ErrorForbidden$inboundSchema, {
+      ctype: "application/vnd.api+json",
+    }),
+    M.jsonErr(409, errors.ErrorConflict$inboundSchema, {
       ctype: "application/vnd.api+json",
     }),
     M.jsonErr(500, errors.ErrorUnexpected$inboundSchema, {

@@ -24,6 +24,8 @@ func pathPatchRestPeoplePersonID(dir *logging.HTTPFileDirectory, rt *tracking.Re
 		switch fmt.Sprintf("%s[%d]", test, count) {
 		case "updatePerson[0]":
 			dir.HandlerFunc("updatePerson", testUpdatePersonUpdatePerson0)(w, req)
+		case "updatePerson-StateOfResidence[0]":
+			dir.HandlerFunc("updatePerson", testUpdatePersonUpdatePersonStateOfResidence0)(w, req)
 		default:
 			http.Error(w, fmt.Sprintf("Unknown test: %s[%d]", test, count), http.StatusBadRequest)
 		}
@@ -31,6 +33,60 @@ func pathPatchRestPeoplePersonID(dir *logging.HTTPFileDirectory, rt *tracking.Re
 }
 
 func testUpdatePersonUpdatePerson0(w http.ResponseWriter, req *http.Request) {
+	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
+		return
+	}
+	if err := assert.ContentType(req, "application/vnd.api+json", true); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.AcceptHeader(req, []string{"application/vnd.api+json"}); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	if err := assert.HeaderExists(req, "User-Agent"); err != nil {
+		log.Printf("assertion error: %s\n", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	var respBody *components.PersonData = &components.PersonData{
+		Data: components.PersonResource{
+			ID: "aa860051-c411-4709-9685-c1b716df611b",
+			Attributes: components.PersonAttributes{
+				DisallowReason:   nil,
+				StateOfResidence: types.String("NY"),
+				Products: components.Products{
+					DailyPayCardProductEntitlement: components.DailyPayCardProductEntitlement{
+						Eligible: true,
+						Enrolled: false,
+					},
+				},
+			},
+			Links: components.PersonLinks{
+				Self: "https://api.dailypay.com/rest/people/aa860051-c411-4709-9685-c1b716df611b",
+			},
+		},
+	}
+	respBodyBytes, err := utils.MarshalJSON(respBody, "", true)
+
+	if err != nil {
+		http.Error(
+			w,
+			"Unable to encode response body as JSON: "+err.Error(),
+			http.StatusInternalServerError,
+		)
+		return
+	}
+	w.Header().Set("Content-Type", "application/vnd.api+json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(respBodyBytes)
+}
+
+func testUpdatePersonUpdatePersonStateOfResidence0(w http.ResponseWriter, req *http.Request) {
 	if err := assert.SecurityAuthorizationHeader(req, true, "Bearer"); err != nil {
 		log.Printf("assertion error: %s\n", err)
 		http.Error(w, err.Error(), http.StatusUnauthorized)

@@ -5,40 +5,67 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { paychecksList } from "../funcs/paychecksList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildPaychecksListQuery,
+  PaychecksListQueryData,
+  prefetchPaychecksList,
+  queryKeyPaychecksList,
+} from "./paychecksList.core.js";
+export {
+  buildPaychecksListQuery,
+  type PaychecksListQueryData,
+  prefetchPaychecksList,
+  queryKeyPaychecksList,
+};
 
-export type PaychecksListQueryData = operations.ListPaychecksResponse;
+export type PaychecksListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a list of paycheck objects
  *
  * @remarks
  * Returns a collection of paycheck objects. This object details a person's pay and pay period.
- * See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function usePaychecksList(
   request?: operations.ListPaychecksRequest | undefined,
-  options?: QueryHookOptions<PaychecksListQueryData>,
-): UseQueryResult<PaychecksListQueryData, Error> {
+  options?: QueryHookOptions<PaychecksListQueryData, PaychecksListQueryError>,
+): UseQueryResult<PaychecksListQueryData, PaychecksListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildPaychecksListQuery(
@@ -55,12 +82,14 @@ export function usePaychecksList(
  *
  * @remarks
  * Returns a collection of paycheck objects. This object details a person's pay and pay period.
- * See [Filtering Paychecks](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function usePaychecksListSuspense(
   request?: operations.ListPaychecksRequest | undefined,
-  options?: SuspenseQueryHookOptions<PaychecksListQueryData>,
-): UseSuspenseQueryResult<PaychecksListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    PaychecksListQueryData,
+    PaychecksListQueryError
+  >,
+): UseSuspenseQueryResult<PaychecksListQueryData, PaychecksListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildPaychecksListQuery(
@@ -69,19 +98,6 @@ export function usePaychecksListSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchPaychecksList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListPaychecksRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildPaychecksListQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -138,58 +154,4 @@ export function invalidateAllPaychecksList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Paychecks", "list"],
   });
-}
-
-export function buildPaychecksListQuery(
-  client$: SDKCore,
-  request?: operations.ListPaychecksRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<PaychecksListQueryData>;
-} {
-  return {
-    queryKey: queryKeyPaychecksList({
-      filterJobId: request?.filterJobId,
-      filterStatus: request?.filterStatus,
-      filterDepositExpectedAtGte: request?.filterDepositExpectedAtGte,
-      filterDepositExpectedAtLt: request?.filterDepositExpectedAtLt,
-      filterPayPeriodEndsAtGte: request?.filterPayPeriodEndsAtGte,
-      filterPayPeriodEndsAtLt: request?.filterPayPeriodEndsAtLt,
-      filterPayPeriodStartsAtGte: request?.filterPayPeriodStartsAtGte,
-      filterPayPeriodStartsAtLt: request?.filterPayPeriodStartsAtLt,
-      filterBy: request?.filterBy,
-    }),
-    queryFn: async function paychecksListQueryFn(
-      ctx,
-    ): Promise<PaychecksListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(paychecksList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyPaychecksList(
-  parameters: {
-    filterJobId?: string | undefined;
-    filterStatus?: models.FilterPaycheckStatus | undefined;
-    filterDepositExpectedAtGte?: Date | undefined;
-    filterDepositExpectedAtLt?: Date | undefined;
-    filterPayPeriodEndsAtGte?: Date | undefined;
-    filterPayPeriodEndsAtLt?: Date | undefined;
-    filterPayPeriodStartsAtGte?: Date | undefined;
-    filterPayPeriodStartsAtLt?: Date | undefined;
-    filterBy?: string | undefined;
-  },
-): QueryKey {
-  return ["@dailypay/dailypay", "Paychecks", "list", parameters];
 }

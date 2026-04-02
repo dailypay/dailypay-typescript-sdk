@@ -15,5 +15,5 @@ let value: FundingSourceIdentifier = {
 
 | Field                            | Type                             | Required                         | Description                      | Example                          |
 | -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `type`                           | *string*                         | :heavy_check_mark:               | N/A                              |                                  |
+| `type`                           | *"funding_sources"*              | :heavy_check_mark:               | N/A                              |                                  |
 | `id`                             | *string*                         | :heavy_check_mark:               | N/A                              | b5393c00b7c113fc2e5ae3e80c785bb2 |

@@ -5,39 +5,66 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { jobsList } from "../funcs/jobsList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildJobsListQuery,
+  JobsListQueryData,
+  prefetchJobsList,
+  queryKeyJobsList,
+} from "./jobsList.core.js";
+export {
+  buildJobsListQuery,
+  type JobsListQueryData,
+  prefetchJobsList,
+  queryKeyJobsList,
+};
 
-export type JobsListQueryData = operations.ListJobsResponse;
+export type JobsListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a list of job objects
  *
  * @remarks
  * Returns a collection of job objects. This object represents a person's employment details.
- * See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useJobsList(
   request?: operations.ListJobsRequest | undefined,
-  options?: QueryHookOptions<JobsListQueryData>,
-): UseQueryResult<JobsListQueryData, Error> {
+  options?: QueryHookOptions<JobsListQueryData, JobsListQueryError>,
+): UseQueryResult<JobsListQueryData, JobsListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildJobsListQuery(
@@ -54,12 +81,11 @@ export function useJobsList(
  *
  * @remarks
  * Returns a collection of job objects. This object represents a person's employment details.
- * See [Filtering Jobs](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useJobsListSuspense(
   request?: operations.ListJobsRequest | undefined,
-  options?: SuspenseQueryHookOptions<JobsListQueryData>,
-): UseSuspenseQueryResult<JobsListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<JobsListQueryData, JobsListQueryError>,
+): UseSuspenseQueryResult<JobsListQueryData, JobsListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildJobsListQuery(
@@ -68,19 +94,6 @@ export function useJobsListSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchJobsList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListJobsRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildJobsListQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -131,52 +144,4 @@ export function invalidateAllJobsList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Jobs", "list"],
   });
-}
-
-export function buildJobsListQuery(
-  client$: SDKCore,
-  request?: operations.ListJobsRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<JobsListQueryData>;
-} {
-  return {
-    queryKey: queryKeyJobsList({
-      filterExternalIdentifiersPrimaryIdentifier: request
-        ?.filterExternalIdentifiersPrimaryIdentifier,
-      filterExternalIdentifiersEmployeeId: request
-        ?.filterExternalIdentifiersEmployeeId,
-      filterExternalIdentifiersGroup: request?.filterExternalIdentifiersGroup,
-      filterPersonId: request?.filterPersonId,
-      filterOrganizationId: request?.filterOrganizationId,
-      filterBy: request?.filterBy,
-    }),
-    queryFn: async function jobsListQueryFn(ctx): Promise<JobsListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(jobsList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyJobsList(
-  parameters: {
-    filterExternalIdentifiersPrimaryIdentifier?: string | undefined;
-    filterExternalIdentifiersEmployeeId?: string | undefined;
-    filterExternalIdentifiersGroup?: string | undefined;
-    filterPersonId?: string | undefined;
-    filterOrganizationId?: string | undefined;
-    filterBy?: string | undefined;
-  },
-): QueryKey {
-  return ["@dailypay/dailypay", "Jobs", "list", parameters];
 }

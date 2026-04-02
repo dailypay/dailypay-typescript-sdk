@@ -1,0 +1,112 @@
+# AccountAttributes
+
+The details of the account.
+
+
+## Supported Types
+
+### `models.Card`
+
+```typescript
+const value: models.Card = {
+  accountVerificationStatus: "VERIFIED",
+  accountBalances: {
+    available: 12000,
+    current: 50000,
+    currency: "USD",
+  },
+  accountCapabilities: {
+    transferDestination: [
+      {
+        schedule: "WITHIN_THIRTY_MINUTES",
+        fee: 300,
+        currency: "USD",
+      },
+      {
+        schedule: "NEXT_BUSINESS_DAY",
+        fee: 0,
+        currency: "USD",
+      },
+    ],
+  },
+  name: "Debit Card",
+  accountType: "CARD",
+  subtype: "DEBIT",
+  cardAccountDetails: {
+    lastFour: "0003",
+    issuer: "411600",
+    firstName: "Edith",
+    lastName: "Clarke",
+    expirationMonth: "02",
+    expirationYear: "2025",
+  },
+};
+```
+
+### `models.EarningsBalanceReadOnly`
+
+```typescript
+const value: models.EarningsBalanceReadOnly = {
+  accountVerificationStatus: "VERIFIED",
+  accountBalances: {
+    available: 12000,
+    current: 50000,
+    currency: "USD",
+  },
+  accountCapabilities: {
+    transferDestination: [
+      {
+        schedule: "WITHIN_THIRTY_MINUTES",
+        fee: 300,
+        currency: "USD",
+      },
+      {
+        schedule: "NEXT_BUSINESS_DAY",
+        fee: 0,
+        currency: "USD",
+      },
+    ],
+  },
+  name: "DailyPay Pay Balance",
+  accountType: "EARNINGS_BALANCE",
+  subtype: "ODP",
+  details: {},
+};
+```
+
+### `models.Depository`
+
+```typescript
+const value: models.Depository = {
+  accountVerificationStatus: "VERIFIED",
+  accountBalances: {
+    available: 12000,
+    current: 50000,
+    currency: "USD",
+  },
+  accountCapabilities: {
+    transferDestination: [
+      {
+        schedule: "WITHIN_THIRTY_MINUTES",
+        fee: 300,
+        currency: "USD",
+      },
+      {
+        schedule: "NEXT_BUSINESS_DAY",
+        fee: 0,
+        currency: "USD",
+      },
+    ],
+  },
+  name: "Checking Account",
+  accountType: "DEPOSITORY",
+  subtype: "CHECKING",
+  depositoryAccountDetails: {
+    firstName: "Edith",
+    lastName: "Clarke",
+    routingNumber: "XXXXX2021",
+    accountNumber: "XXXXXX4321",
+  },
+};
+```
+

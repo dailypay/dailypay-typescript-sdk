@@ -1,5 +1,4 @@
 # Organizations
-(*organizations*)
 
 ## Overview
 
@@ -158,7 +157,7 @@ const sdk = new SDK({
 });
 
 async function run() {
-  const result = await sdk.organizations.list();
+  const result = await sdk.organizations.list({});
 
   console.log(result);
 }
@@ -188,7 +187,7 @@ const sdk = new SDKCore({
 });
 
 async function run() {
-  const res = await organizationsList(sdk);
+  const res = await organizationsList(sdk, {});
   if (res.ok) {
     const { value: result } = res;
     console.log(result);

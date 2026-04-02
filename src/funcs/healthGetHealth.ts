@@ -87,15 +87,25 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "getHealth",
-    oAuth2Scopes: ["client:admin", "health:read"],
+    oAuth2Scopes: ["health:read"],
 
     resolvedSecurity: requestSecurity,
 
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.25,
+          maxElapsedTime: 30000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["408", "409", "5XX"],
   };
 
   const requestRes = client._createRequest(context, {

@@ -4,15 +4,15 @@ package components
 
 // JobRelationships - The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
 type JobRelationships struct {
-	Person                         PersonRelationshipReadOnly `json:"person"`
-	Organization                   OrganizationRelationship   `json:"organization"`
-	DirectDepositDefaultDepository *AccountRelationship       `json:"direct_deposit_default_depository,omitempty"`
-	DirectDepositDefaultCard       *AccountRelationship       `json:"direct_deposit_default_card,omitempty"`
+	Person                         PersonRelationship       `json:"person"`
+	Organization                   OrganizationRelationship `json:"organization"`
+	DirectDepositDefaultDepository *AccountRelationship     `json:"direct_deposit_default_depository,omitempty"`
+	DirectDepositDefaultCard       *AccountRelationship     `json:"direct_deposit_default_card,omitempty"`
 }
 
-func (o *JobRelationships) GetPerson() PersonRelationshipReadOnly {
+func (o *JobRelationships) GetPerson() PersonRelationship {
 	if o == nil {
-		return PersonRelationshipReadOnly{}
+		return PersonRelationship{}
 	}
 	return o.Person
 }

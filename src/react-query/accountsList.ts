@@ -5,40 +5,67 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { accountsList } from "../funcs/accountsList.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  AccountsListQueryData,
+  buildAccountsListQuery,
+  prefetchAccountsList,
+  queryKeyAccountsList,
+} from "./accountsList.core.js";
+export {
+  type AccountsListQueryData,
+  buildAccountsListQuery,
+  prefetchAccountsList,
+  queryKeyAccountsList,
+};
 
-export type AccountsListQueryData = operations.ListAccountsResponse;
+export type AccountsListQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a list of Account objects
  *
  * @remarks
  * Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
- * See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useAccountsList(
   request?: operations.ListAccountsRequest | undefined,
-  options?: QueryHookOptions<AccountsListQueryData>,
-): UseQueryResult<AccountsListQueryData, Error> {
+  options?: QueryHookOptions<AccountsListQueryData, AccountsListQueryError>,
+): UseQueryResult<AccountsListQueryData, AccountsListQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildAccountsListQuery(
@@ -55,12 +82,14 @@ export function useAccountsList(
  *
  * @remarks
  * Returns a list of account objects. An account object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
- * See [Filtering Accounts](https://developer.dailypay.com/tag/Filtering#section/Supported-Endpoint-Filters) for a description of filterable fields.
  */
 export function useAccountsListSuspense(
   request?: operations.ListAccountsRequest | undefined,
-  options?: SuspenseQueryHookOptions<AccountsListQueryData>,
-): UseSuspenseQueryResult<AccountsListQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    AccountsListQueryData,
+    AccountsListQueryError
+  >,
+): UseSuspenseQueryResult<AccountsListQueryData, AccountsListQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildAccountsListQuery(
@@ -69,19 +98,6 @@ export function useAccountsListSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchAccountsList(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request?: operations.ListAccountsRequest | undefined,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildAccountsListQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -128,48 +144,4 @@ export function invalidateAllAccountsList(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Accounts", "list"],
   });
-}
-
-export function buildAccountsListQuery(
-  client$: SDKCore,
-  request?: operations.ListAccountsRequest | undefined,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<AccountsListQueryData>;
-} {
-  return {
-    queryKey: queryKeyAccountsList({
-      filterPersonId: request?.filterPersonId,
-      filterAccountType: request?.filterAccountType,
-      filterSubtype: request?.filterSubtype,
-      filterBy: request?.filterBy,
-    }),
-    queryFn: async function accountsListQueryFn(
-      ctx,
-    ): Promise<AccountsListQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(accountsList(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyAccountsList(
-  parameters: {
-    filterPersonId?: string | undefined;
-    filterAccountType?: models.FilterAccountType | undefined;
-    filterSubtype?: string | undefined;
-    filterBy?: string | undefined;
-  },
-): QueryKey {
-  return ["@dailypay/dailypay", "Accounts", "list", parameters];
 }

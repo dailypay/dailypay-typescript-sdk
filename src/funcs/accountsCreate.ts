@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function accountsCreate(
   client: SDKCore,
-  request: models.AccountDataInput,
+  request: models.AccountCreateData,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -62,7 +62,7 @@ export function accountsCreate(
 
 async function $do(
   client: SDKCore,
-  request: models.AccountDataInput,
+  request: models.AccountCreateData,
   options?: RequestOptions,
 ): Promise<
   [
@@ -86,7 +86,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.AccountDataInput$outboundSchema.parse(value),
+    (value) => models.AccountCreateData$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -114,15 +114,25 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "createAccount",
-    oAuth2Scopes: ["client:admin"],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.25,
+          maxElapsedTime: 30000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["408", "409", "5XX"],
   };
 
   const requestRes = client._createRequest(context, {

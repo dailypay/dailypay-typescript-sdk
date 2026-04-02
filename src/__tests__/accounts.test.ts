@@ -32,7 +32,7 @@ test("Accounts Read Account", async () => {
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
       type: "accounts",
       attributes: {
-        verificationStatus: "VERIFIED",
+        accountVerificationStatus: "VERIFIED",
         accountBalances: {
           available: 12000,
           current: 50000,
@@ -95,7 +95,9 @@ test("Accounts List Accounts", async () => {
   });
 
   const result = await sdk.accounts.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
     filterAccountType: "EARNINGS_BALANCE",
+    filterSubtype: "ODP",
   });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.accountsData).toBeDefined();
@@ -151,7 +153,7 @@ test("Accounts Create Account Depository", async () => {
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
       type: "accounts",
       attributes: {
-        verificationStatus: "VERIFIED",
+        accountVerificationStatus: "VERIFIED",
         accountBalances: {
           available: 12000,
           current: 50000,
@@ -220,9 +222,8 @@ test("Accounts Create Account Card", async () => {
         name: "Acme Bank Debit Card",
         accountType: "CARD",
         subtype: "DEBIT",
-        cardAccountDetails: {
+        createCardAccountDetails: {
           token: "abc.efg.123",
-          issuer: "411600",
           firstName: "Edith",
           lastName: "Clarke",
           expirationMonth: "02",
@@ -232,6 +233,7 @@ test("Accounts Create Account Card", async () => {
           addressState: "NJ",
           addressZipCode: "72374",
           addressCountry: "US",
+          issuer: "411600",
         },
       },
       relationships: {
@@ -251,7 +253,7 @@ test("Accounts Create Account Card", async () => {
       id: "2bc7d781-3247-46f6-b60f-4090d214936a",
       type: "accounts",
       attributes: {
-        verificationStatus: "VERIFIED",
+        accountVerificationStatus: "VERIFIED",
         accountBalances: {
           available: 12000,
           current: 50000,
@@ -294,5 +296,167 @@ test("Accounts Create Account Card", async () => {
         },
       },
     },
+  });
+});
+
+test("Accounts List Accounts Odp Accounts", async () => {
+  const testHttpClient = createTestHTTPClient("listAccounts-ODPAccounts");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.accounts.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterAccountType: "EARNINGS_BALANCE",
+    filterSubtype: "ODP",
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.accountsData).toBeDefined();
+  expect(result.accountsData).toEqual({
+    data: [
+      {
+        id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+        type: "accounts",
+        attributes: {
+          accountVerificationStatus: "VERIFIED",
+          accountBalances: {
+            available: 7250,
+            current: 0,
+            currency: "USD",
+          },
+          accountCapabilities: {
+            transferDestination: [],
+          },
+          name: "DailyPay On-Demand Pay Balance",
+          accountType: "EARNINGS_BALANCE",
+          subtype: "ODP",
+          details: {},
+        },
+        links: {
+          self:
+            "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
+        },
+        relationships: {
+          person: {
+            data: {
+              type: "people",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+            },
+          },
+        },
+      },
+    ],
+  });
+});
+
+test("Accounts List Accounts All Accounts", async () => {
+  const testHttpClient = createTestHTTPClient("listAccounts-AllAccounts");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.accounts.list({
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterAccountType: "EARNINGS_BALANCE",
+    filterSubtype: "ODP",
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.accountsData).toBeDefined();
+  expect(result.accountsData).toEqual({
+    data: [
+      {
+        id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+        type: "accounts",
+        attributes: {
+          accountVerificationStatus: "VERIFIED",
+          accountBalances: {
+            available: 7250,
+            current: 0,
+            currency: "USD",
+          },
+          accountCapabilities: {
+            transferDestination: [],
+          },
+          name: "DailyPay On-Demand Pay Balance",
+          accountType: "EARNINGS_BALANCE",
+          subtype: "ODP",
+          details: {},
+        },
+        links: {
+          self:
+            "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
+        },
+        relationships: {
+          person: {
+            data: {
+              type: "people",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+            },
+          },
+        },
+      },
+      {
+        id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+        type: "accounts",
+        attributes: {
+          accountVerificationStatus: "VERIFIED",
+          accountBalances: {
+            available: null,
+            current: null,
+            currency: "USD",
+          },
+          accountCapabilities: {
+            transferDestination: [
+              {
+                schedule: "NEXT_BUSINESS_DAY",
+                fee: 299,
+                currency: "USD",
+              },
+            ],
+          },
+          name: "Acme Bank Checking Account",
+          accountType: "DEPOSITORY",
+          subtype: "CHECKING",
+          depositoryAccountDetails: {
+            firstName: "Edith",
+            lastName: "Clarke",
+            routingNumber: "XXXXX2021",
+            accountNumber: "XXXXXX4321",
+          },
+        },
+        links: {
+          self:
+            "https://api.dailypay.com/accounts/3fa8f641-5717-4562-b3fc-2c963f66afa6",
+        },
+        relationships: {
+          person: {
+            data: {
+              type: "people",
+              id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+            },
+          },
+        },
+      },
+    ],
   });
 });

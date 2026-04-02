@@ -5,27 +5,56 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { paychecksRead } from "../funcs/paychecksRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildPaychecksReadQuery,
+  PaychecksReadQueryData,
+  prefetchPaychecksRead,
+  queryKeyPaychecksRead,
+} from "./paychecksRead.core.js";
+export {
+  buildPaychecksReadQuery,
+  type PaychecksReadQueryData,
+  prefetchPaychecksRead,
+  queryKeyPaychecksRead,
+};
 
-export type PaychecksReadQueryData = operations.ReadPaycheckResponse;
+export type PaychecksReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get a Paycheck object
@@ -35,8 +64,8 @@ export type PaychecksReadQueryData = operations.ReadPaycheckResponse;
  */
 export function usePaychecksRead(
   request: operations.ReadPaycheckRequest,
-  options?: QueryHookOptions<PaychecksReadQueryData>,
-): UseQueryResult<PaychecksReadQueryData, Error> {
+  options?: QueryHookOptions<PaychecksReadQueryData, PaychecksReadQueryError>,
+): UseQueryResult<PaychecksReadQueryData, PaychecksReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildPaychecksReadQuery(
@@ -56,8 +85,11 @@ export function usePaychecksRead(
  */
 export function usePaychecksReadSuspense(
   request: operations.ReadPaycheckRequest,
-  options?: SuspenseQueryHookOptions<PaychecksReadQueryData>,
-): UseSuspenseQueryResult<PaychecksReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    PaychecksReadQueryData,
+    PaychecksReadQueryError
+  >,
+): UseSuspenseQueryResult<PaychecksReadQueryData, PaychecksReadQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildPaychecksReadQuery(
@@ -66,19 +98,6 @@ export function usePaychecksReadSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchPaychecksRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadPaycheckRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildPaychecksReadQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -111,36 +130,4 @@ export function invalidateAllPaychecksRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Paychecks", "read"],
   });
-}
-
-export function buildPaychecksReadQuery(
-  client$: SDKCore,
-  request: operations.ReadPaycheckRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<PaychecksReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyPaychecksRead(request.paycheckId),
-    queryFn: async function paychecksReadQueryFn(
-      ctx,
-    ): Promise<PaychecksReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(paychecksRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyPaychecksRead(paycheckId: string): QueryKey {
-  return ["@dailypay/dailypay", "Paychecks", "read", paycheckId];
 }

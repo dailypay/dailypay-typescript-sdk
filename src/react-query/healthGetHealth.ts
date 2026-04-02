@@ -5,23 +5,48 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { healthGetHealth } from "../funcs/healthGetHealth.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
-import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import { useSDKContext } from "./_context.js";
 import { QueryHookOptions, SuspenseQueryHookOptions } from "./_types.js";
+import {
+  buildHealthGetHealthQuery,
+  HealthGetHealthQueryData,
+  prefetchHealthGetHealth,
+  queryKeyHealthGetHealth,
+} from "./healthGetHealth.core.js";
+export {
+  buildHealthGetHealthQuery,
+  type HealthGetHealthQueryData,
+  prefetchHealthGetHealth,
+  queryKeyHealthGetHealth,
+};
 
-export type HealthGetHealthQueryData = operations.GetHealthResponse;
+export type HealthGetHealthQueryError =
+  | errors.ErrorUnauthorized
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Verify the status of the API
@@ -30,8 +55,11 @@ export type HealthGetHealthQueryData = operations.GetHealthResponse;
  * Returns a 200 status code if the API is up and running.
  */
 export function useHealthGetHealth(
-  options?: QueryHookOptions<HealthGetHealthQueryData>,
-): UseQueryResult<HealthGetHealthQueryData, Error> {
+  options?: QueryHookOptions<
+    HealthGetHealthQueryData,
+    HealthGetHealthQueryError
+  >,
+): UseQueryResult<HealthGetHealthQueryData, HealthGetHealthQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildHealthGetHealthQuery(
@@ -49,8 +77,11 @@ export function useHealthGetHealth(
  * Returns a 200 status code if the API is up and running.
  */
 export function useHealthGetHealthSuspense(
-  options?: SuspenseQueryHookOptions<HealthGetHealthQueryData>,
-): UseSuspenseQueryResult<HealthGetHealthQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    HealthGetHealthQueryData,
+    HealthGetHealthQueryError
+  >,
+): UseSuspenseQueryResult<HealthGetHealthQueryData, HealthGetHealthQueryError> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildHealthGetHealthQuery(
@@ -58,17 +89,6 @@ export function useHealthGetHealthSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchHealthGetHealth(
-  queryClient: QueryClient,
-  client$: SDKCore,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildHealthGetHealthQuery(
-      client$,
-    ),
   });
 }
 
@@ -89,34 +109,4 @@ export function invalidateAllHealthGetHealth(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Health", "getHealth"],
   });
-}
-
-export function buildHealthGetHealthQuery(
-  client$: SDKCore,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (context: QueryFunctionContext) => Promise<HealthGetHealthQueryData>;
-} {
-  return {
-    queryKey: queryKeyHealthGetHealth(),
-    queryFn: async function healthGetHealthQueryFn(
-      ctx,
-    ): Promise<HealthGetHealthQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(healthGetHealth(
-        client$,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyHealthGetHealth(): QueryKey {
-  return ["@dailypay/dailypay", "Health", "getHealth"];
 }

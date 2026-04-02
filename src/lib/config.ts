@@ -13,6 +13,9 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
+  /**
+   * DailyPay REST API server
+   */
   "https://api.{environment}.com",
 ] as const;
 
@@ -83,9 +86,9 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
 export const SDK_METADATA = {
   language: "typescript",
-  openapiDocVersion: "3.0.0-beta01",
-  sdkVersion: "0.4.2",
-  genVersion: "2.702.0",
+  openapiDocVersion: "3.0.0-beta108",
+  sdkVersion: "0.11.3",
+  genVersion: "2.866.0",
   userAgent:
-    "speakeasy-sdk/typescript 0.4.2 2.702.0 3.0.0-beta01 @dailypay/dailypay",
+    "speakeasy-sdk/typescript 0.11.3 2.866.0 3.0.0-beta108 @dailypay/dailypay",
 } as const;

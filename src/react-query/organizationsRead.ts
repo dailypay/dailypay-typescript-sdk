@@ -5,27 +5,56 @@
 import {
   InvalidateQueryFilters,
   QueryClient,
-  QueryFunctionContext,
-  QueryKey,
   useQuery,
   UseQueryResult,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
-import { SDKCore } from "../core.js";
-import { organizationsRead } from "../funcs/organizationsRead.js";
-import { combineSignals } from "../lib/primitives.js";
-import { RequestOptions } from "../lib/sdks.js";
+import { DailyPayError } from "../models/errors/dailypayerror.js";
+import {
+  ConnectionError,
+  InvalidRequestError,
+  RequestAbortedError,
+  RequestTimeoutError,
+  UnexpectedClientError,
+} from "../models/errors/httpclienterrors.js";
+import * as errors from "../models/errors/index.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
+import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { unwrapAsync } from "../types/fp.js";
 import { useSDKContext } from "./_context.js";
 import {
   QueryHookOptions,
   SuspenseQueryHookOptions,
   TupleToPrefixes,
 } from "./_types.js";
+import {
+  buildOrganizationsReadQuery,
+  OrganizationsReadQueryData,
+  prefetchOrganizationsRead,
+  queryKeyOrganizationsRead,
+} from "./organizationsRead.core.js";
+export {
+  buildOrganizationsReadQuery,
+  type OrganizationsReadQueryData,
+  prefetchOrganizationsRead,
+  queryKeyOrganizationsRead,
+};
 
-export type OrganizationsReadQueryData = operations.ReadOrganizationResponse;
+export type OrganizationsReadQueryError =
+  | errors.ErrorBadRequest
+  | errors.ErrorUnauthorized
+  | errors.ErrorForbidden
+  | errors.ErrorNotFound
+  | errors.ErrorUnexpected
+  | DailyPayError
+  | ResponseValidationError
+  | ConnectionError
+  | RequestAbortedError
+  | RequestTimeoutError
+  | InvalidRequestError
+  | UnexpectedClientError
+  | SDKValidationError;
 
 /**
  * Get an organization
@@ -35,8 +64,11 @@ export type OrganizationsReadQueryData = operations.ReadOrganizationResponse;
  */
 export function useOrganizationsRead(
   request: operations.ReadOrganizationRequest,
-  options?: QueryHookOptions<OrganizationsReadQueryData>,
-): UseQueryResult<OrganizationsReadQueryData, Error> {
+  options?: QueryHookOptions<
+    OrganizationsReadQueryData,
+    OrganizationsReadQueryError
+  >,
+): UseQueryResult<OrganizationsReadQueryData, OrganizationsReadQueryError> {
   const client = useSDKContext();
   return useQuery({
     ...buildOrganizationsReadQuery(
@@ -56,8 +88,14 @@ export function useOrganizationsRead(
  */
 export function useOrganizationsReadSuspense(
   request: operations.ReadOrganizationRequest,
-  options?: SuspenseQueryHookOptions<OrganizationsReadQueryData>,
-): UseSuspenseQueryResult<OrganizationsReadQueryData, Error> {
+  options?: SuspenseQueryHookOptions<
+    OrganizationsReadQueryData,
+    OrganizationsReadQueryError
+  >,
+): UseSuspenseQueryResult<
+  OrganizationsReadQueryData,
+  OrganizationsReadQueryError
+> {
   const client = useSDKContext();
   return useSuspenseQuery({
     ...buildOrganizationsReadQuery(
@@ -66,19 +104,6 @@ export function useOrganizationsReadSuspense(
       options,
     ),
     ...options,
-  });
-}
-
-export function prefetchOrganizationsRead(
-  queryClient: QueryClient,
-  client$: SDKCore,
-  request: operations.ReadOrganizationRequest,
-): Promise<void> {
-  return queryClient.prefetchQuery({
-    ...buildOrganizationsReadQuery(
-      client$,
-      request,
-    ),
   });
 }
 
@@ -111,38 +136,4 @@ export function invalidateAllOrganizationsRead(
     ...filters,
     queryKey: ["@dailypay/dailypay", "Organizations", "read"],
   });
-}
-
-export function buildOrganizationsReadQuery(
-  client$: SDKCore,
-  request: operations.ReadOrganizationRequest,
-  options?: RequestOptions,
-): {
-  queryKey: QueryKey;
-  queryFn: (
-    context: QueryFunctionContext,
-  ) => Promise<OrganizationsReadQueryData>;
-} {
-  return {
-    queryKey: queryKeyOrganizationsRead(request.organizationId),
-    queryFn: async function organizationsReadQueryFn(
-      ctx,
-    ): Promise<OrganizationsReadQueryData> {
-      const sig = combineSignals(ctx.signal, options?.fetchOptions?.signal);
-      const mergedOptions = {
-        ...options,
-        fetchOptions: { ...options?.fetchOptions, signal: sig },
-      };
-
-      return unwrapAsync(organizationsRead(
-        client$,
-        request,
-        mergedOptions,
-      ));
-    },
-  };
-}
-
-export function queryKeyOrganizationsRead(organizationId: string): QueryKey {
-  return ["@dailypay/dailypay", "Organizations", "read", organizationId];
 }

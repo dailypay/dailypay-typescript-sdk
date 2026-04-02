@@ -101,13 +101,10 @@ test("Jobs Update Job", async () => {
   const result = await sdk.jobs.update({
     jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
     jobUpdateData: {
-      data: {
+      jobUpdateResource: {
         type: "jobs",
         id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
-        attributes: {
-          activationStatus: "DEACTIVATED",
-        },
-        relationships: {
+        jobUpdateRelationships: {
           directDepositDefaultDepository: {
             data: {
               type: "accounts",
@@ -120,6 +117,9 @@ test("Jobs Update Job", async () => {
               id: "2bc7d781-3247-46f6-b60f-4090d214936a",
             },
           },
+        },
+        jobUpdateAttributes: {
+          activationStatus: "DEACTIVATED",
         },
       },
     },
@@ -197,7 +197,13 @@ test("Jobs List Jobs", async () => {
     },
   });
 
-  const result = await sdk.jobs.list();
+  const result = await sdk.jobs.list({
+    filterExternalIdentifiersPrimaryIdentifier: "PRIMARY_ID_98765",
+    filterExternalIdentifiersEmployeeId: "EMP123456",
+    filterExternalIdentifiersGroup: "12345",
+    filterPersonId: "aa860051-c411-4709-9685-c1b716df611b",
+    filterOrganizationId: "f0b30634-108c-439c-a8c1-c6a91197f022",
+  });
   expect(result.httpMeta.response.status).toBe(200);
   expect(result.jobsData).toBeDefined();
   expect(result.jobsData).toEqual({
@@ -254,5 +260,186 @@ test("Jobs List Jobs", async () => {
         },
       },
     ],
+  });
+});
+
+test("Jobs Update Job Direct Deposit", async () => {
+  const testHttpClient = createTestHTTPClient("updateJob-DirectDeposit");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.jobs.update({
+    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    jobUpdateData: {
+      jobUpdateResource: {
+        type: "jobs",
+        id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+        jobUpdateRelationships: {
+          directDepositDefaultDepository: {
+            data: {
+              type: "accounts",
+              id: "123e4567-e89b-12d3-a456-426614174000",
+            },
+          },
+          directDepositDefaultCard: {
+            data: {
+              type: "accounts",
+              id: "223e4567-e89b-12d3-a456-426614174001",
+            },
+          },
+        },
+      },
+    },
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.jobData).toBeDefined();
+  expect(result.jobData).toEqual({
+    data: {
+      type: "jobs",
+      id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+      attributes: {
+        externalIdentifiers: {
+          "primary_identifier": "0123456789",
+        },
+        firstName: "Edith",
+        lastName: "Clarke",
+        activationStatus: "DEACTIVATED",
+        wageRate: {
+          amount: 2500,
+          currency: "USD",
+          frequency: "HOURLY",
+        },
+        title: "Computer",
+        department: "Finance",
+        location: "New York, New York",
+        directDepositStatus: "SETUP_COMPLETE",
+      },
+      links: {
+        self:
+          "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+      },
+      relationships: {
+        person: {
+          data: {
+            type: "people",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+        organization: {
+          data: {
+            type: "organizations",
+            id: "f0b30634-108c-439c-a8c1-c6a91197f022",
+          },
+        },
+        directDepositDefaultDepository: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+        directDepositDefaultCard: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+      },
+    },
+  });
+});
+
+test("Jobs Update Job Deactivate", async () => {
+  const testHttpClient = createTestHTTPClient("updateJob-Deactivate");
+
+  const sdk = new SDK({
+    serverURL: process.env["TEST_SERVER_URL"] ?? "http://localhost:18080",
+    version: 3,
+    httpClient: testHttpClient,
+    security: {
+      oauthClientCredentialsToken: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+        tokenURL: "<YOUR_TOKEN_URL_HERE>",
+      },
+    },
+  });
+
+  const result = await sdk.jobs.update({
+    jobId: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+    jobUpdateData: {
+      jobUpdateResource: {
+        type: "jobs",
+        id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+        jobUpdateAttributes: {
+          activationStatus: "DEACTIVATED",
+        },
+      },
+    },
+  });
+  expect(result.httpMeta.response.status).toBe(200);
+  expect(result.jobData).toBeDefined();
+  expect(result.jobData).toEqual({
+    data: {
+      type: "jobs",
+      id: "e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+      attributes: {
+        externalIdentifiers: {
+          "primary_identifier": "0123456789",
+        },
+        firstName: "Edith",
+        lastName: "Clarke",
+        activationStatus: "DEACTIVATED",
+        wageRate: {
+          amount: 2500,
+          currency: "USD",
+          frequency: "HOURLY",
+        },
+        title: "Computer",
+        department: "Finance",
+        location: "New York, New York",
+        directDepositStatus: "SETUP_COMPLETE",
+      },
+      links: {
+        self:
+          "https://api.dailypay.com/rest/jobs/e9d84b0d-92ba-43c9-93bf-7c993313fa6f",
+      },
+      relationships: {
+        person: {
+          data: {
+            type: "people",
+            id: "3fa8f641-5717-4562-b3fc-2c963f66afa6",
+          },
+        },
+        organization: {
+          data: {
+            type: "organizations",
+            id: "f0b30634-108c-439c-a8c1-c6a91197f022",
+          },
+        },
+        directDepositDefaultDepository: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+        directDepositDefaultCard: {
+          data: {
+            type: "accounts",
+            id: "2bc7d781-3247-46f6-b60f-4090d214936a",
+          },
+        },
+      },
+    },
   });
 });

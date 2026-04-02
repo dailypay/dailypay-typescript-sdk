@@ -2,11 +2,10 @@
 
 package components
 
-// TransferCreateRelationships - The relationships between the transfer and other resources, including the destination account, the origination account, and the person who initiated the transfer.
 type TransferCreateRelationships struct {
-	Origin      AccountRelationship `json:"origin"`
-	Destination AccountRelationship `json:"destination"`
-	Person      PersonRelationship  `json:"person"`
+	Origin      AccountRelationship  `json:"origin"`
+	Destination *AccountRelationship `json:"destination,omitempty"`
+	Person      *PersonRelationship  `json:"person,omitempty"`
 }
 
 func (o *TransferCreateRelationships) GetOrigin() AccountRelationship {
@@ -16,16 +15,16 @@ func (o *TransferCreateRelationships) GetOrigin() AccountRelationship {
 	return o.Origin
 }
 
-func (o *TransferCreateRelationships) GetDestination() AccountRelationship {
+func (o *TransferCreateRelationships) GetDestination() *AccountRelationship {
 	if o == nil {
-		return AccountRelationship{}
+		return nil
 	}
 	return o.Destination
 }
 
-func (o *TransferCreateRelationships) GetPerson() PersonRelationship {
+func (o *TransferCreateRelationships) GetPerson() *PersonRelationship {
 	if o == nil {
-		return PersonRelationship{}
+		return nil
 	}
 	return o.Person
 }
