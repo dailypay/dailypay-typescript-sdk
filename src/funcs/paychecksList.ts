@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a collection of paycheck objects. This object details a person's pay and pay period.
+ *
+ * If set, this operation will use {@link Security.oauthUserToken} from the global security.
  */
 export function paychecksList(
   client: SDKCore,
@@ -125,7 +127,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

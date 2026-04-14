@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns details about an account. This object represents a person's bank accounts, debit and pay cards, and earnings balance accounts.
+ *
+ * If set, this operation will use either {@link Security.oauthClientCredentialsToken} or {@link Security.oauthUserToken} from the global security.
  */
 export function accountsRead(
   client: SDKCore,
@@ -102,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/rest/accounts/{account_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +116,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1]);
 
   const context = {
     options: client._options,

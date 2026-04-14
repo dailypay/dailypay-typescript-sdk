@@ -32,6 +32,8 @@ import { Result } from "../types/fp.js";
  * Returns details about a transfer of money from one account to another.
  *
  * Created when a person takes an advance against a future paycheck, or on a daily basis when available balance is updated based on current employment.
+ *
+ * If set, this operation will use {@link Security.oauthUserToken} from the global security.
  */
 export function transfersRead(
   client: SDKCore,
@@ -104,7 +106,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/rest/transfers/{transfer_id}")(pathParams);
 
   const query = encodeFormQuery({
@@ -121,7 +122,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

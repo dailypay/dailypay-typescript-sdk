@@ -28,6 +28,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a 200 status code if the API is up and running.
+ *
+ * If set, this operation will use {@link Security.oauthClientCredentialsToken} from the global security.
  */
 export function healthGetHealth(
   client: SDKCore,
@@ -81,7 +83,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0]);
 
   const context = {
     options: client._options,

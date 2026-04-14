@@ -31,6 +31,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Request transfer of funds from an `EARNINGS_BALANCE` account to a
  * personal `DEPOSITORY` or `CARD` account.
+ *
+ * If set, this operation will use {@link Security.oauthUserToken} from the global security.
  */
 export function transfersCreate(
   client: SDKCore,
@@ -121,7 +123,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,
