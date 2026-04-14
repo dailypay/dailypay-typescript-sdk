@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a collection of job objects. This object represents a person's employment details.
+ *
+ * If set, this operation will use either {@link Security.oauthClientCredentialsToken} or {@link Security.oauthUserToken} from the global security.
  */
 export function jobsList(
   client: SDKCore,
@@ -119,7 +121,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0, 1]);
 
   const context = {
     options: client._options,

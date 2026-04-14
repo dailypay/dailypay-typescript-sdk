@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns a list of transfer objects.
+ *
+ * If set, this operation will use {@link Security.oauthUserToken} from the global security.
  */
 export function transfersList(
   client: SDKCore,
@@ -113,7 +115,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

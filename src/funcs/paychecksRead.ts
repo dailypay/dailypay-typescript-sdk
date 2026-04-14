@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Returns details about a paycheck object.
+ *
+ * If set, this operation will use {@link Security.oauthUserToken} from the global security.
  */
 export function paychecksRead(
   client: SDKCore,
@@ -102,7 +104,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/rest/paychecks/{paycheck_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -115,7 +116,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

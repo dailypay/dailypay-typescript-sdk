@@ -31,6 +31,8 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Update this job to set where pay should be deposited for paychecks related to this job,  or deactivate on-demand pay for this job.
  * Returns the job object if the update succeeded. Returns an error if update parameters are invalid.
+ *
+ * If set, this operation will use {@link Security.oauthUserToken} from the global security.
  */
 export function jobsUpdate(
   client: SDKCore,
@@ -103,7 +105,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/rest/jobs/{job_id}")(pathParams);
 
   const headers = new Headers(compactMap({
@@ -117,7 +118,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [1]);
 
   const context = {
     options: client._options,

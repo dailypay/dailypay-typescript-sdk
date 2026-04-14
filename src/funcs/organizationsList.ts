@@ -30,6 +30,8 @@ import { Result } from "../types/fp.js";
  *
  * @remarks
  * Get organizations with an optional filter
+ *
+ * If set, this operation will use {@link Security.oauthClientCredentialsToken} from the global security.
  */
 export function organizationsList(
   client: SDKCore,
@@ -113,7 +115,7 @@ async function $do(
   }));
 
   const securityInput = await extractSecurity(client._options.security);
-  const requestSecurity = resolveGlobalSecurity(securityInput);
+  const requestSecurity = resolveGlobalSecurity(securityInput, [0]);
 
   const context = {
     options: client._options,
