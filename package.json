@@ -1,6 +1,6 @@
 {
   "name": "@dailypay/dailypay",
-  "version": "0.11.5",
+  "version": "0.11.6",
   "author": "DailyPay, Inc.",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
