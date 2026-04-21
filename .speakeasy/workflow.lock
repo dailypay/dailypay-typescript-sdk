@@ -1,4 +1,4 @@
-speakeasyVersion: 1.761.8
+speakeasyVersion: 1.761.9
 sources:
     cloud:
         sourceNamespace: xapi
@@ -22,7 +22,7 @@ targets:
         sourceRevisionDigest: sha256:4c8d90c21378a5020d5ae22382eb51ece958713c9210cce69265f2c13cf6286d
         sourceBlobDigest: sha256:e4d68502c06d62a1840e0cdb1c9b05b9f6bd513eb6a2605a787e6099a00f5f94
         codeSamplesNamespace: xapi-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:2fc173a18684790b07b2ea03afdba70c3ec4d3c8e1ccd56c5724b2b89e04336e
+        codeSamplesRevisionDigest: sha256:b6e995b762fccc5b082fdbd0fbae1896f4c70680843d333ead63d0958424359d
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
