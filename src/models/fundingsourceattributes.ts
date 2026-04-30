@@ -9,7 +9,12 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FundingSourceAttributes = {
   /**
-   * A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
+   * The amount of money from the related paycheck allocated towards funding the related transfer.
+   *
+   * @remarks
+   *
+   * A monetary quantity expressed in units of the lowest denomination in the
+   * associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
    */
   amount: number;
   /**

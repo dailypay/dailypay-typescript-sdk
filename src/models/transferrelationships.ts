@@ -48,9 +48,31 @@ export type TransferRelationships = {
    * system-created record that describes a credit of earnings to an account with `account_type` `EARNINGS_BALANCE`.
    */
   origin: AccountRelationship | PaycheckRelationship;
+  /**
+   * The account to which funds are transferred.
+   *
+   * @remarks
+   *
+   * User-created transfers should have a destination Account with `account_type` `DEPOSITORY` or `CARD`.
+   */
   destination: AccountRelationship;
   person: PersonRelationship;
+  /**
+   * On user-created transfers, details the paychecks that are likely to be used to reimburse this transfer.
+   *
+   * @remarks
+   *
+   * The paychecks impacted, and final amount allocated from each paycheck is subject to change.
+   * See `final_funding_sources` for the final allocations.
+   */
   estimatedFundingSources: FundingSourcesRelationship;
+  /**
+   * On user-created transfers, details the paychecks that were used to reimburse this transfer and the amount allocated from each paycheck.
+   *
+   * @remarks
+   *
+   * If this relationship has members, its members and their values are immutable.
+   */
   finalFundingSources: FundingSourcesRelationship;
 };
 
