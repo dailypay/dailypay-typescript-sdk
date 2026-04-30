@@ -15,7 +15,19 @@ import {
 } from "./personrelationship.js";
 
 export type TransferCreateRelationships = {
+  /**
+   * User-created transfers must originate from an Account with `account_type` `EARNINGS_BALANCE`.
+   *
+   * @remarks
+   */
   origin: AccountRelationship;
+  /**
+   * The account to which funds are transferred.
+   *
+   * @remarks
+   *
+   * User-created transfers should have a destination Account with `account_type` `DEPOSITORY` or `CARD`.
+   */
   destination?: AccountRelationship | undefined;
   person?: PersonRelationship | undefined;
 };

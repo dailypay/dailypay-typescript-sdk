@@ -26,7 +26,13 @@ import {
 export type JobRelationships = {
   person: PersonRelationship;
   organization: OrganizationRelationship;
+  /**
+   * The `DEPOSITORY` account to which paychecks from this job will attempt to be deposited.
+   */
   directDepositDefaultDepository?: AccountRelationship | undefined;
+  /**
+   * The `CARD` account to which paychecks from this job will attempt to be deposited, if the `DEPOSITORY` account fails.
+   */
   directDepositDefaultCard?: AccountRelationship | undefined;
 };
 

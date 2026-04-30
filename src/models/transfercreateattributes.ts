@@ -41,6 +41,10 @@ export type TransferCreateAttributes = {
    */
   preview?: boolean | undefined;
   /**
+   * The amount of funds requested to move from the origin account to the destination account. Any fees will be subtracted from this amount prior to landing in the destination account.
+   *
+   * @remarks
+   *
    * A monetary quantity expressed in units of the lowest denomination in the associated currency. For example, `{ amount: 7250, currency: 'USD' }` resolves to $72.50.
    */
   amount: number;

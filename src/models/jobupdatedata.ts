@@ -15,7 +15,13 @@ import {
  * The relationships between the job and other resources, including the accounts to which paychecks from this job are deposited.
  */
 export type JobUpdateRelationships = {
+  /**
+   * The `DEPOSITORY` account to which paychecks from this job will attempt to be deposited.
+   */
   directDepositDefaultDepository?: AccountRelationship | undefined;
+  /**
+   * The `CARD` account to which paychecks from this job will attempt to be deposited, if the `DEPOSITORY` account fails.
+   */
   directDepositDefaultCard?: AccountRelationship | undefined;
 };
 
