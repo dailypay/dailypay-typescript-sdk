@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 752a96cce7535bef82e38411147b7617
-  docVersion: 3.0.0-beta.111
-  speakeasyVersion: 1.761.10
-  generationVersion: 2.881.16
-  releaseVersion: 0.11.8
-  configChecksum: bf0c98d5b93f85443d0aad1a011cc819
+  docChecksum: 6f94c18ab521a74927e42505763a124f
+  docVersion: 3.0.0-beta.112
+  speakeasyVersion: 1.762.0
+  generationVersion: 2.882.0
+  releaseVersion: 0.11.9
+  configChecksum: 7c183af936244d8d5567529528bd6fdc
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 persistentEdits:
-  generation_id: 1253e7f9-c497-438c-8c9e-edb400c3db5c
-  pristine_commit_hash: 7a2354d24585bc48577eb847e55db5c5c3d8e79a
-  pristine_tree_hash: c5df07907e35782658435411b02f1f281833510f
+  generation_id: 24f1115e-71ba-437e-992c-a82ae996e520
+  pristine_commit_hash: 1f374df69e52cd28484e19463406a55a580d3174
+  pristine_tree_hash: 5922621dc0a380a93d0fef3702629cd8e8c77b89
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.49
+    core: 3.26.50
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -943,12 +943,12 @@ trackedFiles:
     pristine_git_object: 33c9616d0d04fc0f1bbcd5d45d4b1177e6346afb
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:60ce25416d5c33e00eca889a2e07918163166efa
-    pristine_git_object: d11470e0f844475aba2e7078f1d341af9bb8f5d6
+    last_write_checksum: sha1:706b813be5032990093315c3f0a09d28a0184965
+    pristine_git_object: 885665480cb802d0bc533daca4e46c92baed5b2d
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:ae7ceb05a21fc92b7224579cc62edf149877aece
-    pristine_git_object: a5b456f58a38a2df21828efe0bb5524144ef7cb6
+    last_write_checksum: sha1:369997ed7498fdc8bd9e384e6d9ae2b8be79273b
+    pristine_git_object: 167556887491d2fadade408255939f5cac40f632
   src/__tests__/accounts.test.ts:
     id: 2566ee40ab54
     last_write_checksum: sha1:bb83c2108dd763307c633050fc6cbe6a14c50941
@@ -1427,8 +1427,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:b512804d297d7671580add2e6fdfaea32e1a519e
-    pristine_git_object: 2a6e3ec098362bd20eb98b75a1f1dbb1f03466ad
+    last_write_checksum: sha1:1b860f0e22e9af1a99844815ec70df01f841892f
+    pristine_git_object: 23e4498cf46be783a72ce4e9b69c32b4be7cb788
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
