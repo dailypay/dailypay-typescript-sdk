@@ -249,6 +249,7 @@ run();
 ### [Accounts](docs/sdks/accounts/README.md)
 
 * [read](docs/sdks/accounts/README.md#read) - Get an Account object
+* [deleteAccount](docs/sdks/accounts/README.md#deleteaccount) - Delete an Account
 * [list](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 * [create](docs/sdks/accounts/README.md#create) - Create an Account object
 
@@ -306,6 +307,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`accountsCreate`](docs/sdks/accounts/README.md#create) - Create an Account object
+- [`accountsDeleteAccount`](docs/sdks/accounts/README.md#deleteaccount) - Delete an Account
 - [`accountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`accountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
 - [`cardTokenizationCreate`](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
@@ -349,6 +351,7 @@ To learn about this feature and how to get started, check
 <summary>Available React hooks</summary>
 
 - [`useAccountsCreateMutation`](docs/sdks/accounts/README.md#create) - Create an Account object
+- [`useAccountsDeleteAccountMutation`](docs/sdks/accounts/README.md#deleteaccount) - Delete an Account
 - [`useAccountsList`](docs/sdks/accounts/README.md#list) - Get a list of Account objects
 - [`useAccountsRead`](docs/sdks/accounts/README.md#read) - Get an Account object
 - [`useCardTokenizationCreateMutation`](docs/sdks/cardtokenization/README.md#create) - Obtain a card token
@@ -526,12 +529,12 @@ run();
 
 
 **Inherit from [`DailyPayError`](./src/models/errors/dailypayerror.ts)**:
-* [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 12 of 17 methods.*
-* [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 8 of 17 methods.*
-* [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 17 methods.*
-* [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
-* [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 17 methods.*
-* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 17 methods.*
+* [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 13 of 18 methods.*
+* [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 9 of 18 methods.*
+* [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
+* [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
+* [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
+* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 18 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

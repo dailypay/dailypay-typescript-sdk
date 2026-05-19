@@ -18,6 +18,7 @@ details associated with each account.
 ### Available Operations
 
 * [read](#read) - Get an Account object
+* [deleteAccount](#deleteaccount) - Delete an Account
 * [list](#list) - Get a list of Account objects
 * [create](#create) - Create an Account object
 
@@ -129,6 +130,107 @@ import {
 ### Response
 
 **Promise\<[operations.ReadAccountResponse](../../models/operations/readaccountresponse.md)\>**
+
+### Errors
+
+| Error Type               | Status Code              | Content Type             |
+| ------------------------ | ------------------------ | ------------------------ |
+| errors.ErrorBadRequest   | 400                      | application/vnd.api+json |
+| errors.ErrorUnauthorized | 401                      | application/vnd.api+json |
+| errors.ErrorForbidden    | 403                      | application/vnd.api+json |
+| errors.ErrorNotFound     | 404                      | application/vnd.api+json |
+| errors.ErrorUnexpected   | 500                      | application/vnd.api+json |
+| errors.SDKDefaultError   | 4XX, 5XX                 | \*/\*                    |
+
+## deleteAccount
+
+Removes a previously added DEPOSITORY or CARD account. EARNINGS_BALANCE accounts cannot be deleted.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteAccount" method="delete" path="/rest/accounts/{account_id}" -->
+```typescript
+import { SDK } from "@dailypay/dailypay";
+
+const sdk = new SDK({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
+
+async function run() {
+  const result = await sdk.accounts.deleteAccount({
+    accountId: "2bc7d781-3247-46f6-b60f-4090d214936a",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SDKCore } from "@dailypay/dailypay/core.js";
+import { accountsDeleteAccount } from "@dailypay/dailypay/funcs/accountsDeleteAccount.js";
+
+// Use `SDKCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const sdk = new SDKCore({
+  version: 3,
+  security: {
+    oauthUserToken: "<YOUR_OAUTH_USER_TOKEN_HERE>",
+  },
+});
+
+async function run() {
+  const res = await accountsDeleteAccount(sdk, {
+    accountId: "2bc7d781-3247-46f6-b60f-4090d214936a",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("accountsDeleteAccount failed:", res.error);
+  }
+}
+
+run();
+```
+
+### React hooks and utilities
+
+This method can be used in React components through the following hooks and
+associated utilities.
+
+> Check out [this guide][hook-guide] for information about each of the utilities
+> below and how to get started using React hooks.
+
+[hook-guide]: ../../../REACT_QUERY.md
+
+```tsx
+import {
+  // Mutation hook for triggering the API call.
+  useAccountsDeleteAccountMutation
+} from "@dailypay/dailypay/react-query/accountsDeleteAccount.js";
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteAccountRequest](../../models/operations/deleteaccountrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DeleteAccountResponse](../../models/operations/deleteaccountresponse.md)\>**
 
 ### Errors
 

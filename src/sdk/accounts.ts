@@ -3,6 +3,7 @@
  */
 
 import { accountsCreate } from "../funcs/accountsCreate.js";
+import { accountsDeleteAccount } from "../funcs/accountsDeleteAccount.js";
 import { accountsList } from "../funcs/accountsList.js";
 import { accountsRead } from "../funcs/accountsRead.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -22,6 +23,23 @@ export class Accounts extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ReadAccountResponse> {
     return unwrapAsync(accountsRead(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete an Account
+   *
+   * @remarks
+   * Removes a previously added DEPOSITORY or CARD account. EARNINGS_BALANCE accounts cannot be deleted.
+   */
+  async deleteAccount(
+    request: operations.DeleteAccountRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteAccountResponse> {
+    return unwrapAsync(accountsDeleteAccount(
       this,
       request,
       options,

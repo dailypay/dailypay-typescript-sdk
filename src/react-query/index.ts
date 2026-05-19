@@ -6,6 +6,7 @@ export { SDKProvider, useSDKContext } from "./_context.js";
 export * from "./_types.js";
 
 export * from "./accountsCreate.js";
+export * from "./accountsDeleteAccount.js";
 export * from "./accountsList.js";
 export * from "./accountsRead.js";
 export * from "./cardTokenizationCreate.js";
