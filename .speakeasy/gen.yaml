@@ -30,7 +30,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.11.10
+  version: 0.11.11
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -81,6 +81,7 @@ typescript:
   packageName: '@dailypay/dailypay'
   preApplyUnionDiscriminators: true
   preserveModelFieldNames: false
+  privateIdentifierPrefix: '#'
   responseFormat: envelope-http
   sseFlatResponse: false
   templateVersion: v2

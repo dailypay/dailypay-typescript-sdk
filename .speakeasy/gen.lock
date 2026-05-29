@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 1e7084a73367eb4196151f14cf4a5d0e
-  docVersion: 3.0.0-beta.114
+  docChecksum: 211af091eb129b72d967968951955c3c
+  docVersion: 3.0.0-beta.115
   speakeasyVersion: 1.763.3
   generationVersion: 2.884.7
-  releaseVersion: 0.11.10
-  configChecksum: d1bbbb951f09f4bc8cc3b039ab51a66c
+  releaseVersion: 0.11.11
+  configChecksum: bb51b4cb88a2aa60c68e4c2de4737113
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 persistentEdits:
-  generation_id: 7a14529f-1e0b-43bd-b8e7-07d0489b98ad
-  pristine_commit_hash: e35b0cdb5fb84b0278aafa4446402cfae6c46d62
-  pristine_tree_hash: c891280ba1baa58431c3ff4f6cfa76643029994c
+  generation_id: eb11b3e8-16de-4a56-83ce-f337b57dfc59
+  pristine_commit_hash: 703b3f11662c45a38fa2681954805a98590c6656
+  pristine_tree_hash: 0cc59d3b604930d61b020df8071b0a99ea4750f8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -955,12 +955,12 @@ trackedFiles:
     pristine_git_object: 33c9616d0d04fc0f1bbcd5d45d4b1177e6346afb
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:b6e8ff88ae4f1cb8cb1ff67ea31ad319c03cc24d
-    pristine_git_object: c36e1a3838513c4869e098c3d9ffcb71b886c44e
+    last_write_checksum: sha1:045c642a1a4bda6cba06746aea3896787c21cf2a
+    pristine_git_object: 0fbfce27a85c8a8d57449b2a4e96999a986481ad
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:10eb6bc628fd42b7017cb234e32e0a93df64f1f8
-    pristine_git_object: 57fe19a599a0e3f34ea2a26b73e6859f128f045d
+    last_write_checksum: sha1:683b24647bbd7aa89f9e8a3727f52f146f1a498b
+    pristine_git_object: cfc1b7cca6f55dff5d8cd79bbee7d29a2450ea73
   src/__tests__/accounts.test.ts:
     id: 2566ee40ab54
     last_write_checksum: sha1:bb83c2108dd763307c633050fc6cbe6a14c50941
@@ -1775,8 +1775,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:12eb6e84223ca3e8172c5151df70ffc5c408e75f
-    pristine_git_object: b5820d5269c8757c20fd8173d7c7d2a31c3f5a02
+    last_write_checksum: sha1:d36b0dc193633ffa7b46d1bb154524d53151e125
+    pristine_git_object: 6a17dd3924e52788e697051a00bb9f251f887e1c
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -3045,9 +3045,6 @@ generatedTests:
   createTransfer-Instant: "2025-12-04T15:21:13Z"
   createTransfer-NextDay: "2025-12-04T15:21:13Z"
   updatePerson-StateOfResidence: "2025-12-04T15:21:13Z"
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `sdk.accounts.deleteAccount()`: **Added**
 generatedFiles:
   - .gitattributes
   - .npmignore
