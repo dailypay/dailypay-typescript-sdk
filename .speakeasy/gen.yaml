@@ -26,8 +26,8 @@ generation:
   versioningStrategy: automatic
   persistentEdits: {}
   tests:
-    generateTests: true
-    generateNewTests: true
+    generateTests: false
+    generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
   version: 0.12.0
