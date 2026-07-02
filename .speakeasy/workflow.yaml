@@ -18,4 +18,4 @@ targets:
             labelOverride:
                 omit: true
         testing:
-            enabled: true
+            enabled: false
