@@ -22,7 +22,7 @@ targets:
         sourceRevisionDigest: sha256:cfbd914b16f328f7134067c685ecf6dfe22ac5a7ee263e59bd1b048b3129cb96
         sourceBlobDigest: sha256:194f515559b43f2d7b200e7971d5bc8e915a6a5bc45ae06eb5f955d7a12d546b
         codeSamplesNamespace: xapi-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:f4b7d1a8e4246eaa47412033048c6692d10274b75963ef5abca306f6d570ac78
+        codeSamplesRevisionDigest: sha256:8861f99860f5cf2624b468b493b04f617e617fabc23616d635abd0d0db750b4c
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
