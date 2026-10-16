@@ -30,7 +30,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.14.7
+  version: 0.14.8
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -79,6 +79,7 @@ typescript:
   modelPropertyCasing: camel
   moduleFormat: dual
   multipartArrayFormat: legacy
+  numericEnumMemberNames: legacy
   outputModelSuffix: output
   packageName: '@dailypay/dailypay'
   preApplyUnionDiscriminators: true
