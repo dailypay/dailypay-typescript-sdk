@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: 8b11863dd02c4f2679a2aaa0afe67fba
-  docVersion: 3.0.0-beta.127
+  docChecksum: bfb2fa718627bbc3c4bb9642acf28acb
+  docVersion: 3.0.0-beta.128
   speakeasyVersion: 1.805.0
   generationVersion: 2.954.8
-  releaseVersion: 0.14.9
-  configChecksum: 0e6b5cf89ede67ca59c2ee82b5068819
+  releaseVersion: 0.14.10
+  configChecksum: 754015844d3ab8ff00c2523ec3d1defa
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 persistentEdits:
-  generation_id: e7bee19b-5326-4c64-a0c4-63229cf59b41
-  pristine_commit_hash: 82660927c817ccd0fa88f7eb03fdb3a099939f5d
-  pristine_tree_hash: e58adaa4b9b257fde0f4cc5a70eb5c6e436b34b7
+  generation_id: d251278d-cb04-4e85-aca0-4559cf250717
+  pristine_commit_hash: f9cc53857a174f8c251a42efe47224a69a1b104f
+  pristine_tree_hash: ea8c011034766f1711f1eb51d0edeb4aa1e0fb89
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -953,12 +953,12 @@ trackedFiles:
     pristine_git_object: 33c9616d0d04fc0f1bbcd5d45d4b1177e6346afb
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:6ced5bb5da81801f1c92ef155a226c0e8b25203f
-    pristine_git_object: b9fbff57b326ada8ff762a153e5978a635d3f214
+    last_write_checksum: sha1:3a316e341826a504b93740b1c68d16a96405d5bb
+    pristine_git_object: 4e97e7b9ee510429817f76dc0fb0e5bdb1effb5e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:58409045e599c485a5cedbd6f3cdd1970e564c34
-    pristine_git_object: 2039065cd114dfa9169230f589f50d2b46f3e1b6
+    last_write_checksum: sha1:28bb61d8e8e6065cf6a6b18863a3ddbf1107ee7c
+    pristine_git_object: 512675459c3737ae924157aa9e9916727d6a5d60
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:ce840032c45608f5f4022b32bcce32cb69c5ed26
@@ -1065,8 +1065,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ca37692a43b31e4b8ebe37dca504b86160d9064b
-    pristine_git_object: fb695690eb6f3526cfbfdbd9a5b8828451090301
+    last_write_checksum: sha1:2760664f63bdb94e139ef1d81e2384e69e655d99
+    pristine_git_object: d94c559d0fb4af2e5a0e1bc3d9ec37f692c330a8
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a257d6f6108693db2197617c579400bc8f0da914
