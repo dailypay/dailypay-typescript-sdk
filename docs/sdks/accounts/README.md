@@ -729,5 +729,6 @@ import {
 | errors.AccountCreateError | 400                       | application/vnd.api+json  |
 | errors.ErrorUnauthorized  | 401                       | application/vnd.api+json  |
 | errors.ErrorForbidden     | 403                       | application/vnd.api+json  |
-| errors.ErrorUnexpected    | 500                       | application/vnd.api+json  |
+| errors.ErrorConflict      | 409                       | application/vnd.api+json  |
+| errors.ErrorUnexpected    | 500, 503                  | application/vnd.api+json  |
 | errors.SDKDefaultError    | 4XX, 5XX                  | \*/\*                     |

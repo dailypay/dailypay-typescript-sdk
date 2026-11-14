@@ -513,7 +513,7 @@ run();
 **Primary errors:**
 * [`DailyPayError`](./src/models/errors/dailypayerror.ts): The base class for HTTP error responses.
   * [`ErrorUnauthorized`](./src/models/errors/errorunauthorized.ts): Invalid authentication credentials. Status code `401`. *
-  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
+  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. *
   * [`ErrorForbidden`](./src/models/errors/errorforbidden.ts): Not authorized to perform this operation. Status code `403`. *
 
 <details><summary>Less common errors (12)</summary>
@@ -531,10 +531,10 @@ run();
 **Inherit from [`DailyPayError`](./src/models/errors/dailypayerror.ts)**:
 * [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 13 of 18 methods.*
 * [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 9 of 18 methods.*
+* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 2 of 18 methods.*
 * [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
 * [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
 * [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
-* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 18 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
