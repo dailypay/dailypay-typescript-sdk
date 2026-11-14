@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 23304fef-40f3-4268-ad52-8df627e80cfa
 management:
-  docChecksum: bfb2fa718627bbc3c4bb9642acf28acb
-  docVersion: 3.0.0-beta.128
-  speakeasyVersion: 1.805.0
-  generationVersion: 2.954.8
-  releaseVersion: 0.14.10
-  configChecksum: 754015844d3ab8ff00c2523ec3d1defa
+  docChecksum: dc41e0ae47487c736403d4767af07aa1
+  docVersion: 3.0.0-beta.132
+  speakeasyVersion: 1.809.0
+  generationVersion: 2.961.1
+  releaseVersion: 0.14.11
+  configChecksum: c8bcc1b3cf20e8a5476a604d7aeff095
   repoURL: https://github.com/dailypay/dailypay-typescript-sdk.git
   installationURL: https://github.com/dailypay/dailypay-typescript-sdk
 persistentEdits:
-  generation_id: d251278d-cb04-4e85-aca0-4559cf250717
-  pristine_commit_hash: f9cc53857a174f8c251a42efe47224a69a1b104f
-  pristine_tree_hash: ea8c011034766f1711f1eb51d0edeb4aa1e0fb89
+  generation_id: 33c7d79d-bfb8-4149-99ca-3e2ac60f6aa1
+  pristine_commit_hash: 4096def1b8a2e15468f27292c29e14bae80c50cb
+  pristine_tree_hash: 813d99f7c4d453ad53649281d529db1d716e0368
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.31.8
+    core: 3.31.11
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     enumUnions: 0.1.0
@@ -901,8 +901,8 @@ trackedFiles:
     pristine_git_object: c4c30a60008b0496684d7d152584f7fec396fd4d
   docs/sdks/accounts/README.md:
     id: d6c754b1ca96
-    last_write_checksum: sha1:2fdd21cc3a06adb33c647969e99bf172550f8dfa
-    pristine_git_object: b7f056f1f57fe409c6ca319459ee64fbaacf55ff
+    last_write_checksum: sha1:80ec4a468ced73a4e21b2e1518b712f874ca6604
+    pristine_git_object: 663eaab59ed2f59b2b45f87d565754363f0539b5
   docs/sdks/cardtokenization/README.md:
     id: 43823e4558a8
     last_write_checksum: sha1:12025e3373858990c0caf91d59f080ee405b05b3
@@ -953,20 +953,20 @@ trackedFiles:
     pristine_git_object: 33c9616d0d04fc0f1bbcd5d45d4b1177e6346afb
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:3a316e341826a504b93740b1c68d16a96405d5bb
-    pristine_git_object: 4e97e7b9ee510429817f76dc0fb0e5bdb1effb5e
+    last_write_checksum: sha1:7edf699703d6710986e77e68ad533f0ee2f4a5d6
+    pristine_git_object: 2421411168717d43052813084c1a091fd0f33829
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:28bb61d8e8e6065cf6a6b18863a3ddbf1107ee7c
-    pristine_git_object: 512675459c3737ae924157aa9e9916727d6a5d60
+    last_write_checksum: sha1:323ef08589e098dd242ef2e4eba6979f0eae5376
+    pristine_git_object: 59047549f2a7d2242b40a493bba96c7d4b144c8d
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:ce840032c45608f5f4022b32bcce32cb69c5ed26
     pristine_git_object: c4486e4ac5f122d666243b52072232a064716999
   src/funcs/accountsCreate.ts:
     id: dcd4056ed25a
-    last_write_checksum: sha1:609f9df07951c5e18017e67a27aec7c39f9fb140
-    pristine_git_object: 3f184cbf66bbf72019f71ebf118a9b578ac95bdd
+    last_write_checksum: sha1:eca8eea358812dc9deae0fbb144d190556b3a14f
+    pristine_git_object: 2480f83f2a783e7f5283ae5aba80a75413c00943
   src/funcs/accountsDeleteAccount.ts:
     id: bdaa0e493e78
     last_write_checksum: sha1:a6d0ba5e37d0cddb9cb027536f6ccbef5c50eea0
@@ -1065,8 +1065,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:2760664f63bdb94e139ef1d81e2384e69e655d99
-    pristine_git_object: d94c559d0fb4af2e5a0e1bc3d9ec37f692c330a8
+    last_write_checksum: sha1:269fb9ad6bb786ab4d025fca54c1a316f52ae642
+    pristine_git_object: b1a8caf853829bc64ac48a81c6cbe827940ae26f
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:a257d6f6108693db2197617c579400bc8f0da914
@@ -1573,8 +1573,8 @@ trackedFiles:
     pristine_git_object: cd2a95549b7da1cf5d492db48cfa037b47203554
   src/react-query/accountsCreate.ts:
     id: 0cedfc81c2b6
-    last_write_checksum: sha1:39751c714ac20880ebed89da8d88c344d9114eb5
-    pristine_git_object: 7a355757c315efc133ac1448bbe61022b51be826
+    last_write_checksum: sha1:65bbecdc60b4e628034282aacc6b43d06bf17dc2
+    pristine_git_object: a251f05a6cd0d50138efb54c5496f7ec551249fd
   src/react-query/accountsDeleteAccount.ts:
     id: 48af5e957d14
     last_write_checksum: sha1:23c8b6d5faf50f8439719e5b597985b042bdeff9
@@ -1955,6 +1955,8 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+        "409":
+          application/vnd.api+json: {"errors": [{"code": "IDEMPOTENCY_KEY_LOCKED", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
     Card:
       parameters:
         header:
@@ -1972,6 +1974,8 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+        "409":
+          application/vnd.api+json: {"errors": [{"code": "IDEMPOTENCY_KEY_LOCKED", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
     speakeasy-default-create-account:
       parameters:
         header:
@@ -1989,6 +1993,8 @@ examples:
           application/vnd.api+json: {"errors": []}
         "500":
           application/vnd.api+json: {"errors": [{"status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}, "code": "UNEXPECTED_ERROR"}]}
+        "409":
+          application/vnd.api+json: {"errors": [{"code": "IDEMPOTENCY_KEY_LOCKED", "status": "400", "detail": "The request failed because it was not in the correct format or did not contain valid data.", "links": {"about": "https://developer.dailypay.com/tag/Errors"}, "source": {"parameter": "filter[first_name]", "pointer": "/data/attributes/first_name", "header": "Accept"}, "meta": {"request_id": "3c526bf4-f3c0-4c4a-a4cb-95f7db8b3bbe", "trace_id": "4016616108459136584"}}]}
   readTransfer:
     speakeasy-default-read-transfer:
       parameters:
@@ -2327,6 +2333,9 @@ generatedTests:
   createTransfer-Instant: "2025-12-04T15:21:13Z"
   createTransfer-NextDay: "2025-12-04T15:21:13Z"
   updatePerson-StateOfResidence: "2025-12-04T15:21:13Z"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `sdk.accounts.create()`:  `error` **Changed**
 generatedFiles:
   - .gitattributes
   - .npmignore
