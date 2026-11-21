@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -39,13 +39,15 @@ export const DeleteAccountRequest$outboundSchema: z.ZodType<
   DeleteAccountRequest$Outbound,
   z.ZodTypeDef,
   DeleteAccountRequest
-> = z.object({
-  accountId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    accountId: "account_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accountId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      accountId: "account_id",
+    });
+  })
+);
 
 export function deleteAccountRequestToJSON(
   deleteAccountRequest: DeleteAccountRequest,
@@ -60,13 +62,15 @@ export const DeleteAccountResponse$inboundSchema: z.ZodType<
   DeleteAccountResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+    });
+  })
+);
 
 export function deleteAccountResponseFromJSON(
   jsonString: string,

@@ -45,6 +45,7 @@ export function accountsCreate(
     | errors.AccountCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
+    | errors.ErrorConflict
     | errors.ErrorUnexpected
     | DailyPayError
     | ResponseValidationError
@@ -74,6 +75,7 @@ async function $do(
       | errors.AccountCreateError
       | errors.ErrorUnauthorized
       | errors.ErrorForbidden
+      | errors.ErrorConflict
       | errors.ErrorUnexpected
       | DailyPayError
       | ResponseValidationError
@@ -174,6 +176,7 @@ async function $do(
     | errors.AccountCreateError
     | errors.ErrorUnauthorized
     | errors.ErrorForbidden
+    | errors.ErrorConflict
     | errors.ErrorUnexpected
     | DailyPayError
     | ResponseValidationError
@@ -197,7 +200,10 @@ async function $do(
     M.jsonErr(403, errors.ErrorForbidden$inboundSchema, {
       ctype: "application/vnd.api+json",
     }),
-    M.jsonErr(500, errors.ErrorUnexpected$inboundSchema, {
+    M.jsonErr(409, errors.ErrorConflict$inboundSchema, {
+      ctype: "application/vnd.api+json",
+    }),
+    M.jsonErr([500, 503], errors.ErrorUnexpected$inboundSchema, {
       ctype: "application/vnd.api+json",
     }),
     M.fail("4XX"),

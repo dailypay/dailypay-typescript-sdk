@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountResource,
@@ -23,9 +23,11 @@ export const AccountData$inboundSchema: z.ZodType<
   AccountData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  data: AccountResource$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    data: AccountResource$inboundSchema,
+  })
+);
 
 export function accountDataFromJSON(
   jsonString: string,

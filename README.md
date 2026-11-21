@@ -76,6 +76,26 @@ yarn add https://github.com/dailypay/dailypay-typescript-sdk zod
 ## Requirements
 
 For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
+
+### Lazy operation loading in Node.js
+
+The `/node` entry point and its lazy SDK classes are generated for every SDK. No `gen.yaml` flag is needed; Node.js applications opt in to loading operation functions on first use by changing their import:
+
+```typescript
+import { SDK } from "@dailypay/dailypay/node";
+
+const sdk = new SDK();
+```
+
+The `/node` entry point keeps the same method signatures, pagination behaviour, and response helpers. Operation modules load through dynamic imports when a method is called. Models and error classes are shared with the standard entry points, rather than bundled into separate copies.
+
+The standard package entry point and SDK subpaths retain their static imports. Keep using those entry points in browser bundles, including IIFE and UMD builds, to avoid dynamic-import chunks. Custom root exports may still load additional modules.
+
+The Node SDK classes live in `src/sdk/*.lazy.ts`. Custom code regions in the standard SDK classes are not copied to these classes; apply any required customisations to their separate regions. Accept-header enums have the same values, but their enum objects are specific to each entry point.
+
+Generated model schemas are constructed synchronously and cached on first use with either entry point. Importing a model does not construct its schema; parsing or inspecting a schema does. This does not require changing the configured Zod version.
+
+`Object.freeze`, `Object.seal`, and `Object.preventExtensions` construct the schema and apply to the cached Zod object. Zod's own restrictions on frozen schemas still apply, including methods that install properties on first access.
 <!-- End Requirements [requirements] -->
 
 <!-- Start SDK Example Usage [usage] -->
@@ -513,7 +533,7 @@ run();
 **Primary errors:**
 * [`DailyPayError`](./src/models/errors/dailypayerror.ts): The base class for HTTP error responses.
   * [`ErrorUnauthorized`](./src/models/errors/errorunauthorized.ts): Invalid authentication credentials. Status code `401`. *
-  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. Status code `500`. *
+  * [`ErrorUnexpected`](./src/models/errors/errorunexpected.ts): Unexpected error occured. *
   * [`ErrorForbidden`](./src/models/errors/errorforbidden.ts): Not authorized to perform this operation. Status code `403`. *
 
 <details><summary>Less common errors (12)</summary>
@@ -531,10 +551,10 @@ run();
 **Inherit from [`DailyPayError`](./src/models/errors/dailypayerror.ts)**:
 * [`ErrorBadRequest`](./src/models/errors/errorbadrequest.ts): Bad Request. Status code `400`. Applicable to 13 of 18 methods.*
 * [`ErrorNotFound`](./src/models/errors/errornotfound.ts): Resource was not found. Status code `404`. Applicable to 9 of 18 methods.*
+* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 2 of 18 methods.*
 * [`JobUpdateError`](./src/models/errors/jobupdateerror.ts): Bad Request. Status code `400`. Applicable to 1 of 18 methods.*
 * [`AccountCreateError`](./src/models/errors/accountcreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
 * [`TransferCreateError`](./src/models/errors/transfercreateerror.ts): The request contained an error. Status code `400`. Applicable to 1 of 18 methods.*
-* [`ErrorConflict`](./src/models/errors/errorconflict.ts): A conflict occurred with the current state of the resource. Status code `409`. Applicable to 1 of 18 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

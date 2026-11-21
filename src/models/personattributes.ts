@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -99,17 +99,19 @@ export type PersonAttributes = {
 /** @internal */
 export const DisallowReason$inboundSchema: z.ZodNativeEnum<
   typeof DisallowReason
-> = z.nativeEnum(DisallowReason);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(DisallowReason));
 
 /** @internal */
 export const DailyPayCardProductEntitlement$inboundSchema: z.ZodType<
   DailyPayCardProductEntitlement,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  eligible: z.boolean(),
-  enrolled: z.boolean(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    eligible: z.boolean(),
+    enrolled: z.boolean(),
+  })
+);
 
 export function dailyPayCardProductEntitlementFromJSON(
   jsonString: string,
@@ -126,13 +128,15 @@ export const Products$inboundSchema: z.ZodType<
   Products,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  dailypay_card: z.lazy(() => DailyPayCardProductEntitlement$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "dailypay_card": "dailyPayCardProductEntitlement",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    dailypay_card: z.lazy(() => DailyPayCardProductEntitlement$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "dailypay_card": "dailyPayCardProductEntitlement",
+    });
+  })
+);
 
 export function productsFromJSON(
   jsonString: string,
@@ -149,16 +153,18 @@ export const PersonAttributes$inboundSchema: z.ZodType<
   PersonAttributes,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  disallow_reason: z.nullable(DisallowReason$inboundSchema),
-  state_of_residence: z.string().optional(),
-  products: z.lazy(() => Products$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "disallow_reason": "disallowReason",
-    "state_of_residence": "stateOfResidence",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    disallow_reason: z.nullable(DisallowReason$inboundSchema),
+    state_of_residence: z.string().optional(),
+    products: z.lazy(() => Products$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "disallow_reason": "disallowReason",
+      "state_of_residence": "stateOfResidence",
+    });
+  })
+);
 
 export function personAttributesFromJSON(
   jsonString: string,

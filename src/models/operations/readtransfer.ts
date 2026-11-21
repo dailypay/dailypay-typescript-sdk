@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -52,14 +52,16 @@ export const ReadTransferRequest$outboundSchema: z.ZodType<
   ReadTransferRequest$Outbound,
   z.ZodTypeDef,
   ReadTransferRequest
-> = z.object({
-  include: z.string().optional(),
-  transferId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    transferId: "transfer_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    include: z.string().optional(),
+    transferId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      transferId: "transfer_id",
+    });
+  })
+);
 
 export function readTransferRequestToJSON(
   readTransferRequest: ReadTransferRequest,
@@ -74,15 +76,17 @@ export const ReadTransferResponse$inboundSchema: z.ZodType<
   ReadTransferResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  TransferData: models.TransferData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "TransferData": "transferData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    TransferData: models.TransferData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "TransferData": "transferData",
+    });
+  })
+);
 
 export function readTransferResponseFromJSON(
   jsonString: string,

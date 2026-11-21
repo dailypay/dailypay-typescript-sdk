@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -79,9 +79,11 @@ export const ErrorConflictErrorLinks$inboundSchema: z.ZodType<
   ErrorConflictErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorConflictErrorLinksFromJSON(
   jsonString: string,
@@ -98,11 +100,13 @@ export const ErrorConflictErrorSource$inboundSchema: z.ZodType<
   ErrorConflictErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorConflictErrorSourceFromJSON(
   jsonString: string,
@@ -119,15 +123,17 @@ export const ErrorConflictErrorMeta$inboundSchema: z.ZodType<
   ErrorConflictErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorConflictErrorMetaFromJSON(
   jsonString: string,
@@ -144,14 +150,16 @@ export const ErrorConflictError$inboundSchema: z.ZodType<
   ErrorConflictError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorConflictErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorConflictErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorConflictErrorMeta$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.string(),
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorConflictErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorConflictErrorSource$inboundSchema).optional(),
+    meta: z.lazy(() => ErrorConflictErrorMeta$inboundSchema),
+  })
+);
 
 export function errorConflictErrorFromJSON(
   jsonString: string,

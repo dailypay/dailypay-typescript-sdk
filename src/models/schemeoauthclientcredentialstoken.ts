@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 export type SchemeOauthClientCredentialsToken = {
   clientID: string;
@@ -22,11 +23,13 @@ export const SchemeOauthClientCredentialsToken$outboundSchema: z.ZodType<
   SchemeOauthClientCredentialsToken$Outbound,
   z.ZodTypeDef,
   SchemeOauthClientCredentialsToken
-> = z.object({
-  clientID: z.string(),
-  clientSecret: z.string(),
-  tokenURL: z.string().default("https://auth.dailypay.com/oauth2/token"),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    clientID: z.string(),
+    clientSecret: z.string(),
+    tokenURL: z.string().default("https://auth.dailypay.com/oauth2/token"),
+  })
+);
 
 export function schemeOauthClientCredentialsTokenToJSON(
   schemeOauthClientCredentialsToken: SchemeOauthClientCredentialsToken,

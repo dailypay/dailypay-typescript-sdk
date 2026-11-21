@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -45,15 +45,17 @@ export const UpdatePersonRequest$outboundSchema: z.ZodType<
   UpdatePersonRequest$Outbound,
   z.ZodTypeDef,
   UpdatePersonRequest
-> = z.object({
-  personId: z.string(),
-  personUpdateData: models.PersonUpdateData$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    personId: "person_id",
-    personUpdateData: "PersonUpdateData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    personId: z.string(),
+    personUpdateData: models.PersonUpdateData$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      personId: "person_id",
+      personUpdateData: "PersonUpdateData",
+    });
+  })
+);
 
 export function updatePersonRequestToJSON(
   updatePersonRequest: UpdatePersonRequest,
@@ -68,15 +70,17 @@ export const UpdatePersonResponse$inboundSchema: z.ZodType<
   UpdatePersonResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  PersonData: models.PersonData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "PersonData": "personData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    PersonData: models.PersonData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "PersonData": "personData",
+    });
+  })
+);
 
 export function updatePersonResponseFromJSON(
   jsonString: string,

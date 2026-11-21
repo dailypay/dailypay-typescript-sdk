@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -20,9 +20,11 @@ export const PaycheckRelationship$inboundSchema: z.ZodType<
   PaycheckRelationship,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  data: PaycheckIdentifier$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    data: PaycheckIdentifier$inboundSchema,
+  })
+);
 
 export function paycheckRelationshipFromJSON(
   jsonString: string,

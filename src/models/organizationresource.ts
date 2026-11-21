@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -30,12 +30,14 @@ export const OrganizationResource$inboundSchema: z.ZodType<
   OrganizationResource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("organizations"),
-  id: z.string(),
-  attributes: OrganizationAttributes$inboundSchema,
-  links: OrganizationLinks$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.literal("organizations"),
+    id: z.string(),
+    attributes: OrganizationAttributes$inboundSchema,
+    links: OrganizationLinks$inboundSchema,
+  })
+);
 
 export function organizationResourceFromJSON(
   jsonString: string,

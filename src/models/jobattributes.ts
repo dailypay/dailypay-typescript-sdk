@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -115,22 +115,26 @@ export type JobAttributes = {
 /** @internal */
 export const JobAttributesActivationStatus$inboundSchema: z.ZodNativeEnum<
   typeof JobAttributesActivationStatus
-> = z.nativeEnum(JobAttributesActivationStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(JobAttributesActivationStatus)
+);
 
 /** @internal */
-export const Frequency$inboundSchema: z.ZodNativeEnum<typeof Frequency> = z
-  .nativeEnum(Frequency);
+export const Frequency$inboundSchema: z.ZodNativeEnum<typeof Frequency> =
+  /* @__PURE__ */ lazySchema$(() => z.nativeEnum(Frequency));
 
 /** @internal */
 export const WageRate$inboundSchema: z.ZodType<
   WageRate,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  amount: z.number().int(),
-  currency: z.string(),
-  frequency: Frequency$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    amount: z.number().int(),
+    currency: z.string(),
+    frequency: Frequency$inboundSchema,
+  })
+);
 
 export function wageRateFromJSON(
   jsonString: string,
@@ -145,33 +149,35 @@ export function wageRateFromJSON(
 /** @internal */
 export const DirectDepositStatus$inboundSchema: z.ZodNativeEnum<
   typeof DirectDepositStatus
-> = z.nativeEnum(DirectDepositStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(DirectDepositStatus));
 
 /** @internal */
 export const JobAttributes$inboundSchema: z.ZodType<
   JobAttributes,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  external_identifiers: z.record(z.string()).optional(),
-  first_name: z.string().optional(),
-  last_name: z.string().optional(),
-  activation_status: JobAttributesActivationStatus$inboundSchema,
-  wage_rate: z.lazy(() => WageRate$inboundSchema),
-  title: z.nullable(z.string()).optional(),
-  department: z.nullable(z.string()).optional(),
-  location: z.string().optional(),
-  direct_deposit_status: DirectDepositStatus$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "external_identifiers": "externalIdentifiers",
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "activation_status": "activationStatus",
-    "wage_rate": "wageRate",
-    "direct_deposit_status": "directDepositStatus",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    external_identifiers: z.record(z.string()).optional(),
+    first_name: z.string().optional(),
+    last_name: z.string().optional(),
+    activation_status: JobAttributesActivationStatus$inboundSchema,
+    wage_rate: z.lazy(() => WageRate$inboundSchema),
+    title: z.nullable(z.string()).optional(),
+    department: z.nullable(z.string()).optional(),
+    location: z.string().optional(),
+    direct_deposit_status: DirectDepositStatus$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "external_identifiers": "externalIdentifiers",
+      "first_name": "firstName",
+      "last_name": "lastName",
+      "activation_status": "activationStatus",
+      "wage_rate": "wageRate",
+      "direct_deposit_status": "directDepositStatus",
+    });
+  })
+);
 
 export function jobAttributesFromJSON(
   jsonString: string,

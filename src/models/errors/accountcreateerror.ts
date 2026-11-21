@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -50,21 +51,23 @@ export const AccountCreateError$inboundSchema: z.ZodType<
   AccountCreateError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  errors: z.array(models.ErrorAccountCreateError$inboundSchema),
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    const remapped = remap$(v, {
-      "HttpMeta": "httpMeta",
-    });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    errors: z.array(models.ErrorAccountCreateError$inboundSchema),
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      const remapped = remap$(v, {
+        "HttpMeta": "httpMeta",
+      });
 
-    return new AccountCreateError(remapped, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+      return new AccountCreateError(remapped, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
+    })
+);

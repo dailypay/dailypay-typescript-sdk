@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -64,7 +65,9 @@ export type TransferCreateAttributes = {
 /** @internal */
 export const TransferCreateAttributesSchedule$outboundSchema: z.ZodNativeEnum<
   typeof TransferCreateAttributesSchedule
-> = z.nativeEnum(TransferCreateAttributesSchedule);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(TransferCreateAttributesSchedule)
+);
 
 /** @internal */
 export type TransferCreateAttributes$Outbound = {
@@ -79,12 +82,14 @@ export const TransferCreateAttributes$outboundSchema: z.ZodType<
   TransferCreateAttributes$Outbound,
   z.ZodTypeDef,
   TransferCreateAttributes
-> = z.object({
-  preview: z.boolean().default(false),
-  amount: z.number().int(),
-  currency: z.string(),
-  schedule: TransferCreateAttributesSchedule$outboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    preview: z.boolean().default(false),
+    amount: z.number().int(),
+    currency: z.string(),
+    schedule: TransferCreateAttributesSchedule$outboundSchema,
+  })
+);
 
 export function transferCreateAttributesToJSON(
   transferCreateAttributes: TransferCreateAttributes,

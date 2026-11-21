@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -43,13 +43,15 @@ export const ReadOrganizationRequest$outboundSchema: z.ZodType<
   ReadOrganizationRequest$Outbound,
   z.ZodTypeDef,
   ReadOrganizationRequest
-> = z.object({
-  organizationId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    organizationId: "organization_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    organizationId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      organizationId: "organization_id",
+    });
+  })
+);
 
 export function readOrganizationRequestToJSON(
   readOrganizationRequest: ReadOrganizationRequest,
@@ -64,15 +66,17 @@ export const ReadOrganizationResponse$inboundSchema: z.ZodType<
   ReadOrganizationResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  OrganizationData: models.OrganizationData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "OrganizationData": "organizationData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    OrganizationData: models.OrganizationData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "OrganizationData": "organizationData",
+    });
+  })
+);
 
 export function readOrganizationResponseFromJSON(
   jsonString: string,

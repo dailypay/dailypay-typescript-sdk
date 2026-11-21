@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -93,9 +93,11 @@ export const ErrorForbiddenErrorLinks$inboundSchema: z.ZodType<
   ErrorForbiddenErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorForbiddenErrorLinksFromJSON(
   jsonString: string,
@@ -112,11 +114,13 @@ export const ErrorForbiddenErrorSource$inboundSchema: z.ZodType<
   ErrorForbiddenErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorForbiddenErrorSourceFromJSON(
   jsonString: string,
@@ -133,15 +137,17 @@ export const ErrorForbiddenErrorMeta$inboundSchema: z.ZodType<
   ErrorForbiddenErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorForbiddenErrorMetaFromJSON(
   jsonString: string,
@@ -156,21 +162,23 @@ export function errorForbiddenErrorMetaFromJSON(
 /** @internal */
 export const ErrorForbiddenErrorCode$inboundSchema: z.ZodNativeEnum<
   typeof ErrorForbiddenErrorCode
-> = z.nativeEnum(ErrorForbiddenErrorCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ErrorForbiddenErrorCode));
 
 /** @internal */
 export const ErrorForbiddenError$inboundSchema: z.ZodType<
   ErrorForbiddenError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorForbiddenErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorForbiddenErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorForbiddenErrorMeta$inboundSchema),
-  code: ErrorForbiddenErrorCode$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorForbiddenErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorForbiddenErrorSource$inboundSchema).optional(),
+    meta: z.lazy(() => ErrorForbiddenErrorMeta$inboundSchema),
+    code: ErrorForbiddenErrorCode$inboundSchema,
+  })
+);
 
 export function errorForbiddenErrorFromJSON(
   jsonString: string,

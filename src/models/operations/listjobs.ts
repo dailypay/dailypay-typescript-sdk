@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -68,25 +68,27 @@ export const ListJobsRequest$outboundSchema: z.ZodType<
   ListJobsRequest$Outbound,
   z.ZodTypeDef,
   ListJobsRequest
-> = z.object({
-  filterExternalIdentifiersPrimaryIdentifier: z.string().optional(),
-  filterExternalIdentifiersEmployeeId: z.string().optional(),
-  filterExternalIdentifiersGroup: z.string().optional(),
-  filterPersonId: z.string().optional(),
-  filterOrganizationId: z.string().optional(),
-  filterBy: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    filterExternalIdentifiersPrimaryIdentifier:
-      "filter[external_identifiers.primary_identifier]",
-    filterExternalIdentifiersEmployeeId:
-      "filter[external_identifiers.employee_id]",
-    filterExternalIdentifiersGroup: "filter[external_identifiers.group]",
-    filterPersonId: "filter[person.id]",
-    filterOrganizationId: "filter[organization.id]",
-    filterBy: "filter-by",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    filterExternalIdentifiersPrimaryIdentifier: z.string().optional(),
+    filterExternalIdentifiersEmployeeId: z.string().optional(),
+    filterExternalIdentifiersGroup: z.string().optional(),
+    filterPersonId: z.string().optional(),
+    filterOrganizationId: z.string().optional(),
+    filterBy: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      filterExternalIdentifiersPrimaryIdentifier:
+        "filter[external_identifiers.primary_identifier]",
+      filterExternalIdentifiersEmployeeId:
+        "filter[external_identifiers.employee_id]",
+      filterExternalIdentifiersGroup: "filter[external_identifiers.group]",
+      filterPersonId: "filter[person.id]",
+      filterOrganizationId: "filter[organization.id]",
+      filterBy: "filter-by",
+    });
+  })
+);
 
 export function listJobsRequestToJSON(
   listJobsRequest: ListJobsRequest,
@@ -99,15 +101,17 @@ export const ListJobsResponse$inboundSchema: z.ZodType<
   ListJobsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  JobsData: models.JobsData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "JobsData": "jobsData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    JobsData: models.JobsData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "JobsData": "jobsData",
+    });
+  })
+);
 
 export function listJobsResponseFromJSON(
   jsonString: string,
