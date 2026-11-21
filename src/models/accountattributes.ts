@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -371,16 +371,20 @@ export type AccountAttributes = Card | EarningsBalanceReadOnly | Depository;
 /** @internal */
 export const AccountAttributesDepositoryAccountVerificationStatus$inboundSchema:
   z.ZodNativeEnum<typeof AccountAttributesDepositoryAccountVerificationStatus> =
-    z.nativeEnum(AccountAttributesDepositoryAccountVerificationStatus);
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(AccountAttributesDepositoryAccountVerificationStatus)
+    );
 
 /** @internal */
 export const AccountAttributesDepositoryAccountBalances$inboundSchema:
   z.ZodType<AccountAttributesDepositoryAccountBalances, z.ZodTypeDef, unknown> =
-    z.object({
-      available: z.nullable(z.number().int()),
-      current: z.nullable(z.number().int()),
-      currency: z.string(),
-    });
+    /* @__PURE__ */ lazySchema$(() =>
+      z.object({
+        available: z.nullable(z.number().int()),
+        current: z.nullable(z.number().int()),
+        currency: z.string(),
+      })
+    );
 
 export function accountAttributesDepositoryAccountBalancesFromJSON(
   jsonString: string,
@@ -404,13 +408,17 @@ export const AccountAttributesDepositoryAccountCapabilities$inboundSchema:
     AccountAttributesDepositoryAccountCapabilities,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    transfer_destination: z.array(TransferDestinationCapability$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "transfer_destination": "transferDestination",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      transfer_destination: z.array(
+        TransferDestinationCapability$inboundSchema,
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "transfer_destination": "transferDestination",
+      });
+    })
+  );
 
 export function accountAttributesDepositoryAccountCapabilitiesFromJSON(
   jsonString: string,
@@ -431,7 +439,9 @@ export function accountAttributesDepositoryAccountCapabilitiesFromJSON(
 /** @internal */
 export const AccountAttributesDepositorySubtype$inboundSchema: z.ZodNativeEnum<
   typeof AccountAttributesDepositorySubtype
-> = z.nativeEnum(AccountAttributesDepositorySubtype);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AccountAttributesDepositorySubtype)
+);
 
 /** @internal */
 export const AccountAttributesDepositoryDepositoryAccountDetails$inboundSchema:
@@ -439,19 +449,21 @@ export const AccountAttributesDepositoryDepositoryAccountDetails$inboundSchema:
     AccountAttributesDepositoryDepositoryAccountDetails,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    first_name: z.string(),
-    last_name: z.string(),
-    routing_number: z.string(),
-    account_number: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "first_name": "firstName",
-      "last_name": "lastName",
-      "routing_number": "routingNumber",
-      "account_number": "accountNumber",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      first_name: z.string(),
+      last_name: z.string(),
+      routing_number: z.string(),
+      account_number: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        "first_name": "firstName",
+        "last_name": "lastName",
+        "routing_number": "routingNumber",
+        "account_number": "accountNumber",
+      });
+    })
+  );
 
 export function accountAttributesDepositoryDepositoryAccountDetailsFromJSON(
   jsonString: string,
@@ -474,30 +486,32 @@ export const Depository$inboundSchema: z.ZodType<
   Depository,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  verification_status:
-    AccountAttributesDepositoryAccountVerificationStatus$inboundSchema,
-  balances: z.lazy(() =>
-    AccountAttributesDepositoryAccountBalances$inboundSchema
-  ),
-  capabilities: z.lazy(() =>
-    AccountAttributesDepositoryAccountCapabilities$inboundSchema
-  ),
-  name: z.string(),
-  account_type: z.literal("DEPOSITORY"),
-  subtype: AccountAttributesDepositorySubtype$inboundSchema,
-  details: z.lazy(() =>
-    AccountAttributesDepositoryDepositoryAccountDetails$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "verification_status": "accountVerificationStatus",
-    "balances": "accountBalances",
-    "capabilities": "accountCapabilities",
-    "account_type": "accountType",
-    "details": "depositoryAccountDetails",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    verification_status:
+      AccountAttributesDepositoryAccountVerificationStatus$inboundSchema,
+    balances: z.lazy(() =>
+      AccountAttributesDepositoryAccountBalances$inboundSchema
+    ),
+    capabilities: z.lazy(() =>
+      AccountAttributesDepositoryAccountCapabilities$inboundSchema
+    ),
+    name: z.string(),
+    account_type: z.literal("DEPOSITORY"),
+    subtype: AccountAttributesDepositorySubtype$inboundSchema,
+    details: z.lazy(() =>
+      AccountAttributesDepositoryDepositoryAccountDetails$inboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      "verification_status": "accountVerificationStatus",
+      "balances": "accountBalances",
+      "capabilities": "accountCapabilities",
+      "account_type": "accountType",
+      "details": "depositoryAccountDetails",
+    });
+  })
+);
 
 export function depositoryFromJSON(
   jsonString: string,
@@ -513,7 +527,9 @@ export function depositoryFromJSON(
 export const AccountAttributesEarningsBalanceAccountVerificationStatus$inboundSchema:
   z.ZodNativeEnum<
     typeof AccountAttributesEarningsBalanceAccountVerificationStatus
-  > = z.nativeEnum(AccountAttributesEarningsBalanceAccountVerificationStatus);
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.nativeEnum(AccountAttributesEarningsBalanceAccountVerificationStatus)
+  );
 
 /** @internal */
 export const AccountAttributesEarningsBalanceAccountBalances$inboundSchema:
@@ -521,11 +537,13 @@ export const AccountAttributesEarningsBalanceAccountBalances$inboundSchema:
     AccountAttributesEarningsBalanceAccountBalances,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    available: z.nullable(z.number().int()),
-    current: z.nullable(z.number().int()),
-    currency: z.string(),
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      available: z.nullable(z.number().int()),
+      current: z.nullable(z.number().int()),
+      currency: z.string(),
+    })
+  );
 
 export function accountAttributesEarningsBalanceAccountBalancesFromJSON(
   jsonString: string,
@@ -549,13 +567,17 @@ export const AccountAttributesEarningsBalanceAccountCapabilities$inboundSchema:
     AccountAttributesEarningsBalanceAccountCapabilities,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    transfer_destination: z.array(TransferDestinationCapability$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "transfer_destination": "transferDestination",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      transfer_destination: z.array(
+        TransferDestinationCapability$inboundSchema,
+      ),
+    }).transform((v) => {
+      return remap$(v, {
+        "transfer_destination": "transferDestination",
+      });
+    })
+  );
 
 export function accountAttributesEarningsBalanceAccountCapabilitiesFromJSON(
   jsonString: string,
@@ -575,7 +597,7 @@ export function accountAttributesEarningsBalanceAccountCapabilitiesFromJSON(
 
 /** @internal */
 export const Details$inboundSchema: z.ZodType<Details, z.ZodTypeDef, unknown> =
-  z.object({});
+  /* @__PURE__ */ lazySchema$(() => z.object({}));
 
 export function detailsFromJSON(
   jsonString: string,
@@ -592,27 +614,29 @@ export const EarningsBalanceReadOnly$inboundSchema: z.ZodType<
   EarningsBalanceReadOnly,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  verification_status:
-    AccountAttributesEarningsBalanceAccountVerificationStatus$inboundSchema,
-  balances: z.lazy(() =>
-    AccountAttributesEarningsBalanceAccountBalances$inboundSchema
-  ),
-  capabilities: z.lazy(() =>
-    AccountAttributesEarningsBalanceAccountCapabilities$inboundSchema
-  ),
-  name: z.string(),
-  account_type: z.literal("EARNINGS_BALANCE"),
-  subtype: z.literal("ODP"),
-  details: z.lazy(() => Details$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "verification_status": "accountVerificationStatus",
-    "balances": "accountBalances",
-    "capabilities": "accountCapabilities",
-    "account_type": "accountType",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    verification_status:
+      AccountAttributesEarningsBalanceAccountVerificationStatus$inboundSchema,
+    balances: z.lazy(() =>
+      AccountAttributesEarningsBalanceAccountBalances$inboundSchema
+    ),
+    capabilities: z.lazy(() =>
+      AccountAttributesEarningsBalanceAccountCapabilities$inboundSchema
+    ),
+    name: z.string(),
+    account_type: z.literal("EARNINGS_BALANCE"),
+    subtype: z.literal("ODP"),
+    details: z.lazy(() => Details$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "verification_status": "accountVerificationStatus",
+      "balances": "accountBalances",
+      "capabilities": "accountCapabilities",
+      "account_type": "accountType",
+    });
+  })
+);
 
 export function earningsBalanceReadOnlyFromJSON(
   jsonString: string,
@@ -626,19 +650,23 @@ export function earningsBalanceReadOnlyFromJSON(
 
 /** @internal */
 export const AccountAttributesCardAccountVerificationStatus$inboundSchema:
-  z.ZodNativeEnum<typeof AccountAttributesCardAccountVerificationStatus> = z
-    .nativeEnum(AccountAttributesCardAccountVerificationStatus);
+  z.ZodNativeEnum<typeof AccountAttributesCardAccountVerificationStatus> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(AccountAttributesCardAccountVerificationStatus)
+    );
 
 /** @internal */
 export const AccountAttributesCardAccountBalances$inboundSchema: z.ZodType<
   AccountAttributesCardAccountBalances,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  available: z.nullable(z.number().int()),
-  current: z.nullable(z.number().int()),
-  currency: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    available: z.nullable(z.number().int()),
+    current: z.nullable(z.number().int()),
+    currency: z.string(),
+  })
+);
 
 export function accountAttributesCardAccountBalancesFromJSON(
   jsonString: string,
@@ -656,13 +684,15 @@ export const AccountAttributesCardAccountCapabilities$inboundSchema: z.ZodType<
   AccountAttributesCardAccountCapabilities,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  transfer_destination: z.array(TransferDestinationCapability$inboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    "transfer_destination": "transferDestination",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    transfer_destination: z.array(TransferDestinationCapability$inboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      "transfer_destination": "transferDestination",
+    });
+  })
+);
 
 export function accountAttributesCardAccountCapabilitiesFromJSON(
   jsonString: string,
@@ -683,29 +713,33 @@ export function accountAttributesCardAccountCapabilitiesFromJSON(
 /** @internal */
 export const AccountAttributesCardSubtype$inboundSchema: z.ZodNativeEnum<
   typeof AccountAttributesCardSubtype
-> = z.nativeEnum(AccountAttributesCardSubtype);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AccountAttributesCardSubtype)
+);
 
 /** @internal */
 export const CardAccountDetails$inboundSchema: z.ZodType<
   CardAccountDetails,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  last_four: z.string(),
-  issuer: z.string(),
-  first_name: z.string(),
-  last_name: z.string(),
-  expiration_month: z.string(),
-  expiration_year: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "last_four": "lastFour",
-    "first_name": "firstName",
-    "last_name": "lastName",
-    "expiration_month": "expirationMonth",
-    "expiration_year": "expirationYear",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    last_four: z.string(),
+    issuer: z.string(),
+    first_name: z.string(),
+    last_name: z.string(),
+    expiration_month: z.string(),
+    expiration_year: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "last_four": "lastFour",
+      "first_name": "firstName",
+      "last_name": "lastName",
+      "expiration_month": "expirationMonth",
+      "expiration_year": "expirationYear",
+    });
+  })
+);
 
 export function cardAccountDetailsFromJSON(
   jsonString: string,
@@ -718,27 +752,31 @@ export function cardAccountDetailsFromJSON(
 }
 
 /** @internal */
-export const Card$inboundSchema: z.ZodType<Card, z.ZodTypeDef, unknown> = z
-  .object({
-    verification_status:
-      AccountAttributesCardAccountVerificationStatus$inboundSchema,
-    balances: z.lazy(() => AccountAttributesCardAccountBalances$inboundSchema),
-    capabilities: z.lazy(() =>
-      AccountAttributesCardAccountCapabilities$inboundSchema
-    ),
-    name: z.string(),
-    account_type: z.literal("CARD"),
-    subtype: AccountAttributesCardSubtype$inboundSchema,
-    details: z.lazy(() => CardAccountDetails$inboundSchema),
-  }).transform((v) => {
-    return remap$(v, {
-      "verification_status": "accountVerificationStatus",
-      "balances": "accountBalances",
-      "capabilities": "accountCapabilities",
-      "account_type": "accountType",
-      "details": "cardAccountDetails",
-    });
-  });
+export const Card$inboundSchema: z.ZodType<Card, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      verification_status:
+        AccountAttributesCardAccountVerificationStatus$inboundSchema,
+      balances: z.lazy(() =>
+        AccountAttributesCardAccountBalances$inboundSchema
+      ),
+      capabilities: z.lazy(() =>
+        AccountAttributesCardAccountCapabilities$inboundSchema
+      ),
+      name: z.string(),
+      account_type: z.literal("CARD"),
+      subtype: AccountAttributesCardSubtype$inboundSchema,
+      details: z.lazy(() => CardAccountDetails$inboundSchema),
+    }).transform((v) => {
+      return remap$(v, {
+        "verification_status": "accountVerificationStatus",
+        "balances": "accountBalances",
+        "capabilities": "accountCapabilities",
+        "account_type": "accountType",
+        "details": "cardAccountDetails",
+      });
+    })
+  );
 
 export function cardFromJSON(
   jsonString: string,
@@ -755,11 +793,13 @@ export const AccountAttributes$inboundSchema: z.ZodType<
   AccountAttributes,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => Card$inboundSchema),
-  z.lazy(() => EarningsBalanceReadOnly$inboundSchema),
-  z.lazy(() => Depository$inboundSchema),
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    z.lazy(() => Card$inboundSchema),
+    z.lazy(() => EarningsBalanceReadOnly$inboundSchema),
+    z.lazy(() => Depository$inboundSchema),
+  ])
+);
 
 export function accountAttributesFromJSON(
   jsonString: string,

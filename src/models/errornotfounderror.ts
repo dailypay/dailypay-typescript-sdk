@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -92,9 +92,11 @@ export const ErrorNotFoundErrorLinks$inboundSchema: z.ZodType<
   ErrorNotFoundErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorNotFoundErrorLinksFromJSON(
   jsonString: string,
@@ -111,11 +113,13 @@ export const ErrorNotFoundErrorSource$inboundSchema: z.ZodType<
   ErrorNotFoundErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorNotFoundErrorSourceFromJSON(
   jsonString: string,
@@ -132,15 +136,17 @@ export const ErrorNotFoundErrorMeta$inboundSchema: z.ZodType<
   ErrorNotFoundErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorNotFoundErrorMetaFromJSON(
   jsonString: string,
@@ -155,21 +161,23 @@ export function errorNotFoundErrorMetaFromJSON(
 /** @internal */
 export const ErrorNotFoundErrorCode$inboundSchema: z.ZodNativeEnum<
   typeof ErrorNotFoundErrorCode
-> = z.nativeEnum(ErrorNotFoundErrorCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ErrorNotFoundErrorCode));
 
 /** @internal */
 export const ErrorNotFoundError$inboundSchema: z.ZodType<
   ErrorNotFoundError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorNotFoundErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorNotFoundErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorNotFoundErrorMeta$inboundSchema),
-  code: ErrorNotFoundErrorCode$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorNotFoundErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorNotFoundErrorSource$inboundSchema).optional(),
+    meta: z.lazy(() => ErrorNotFoundErrorMeta$inboundSchema),
+    code: ErrorNotFoundErrorCode$inboundSchema,
+  })
+);
 
 export function errorNotFoundErrorFromJSON(
   jsonString: string,

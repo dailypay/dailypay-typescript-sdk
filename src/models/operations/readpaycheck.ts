@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -43,13 +43,15 @@ export const ReadPaycheckRequest$outboundSchema: z.ZodType<
   ReadPaycheckRequest$Outbound,
   z.ZodTypeDef,
   ReadPaycheckRequest
-> = z.object({
-  paycheckId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    paycheckId: "paycheck_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    paycheckId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      paycheckId: "paycheck_id",
+    });
+  })
+);
 
 export function readPaycheckRequestToJSON(
   readPaycheckRequest: ReadPaycheckRequest,
@@ -64,15 +66,17 @@ export const ReadPaycheckResponse$inboundSchema: z.ZodType<
   ReadPaycheckResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  PaycheckData: models.PaycheckData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "PaycheckData": "paycheckData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    PaycheckData: models.PaycheckData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "PaycheckData": "paycheckData",
+    });
+  })
+);
 
 export function readPaycheckResponseFromJSON(
   jsonString: string,

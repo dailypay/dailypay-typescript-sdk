@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -58,19 +58,21 @@ export const ListAccountsRequest$outboundSchema: z.ZodType<
   ListAccountsRequest$Outbound,
   z.ZodTypeDef,
   ListAccountsRequest
-> = z.object({
-  filterPersonId: z.string().optional(),
-  filterAccountType: models.FilterAccountType$outboundSchema.optional(),
-  filterSubtype: z.string().optional(),
-  filterBy: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    filterPersonId: "filter[person.id]",
-    filterAccountType: "filter[account_type]",
-    filterSubtype: "filter[subtype]",
-    filterBy: "filter-by",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    filterPersonId: z.string().optional(),
+    filterAccountType: models.FilterAccountType$outboundSchema.optional(),
+    filterSubtype: z.string().optional(),
+    filterBy: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      filterPersonId: "filter[person.id]",
+      filterAccountType: "filter[account_type]",
+      filterSubtype: "filter[subtype]",
+      filterBy: "filter-by",
+    });
+  })
+);
 
 export function listAccountsRequestToJSON(
   listAccountsRequest: ListAccountsRequest,
@@ -85,15 +87,17 @@ export const ListAccountsResponse$inboundSchema: z.ZodType<
   ListAccountsResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  AccountsData: models.AccountsData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "AccountsData": "accountsData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    AccountsData: models.AccountsData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "AccountsData": "accountsData",
+    });
+  })
+);
 
 export function listAccountsResponseFromJSON(
   jsonString: string,

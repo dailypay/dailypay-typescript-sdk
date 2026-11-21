@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -43,13 +43,15 @@ export const ReadJobRequest$outboundSchema: z.ZodType<
   ReadJobRequest$Outbound,
   z.ZodTypeDef,
   ReadJobRequest
-> = z.object({
-  jobId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    jobId: "job_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    jobId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      jobId: "job_id",
+    });
+  })
+);
 
 export function readJobRequestToJSON(readJobRequest: ReadJobRequest): string {
   return JSON.stringify(ReadJobRequest$outboundSchema.parse(readJobRequest));
@@ -60,15 +62,17 @@ export const ReadJobResponse$inboundSchema: z.ZodType<
   ReadJobResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  JobData: models.JobData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "JobData": "jobData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    JobData: models.JobData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "JobData": "jobData",
+    });
+  })
+);
 
 export function readJobResponseFromJSON(
   jsonString: string,

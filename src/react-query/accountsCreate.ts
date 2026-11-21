@@ -39,6 +39,7 @@ export type AccountsCreateMutationError =
   | errors.AccountCreateError
   | errors.ErrorUnauthorized
   | errors.ErrorForbidden
+  | errors.ErrorConflict
   | errors.ErrorUnexpected
   | DailyPayError
   | ResponseValidationError

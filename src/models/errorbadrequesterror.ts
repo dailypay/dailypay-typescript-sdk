@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -79,9 +79,11 @@ export const ErrorBadRequestErrorLinks$inboundSchema: z.ZodType<
   ErrorBadRequestErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorBadRequestErrorLinksFromJSON(
   jsonString: string,
@@ -98,11 +100,13 @@ export const ErrorBadRequestErrorSource$inboundSchema: z.ZodType<
   ErrorBadRequestErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorBadRequestErrorSourceFromJSON(
   jsonString: string,
@@ -119,15 +123,17 @@ export const ErrorBadRequestErrorMeta$inboundSchema: z.ZodType<
   ErrorBadRequestErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorBadRequestErrorMetaFromJSON(
   jsonString: string,
@@ -144,14 +150,16 @@ export const ErrorBadRequestError$inboundSchema: z.ZodType<
   ErrorBadRequestError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorBadRequestErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorBadRequestErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorBadRequestErrorMeta$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.string(),
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorBadRequestErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorBadRequestErrorSource$inboundSchema).optional(),
+    meta: z.lazy(() => ErrorBadRequestErrorMeta$inboundSchema),
+  })
+);
 
 export function errorBadRequestErrorFromJSON(
   jsonString: string,

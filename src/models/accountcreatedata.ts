@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AccountCreateResource,
   AccountCreateResource$Outbound,
@@ -23,9 +24,11 @@ export const AccountCreateData$outboundSchema: z.ZodType<
   AccountCreateData$Outbound,
   z.ZodTypeDef,
   AccountCreateData
-> = z.object({
-  data: AccountCreateResource$outboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    data: AccountCreateResource$outboundSchema,
+  })
+);
 
 export function accountCreateDataToJSON(
   accountCreateData: AccountCreateData,

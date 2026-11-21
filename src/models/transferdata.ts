@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -28,10 +28,12 @@ export const TransferData$inboundSchema: z.ZodType<
   TransferData,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  data: TransferResource$inboundSchema,
-  included: z.array(FundingSourceResource$inboundSchema).optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    data: TransferResource$inboundSchema,
+    included: z.array(FundingSourceResource$inboundSchema).optional(),
+  })
+);
 
 export function transferDataFromJSON(
   jsonString: string,

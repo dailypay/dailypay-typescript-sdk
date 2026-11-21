@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountRelationship,
@@ -77,11 +77,13 @@ export type TransferRelationships = {
 };
 
 /** @internal */
-export const Origin$inboundSchema: z.ZodType<Origin, z.ZodTypeDef, unknown> = z
-  .union([
-    AccountRelationship$inboundSchema,
-    PaycheckRelationship$inboundSchema,
-  ]);
+export const Origin$inboundSchema: z.ZodType<Origin, z.ZodTypeDef, unknown> =
+  /* @__PURE__ */ lazySchema$(() =>
+    z.union([
+      AccountRelationship$inboundSchema,
+      PaycheckRelationship$inboundSchema,
+    ])
+  );
 
 export function originFromJSON(
   jsonString: string,
@@ -98,21 +100,23 @@ export const TransferRelationships$inboundSchema: z.ZodType<
   TransferRelationships,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  origin: z.union([
-    AccountRelationship$inboundSchema,
-    PaycheckRelationship$inboundSchema,
-  ]),
-  destination: AccountRelationship$inboundSchema,
-  person: PersonRelationship$inboundSchema,
-  estimated_funding_sources: FundingSourcesRelationship$inboundSchema,
-  final_funding_sources: FundingSourcesRelationship$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "estimated_funding_sources": "estimatedFundingSources",
-    "final_funding_sources": "finalFundingSources",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    origin: z.union([
+      AccountRelationship$inboundSchema,
+      PaycheckRelationship$inboundSchema,
+    ]),
+    destination: AccountRelationship$inboundSchema,
+    person: PersonRelationship$inboundSchema,
+    estimated_funding_sources: FundingSourcesRelationship$inboundSchema,
+    final_funding_sources: FundingSourcesRelationship$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "estimated_funding_sources": "estimatedFundingSources",
+      "final_funding_sources": "finalFundingSources",
+    });
+  })
+);
 
 export function transferRelationshipsFromJSON(
   jsonString: string,

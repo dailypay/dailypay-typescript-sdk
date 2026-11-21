@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   TransferCreateAttributes,
   TransferCreateAttributes$Outbound,
@@ -44,12 +45,14 @@ export const TransferCreateResource$outboundSchema: z.ZodType<
   TransferCreateResource$Outbound,
   z.ZodTypeDef,
   TransferCreateResource
-> = z.object({
-  type: z.literal("transfers"),
-  id: z.string().optional(),
-  attributes: TransferCreateAttributes$outboundSchema,
-  relationships: TransferCreateRelationships$outboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.literal("transfers"),
+    id: z.string().optional(),
+    attributes: TransferCreateAttributes$outboundSchema,
+    relationships: TransferCreateRelationships$outboundSchema,
+  })
+);
 
 export function transferCreateResourceToJSON(
   transferCreateResource: TransferCreateResource,
