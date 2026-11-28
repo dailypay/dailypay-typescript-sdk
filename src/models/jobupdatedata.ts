@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import {
   AccountRelationship,
@@ -92,15 +93,18 @@ export const JobUpdateRelationships$outboundSchema: z.ZodType<
   JobUpdateRelationships$Outbound,
   z.ZodTypeDef,
   JobUpdateRelationships
-> = z.object({
-  directDepositDefaultDepository: AccountRelationship$outboundSchema.optional(),
-  directDepositDefaultCard: AccountRelationship$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    directDepositDefaultDepository: "direct_deposit_default_depository",
-    directDepositDefaultCard: "direct_deposit_default_card",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    directDepositDefaultDepository: AccountRelationship$outboundSchema
+      .optional(),
+    directDepositDefaultCard: AccountRelationship$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      directDepositDefaultDepository: "direct_deposit_default_depository",
+      directDepositDefaultCard: "direct_deposit_default_card",
+    });
+  })
+);
 
 export function jobUpdateRelationshipsToJSON(
   jobUpdateRelationships: JobUpdateRelationships,
@@ -113,7 +117,9 @@ export function jobUpdateRelationshipsToJSON(
 /** @internal */
 export const JobUpdateDataActivationStatus$outboundSchema: z.ZodNativeEnum<
   typeof JobUpdateDataActivationStatus
-> = z.nativeEnum(JobUpdateDataActivationStatus);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(JobUpdateDataActivationStatus)
+);
 
 /** @internal */
 export type JobUpdateAttributes$Outbound = {
@@ -125,13 +131,15 @@ export const JobUpdateAttributes$outboundSchema: z.ZodType<
   JobUpdateAttributes$Outbound,
   z.ZodTypeDef,
   JobUpdateAttributes
-> = z.object({
-  activationStatus: JobUpdateDataActivationStatus$outboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    activationStatus: "activation_status",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    activationStatus: JobUpdateDataActivationStatus$outboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      activationStatus: "activation_status",
+    });
+  })
+);
 
 export function jobUpdateAttributesToJSON(
   jobUpdateAttributes: JobUpdateAttributes,
@@ -154,19 +162,21 @@ export const JobUpdateResource$outboundSchema: z.ZodType<
   JobUpdateResource$Outbound,
   z.ZodTypeDef,
   JobUpdateResource
-> = z.object({
-  type: z.literal("jobs"),
-  id: z.string(),
-  jobUpdateRelationships: z.lazy(() => JobUpdateRelationships$outboundSchema)
-    .optional(),
-  jobUpdateAttributes: z.lazy(() => JobUpdateAttributes$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    jobUpdateRelationships: "relationships",
-    jobUpdateAttributes: "attributes",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.literal("jobs"),
+    id: z.string(),
+    jobUpdateRelationships: z.lazy(() => JobUpdateRelationships$outboundSchema)
+      .optional(),
+    jobUpdateAttributes: z.lazy(() => JobUpdateAttributes$outboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      jobUpdateRelationships: "relationships",
+      jobUpdateAttributes: "attributes",
+    });
+  })
+);
 
 export function jobUpdateResourceToJSON(
   jobUpdateResource: JobUpdateResource,
@@ -186,13 +196,15 @@ export const JobUpdateData$outboundSchema: z.ZodType<
   JobUpdateData$Outbound,
   z.ZodTypeDef,
   JobUpdateData
-> = z.object({
-  jobUpdateResource: z.lazy(() => JobUpdateResource$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    jobUpdateResource: "data",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    jobUpdateResource: z.lazy(() => JobUpdateResource$outboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      jobUpdateResource: "data",
+    });
+  })
+);
 
 export function jobUpdateDataToJSON(jobUpdateData: JobUpdateData): string {
   return JSON.stringify(JobUpdateData$outboundSchema.parse(jobUpdateData));

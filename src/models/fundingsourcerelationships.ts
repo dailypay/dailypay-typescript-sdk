@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -25,10 +25,12 @@ export const FundingSourceRelationships$inboundSchema: z.ZodType<
   FundingSourceRelationships,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  source: PaycheckRelationship$inboundSchema,
-  transfer: TransferRelationship$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    source: PaycheckRelationship$inboundSchema,
+    transfer: TransferRelationship$inboundSchema,
+  })
+);
 
 export function fundingSourceRelationshipsFromJSON(
   jsonString: string,

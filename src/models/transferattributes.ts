@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -102,37 +102,39 @@ export type TransferAttributes = {
 /** @internal */
 export const TransferAttributesSchedule$inboundSchema: z.ZodNativeEnum<
   typeof TransferAttributesSchedule
-> = z.nativeEnum(TransferAttributesSchedule);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(TransferAttributesSchedule));
 
 /** @internal */
 export const TransferAttributesStatus$inboundSchema: z.ZodNativeEnum<
   typeof TransferAttributesStatus
-> = z.nativeEnum(TransferAttributesStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(TransferAttributesStatus));
 
 /** @internal */
 export const TransferAttributes$inboundSchema: z.ZodType<
   TransferAttributes,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  preview: z.boolean().default(false),
-  amount: z.number().int(),
-  currency: z.string(),
-  schedule: TransferAttributesSchedule$inboundSchema,
-  status: TransferAttributesStatus$inboundSchema,
-  submitted_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ),
-  resolved_at: z.nullable(
-    z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  ),
-  fee: z.number().int(),
-}).transform((v) => {
-  return remap$(v, {
-    "submitted_at": "submittedAt",
-    "resolved_at": "resolvedAt",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    preview: z.boolean().default(false),
+    amount: z.number().int(),
+    currency: z.string(),
+    schedule: TransferAttributesSchedule$inboundSchema,
+    status: TransferAttributesStatus$inboundSchema,
+    submitted_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    resolved_at: z.nullable(
+      z.string().datetime({ offset: true }).transform(v => new Date(v)),
+    ),
+    fee: z.number().int(),
+  }).transform((v) => {
+    return remap$(v, {
+      "submitted_at": "submittedAt",
+      "resolved_at": "resolvedAt",
+    });
+  })
+);
 
 export function transferAttributesFromJSON(
   jsonString: string,

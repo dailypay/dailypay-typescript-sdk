@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -26,10 +26,12 @@ export const Health200$inboundSchema: z.ZodType<
   Health200,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: z.string(),
-  version: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: z.string(),
+    version: z.string(),
+  })
+);
 
 export function health200FromJSON(
   jsonString: string,

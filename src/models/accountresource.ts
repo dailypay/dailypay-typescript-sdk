@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountAttributes,
@@ -38,13 +38,15 @@ export const AccountResource$inboundSchema: z.ZodType<
   AccountResource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string(),
-  type: z.literal("accounts"),
-  attributes: AccountAttributes$inboundSchema,
-  links: AccountLinks$inboundSchema,
-  relationships: AccountRelationships$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    id: z.string(),
+    type: z.literal("accounts"),
+    attributes: AccountAttributes$inboundSchema,
+    links: AccountLinks$inboundSchema,
+    relationships: AccountRelationships$inboundSchema,
+  })
+);
 
 export function accountResourceFromJSON(
   jsonString: string,

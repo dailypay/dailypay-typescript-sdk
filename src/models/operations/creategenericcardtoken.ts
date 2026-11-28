@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -110,34 +110,36 @@ export const CreateGenericCardTokenRequest$outboundSchema: z.ZodType<
   CreateGenericCardTokenRequest$Outbound,
   z.ZodTypeDef,
   CreateGenericCardTokenRequest
-> = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  cardNumber: z.string(),
-  expirationYear: z.string(),
-  expirationMonth: z.string(),
-  cvv: z.nullable(z.string()).optional(),
-  addressLineOne: z.string(),
-  addressLineTwo: z.nullable(z.string()).optional(),
-  addressCity: z.string(),
-  addressState: z.string(),
-  addressZipCode: z.string(),
-  addressCountry: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    firstName: "first_name",
-    lastName: "last_name",
-    cardNumber: "card_number",
-    expirationYear: "expiration_year",
-    expirationMonth: "expiration_month",
-    addressLineOne: "address_line_one",
-    addressLineTwo: "address_line_two",
-    addressCity: "address_city",
-    addressState: "address_state",
-    addressZipCode: "address_zip_code",
-    addressCountry: "address_country",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    firstName: z.string(),
+    lastName: z.string(),
+    cardNumber: z.string(),
+    expirationYear: z.string(),
+    expirationMonth: z.string(),
+    cvv: z.nullable(z.string()).optional(),
+    addressLineOne: z.string(),
+    addressLineTwo: z.nullable(z.string()).optional(),
+    addressCity: z.string(),
+    addressState: z.string(),
+    addressZipCode: z.string(),
+    addressCountry: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      firstName: "first_name",
+      lastName: "last_name",
+      cardNumber: "card_number",
+      expirationYear: "expiration_year",
+      expirationMonth: "expiration_month",
+      addressLineOne: "address_line_one",
+      addressLineTwo: "address_line_two",
+      addressCity: "address_city",
+      addressState: "address_state",
+      addressZipCode: "address_zip_code",
+      addressCountry: "address_country",
+    });
+  })
+);
 
 export function createGenericCardTokenRequestToJSON(
   createGenericCardTokenRequest: CreateGenericCardTokenRequest,
@@ -154,9 +156,11 @@ export const CreateGenericCardTokenResponseBody$inboundSchema: z.ZodType<
   CreateGenericCardTokenResponseBody,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  token: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    token: z.string(),
+  })
+);
 
 export function createGenericCardTokenResponseBodyFromJSON(
   jsonString: string,
@@ -174,15 +178,17 @@ export const CreateGenericCardTokenResponse$inboundSchema: z.ZodType<
   CreateGenericCardTokenResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  object: z.lazy(() => CreateGenericCardTokenResponseBody$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    object: z.lazy(() => CreateGenericCardTokenResponseBody$inboundSchema)
+      .optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+    });
+  })
+);
 
 export function createGenericCardTokenResponseFromJSON(
   jsonString: string,

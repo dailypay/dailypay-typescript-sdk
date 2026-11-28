@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -45,15 +45,17 @@ export const UpdateJobRequest$outboundSchema: z.ZodType<
   UpdateJobRequest$Outbound,
   z.ZodTypeDef,
   UpdateJobRequest
-> = z.object({
-  jobId: z.string(),
-  jobUpdateData: models.JobUpdateData$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    jobId: "job_id",
-    jobUpdateData: "JobUpdateData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    jobId: z.string(),
+    jobUpdateData: models.JobUpdateData$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      jobId: "job_id",
+      jobUpdateData: "JobUpdateData",
+    });
+  })
+);
 
 export function updateJobRequestToJSON(
   updateJobRequest: UpdateJobRequest,
@@ -68,15 +70,17 @@ export const UpdateJobResponse$inboundSchema: z.ZodType<
   UpdateJobResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  JobData: models.JobData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "JobData": "jobData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    JobData: models.JobData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "JobData": "jobData",
+    });
+  })
+);
 
 export function updateJobResponseFromJSON(
   jsonString: string,

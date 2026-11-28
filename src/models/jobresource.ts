@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { JobAttributes, JobAttributes$inboundSchema } from "./jobattributes.js";
@@ -32,13 +32,15 @@ export const JobResource$inboundSchema: z.ZodType<
   JobResource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("jobs"),
-  id: z.string(),
-  attributes: JobAttributes$inboundSchema,
-  links: JobLinks$inboundSchema,
-  relationships: JobRelationships$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.literal("jobs"),
+    id: z.string(),
+    attributes: JobAttributes$inboundSchema,
+    links: JobLinks$inboundSchema,
+    relationships: JobRelationships$inboundSchema,
+  })
+);
 
 export function jobResourceFromJSON(
   jsonString: string,

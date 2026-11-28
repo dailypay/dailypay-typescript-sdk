@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -46,20 +46,23 @@ export type TransferDestinationCapability = {
 
 /** @internal */
 export const TransferDestinationCapabilitySchedule$inboundSchema:
-  z.ZodNativeEnum<typeof TransferDestinationCapabilitySchedule> = z.nativeEnum(
-    TransferDestinationCapabilitySchedule,
-  );
+  z.ZodNativeEnum<typeof TransferDestinationCapabilitySchedule> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(TransferDestinationCapabilitySchedule)
+    );
 
 /** @internal */
 export const TransferDestinationCapability$inboundSchema: z.ZodType<
   TransferDestinationCapability,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  schedule: TransferDestinationCapabilitySchedule$inboundSchema,
-  fee: z.number().int(),
-  currency: z.string(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    schedule: TransferDestinationCapabilitySchedule$inboundSchema,
+    fee: z.number().int(),
+    currency: z.string(),
+  })
+);
 
 export function transferDestinationCapabilityFromJSON(
   jsonString: string,

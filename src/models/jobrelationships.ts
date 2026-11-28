@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AccountRelationship,
@@ -41,18 +41,20 @@ export const JobRelationships$inboundSchema: z.ZodType<
   JobRelationships,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  person: PersonRelationship$inboundSchema,
-  organization: OrganizationRelationship$inboundSchema,
-  direct_deposit_default_depository: AccountRelationship$inboundSchema
-    .optional(),
-  direct_deposit_default_card: AccountRelationship$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "direct_deposit_default_depository": "directDepositDefaultDepository",
-    "direct_deposit_default_card": "directDepositDefaultCard",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    person: PersonRelationship$inboundSchema,
+    organization: OrganizationRelationship$inboundSchema,
+    direct_deposit_default_depository: AccountRelationship$inboundSchema
+      .optional(),
+    direct_deposit_default_card: AccountRelationship$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "direct_deposit_default_depository": "directDepositDefaultDepository",
+      "direct_deposit_default_card": "directDepositDefaultCard",
+    });
+  })
+);
 
 export function jobRelationshipsFromJSON(
   jsonString: string,

@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -22,9 +22,11 @@ export const AccountRelationships$inboundSchema: z.ZodType<
   AccountRelationships,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  person: PersonRelationship$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    person: PersonRelationship$inboundSchema,
+  })
+);
 /** @internal */
 export type AccountRelationships$Outbound = {
   person: PersonRelationship$Outbound;
@@ -35,9 +37,11 @@ export const AccountRelationships$outboundSchema: z.ZodType<
   AccountRelationships$Outbound,
   z.ZodTypeDef,
   AccountRelationships
-> = z.object({
-  person: PersonRelationship$outboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    person: PersonRelationship$outboundSchema,
+  })
+);
 
 export function accountRelationshipsToJSON(
   accountRelationships: AccountRelationships,

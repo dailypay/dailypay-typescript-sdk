@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   SchemeOauthClientCredentialsToken,
   SchemeOauthClientCredentialsToken$Outbound,
@@ -28,16 +29,18 @@ export const Security$outboundSchema: z.ZodType<
   Security$Outbound,
   z.ZodTypeDef,
   Security
-> = z.object({
-  oauthClientCredentialsToken: SchemeOauthClientCredentialsToken$outboundSchema
-    .optional(),
-  oauthUserToken: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    oauthClientCredentialsToken: "oauth_client_credentials_token",
-    oauthUserToken: "oauth_user_token",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    oauthClientCredentialsToken:
+      SchemeOauthClientCredentialsToken$outboundSchema.optional(),
+    oauthUserToken: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      oauthClientCredentialsToken: "oauth_client_credentials_token",
+      oauthUserToken: "oauth_user_token",
+    });
+  })
+);
 
 export function securityToJSON(security: Security): string {
   return JSON.stringify(Security$outboundSchema.parse(security));

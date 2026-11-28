@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 
 /**
  * A person is a record of someone known to DailyPay. There will only ever be one person record per human being.
@@ -40,13 +41,15 @@ export const PersonUpdateAttributes$outboundSchema: z.ZodType<
   PersonUpdateAttributes$Outbound,
   z.ZodTypeDef,
   PersonUpdateAttributes
-> = z.object({
-  stateOfResidence: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    stateOfResidence: "state_of_residence",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    stateOfResidence: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      stateOfResidence: "state_of_residence",
+    });
+  })
+);
 
 export function personUpdateAttributesToJSON(
   personUpdateAttributes: PersonUpdateAttributes,
@@ -68,15 +71,17 @@ export const PersonUpdateResource$outboundSchema: z.ZodType<
   PersonUpdateResource$Outbound,
   z.ZodTypeDef,
   PersonUpdateResource
-> = z.object({
-  type: z.literal("people"),
-  id: z.string(),
-  personUpdateAttributes: z.lazy(() => PersonUpdateAttributes$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    personUpdateAttributes: "attributes",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.literal("people"),
+    id: z.string(),
+    personUpdateAttributes: z.lazy(() => PersonUpdateAttributes$outboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      personUpdateAttributes: "attributes",
+    });
+  })
+);
 
 export function personUpdateResourceToJSON(
   personUpdateResource: PersonUpdateResource,
@@ -96,13 +101,15 @@ export const PersonUpdateData$outboundSchema: z.ZodType<
   PersonUpdateData$Outbound,
   z.ZodTypeDef,
   PersonUpdateData
-> = z.object({
-  personUpdateResource: z.lazy(() => PersonUpdateResource$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    personUpdateResource: "data",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    personUpdateResource: z.lazy(() => PersonUpdateResource$outboundSchema),
+  }).transform((v) => {
+    return remap$(v, {
+      personUpdateResource: "data",
+    });
+  })
+);
 
 export function personUpdateDataToJSON(
   personUpdateData: PersonUpdateData,

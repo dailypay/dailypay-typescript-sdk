@@ -3,7 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -29,13 +29,15 @@ export const TransferResource$inboundSchema: z.ZodType<
   TransferResource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("transfers"),
-  id: z.string(),
-  attributes: TransferAttributes$inboundSchema,
-  links: TransferLinks$inboundSchema,
-  relationships: TransferRelationships$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    type: z.literal("transfers"),
+    id: z.string(),
+    attributes: TransferAttributes$inboundSchema,
+    links: TransferLinks$inboundSchema,
+    relationships: TransferRelationships$inboundSchema,
+  })
+);
 
 export function transferResourceFromJSON(
   jsonString: string,
