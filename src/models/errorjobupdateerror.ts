@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -79,9 +79,11 @@ export const ErrorJobUpdateErrorLinks$inboundSchema: z.ZodType<
   ErrorJobUpdateErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorJobUpdateErrorLinksFromJSON(
   jsonString: string,
@@ -98,11 +100,13 @@ export const ErrorJobUpdateErrorSource$inboundSchema: z.ZodType<
   ErrorJobUpdateErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorJobUpdateErrorSourceFromJSON(
   jsonString: string,
@@ -119,15 +123,17 @@ export const ErrorJobUpdateErrorMeta$inboundSchema: z.ZodType<
   ErrorJobUpdateErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorJobUpdateErrorMetaFromJSON(
   jsonString: string,
@@ -144,14 +150,16 @@ export const ErrorJobUpdateError$inboundSchema: z.ZodType<
   ErrorJobUpdateError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorJobUpdateErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorJobUpdateErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorJobUpdateErrorMeta$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.string(),
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorJobUpdateErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorJobUpdateErrorSource$inboundSchema).optional(),
+    meta: z.lazy(() => ErrorJobUpdateErrorMeta$inboundSchema),
+  })
+);
 
 export function errorJobUpdateErrorFromJSON(
   jsonString: string,

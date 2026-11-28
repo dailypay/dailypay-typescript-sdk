@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -43,13 +43,15 @@ export const ReadAccountRequest$outboundSchema: z.ZodType<
   ReadAccountRequest$Outbound,
   z.ZodTypeDef,
   ReadAccountRequest
-> = z.object({
-  accountId: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    accountId: "account_id",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    accountId: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      accountId: "account_id",
+    });
+  })
+);
 
 export function readAccountRequestToJSON(
   readAccountRequest: ReadAccountRequest,
@@ -64,15 +66,17 @@ export const ReadAccountResponse$inboundSchema: z.ZodType<
   ReadAccountResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  AccountData: models.AccountData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "AccountData": "accountData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    AccountData: models.AccountData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "AccountData": "accountData",
+    });
+  })
+);
 
 export function readAccountResponseFromJSON(
   jsonString: string,

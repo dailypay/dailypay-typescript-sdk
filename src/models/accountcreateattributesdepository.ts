@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -67,8 +68,10 @@ export type AccountCreateAttributesDepository = {
 
 /** @internal */
 export const AccountCreateAttributesDepositorySubtype$outboundSchema:
-  z.ZodNativeEnum<typeof AccountCreateAttributesDepositorySubtype> = z
-    .nativeEnum(AccountCreateAttributesDepositorySubtype);
+  z.ZodNativeEnum<typeof AccountCreateAttributesDepositorySubtype> =
+    /* @__PURE__ */ lazySchema$(() =>
+      z.nativeEnum(AccountCreateAttributesDepositorySubtype)
+    );
 
 /** @internal */
 export type AccountCreateAttributesDepositoryDepositoryAccountDetails$Outbound =
@@ -85,19 +88,21 @@ export const AccountCreateAttributesDepositoryDepositoryAccountDetails$outboundS
     AccountCreateAttributesDepositoryDepositoryAccountDetails$Outbound,
     z.ZodTypeDef,
     AccountCreateAttributesDepositoryDepositoryAccountDetails
-  > = z.object({
-    firstName: z.string(),
-    lastName: z.string(),
-    routingNumber: z.string(),
-    accountNumber: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      firstName: "first_name",
-      lastName: "last_name",
-      routingNumber: "routing_number",
-      accountNumber: "account_number",
-    });
-  });
+  > = /* @__PURE__ */ lazySchema$(() =>
+    z.object({
+      firstName: z.string(),
+      lastName: z.string(),
+      routingNumber: z.string(),
+      accountNumber: z.string(),
+    }).transform((v) => {
+      return remap$(v, {
+        firstName: "first_name",
+        lastName: "last_name",
+        routingNumber: "routing_number",
+        accountNumber: "account_number",
+      });
+    })
+  );
 
 export function accountCreateAttributesDepositoryDepositoryAccountDetailsToJSON(
   accountCreateAttributesDepositoryDepositoryAccountDetails:
@@ -122,19 +127,21 @@ export const AccountCreateAttributesDepository$outboundSchema: z.ZodType<
   AccountCreateAttributesDepository$Outbound,
   z.ZodTypeDef,
   AccountCreateAttributesDepository
-> = z.object({
-  name: z.string(),
-  accountType: z.literal("DEPOSITORY"),
-  subtype: AccountCreateAttributesDepositorySubtype$outboundSchema,
-  depositoryAccountDetails: z.lazy(() =>
-    AccountCreateAttributesDepositoryDepositoryAccountDetails$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    accountType: "account_type",
-    depositoryAccountDetails: "details",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+    accountType: z.literal("DEPOSITORY"),
+    subtype: AccountCreateAttributesDepositorySubtype$outboundSchema,
+    depositoryAccountDetails: z.lazy(() =>
+      AccountCreateAttributesDepositoryDepositoryAccountDetails$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      accountType: "account_type",
+      depositoryAccountDetails: "details",
+    });
+  })
+);
 
 export function accountCreateAttributesDepositoryToJSON(
   accountCreateAttributesDepository: AccountCreateAttributesDepository,

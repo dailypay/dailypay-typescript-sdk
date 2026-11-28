@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -83,33 +83,37 @@ export const ListPaychecksRequest$outboundSchema: z.ZodType<
   ListPaychecksRequest$Outbound,
   z.ZodTypeDef,
   ListPaychecksRequest
-> = z.object({
-  filterJobId: z.string().optional(),
-  filterStatus: models.FilterPaycheckStatus$outboundSchema.optional(),
-  filterDepositExpectedAtGte: z.date().transform(v => v.toISOString())
-    .optional(),
-  filterDepositExpectedAtLt: z.date().transform(v => v.toISOString())
-    .optional(),
-  filterPayPeriodEndsAtGte: z.date().transform(v => v.toISOString()).optional(),
-  filterPayPeriodEndsAtLt: z.date().transform(v => v.toISOString()).optional(),
-  filterPayPeriodStartsAtGte: z.date().transform(v => v.toISOString())
-    .optional(),
-  filterPayPeriodStartsAtLt: z.date().transform(v => v.toISOString())
-    .optional(),
-  filterBy: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    filterJobId: "filter[job.id]",
-    filterStatus: "filter[status]",
-    filterDepositExpectedAtGte: "filter[deposit_expected_at__gte]",
-    filterDepositExpectedAtLt: "filter[deposit_expected_at__lt]",
-    filterPayPeriodEndsAtGte: "filter[pay_period_ends_at__gte]",
-    filterPayPeriodEndsAtLt: "filter[pay_period_ends_at__lt]",
-    filterPayPeriodStartsAtGte: "filter[pay_period_starts_at__gte]",
-    filterPayPeriodStartsAtLt: "filter[pay_period_starts_at__lt]",
-    filterBy: "filter-by",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    filterJobId: z.string().optional(),
+    filterStatus: models.FilterPaycheckStatus$outboundSchema.optional(),
+    filterDepositExpectedAtGte: z.date().transform(v => v.toISOString())
+      .optional(),
+    filterDepositExpectedAtLt: z.date().transform(v => v.toISOString())
+      .optional(),
+    filterPayPeriodEndsAtGte: z.date().transform(v => v.toISOString())
+      .optional(),
+    filterPayPeriodEndsAtLt: z.date().transform(v => v.toISOString())
+      .optional(),
+    filterPayPeriodStartsAtGte: z.date().transform(v => v.toISOString())
+      .optional(),
+    filterPayPeriodStartsAtLt: z.date().transform(v => v.toISOString())
+      .optional(),
+    filterBy: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      filterJobId: "filter[job.id]",
+      filterStatus: "filter[status]",
+      filterDepositExpectedAtGte: "filter[deposit_expected_at__gte]",
+      filterDepositExpectedAtLt: "filter[deposit_expected_at__lt]",
+      filterPayPeriodEndsAtGte: "filter[pay_period_ends_at__gte]",
+      filterPayPeriodEndsAtLt: "filter[pay_period_ends_at__lt]",
+      filterPayPeriodStartsAtGte: "filter[pay_period_starts_at__gte]",
+      filterPayPeriodStartsAtLt: "filter[pay_period_starts_at__lt]",
+      filterBy: "filter-by",
+    });
+  })
+);
 
 export function listPaychecksRequestToJSON(
   listPaychecksRequest: ListPaychecksRequest,
@@ -124,15 +128,17 @@ export const ListPaychecksResponse$inboundSchema: z.ZodType<
   ListPaychecksResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  PaychecksData: models.PaychecksData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "PaychecksData": "paychecksData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    PaychecksData: models.PaychecksData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "PaychecksData": "paychecksData",
+    });
+  })
+);
 
 export function listPaychecksResponseFromJSON(
   jsonString: string,

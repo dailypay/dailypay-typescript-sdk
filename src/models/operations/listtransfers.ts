@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -57,16 +57,18 @@ export const ListTransfersRequest$outboundSchema: z.ZodType<
   ListTransfersRequest$Outbound,
   z.ZodTypeDef,
   ListTransfersRequest
-> = z.object({
-  include: z.string().optional(),
-  filterSubmittedAtGt: z.date().transform(v => v.toISOString()).optional(),
-  filterBy: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    filterSubmittedAtGt: "filter[submitted_at__gt]",
-    filterBy: "filter-by",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    include: z.string().optional(),
+    filterSubmittedAtGt: z.date().transform(v => v.toISOString()).optional(),
+    filterBy: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      filterSubmittedAtGt: "filter[submitted_at__gt]",
+      filterBy: "filter-by",
+    });
+  })
+);
 
 export function listTransfersRequestToJSON(
   listTransfersRequest: ListTransfersRequest,
@@ -81,15 +83,17 @@ export const ListTransfersResponse$inboundSchema: z.ZodType<
   ListTransfersResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  TransfersData: models.TransfersData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "TransfersData": "transfersData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    TransfersData: models.TransfersData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "TransfersData": "transfersData",
+    });
+  })
+);
 
 export function listTransfersResponseFromJSON(
   jsonString: string,

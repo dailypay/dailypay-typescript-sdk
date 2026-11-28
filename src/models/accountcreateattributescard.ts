@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 
 /**
@@ -99,7 +100,9 @@ export type AccountCreateAttributesCard = {
 /** @internal */
 export const AccountCreateAttributesCardSubtype$outboundSchema: z.ZodNativeEnum<
   typeof AccountCreateAttributesCardSubtype
-> = z.nativeEnum(AccountCreateAttributesCardSubtype);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.nativeEnum(AccountCreateAttributesCardSubtype)
+);
 
 /** @internal */
 export type CreateCardAccountDetails$Outbound = {
@@ -122,33 +125,35 @@ export const CreateCardAccountDetails$outboundSchema: z.ZodType<
   CreateCardAccountDetails$Outbound,
   z.ZodTypeDef,
   CreateCardAccountDetails
-> = z.object({
-  token: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  expirationMonth: z.string(),
-  expirationYear: z.string(),
-  addressLineOne: z.string(),
-  addressLineTwo: z.string().optional(),
-  addressCity: z.string(),
-  addressState: z.string(),
-  addressZipCode: z.string(),
-  addressCountry: z.string(),
-  issuer: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    firstName: "first_name",
-    lastName: "last_name",
-    expirationMonth: "expiration_month",
-    expirationYear: "expiration_year",
-    addressLineOne: "address_line_one",
-    addressLineTwo: "address_line_two",
-    addressCity: "address_city",
-    addressState: "address_state",
-    addressZipCode: "address_zip_code",
-    addressCountry: "address_country",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    token: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    expirationMonth: z.string(),
+    expirationYear: z.string(),
+    addressLineOne: z.string(),
+    addressLineTwo: z.string().optional(),
+    addressCity: z.string(),
+    addressState: z.string(),
+    addressZipCode: z.string(),
+    addressCountry: z.string(),
+    issuer: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      firstName: "first_name",
+      lastName: "last_name",
+      expirationMonth: "expiration_month",
+      expirationYear: "expiration_year",
+      addressLineOne: "address_line_one",
+      addressLineTwo: "address_line_two",
+      addressCity: "address_city",
+      addressState: "address_state",
+      addressZipCode: "address_zip_code",
+      addressCountry: "address_country",
+    });
+  })
+);
 
 export function createCardAccountDetailsToJSON(
   createCardAccountDetails: CreateCardAccountDetails,
@@ -171,19 +176,21 @@ export const AccountCreateAttributesCard$outboundSchema: z.ZodType<
   AccountCreateAttributesCard$Outbound,
   z.ZodTypeDef,
   AccountCreateAttributesCard
-> = z.object({
-  name: z.string(),
-  accountType: z.literal("CARD"),
-  subtype: AccountCreateAttributesCardSubtype$outboundSchema,
-  createCardAccountDetails: z.lazy(() =>
-    CreateCardAccountDetails$outboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    accountType: "account_type",
-    createCardAccountDetails: "details",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    name: z.string(),
+    accountType: z.literal("CARD"),
+    subtype: AccountCreateAttributesCardSubtype$outboundSchema,
+    createCardAccountDetails: z.lazy(() =>
+      CreateCardAccountDetails$outboundSchema
+    ),
+  }).transform((v) => {
+    return remap$(v, {
+      accountType: "account_type",
+      createCardAccountDetails: "details",
+    });
+  })
+);
 
 export function accountCreateAttributesCardToJSON(
   accountCreateAttributesCard: AccountCreateAttributesCard,

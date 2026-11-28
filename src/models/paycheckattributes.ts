@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -67,40 +67,42 @@ export type PaycheckAttributes = {
 /** @internal */
 export const PaycheckAttributesStatus$inboundSchema: z.ZodNativeEnum<
   typeof PaycheckAttributesStatus
-> = z.nativeEnum(PaycheckAttributesStatus);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(PaycheckAttributesStatus));
 
 /** @internal */
 export const PaycheckAttributes$inboundSchema: z.ZodType<
   PaycheckAttributes,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: PaycheckAttributesStatus$inboundSchema,
-  pay_period_ends_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ),
-  pay_period_starts_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ),
-  deposit_expected_at: z.string().datetime({ offset: true }).transform(v =>
-    new Date(v)
-  ),
-  total_debited: z.nullable(z.number().int()),
-  gross_earnings: z.number().int(),
-  employer_withholdings: z.nullable(z.number().int()),
-  net_earnings: z.nullable(z.number().int()),
-  currency: z.string(),
-}).transform((v) => {
-  return remap$(v, {
-    "pay_period_ends_at": "payPeriodEndsAt",
-    "pay_period_starts_at": "payPeriodStartsAt",
-    "deposit_expected_at": "depositExpectedAt",
-    "total_debited": "totalDebited",
-    "gross_earnings": "grossEarnings",
-    "employer_withholdings": "employerWithholdings",
-    "net_earnings": "netEarnings",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: PaycheckAttributesStatus$inboundSchema,
+    pay_period_ends_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    pay_period_starts_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    deposit_expected_at: z.string().datetime({ offset: true }).transform(v =>
+      new Date(v)
+    ),
+    total_debited: z.nullable(z.number().int()),
+    gross_earnings: z.number().int(),
+    employer_withholdings: z.nullable(z.number().int()),
+    net_earnings: z.nullable(z.number().int()),
+    currency: z.string(),
+  }).transform((v) => {
+    return remap$(v, {
+      "pay_period_ends_at": "payPeriodEndsAt",
+      "pay_period_starts_at": "payPeriodStartsAt",
+      "deposit_expected_at": "depositExpectedAt",
+      "total_debited": "totalDebited",
+      "gross_earnings": "grossEarnings",
+      "employer_withholdings": "employerWithholdings",
+      "net_earnings": "netEarnings",
+    });
+  })
+);
 
 export function paycheckAttributesFromJSON(
   jsonString: string,

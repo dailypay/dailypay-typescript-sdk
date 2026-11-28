@@ -4,6 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { lazySchema as lazySchema$ } from "../../lib/schemas.js";
 import * as models from "../index.js";
 import { DailyPayError } from "./dailypayerror.js";
 
@@ -50,21 +51,24 @@ export const ErrorNotFound$inboundSchema: z.ZodType<
   ErrorNotFound,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  errors: z.array(models.ErrorNotFoundError$inboundSchema),
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  request$: z.instanceof(Request),
-  response$: z.instanceof(Response),
-  body$: z.string(),
-})
-  .transform((v) => {
-    const remapped = remap$(v, {
-      "HttpMeta": "httpMeta",
-    });
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    errors: z.array(models.ErrorNotFoundError$inboundSchema),
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
+  })
+    .transform((v) => {
+      const { request$, response$, body$, ...data } = v;
+      const remapped = remap$(data, {
+        "HttpMeta": "httpMeta",
+      });
 
-    return new ErrorNotFound(remapped, {
-      request: v.request$,
-      response: v.response$,
-      body: v.body$,
-    });
-  });
+      return new ErrorNotFound(remapped, {
+        request: request$,
+        response: response$,
+        body: body$,
+      });
+    })
+);

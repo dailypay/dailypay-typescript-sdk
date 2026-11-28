@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AccountCreateAttributesCard,
   AccountCreateAttributesCard$Outbound,
@@ -31,10 +32,12 @@ export const AccountCreateAttributes$outboundSchema: z.ZodType<
   AccountCreateAttributes$Outbound,
   z.ZodTypeDef,
   AccountCreateAttributes
-> = z.union([
-  AccountCreateAttributesCard$outboundSchema,
-  AccountCreateAttributesDepository$outboundSchema,
-]);
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.union([
+    AccountCreateAttributesCard$outboundSchema,
+    AccountCreateAttributesDepository$outboundSchema,
+  ])
+);
 
 export function accountCreateAttributesToJSON(
   accountCreateAttributes: AccountCreateAttributes,

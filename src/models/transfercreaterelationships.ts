@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { lazySchema as lazySchema$ } from "../lib/schemas.js";
 import {
   AccountRelationship,
   AccountRelationship$Outbound,
@@ -44,11 +45,13 @@ export const TransferCreateRelationships$outboundSchema: z.ZodType<
   TransferCreateRelationships$Outbound,
   z.ZodTypeDef,
   TransferCreateRelationships
-> = z.object({
-  origin: AccountRelationship$outboundSchema,
-  destination: AccountRelationship$outboundSchema.optional(),
-  person: PersonRelationship$outboundSchema.optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    origin: AccountRelationship$outboundSchema,
+    destination: AccountRelationship$outboundSchema.optional(),
+    person: PersonRelationship$outboundSchema.optional(),
+  })
+);
 
 export function transferCreateRelationshipsToJSON(
   transferCreateRelationships: TransferCreateRelationships,

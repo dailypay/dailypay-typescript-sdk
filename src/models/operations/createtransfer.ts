@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
@@ -57,16 +57,18 @@ export const CreateTransferRequest$outboundSchema: z.ZodType<
   CreateTransferRequest$Outbound,
   z.ZodTypeDef,
   CreateTransferRequest
-> = z.object({
-  include: z.string().optional(),
-  idempotencyKey: z.string(),
-  transferCreateData: models.TransferCreateData$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    idempotencyKey: "Idempotency-Key",
-    transferCreateData: "TransferCreateData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    include: z.string().optional(),
+    idempotencyKey: z.string(),
+    transferCreateData: models.TransferCreateData$outboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      idempotencyKey: "Idempotency-Key",
+      transferCreateData: "TransferCreateData",
+    });
+  })
+);
 
 export function createTransferRequestToJSON(
   createTransferRequest: CreateTransferRequest,
@@ -81,15 +83,17 @@ export const CreateTransferResponse$inboundSchema: z.ZodType<
   CreateTransferResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  HttpMeta: models.HTTPMetadata$inboundSchema,
-  TransferData: models.TransferData$inboundSchema.optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "HttpMeta": "httpMeta",
-    "TransferData": "transferData",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    HttpMeta: models.HTTPMetadata$inboundSchema,
+    TransferData: models.TransferData$inboundSchema.optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "HttpMeta": "httpMeta",
+      "TransferData": "transferData",
+    });
+  })
+);
 
 export function createTransferResponseFromJSON(
   jsonString: string,

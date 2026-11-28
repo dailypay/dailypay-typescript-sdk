@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
@@ -93,9 +93,11 @@ export const ErrorUnexpectedErrorLinks$inboundSchema: z.ZodType<
   ErrorUnexpectedErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorUnexpectedErrorLinksFromJSON(
   jsonString: string,
@@ -112,11 +114,13 @@ export const ErrorUnexpectedErrorSource$inboundSchema: z.ZodType<
   ErrorUnexpectedErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorUnexpectedErrorSourceFromJSON(
   jsonString: string,
@@ -133,15 +137,17 @@ export const ErrorUnexpectedErrorMeta$inboundSchema: z.ZodType<
   ErrorUnexpectedErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorUnexpectedErrorMetaFromJSON(
   jsonString: string,
@@ -156,21 +162,23 @@ export function errorUnexpectedErrorMetaFromJSON(
 /** @internal */
 export const ErrorUnexpectedErrorCode$inboundSchema: z.ZodNativeEnum<
   typeof ErrorUnexpectedErrorCode
-> = z.nativeEnum(ErrorUnexpectedErrorCode);
+> = /* @__PURE__ */ lazySchema$(() => z.nativeEnum(ErrorUnexpectedErrorCode));
 
 /** @internal */
 export const ErrorUnexpectedError$inboundSchema: z.ZodType<
   ErrorUnexpectedError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorUnexpectedErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorUnexpectedErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorUnexpectedErrorMeta$inboundSchema),
-  code: ErrorUnexpectedErrorCode$inboundSchema,
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorUnexpectedErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorUnexpectedErrorSource$inboundSchema).optional(),
+    meta: z.lazy(() => ErrorUnexpectedErrorMeta$inboundSchema),
+    code: ErrorUnexpectedErrorCode$inboundSchema,
+  })
+);
 
 export function errorUnexpectedErrorFromJSON(
   jsonString: string,

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
-import { safeParse } from "../lib/schemas.js";
+import { lazySchema as lazySchema$, safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -79,9 +79,11 @@ export const ErrorAccountCreateErrorLinks$inboundSchema: z.ZodType<
   ErrorAccountCreateErrorLinks,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  about: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    about: z.string().optional(),
+  })
+);
 
 export function errorAccountCreateErrorLinksFromJSON(
   jsonString: string,
@@ -98,11 +100,13 @@ export const ErrorAccountCreateErrorSource$inboundSchema: z.ZodType<
   ErrorAccountCreateErrorSource,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  parameter: z.string().optional(),
-  pointer: z.string().optional(),
-  header: z.string().optional(),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    parameter: z.string().optional(),
+    pointer: z.string().optional(),
+    header: z.string().optional(),
+  })
+);
 
 export function errorAccountCreateErrorSourceFromJSON(
   jsonString: string,
@@ -119,15 +123,17 @@ export const ErrorAccountCreateErrorMeta$inboundSchema: z.ZodType<
   ErrorAccountCreateErrorMeta,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  request_id: z.string().optional(),
-  trace_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "request_id": "requestId",
-    "trace_id": "traceId",
-  });
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    request_id: z.string().optional(),
+    trace_id: z.string().optional(),
+  }).transform((v) => {
+    return remap$(v, {
+      "request_id": "requestId",
+      "trace_id": "traceId",
+    });
+  })
+);
 
 export function errorAccountCreateErrorMetaFromJSON(
   jsonString: string,
@@ -144,14 +150,17 @@ export const ErrorAccountCreateError$inboundSchema: z.ZodType<
   ErrorAccountCreateError,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  code: z.string(),
-  status: z.string(),
-  detail: z.string(),
-  links: z.lazy(() => ErrorAccountCreateErrorLinks$inboundSchema),
-  source: z.lazy(() => ErrorAccountCreateErrorSource$inboundSchema).optional(),
-  meta: z.lazy(() => ErrorAccountCreateErrorMeta$inboundSchema),
-});
+> = /* @__PURE__ */ lazySchema$(() =>
+  z.object({
+    code: z.string(),
+    status: z.string(),
+    detail: z.string(),
+    links: z.lazy(() => ErrorAccountCreateErrorLinks$inboundSchema),
+    source: z.lazy(() => ErrorAccountCreateErrorSource$inboundSchema)
+      .optional(),
+    meta: z.lazy(() => ErrorAccountCreateErrorMeta$inboundSchema),
+  })
+);
 
 export function errorAccountCreateErrorFromJSON(
   jsonString: string,
